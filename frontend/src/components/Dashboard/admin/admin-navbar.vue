@@ -275,11 +275,11 @@
                 <button
                   class="w-full px-4 py-2 text-sm text-left transition
                          hover:bg-white dark:hover:bg-white/10"
-                  :class="activeKey === 'userCreate'
+                  :class="activeKey === 'assignUserToTree'
                     ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                     : 'text-slate-700 dark:text-slate-200/90'"
-                  @click="pick('userCreate')">
-                  Create User
+                  @click="pick('assignUserToTree')">
+                  Assign User Tree
                 </button>
               </li>
 
@@ -366,7 +366,7 @@ const routeMap = {
   create: "/create-product",
 
   users: "/admin/users",
-  userCreate: "/admin/create-user",
+  assignUserToTree: "/admin/assign-user-tree",
   userSetting: "/admin/user-setting",
 
   setting: "/admin/setting",
@@ -382,7 +382,7 @@ const routeMatch = [
   { key: "create", prefixes: ["/create-product"] },
 
   { key: "users", prefixes: ["/admin/users"] },
-  { key: "userCreate", prefixes: ["/admin/create-user"] },
+  { key: "assignUserToTree", prefixes: ["/admin/assign-user-tree"] },
   { key: "userSetting", prefixes: ["/admin/user-setting"] },
 
   { key: "logout", prefixes: ["/logout"] },
@@ -432,10 +432,11 @@ watch(
   { immediate: true }
 );
 
+// user dropdown
 watch(
   () => activeKey.value,
   (k) => {
-    const userKeys = ['users', 'create-user','user-setting'];
+    const userKeys = ['users', 'assignUserToTree','userSetting'];
     if(userKeys.includes(k)){
       userPagesOpen.value = true;
     }

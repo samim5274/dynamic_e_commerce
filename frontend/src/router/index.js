@@ -36,7 +36,7 @@ import AdminDashboard from '../components/Dashboard/admin/admin-dashboard.vue';
 import AdminProfile from '../components/Dashboard/admin/admin-profile.vue';
 
 import UserList from '../components/Dashboard/admin/user/users-list.vue';
-import CreateUser from '../components/Dashboard/admin/user/create-user.vue';
+import AssignUserTree from '../components/Dashboard/admin/user/assign-user.vue';
 import UserSetting from '../components/Dashboard/admin/user/user-setting.vue';
 
 
@@ -91,7 +91,7 @@ const routes = [
   { path: '/admin/profile', component: AdminProfile, meta:{title: 'Admin Profile', requiresAuth: true, roles: ['admin', 'super_admin']}},
   // user route
   { path: '/admin/users', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
-  { path: '/admin/create-user', component: CreateUser, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/assign-user-tree', component: AssignUserTree, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/user-setting', component: UserSetting, meta:{title: 'User Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 

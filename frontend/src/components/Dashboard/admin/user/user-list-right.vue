@@ -51,6 +51,12 @@
                                         {{ user.email }}
                                     </span>
                                 </div>
+                                <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                                    <i class="fa-solid fa-id-card-clip text-[10px] opacity-70"></i>
+                                    <span class="text-[11px] font-medium tracking-wide uppercase">
+                                        {{ user.user_id }}
+                                    </span>
+                                </div>
                             </div>
                             </div>
                         </td>
@@ -104,7 +110,8 @@ const search = ref("");
 const filteredUsers = computed(() => {
     return users.value.filter(user =>
         user.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.value.toLowerCase())
+        user.email.toLowerCase().includes(search.value.toLowerCase()) ||
+        user.user_id.toLowerCase().includes(search.value.toLowerCase())
     );
 });
 

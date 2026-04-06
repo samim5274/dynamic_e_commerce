@@ -20,5 +20,7 @@ class UserObserver
         } else {
             $user->rank = 'Bronze';
         }
+
+        // is match condition added here
     }
 }

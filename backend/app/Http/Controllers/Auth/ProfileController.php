@@ -101,7 +101,7 @@ class ProfileController extends Controller
 
     public function getUsers(){
         try {
-            $users = User::whereNot('role', 'super_admin')->latest()->get();
+            $users = User::with('referrer')->whereNot('role', 'super_admin')->latest()->get();
 
             return response()->json([
                 'success' => true,
