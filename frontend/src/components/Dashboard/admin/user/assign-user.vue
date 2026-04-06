@@ -41,7 +41,7 @@
                             </div>
 
                             <!-- Table -->
-                            <div class="overflow-x-auto">
+                            <div class="overflow-x-auto max-h-[700px]">
                                 <table class="min-w-full text-sm">
                                     <!-- Body -->
                                     <tbody>

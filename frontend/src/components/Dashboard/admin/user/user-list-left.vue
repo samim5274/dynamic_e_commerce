@@ -31,7 +31,7 @@
 
                 <Field label="Blood group">
                 <select v-model="form.blood_group" class="input">
-                    <option value="">Select</option>
+                    <option value="" disabled selected>Select</option>
                     <option>O+</option><option>O-</option>
                     <option>A+</option><option>A-</option>
                     <option>B+</option><option>B-</option>
@@ -59,6 +59,16 @@
 
                 <Field label="Permanent address">
                 <textarea v-model="form.permanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
+                </Field>
+            </div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Reference</h2>
+
+            <div class="mt-4 grid grid-cols-1 gap-4">
+                <Field label="Referer user id">
+                <input v-model="form.refer_id" type="text" class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
                 </Field>
             </div>
         </div>
@@ -161,6 +171,7 @@ const form = ref({
     permanent_address: "",
     national_id: "",
     religion: "",
+    refer_id: "",
 });
 
 

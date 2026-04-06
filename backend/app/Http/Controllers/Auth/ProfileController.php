@@ -132,6 +132,7 @@ class ProfileController extends Controller
             'national_id'       => ['nullable','string','max:50'],
             'religion'          => ['nullable','string','max:50'],
             'photo'             => ['nullable','image','max:2048'],
+            'refer_id'          => ['nullable','string'],
         ]);
 
         // Handle photo upload
@@ -139,9 +140,23 @@ class ProfileController extends Controller
             $path = $request->file('photo')->store('users', 'public');
             $data['photo'] = $path;
         }
+        
+        // Check reference user
+        if (!empty($data['refer_id'])) {
+            $referUser = User::where('user_id', $data['refer_id'])->first();
+            if (!$referUser) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Reference not found. Please try again.',
+                ], 422);
+            }
+
+            $data['refer_id'] = $referUser->id;
+        }
 
         // Profile completed simple rule
         $data['is_profile_completed'] = !empty(trim($data['name'])) && !empty(trim($data['phone'] ?? ''));
+
 
         // Create new user
         $user = User::create($data);
