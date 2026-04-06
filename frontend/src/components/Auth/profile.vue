@@ -166,7 +166,7 @@
                             </Field>
 
                             <Field label="Permanent address">
-                            <textarea v-model="form.parmanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
+                            <textarea v-model="form.permanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
                             </Field>
                         </div>
                     </div>
@@ -257,7 +257,7 @@ const form = ref({
     gender: "",
     blood_group: "",
     present_address: "",
-    parmanent_address: "",
+    permanent_address: "",
     national_id: "",
     religion: "",
 });
@@ -267,7 +267,7 @@ const photoPreview = ref("");
 
 const photoUrl = computed(() => {
     const p = user.value?.photo;
-    if (!p) return "/images/avater.png";
+    if (!p) return "/images/avatar.png";
     return makeImg(p);
 });
 
@@ -324,7 +324,7 @@ async function refreshProfile() {
         form.value.gender = rawGender ? String(rawGender).toLowerCase().trim() : "";
         form.value.blood_group = user.value?.blood_group ?? "";
         form.value.present_address = user.value?.present_address ?? "";
-        form.value.parmanent_address = user.value?.parmanent_address ?? "";
+        form.value.permanent_address = user.value?.permanent_address ?? "";
         form.value.national_id = user.value?.national_id ?? "";
         form.value.religion = user.value?.religion ?? "";
     } catch (e) {
