@@ -35,6 +35,10 @@ import ProductDetails from '../components/e-commerce/product-details.vue'
 import AdminDashboard from '../components/Dashboard/admin/admin-dashboard.vue';
 import AdminProfile from '../components/Dashboard/admin/admin-profile.vue';
 
+import UserList from '../components/Dashboard/admin/user/users-list.vue';
+import CreateUser from '../components/Dashboard/admin/user/create-user.vue';
+import UserSetting from '../components/Dashboard/admin/user/user-setting.vue';
+
 
 
 
@@ -83,8 +87,12 @@ const routes = [
 
 
   // admin dashboard
-  { path: '/admin/dashboard', component: AdminDashboard, meta:{title: 'Admin Dashboard', requiresAuth: true}},
-  { path: '/admin/profile', component: AdminProfile, meta:{title: 'Admin Profile', requiresAuth: true}},
+  { path: '/admin/dashboard', component: AdminDashboard, meta:{title: 'Admin Dashboard', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/profile', component: AdminProfile, meta:{title: 'Admin Profile', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  // user route
+  { path: '/admin/users', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/create-user', component: CreateUser, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/user-setting', component: UserSetting, meta:{title: 'User Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 
 
@@ -93,6 +101,9 @@ const routes = [
   { path: '/create-product', component: CreateProduct, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Create Product" } },
   { path: '/products', component: ProductList, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Details" } },
   { path: '/product-edit/:slug', component: ProductEdit, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Edit Product" } },
+
+
+
 
   // customer dashboard
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},

@@ -40,6 +40,8 @@
     <!-- Menu -->
     <nav class="p-3">
       <ul class="space-y-1">
+
+
         <!-- Dashboard -->
         <li>
           <button
@@ -57,6 +59,8 @@
           </button>
         </li>
 
+
+        
         <!-- Profile -->
         <li>
           <button
@@ -74,6 +78,8 @@
           </button>
         </li>
 
+
+        
         <!-- Tree -->
         <li>
           <button
@@ -90,6 +96,8 @@
             <span class="text-sm font-medium">Tree</span>
           </button>
         </li>
+
+
 
         <!-- Order -->
         <li>
@@ -108,6 +116,8 @@
           </button>
         </li>
 
+
+
         <!-- Delivery -->
         <li>
           <button
@@ -124,6 +134,8 @@
             <span class="text-sm font-medium">Delivery</span>
           </button>
         </li>
+
+
 
         <!-- Payment -->
         <li>
@@ -142,6 +154,8 @@
           </button>
         </li>
 
+
+
         <!-- Setting -->
         <li>
           <button
@@ -159,6 +173,8 @@
           </button>
         </li>
 
+
+
         <!-- Logout -->
         <li>
           <button
@@ -175,6 +191,7 @@
             <span class="text-sm font-medium">Logout</span>
           </button>
         </li>
+
       </ul>
     </nav>
   </aside>
