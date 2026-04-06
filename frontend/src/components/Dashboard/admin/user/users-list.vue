@@ -52,108 +52,18 @@
 <script setup>
 import { ref, computed, onMounted, h } from 'vue';
 import { useRouter } from "vue-router";
-import api, { makeImg } from "../../../../services/api.js";
 
 import Navbar from '../admin-navbar.vue';
 import Header from '../admin-header.vue';
 import Message from '../../../Message/message.vue'
-import rightSection from './right-section.vue';
-import leftSection from './left-section.vue';
+import rightSection from './user-list-right.vue';
+import leftSection from './user-list-left.vue';
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");
 const router = useRouter();
 const successMsg = ref('');
 const errorMsg = ref('');
-
-
-
-
-
-
-
-
-
-
-
-const users = ref([]);
-const loadingUsers = ref(false);
-// fetch all admin and customer
-async function fetchedUsers() {
-  loadingUsers.value = true;
-  try {
-    const res = await api.get('/users');
-    if (res.data?.success) {
-      users.value = res.data.data;
-    }
-  } catch (err) {
-    console.error(err);
-  } finally {
-    loadingUsers.value = false;
-  }
-}
-
-const search = ref("");
-const filteredUsers = computed(() => {
-  return users.value.filter(user =>
-    user.name.toLowerCase().includes(search.value.toLowerCase()) ||
-    user.email.toLowerCase().includes(search.value.toLowerCase())
-  );
-});
-
-
-
-
-
-
-
-
-
-const form = ref({
-    name: "",
-    phone: "",
-    dob: "",
-    email: "",
-    gender: "",
-    blood_group: "",
-    present_address: "",
-    permanent_address: "",
-    national_id: "",
-    religion: "",
-});
-
-
-async function CreateUser() {
-  loading.value = true;
-
-  // Simple frontend check
-  if(!form.value.email) {
-    errorMsg.value = "Email is required";
-    loading.value = false;
-    return;
-  }
-
-  const payload = new FormData();
-  Object.keys(form.value).forEach(key => payload.append(key, form.value[key] || ""));
-  if(photoFile.value) payload.append("photo", photoFile.value);
-
-  try {
-    const res = await api.post("/users/create", payload, {
-      headers: { "Content-Type": "multipart/form-data" }
-    });
-    successMsg.value = res.data.message || "User created successfully!";
-    fetchedUsers();
-    Object.keys(form.value).forEach(key => form.value[key] = "");
-    photoPreview.value = null;
-  } catch(err) {
-    errorMsg.value = err.response?.data?.message || "Failed to create user";
-  } finally {
-    loading.value = false;
-  }
-}
-
-
-
 
 
 
@@ -182,12 +92,6 @@ function onSearch(q) {
 
 /* ESC to close drawer */
 onMounted(() => {
-  fetchedUsers();
-
-
-
-
-
 
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") sidebarOpen.value = false;
@@ -205,13 +109,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.input{
-    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400
-        focus:outline-none focus:ring-2 focus:ring-indigo-500
-        dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100;
-}
-.inputDisabled{
-    @apply w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-600
-        dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300;
-}
+
 </style>

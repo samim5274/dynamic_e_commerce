@@ -193,6 +193,10 @@ async function CreateUser() {
     }
 }
 
+
+onMounted(() => {
+    fetchedUsers();
+});
 </script>
 
 <style>
