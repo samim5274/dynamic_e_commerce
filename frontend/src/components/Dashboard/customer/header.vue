@@ -20,7 +20,17 @@
       <!-- Brand -->
       <div class="flex items-center gap-3 min-w-[120px]">
         <div class="font-semibold tracking-wide text-lg text-slate-900 dark:text-white">
-          <router-link to="/dashboard">DBMBL</router-link>
+          <router-link 
+            to="/admin/dashboard" 
+            class="flex items-center gap-3 group transition-all duration-300 hover:opacity-90">
+            <div class="relative flex items-center justify-center overflow-hidden h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-transform group-hover:scale-105">
+              <img src="/logo/logo.png" alt="Brand Logo" class="w-7 h-7 object-contain drop-shadow-sm dark:hidden" />
+              <img src="/logo/white-logo.png" alt="Brand Logo" class="hidden dark:block w-7 h-7 object-contain drop-shadow-[0_4px_10px_rgba(163,217,33,0.3)]" />
+            </div>
+            <span class="text-lg font-black tracking-tighter uppercase italic text-slate-800 dark:text-white group-hover:text-[#2D92A2] transition-colors">
+              DYNAMIC <span class="text-[#2D92A2]">BAZAR</span>
+            </span>
+          </router-link>
         </div>
       </div>
 
@@ -82,8 +92,7 @@
                    hover:bg-slate-100 text-slate-700
                    dark:hover:bg-white/10 dark:text-slate-200"
             aria-label="Notifications"
-            @click.stop="toggleNotif"
-          >
+            @click.stop="toggleNotif">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-width="2"
                 d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 0 0-12 0v3.2a2 2 0 0 1-.6 1.4L4 17h5" />
@@ -97,8 +106,7 @@
             v-show="notifOpen"
             class="absolute z-50 right-0 mt-2 w-80 rounded-xl border shadow-xl overflow-hidden
                    bg-white text-slate-900 border-slate-200
-                   dark:bg-slate-900 dark:text-slate-100 dark:border-white/10"
-          >
+                   dark:bg-slate-900 dark:text-slate-100 dark:border-white/10">
             <div class="px-4 py-3 border-b border-slate-200 font-semibold dark:border-white/10">
               Notifications
             </div>
@@ -122,8 +130,7 @@
               <button
                 class="w-full text-sm py-2 rounded-lg
                        bg-slate-900 text-white hover:bg-slate-800
-                       dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
-              >
+                       dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15">
                 View all
               </button>
             </div>
@@ -136,8 +143,7 @@
             class="ml-1 flex items-center gap-2 rounded-full p-1 pr-2 transition
                    hover:bg-slate-100 dark:hover:bg-white/10"
             aria-label="Profile menu"
-            @click.stop="toggleProfile"
-          >
+            @click.stop="toggleProfile">
             <img class="h-8 w-8 rounded-full object-cover ring-2 ring-slate-200 dark:ring-white/10" :src="avatarUrl" alt="User" />
             <svg class="h-4 w-4 hidden sm:block text-slate-500 dark:text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -148,8 +154,7 @@
             v-show="profileOpen"
             class="absolute z-50 right-0 mt-2 w-56 rounded-xl border shadow-xl overflow-hidden
                    bg-white text-slate-900 border-slate-200
-                   dark:bg-slate-900 dark:text-slate-100 dark:border-white/10"
-          >
+                   dark:bg-slate-900 dark:text-slate-100 dark:border-white/10">
             <div class="px-4 py-3 border-b border-slate-200 dark:border-white/10">
               <div class="text-sm font-semibold">{{ authUser?.name || "Guest User" }}</div>
               <div class="text-xs text-slate-500 dark:text-slate-400">{{ authUser?.email || "No email" }}</div>
@@ -171,8 +176,7 @@
               <button
                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-slate-50
                        dark:text-red-300 dark:hover:bg-white/10"
-                @click="pickProfile('logout')"
-              >
+                @click="pickProfile('logout')">
                 Logout
               </button>
             </div>
@@ -209,10 +213,9 @@ async function loadAuthUser() {
     authUser.value = res.data;
     isLoggedIn.value = true;
   } catch (err) {
-    // token invalid/expired হলে 401 আসবে
     isLoggedIn.value = false;
     authUser.value = null;
-    // optional: localStorage.removeItem("token");
+    localStorage.removeItem("token");
   }
 }
 
@@ -255,35 +258,53 @@ function closeAll() {
   profileOpen.value = false;
 }
 
+
+
+
+
+
+
+
+
 async function pickProfile(action) {
   console.log("profile action:", action);
+  closeAll(); 
 
   if (action === "profile") {
-    closeAll();
     return router.push("/profile");
   }
 
-  if (action !== "logout") {
-    closeAll();
-    return;
+  if (action === "settings") {
+    return router.push("/settings"); 
   }
 
-  try{
-    await api.post("/logout");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    router.push("/login");
-  }catch (error) {
-    console.error("Logout failed:", error);
-  } finally {
-    authUser.value = null;   
-    isLoggedIn.value = false;
-    closeAll();
+
+  if (action === "logout") {
+    try {
+      loading.value = true;
+      await api.post("/logout");
+    } catch (error) {
+      console.error("Logout failed API side:", error);
+    } finally {
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      authUser.value = null;   
+      isLoggedIn.value = false;
+      
+      router.push("/login"); 
+    }
   }
 }
 
-const defaultAvatar =
-  "/images/avatar.png";
+
+
+
+
+
+
+
+const defaultAvatar = "/images/avatar.png";
 
 const avatarUrl = computed(() => {
   const photo = authUser.value?.photo;

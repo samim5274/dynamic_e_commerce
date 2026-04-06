@@ -24,17 +24,10 @@ Route::prefix('auth')->group(function () {
 // Profile Routes
 // ======================
 use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\Vendor\VendorController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('profile')->group(function () {
         Route::put('/', [ProfileController::class, 'update']);
         Route::put('/password', [ProfileController::class, 'changePassword']);
-    });
-
-    Route::prefix('vendor')->group(function() {
-        // get login user
-        Route::get('/auth-user', [VendorController::class, 'getAuthUser']);
-        Route::post('/edit/{id}', [VendorController::class, 'editVendor'])->where('id', '[0-9]+');
     });
 });
 
@@ -55,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/get-subcategories', [ProductController::class, 'getSubCategory']);
         Route::get('/get-brands', [ProductController::class, 'getBrand']);
 
-        // ❗ LAST: dynamic route for product details, must be at the end of all product routes
+        // LAST: dynamic route for product details, must be at the end of all product routes
         Route::post('/update/{id}', [ProductController::class, 'edit'])->where('id', '[0-9]+');
         Route::delete('/delete/{id}', [ProductController::class, 'delete'])->where('id', '[0-9]+');
         Route::get('/{slug}', [ProductController::class, 'show'])->where('slug', '[a-zA-Z0-9\-]+');

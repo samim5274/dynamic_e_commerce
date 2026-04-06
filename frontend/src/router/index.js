@@ -57,6 +57,8 @@ import ProductEdit from '../components/Dashboard/product/product-edit.vue'
 
 // customer dashboard
 import Dashboard from '../components/Dashboard/customer/dashboard.vue'
+import Profile from '../components/Dashboard/customer/profile.vue'
+
 
 
 
@@ -75,7 +77,7 @@ const routes = [
   { path: '/reset-password', component: resetPassword, meta: {title: "Reset Password", requiresEmail: true} },
   { path: '/unauthorized', component: Unauthorized, meta: {title: "Unauthorized"} },
 
-  { path: '/tree-user', component: treeUser, meta: {title: "Tree User"}},
+  { path: '/tree-user', component: treeUser, meta: {title: "Tree User", requiresAuth: true}},
 
 
 
@@ -94,6 +96,7 @@ const routes = [
 
   // customer dashboard
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},
+  { path: '/profile', component: Profile, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Profile"}},
 ]
 
 

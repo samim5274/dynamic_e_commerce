@@ -15,7 +15,7 @@
       dark:bg-slate-900 dark:text-slate-100 dark:border-white/10"
     :class="open ? 'translate-x-0' : '-translate-x-full'">
     <!-- Brand -->
-    <div class="h-16 px-5 flex items-center gap-3 border-b border-slate-200 dark:border-white/10">
+    <!-- <div class="h-16 px-5 flex items-center gap-3 border-b border-slate-200 dark:border-white/10">
       <router-link to="/admin/dashboard">        
         <span v-if="authUser && authUser.vendor && authUser.vendor.shop_logo">
           <img 
@@ -55,7 +55,7 @@
           <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-    </div>
+    </div> -->
 
     <!-- Menu -->
     <nav class="p-3">

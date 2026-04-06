@@ -15,7 +15,7 @@
       dark:bg-slate-900 dark:text-slate-100 dark:border-white/10"
     :class="open ? 'translate-x-0' : '-translate-x-full'">
     <!-- Brand -->
-    <div class="h-16 px-5 flex items-center gap-3 border-b border-slate-200 dark:border-white/10">
+    <!-- <div class="h-16 px-5 flex items-center gap-3 border-b border-slate-200 dark:border-white/10">
       <router-link to="/dashboard">
         <span class="h-9 w-9 rounded-xl bg-emerald-500/20 flex items-center justify-center ring-1 ring-emerald-500/30">
           <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
@@ -35,7 +35,7 @@
           <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
-    </div>
+    </div> -->
 
     <!-- Menu -->
     <nav class="p-3">
@@ -205,7 +205,6 @@ const routeMap = {
 };
 
 const routeMatch = [
-
   { key: "dashboard", prefixes: ["/dashboard"] },
   { key: "profile", prefixes: ["/profile"] },
   { key: "tree", prefixes: ["/tree-user"] },
