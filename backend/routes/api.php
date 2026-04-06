@@ -29,6 +29,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/', [ProfileController::class, 'update']);
         Route::put('/password', [ProfileController::class, 'changePassword']);
     });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [ProfileController::class, 'getUsers']);
+        Route::post('/create', [ProfileController::class, 'createUser']);
+    });
+
+
 });
 
 // get tree user

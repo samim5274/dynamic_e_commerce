@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 use App\Models\User;
-use App\Models\Vendor;
 
 class ProfileController extends Controller
 {
@@ -97,6 +96,63 @@ class ProfileController extends Controller
             'success' => true,
             'message' => 'Tree fetched successfully',
             'data' => $root
+        ]);
+    }
+
+    public function getUsers(){
+        try {
+            $users = User::whereNot('role', 'super_admin')->latest()->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Fetched all admin users',
+                'data' => $users,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function createUser(Request $request)
+    {
+        // Validate input
+        $data = $request->validate([
+            'name'              => ['required','string','max:255'],
+            'email'             => ['required','email','max:255','unique:users,email'],
+            'phone'             => ['nullable','string','max:30','unique:users,phone'],
+            'dob'               => ['nullable','date'],
+            'gender'            => ['nullable','in:male,female,other'],
+            'blood_group'       => ['nullable','string','max:10'],
+            'present_address'   => ['nullable','string','max:500'],
+            'permanent_address' => ['nullable','string','max:500'],
+            'national_id'       => ['nullable','string','max:50'],
+            'religion'          => ['nullable','string','max:50'],
+            'photo'             => ['nullable','image','max:2048'],
+        ]);
+
+        // Handle photo upload
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('users', 'public');
+            $data['photo'] = $path;
+        }
+
+        // Profile completed simple rule
+        $data['is_profile_completed'] = !empty(trim($data['name'])) && !empty(trim($data['phone'] ?? ''));
+
+        // Create new user
+        $user = User::create($data);
+
+        // Add photo_url for frontend
+        $user->photo_url = $user->photo ? asset('storage/'.$user->photo) : null;
+
+        return response()->json([
+            'success' => true,
+            'data' => $user,
+            'message' => 'User created successfully'
         ]);
     }
 
