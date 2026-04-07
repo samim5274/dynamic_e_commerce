@@ -156,6 +156,25 @@
 
 
 
+        <!-- Reference -->
+        <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'reference'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('reference')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-solid fa-credit-card"></i>
+            </span>
+            <span class="text-sm font-medium">Reference</span>
+          </button>
+        </li>
+
+
+
         <!-- Setting -->
         <li>
           <button
@@ -216,6 +235,7 @@ const pagesOpen = ref(false);
 const routeMap = {
   dashboard: "/dashboard",
   profile: "/profile",
+  reference: "/reference",
   tree: "/tree-user",
   setting: "/setting",
   logout: "/login",
@@ -224,6 +244,7 @@ const routeMap = {
 const routeMatch = [
   { key: "dashboard", prefixes: ["/dashboard"] },
   { key: "profile", prefixes: ["/profile"] },
+  { key: "reference", prefixes: ["/reference"] },
   { key: "tree", prefixes: ["/tree-user"] },
   { key: "setting", prefixes: ["/setting"] },
   { key: "logout", prefixes: ["/logout"] },

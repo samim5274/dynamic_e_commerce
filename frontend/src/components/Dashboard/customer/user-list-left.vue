@@ -74,7 +74,7 @@
 
             <div class="mt-4 grid grid-cols-1 gap-4">
                 <Field label="Referer user id">
-                <input v-model="form.refer_id" type="text" class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
+                <input v-model="form.refer_id" type="text" readonly class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
                 </Field>
             </div>
         </div>
@@ -107,14 +107,12 @@
 
 <script setup>
 import { ref, computed, onMounted, h } from 'vue';
-import api, { makeImg } from "../../../../services/api.js";
-
-import Message from '../../../Message/message.vue'
+import api, { makeImg } from "../../../services/api.js";
+import Message from '../../Message/message.vue'
 
 const successMsg = ref('');
 const errorMsg = ref('');
 const loading = ref(false);
-
 
 const Field = (props, { slots }) =>
     h("div", { class: props.class || "" }, [
@@ -141,30 +139,17 @@ const photoUrl = computed(() => {
 
 
 const users = ref([]);
-const loadingUsers = ref(false);
-// fetch all admin and customer
-async function fetchedUsers() {
-    loadingUsers.value = true;
-    try {
-        const res = await api.get('/users');
-        if (res.data?.success) {
+async function fetchedAuthUser(){
+    try{
+        const res = await api.get('/customer/users/auth');
         users.value = res.data.data;
-        }
-    } catch (err) {
-        console.error(err);
+        form.value.refer_id = users.value.user_id;        
+    } catch(err) {
+        errorMsg.value = err.response?.data?.message || "Failed to create user";
     } finally {
-        loadingUsers.value = false;
+        loading.value = false;
     }
 }
-
-const search = ref("");
-const filteredUsers = computed(() => {
-    return users.value.filter(user =>
-        user.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.value.toLowerCase())
-    );
-});
-
 
 
 
@@ -200,11 +185,11 @@ async function CreateUser() {
     if(photoFile.value) payload.append("photo", photoFile.value);
 
     try {
-        const res = await api.post("/users/create", payload, {
-        headers: { "Content-Type": "multipart/form-data" }
+        const res = await api.post("/customer/users/create", payload, {
+            headers: { "Content-Type": "multipart/form-data" }
         });
         successMsg.value = res.data.message || "User created successfully!";
-        
+
         // fetch userd
         emit('userCreated');
 
@@ -217,9 +202,8 @@ async function CreateUser() {
     }
 }
 
-
 onMounted(() => {
-    fetchedUsers();
+    fetchedAuthUser();
 });
 </script>
 

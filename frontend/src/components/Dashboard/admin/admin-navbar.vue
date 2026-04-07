@@ -243,7 +243,7 @@
             <span class="opacity-90">
               <i class="fa-solid fa-users"></i>
             </span>
-            <span class="text-sm font-medium flex-1">Users Details</span>
+            <span class="text-sm font-medium flex-1">Reference</span>
 
             <svg
               class="h-4 w-4 transition-transform opacity-80"
@@ -267,7 +267,7 @@
                     ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                     : 'text-slate-700 dark:text-slate-200/90'"
                   @click="pick('users')">
-                  Users
+                  Create Users
                 </button>
               </li>
 
@@ -370,7 +370,7 @@ const routeMap = {
   userSetting: "/admin/user-setting",
 
   setting: "/admin/setting",
-  logout: "/admin-login",
+  logout: "/login",
 };
 
 const routeMatch = [
@@ -408,7 +408,7 @@ async function pick(key) {
     } finally {
       localStorage.removeItem("token");
       emit("close");
-      return router.push("/admin-login");
+      return router.push("/login");
     }
   }
 

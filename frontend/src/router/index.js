@@ -62,6 +62,7 @@ import ProductEdit from '../components/Dashboard/product/product-edit.vue'
 // customer dashboard
 import Dashboard from '../components/Dashboard/customer/dashboard.vue'
 import Profile from '../components/Dashboard/customer/profile.vue'
+import Reference from '../components/Dashboard/customer/reference.vue';
 
 
 
@@ -108,6 +109,7 @@ const routes = [
   // customer dashboard
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},
   { path: '/profile', component: Profile, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Profile"}},
+  { path: '/reference', component: Reference, meta: { requiresAuth: true, role: ['customer', 'admin', 'super_admin'], title: "Reference"}},
 ]
 
 

@@ -36,8 +36,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/create', [ProfileController::class, 'createUser']);
         Route::post('/assign-tree', [ProfileController::class, 'assignTree']);
     });
-
-
 });
 
 // get tree user
@@ -61,5 +59,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/update/{id}', [ProductController::class, 'edit'])->where('id', '[0-9]+');
         Route::delete('/delete/{id}', [ProductController::class, 'delete'])->where('id', '[0-9]+');
         Route::get('/{slug}', [ProductController::class, 'show'])->where('slug', '[a-zA-Z0-9\-]+');
+    });
+});
+
+
+// ======================
+// Customer Routes
+// ======================
+use App\Http\Controllers\Customer\CustomerController;
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('customer')->group(function (){
+
+        Route::prefix('profile')->group(function () {
+            Route::put('/', [CustomerController::class, 'update']);
+            Route::put('/password', [CustomerController::class, 'changePassword']);
+        });
+
+        Route::prefix('users')->group(function () {
+            Route::get('/', [CustomerController::class, 'getUsers']);
+            Route::get('/auth', [CustomerController::class, 'getAuthUser']);
+            Route::get('/root', [CustomerController::class, 'getRootUsers']);
+            Route::post('/create', [CustomerController::class, 'createUser']);
+            Route::post('/assign-tree', [CustomerController::class, 'assignTree']);
+        });
     });
 });

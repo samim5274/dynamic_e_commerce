@@ -86,8 +86,7 @@
 
 <script setup>
 import { ref, computed, onMounted, h } from 'vue';
-
-import api, { makeImg } from "../../../../services/api.js";
+import api, { makeImg } from "../../../services/api.js";
 
 defineExpose({
     fetchedUsers
@@ -99,7 +98,7 @@ const loadingUsers = ref(false);
 async function fetchedUsers() {
     loadingUsers.value = true;
     try {
-        const res = await api.get('/users');
+        const res = await api.get('/customer/users');
         if (res.data?.success) {
         users.value = res.data.data;
         }
@@ -123,7 +122,6 @@ const filteredUsers = computed(() => {
 onMounted(() => {
     fetchedUsers();
 });
-
 
 </script>
 

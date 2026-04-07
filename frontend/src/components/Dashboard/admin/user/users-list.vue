@@ -32,13 +32,10 @@
             </div>
 
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-
               <!-- Left: form -->
-              <leftSection />
-
+              <leftSection @userCreated="handleUserCreated" />
               <!-- Right: form -->
-              <rightSection />
-
+              <rightSection ref="rightRef" />
             </div>
 
 
@@ -67,7 +64,11 @@ const errorMsg = ref('');
 
 
 
+const rightRef = ref(null);
 
+function handleUserCreated() {
+    rightRef.value?.fetchedUsers();
+}
 
 
 
