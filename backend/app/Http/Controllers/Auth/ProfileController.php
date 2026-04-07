@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 
@@ -201,6 +202,85 @@ class ProfileController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function assignTree(Request $request)
+    {
+        $data = $request->validate([
+            'user_id'      => ['required','exists:users,id'],
+            'root_user_id' => ['required','exists:users,id'],
+            'position'     => ['required','in:left,right'],
+        ]);
+
+        // prevent self assignment
+        if ($data['user_id'] == $data['root_user_id']) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User and Root User cannot be the same.',
+            ], 422);
+        }
+
+        try{
+            DB::transaction(function () use ($data) {
+
+                $user = User::where('id', $data['user_id'])->lockForUpdate()->firstOrFail();
+                $rootUser = User::where('id', $data['root_user_id'])->lockForUpdate()->firstOrFail();
+
+                // already has parent
+                if ($user->parent_id) {
+                    throw new \Exception('User already has a parent.');
+                }
+
+                if ($this->isDescendant($rootUser, $user)) {
+                    throw new \Exception('Circular reference detected.');
+                }
+
+                // position check
+                if ($data['position'] === 'left' && $rootUser->left_child_id) {
+                    throw new \Exception('Left position already occupied.');
+                }
+                if ($data['position'] === 'right' && $rootUser->right_child_id) {
+                    throw new \Exception('Right position already occupied.');
+                }
+
+                // assign parent
+                $user->parent_id = $rootUser->id;
+
+                // assign child to root user
+                if ($data['position'] == 'left') {
+                    $rootUser->left_child_id = $user->id;
+                } else {
+                    $rootUser->right_child_id = $user->id;
+                }
+
+                // save both
+                $user->save();
+                $rootUser->save();
+
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User assigned successfully.',
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    private function isDescendant($rootUser, $user)
+    {
+        if (!$rootUser->parent_id) return false;
+
+        if ($rootUser->parent_id == $user->id) return true;
+
+        $parent = User::find($rootUser->parent_id);
+
+        return $parent ? $this->isDescendant($parent, $user) : false;
     }
 
 }

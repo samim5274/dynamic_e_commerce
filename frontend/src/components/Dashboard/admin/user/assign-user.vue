@@ -235,20 +235,17 @@
                                     </div>
 
                                     <div class="flex flex-col gap-2">
-
                                         <!-- Search input -->
                                         <input type="text" v-model="searchRootUser" placeholder="Search by ID, name or email..." class="input" />
-
                                         <!-- Dropdown -->
                                         <select class="input inputDisabled" v-model="selectedRootUser">
-                                            <option disabled selected>-- Select Root User --</option>
+                                            <option disabled selected value="">-- Select Root User --</option>
                                             <option v-for="rus in filteredRootUsers" :key="rus.id" :value="rus">
                                                 <!-- {{ rus.name }} - ({{ rus.email }}) - [ID: {{ rus.user_id }}] -->
                                                 {{ rus.name }} - [{{ rus.user_id }}]
                                             </option>
                                             <option v-if="filteredRootUsers.length === 0" disabled>No available root users</option>
                                         </select>
-
                                     </div>
 
                                     <div class="mt-4">
@@ -265,13 +262,7 @@
                                                         ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
                                                         : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
                                             ]">
-                                                <input 
-                                                    type="radio" 
-                                                    v-model="placement" 
-                                                    value="left" 
-                                                    :disabled="selectedRootUser?.left_child_id" 
-                                                    class="sr-only" 
-                                                />
+                                                <input type="radio" v-model="placement" value="left" :disabled="selectedRootUser?.left_child_id" class="sr-only" />
                                                 
                                                 <div class="flex items-center justify-between">
                                                     <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Left Node</span>
@@ -298,13 +289,7 @@
                                                         ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
                                                         : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
                                             ]">
-                                                <input 
-                                                    type="radio" 
-                                                    v-model="placement" 
-                                                    value="right" 
-                                                    :disabled="selectedRootUser?.right_child_id" 
-                                                    class="sr-only" 
-                                                />
+                                                <input type="radio" v-model="placement" value="right" :disabled="selectedRootUser?.right_child_id" class="sr-only" />
                                                 
                                                 <div class="flex items-center justify-between">
                                                     <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Right Node</span>
@@ -324,6 +309,27 @@
                                             </label>
                                         </div>
                                     </div>
+
+                                    <form @submit.prevent="assignInTree">
+                                        <div class="mt-8 flex items-center justify-end border-t border-slate-100 pt-6 dark:border-slate-800">
+                                            <button 
+                                                type="submit" 
+                                                :disabled="processing || !placement"
+                                                class="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg bg-slate-900 px-8 py-3 text-sm font-bold text-white transition-all hover:bg-slate-800 hover:ring-4 hover:ring-slate-900/10 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-white dark:hover:ring-slate-50/20"
+                                            >
+                                                <svg v-if="processing" class="h-4 w-4 animate-spin text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+
+                                                <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                                </svg>
+
+                                                <span>{{ processing ? 'Processing...' : 'Confirm Assignment' }}</span>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -366,7 +372,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch, reactive } from 'vue';
 import api, { makeImg } from "../../../../services/api.js";
 
 
@@ -485,6 +491,70 @@ watch(() => selectedRootUser.value, (newUser) => {
         }
     }
 }, { immediate: true });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Assign user into tree
+const processing = ref(false);
+
+const form = reactive({
+    user: '',
+    selectedRootUser: '',
+    position: '', // left or right
+});
+
+const assignInTree = async () => {
+    
+    if (!selectedUser.value || !selectedRootUser.value || !placement.value) {
+        errorMsg.value = "Please select user, root user, and placement!";
+        return;
+    }
+
+    // Update form reactive object
+    form.user = selectedUser.value.id;
+    form.selectedRootUser = selectedRootUser.value.id;
+    form.position = placement.value;
+
+    processing.value = true;
+
+    try {
+        const res = await api.post('/users/assign-tree', {
+            user_id: form.user,
+            root_user_id: form.selectedRootUser,
+            position: form.position
+        });
+
+        if (res.data?.success) {
+            successMsg.value = res.data.message || "User assigned successfully!";
+            
+            selectedUser.value = null;
+            selectedRootUser.value = null;
+            placement.value = null;
+        } else {
+            errorMsg.value = res.data.message || "Assignment failed!";
+        }
+
+        // await new Promise(resolve => setTimeout(resolve, 1500));
+        // successMsg.value = "Successfully assigned to tree!";
+        console.log(form);
+    } catch (error) {
+        errorMsg.value = error.response?.data?.message || "Something is wrong. Please try again!";
+        console.error(error);
+    } finally {
+        processing.value = false;
+    }
+};
 
 
 
