@@ -137,7 +137,7 @@ class ProfileController extends Controller
             'national_id'       => ['nullable','string','max:50'],
             'religion'          => ['nullable','string','max:50'],
             'photo'             => ['nullable','image','max:2048'],
-            'refer_id'          => ['nullable','string'],
+            'refer_id'          => ['required','string'],
         ]);
 
         // Handle photo upload
