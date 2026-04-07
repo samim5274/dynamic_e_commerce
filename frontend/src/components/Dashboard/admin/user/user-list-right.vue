@@ -47,13 +47,13 @@
 
                                 <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                                     <i class="fa-regular fa-envelope text-[10px] opacity-70"></i>
-                                    <span class="text-[11px] font-medium tracking-wide uppercase">
+                                    <span class="text-[11px] font-medium tracking-wide">
                                         {{ user.email }}
                                     </span>
                                 </div>
                                 <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                                     <i class="fa-solid fa-id-card-clip text-[10px] opacity-70"></i>
-                                    <span class="text-[11px] font-medium tracking-wide uppercase">
+                                    <span class="text-[11px] font-medium tracking-wide">
                                         {{ user.user_id }}
                                     </span>
                                 </div>

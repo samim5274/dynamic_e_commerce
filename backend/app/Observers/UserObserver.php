@@ -7,20 +7,26 @@ use App\Models\User;
 class UserObserver
 {
     public function updating(User $user){
-        if($user->point >= 2500){
-            $user->rank = "Platinam";
+
+        if($user->point >= 2500000){
+            $user->rank = "Platinum";
         }
-        elseif($user->poin >= 1000){
-            $user->rank = "Dimond";
+        elseif($user->point >= 100000){
+            $user->rank = "Diamond";
         }
-        elseif($user->point >= 500){
+        elseif($user->point >= 50000){
             $user->rank = "Gold";
-        } elseif ($user->points >= 100) {
+        } elseif ($user->points >= 10000) {
             $user->rank = 'Silver';
         } else {
             $user->rank = 'Bronze';
         }
 
         // is match condition added here
+        if($user->left_child_id && $user->right_child_id){
+            $user->is_match = true;
+        }else {
+            $user->is_match = false;
+        }
     }
 }

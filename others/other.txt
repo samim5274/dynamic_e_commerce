@@ -23,3 +23,18 @@ protected $fillable = [
     'total_products',
     'deleted_at',
 ];
+
+
+cp .env.example .env
+composer install
+php artisan key:generate
+chmod -R 775 storage bootstrap/cache
+
+git pull origin main
+composer install --no-dev --optimize-autoloader
+php artisan optimize:clear
+
+// front end change hole
+php artisan view:clear
+php artisan route:clear
+php artisan config:cache

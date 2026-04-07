@@ -57,45 +57,45 @@
                                                 <div class="flex items-center gap-4">
 
                                                     <div v-if="user.photo">
-                                                    <img :src="user.photo ? makeImg(user.photo) : '/images/avatar.png'" alt="User photo" class="h-11 w-11 rounded-2xl object-cover ring-2 ring-slate-200 dark:ring-white/10"/>
+                                                        <img :src="user.photo ? makeImg(user.photo) : '/images/avatar.png'" alt="User photo" class="h-11 w-11 rounded-2xl object-cover ring-2 ring-slate-200 dark:ring-white/10"/>
                                                     </div>
                                                     <div v-else class="h-11 w-11 rounded-xl bg-gradient-to-br from-[#A3D921] to-[#639d00] flex items-center justify-center text-black font-bold shadow-lg shadow-[#A3D921]/10 group-hover:scale-110 transition-transform">
                                                         {{ user.name.charAt(0).toUpperCase() }}
                                                     </div>
 
                                                     <div class="flex flex-col gap-1">
-                                                    <div class="flex items-center gap-3">
-                                                        <span class="text-sm font-bold text-slate-900 dark:text-white tracking-tight leading-none">
-                                                            {{ user.name }}
-                                                        </span>
-                                                        
-                                                        <span 
-                                                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider border transition-all duration-300 shadow-sm"
-                                                            :class="{
-                                                                'bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20': user.role === 'admin',
-                                                                'bg-blue-50 text-blue-700 border-blue-200/50 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20': user.role === 'customer'
-                                                            }">
-                                                            <span class="relative flex h-1.5 w-1.5 mr-1.5">
-                                                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" :class="user.role === 'admin' ? 'bg-emerald-400' : 'bg-blue-400'"></span>
-                                                                <span class="relative inline-flex rounded-full h-1.5 w-1.5" :class="user.role === 'admin' ? 'bg-emerald-500' : 'bg-blue-500'"></span>
+                                                        <div class="flex items-center gap-3">
+                                                            <span class="text-sm font-bold text-slate-900 dark:text-white tracking-tight leading-none">
+                                                                {{ user.name }}
                                                             </span>
-                                                            {{ user.role }}
-                                                        </span>
-                                                    </div>
+                                                            
+                                                            <span 
+                                                                class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider border transition-all duration-300 shadow-sm"
+                                                                :class="{
+                                                                    'bg-emerald-50 text-emerald-700 border-emerald-200/50 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20': user.role === 'admin',
+                                                                    'bg-blue-50 text-blue-700 border-blue-200/50 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20': user.role === 'customer'
+                                                                }">
+                                                                <span class="relative flex h-1.5 w-1.5 mr-1.5">
+                                                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" :class="user.role === 'admin' ? 'bg-emerald-400' : 'bg-blue-400'"></span>
+                                                                    <span class="relative inline-flex rounded-full h-1.5 w-1.5" :class="user.role === 'admin' ? 'bg-emerald-500' : 'bg-blue-500'"></span>
+                                                                </span>
+                                                                {{ user.role }}
+                                                            </span>
+                                                        </div>
 
-                                                    <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
-                                                        <i class="fa-regular fa-envelope text-[10px] opacity-70"></i>
-                                                        <span class="text-[11px] font-medium tracking-wide uppercase">
-                                                            {{ user.email }}
-                                                        </span>
+                                                        <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                                                            <i class="fa-regular fa-envelope text-[10px] opacity-70"></i>
+                                                            <span class="text-[11px] font-medium tracking-wide">
+                                                                {{ user.email }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                                                            <i class="fa-solid fa-id-card-clip text-[10px] opacity-70"></i>
+                                                            <span class="text-[11px] font-medium tracking-wide">
+                                                                {{ user.user_id }}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                    <div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
-                                                        <i class="fa-solid fa-id-card-clip text-[10px] opacity-70"></i>
-                                                        <span class="text-[11px] font-medium tracking-wide uppercase">
-                                                            {{ user.user_id }}
-                                                        </span>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </td>
 
@@ -112,9 +112,9 @@
 
                                         <!-- Empty -->
                                         <tr v-if="filteredUsers.length === 0">
-                                        <td colspan="3" class="text-center py-6 text-slate-400">
-                                            No users found
-                                        </td>
+                                            <td colspan="3" class="text-center py-6 text-slate-400">
+                                                No users found
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -125,21 +125,24 @@
                             <div v-if="selectedUser" class="space-y-8">
                                 <div class="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
                                     <div v-if="selectedUser.photo" class="relative">
-                                        <img :src="makeImg(selectedUser.photo)" class="h-24 w-24 rounded-2xl object-cover ring-4 ring-slate-50 dark:ring-slate-800" />
+                                            <img :src="makeImg(selectedUser.photo)" class="h-24 w-24 rounded-2xl object-cover ring-4 ring-slate-50 dark:ring-slate-800" />
                                         <span class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-900">
-                                        <div class="h-2 w-2 rounded-full bg-white animate-pulse"></div>
+                                            <div class="h-2 w-2 rounded-full bg-white animate-pulse"></div>
                                         </span>
+                                    </div>
+                                    <div v-else class="h-11 w-11 rounded-xl bg-gradient-to-br from-[#A3D921] to-[#639d00] flex items-center justify-center text-black font-bold shadow-lg shadow-[#A3D921]/10 group-hover:scale-110 transition-transform">
+                                        {{ selectedUser.name.charAt(0).toUpperCase() }}
                                     </div>
                                     
                                     <div>
                                         <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                                        {{ selectedUser.name }}
+                                            {{ selectedUser.name }}
                                         </h2>
                                         <div class="mt-1 flex items-center gap-2">
-                                        <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/30">
-                                            {{ selectedUser.role }}
-                                        </span>
-                                        <span class="text-sm text-slate-500 dark:text-slate-400">ID: {{ selectedUser.user_id }}</span>
+                                            <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/30">
+                                                {{ selectedUser.role }}
+                                            </span>
+                                            <span class="text-sm text-slate-500 dark:text-slate-400">ID: {{ selectedUser.user_id }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -148,14 +151,130 @@
 
                                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                     <div>
-                                        <div>
-                                            <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Email Address</label>
-                                            <p class="mt-1 font-medium text-slate-700 dark:text-slate-300">{{ selectedUser.email }}</p>
+                                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                            <div class="space-y-1.5">
+                                                <label class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                    Email Address
+                                                </label>
+                                                <p class="text-sm font-semibold text-slate-900 dark:text-slate-100 selection:bg-indigo-100">
+                                                    {{ selectedUser.email }}
+                                                </p>
+                                            </div>
+
+                                            <div v-if="selectedUser.refer_id" class="space-y-1.5 border-l border-slate-100 pl-6 dark:border-slate-800">
+                                                <label class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                    </svg>
+                                                    Referral Source
+                                                </label>
+                                                <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                                                    {{ selectedUser.referrer?.name || 'N/A' }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-2">
+                                            <label class="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                                            Hierarchy Status
+                                            </label>
+                                            <div class="h-px flex-1 bg-slate-100 dark:bg-slate-800"></div>
                                         </div>
 
-                                        <div v-if="selectedUser.refer_id">
-                                            <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Reference</label>
-                                            <p class="mt-1 font-medium text-slate-700 dark:text-slate-300">{{ selectedUser.referrer.name }}</p>
+                                        <div class="flex flex-col gap-2">
+
+                                            <!-- Search input -->
+                                            <input type="text" v-model="searchRootUser" placeholder="Search by ID, name or email..." class="input" />
+
+                                            <!-- Dropdown -->
+                                            <select class="input inputDisabled" v-model="selectedRootUser">
+                                                <option disabled selected>-- Select Root User --</option>
+                                                <option v-for="rus in filteredRootUsers" :key="rus.id" :value="rus">
+                                                    <!-- {{ rus.name }} - ({{ rus.email }}) - [ID: {{ rus.user_id }}] -->
+                                                    {{ rus.name }} - [{{ rus.user_id }}]
+                                                </option>
+                                                <option v-if="filteredRootUsers.length === 0" disabled>No available root users</option>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <label class="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3 block">
+                                                Assign Placement
+                                            </label>
+
+                                            <div class="grid grid-cols-2 gap-4">
+                                                <label :class="[
+                                                    'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
+                                                    selectedRootUser?.left_child_id 
+                                                        ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
+                                                        : (placement === 'left' 
+                                                            ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
+                                                            : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
+                                                ]">
+                                                    <input 
+                                                        type="radio" 
+                                                        v-model="placement" 
+                                                        value="left" 
+                                                        :disabled="selectedRootUser?.left_child_id" 
+                                                        class="sr-only" 
+                                                    />
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Left Node</span>
+                                                        <div v-if="placement === 'left' && !selectedRootUser?.left_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mt-2 flex items-center gap-1.5">
+                                                        <span :class="['h-2 w-2 rounded-full', selectedRootUser?.left_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
+                                                        <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.left_child_id ? 'text-rose-500' : 'text-emerald-500'">
+                                                            {{ selectedRootUser?.left_child_id ? 'Occupied' : 'Available' }}
+                                                        </span>
+                                                    </div>
+                                                </label>
+
+                                                <label :class="[
+                                                    'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
+                                                    selectedRootUser?.right_child_id 
+                                                        ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
+                                                        : (placement === 'right' 
+                                                            ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
+                                                            : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
+                                                ]">
+                                                    <input 
+                                                        type="radio" 
+                                                        v-model="placement" 
+                                                        value="right" 
+                                                        :disabled="selectedRootUser?.right_child_id" 
+                                                        class="sr-only" 
+                                                    />
+                                                    
+                                                    <div class="flex items-center justify-between">
+                                                        <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Right Node</span>
+                                                        <div v-if="placement === 'right' && !selectedRootUser?.right_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mt-2 flex items-center gap-1.5">
+                                                        <span :class="['h-2 w-2 rounded-full', selectedRootUser?.right_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
+                                                        <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.right_child_id ? 'text-rose-500' : 'text-emerald-500'">
+                                                            {{ selectedRootUser?.right_child_id ? 'Occupied' : 'Available' }}
+                                                        </span>
+                                                    </div>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -199,7 +318,7 @@
                                             <div v-else class="flex items-center gap-2 rounded-md bg-slate-50 px-3 py-2 dark:bg-slate-800/30">
                                             <i class="fa-solid fa-sitemap text-slate-300 dark:text-slate-600"></i>
                                             <span class="text-xs font-medium italic text-slate-400 dark:text-slate-500">
-                                                No direct downline members
+                                                No direct down line members
                                             </span>
                                             </div>
                                         </div>
@@ -219,7 +338,7 @@
                                     No User Selected
                                     </h3>
                                     <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                    Click on a member from the list to <br class="hidden sm:block" /> view their full profile and downline.
+                                    Click on a member from the list to <br class="hidden sm:block" /> view their full profile and down line.
                                     </p>
                                 </div>
 
@@ -246,7 +365,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import api, { makeImg } from "../../../../services/api.js";
 
 
@@ -276,7 +395,7 @@ async function fetchedUsers() {
     try {
         const res = await api.get('/users');
         if (res.data?.success) {
-        users.value = res.data.data;
+            users.value = res.data.data;
         }
     } catch (err) {
         console.error(err);
@@ -311,6 +430,65 @@ function selectUser(user) {
 
 
 
+// fetched root user
+const rootUsers = ref("");
+async function fetchedRootUsers() {
+    try{
+        const res = await api.get('/users/root');
+        rootUsers.value = res.data.data;
+        // console.log(rootUsers.value);
+    } catch (err) {
+        console.error(err);
+        errorMsg.value = err.response?.data?.message || "Root user not fetched.";
+    } finally {
+        loadingUsers.value = false;
+    }
+}
+
+// root user search
+const searchRootUser = ref("");
+const filteredRootUsers = computed(() => {
+    if (!rootUsers.value) return [];
+
+    return rootUsers.value.filter(user => {
+        // Exclude the selected user
+        if (selectedUser.value && user.id === selectedUser.value.id) return false;
+
+        // Apply search filter
+        if (!searchRootUser.value) return true;
+
+        const term = searchRootUser.value.toLowerCase();
+        return (
+            user.name?.toLowerCase().includes(term) ||
+            user.email?.toLowerCase().includes(term) ||
+            user.user_id?.toLowerCase().includes(term) ||
+            String(user.id).includes(term)
+        );
+    });
+});
+
+
+
+const selectedRootUser = ref(null);
+const placement = ref(null); 
+watch(() => selectedRootUser.value, (newUser) => {
+    if (newUser) {
+        if (!newUser.left_child_id && newUser.right_child_id) {
+            placement.value = 'left';
+        } else if (newUser.left_child_id && !newUser.right_child_id) {
+            placement.value = 'right';
+        } else if (!newUser.left_child_id && !newUser.right_child_id) {
+            placement.value = 'left'; 
+        } else {
+            placement.value = null;
+        }
+    }
+}, { immediate: true });
+
+
+
+
+
 
 
 
@@ -323,17 +501,17 @@ function selectUser(user) {
 const isDark = ref(false);
 
 function applyTheme(dark) {
-  isDark.value = dark;   // VERY IMPORTANT
-  document.documentElement.classList.toggle("dark", dark);
-  localStorage.setItem("theme", dark ? "dark" : "light");
+    isDark.value = dark;   // VERY IMPORTANT
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
 }
 
 function toggleTheme() {
-  applyTheme(!isDark.value);
+    applyTheme(!isDark.value);
 }
 
 function onSearch(q) {
-  console.log("search:", q);
+    console.log("search:", q);
 }
 
 
@@ -342,6 +520,7 @@ function onSearch(q) {
 onMounted(() => {
 
     fetchedUsers();
+    fetchedRootUsers();
 
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") sidebarOpen.value = false;
@@ -359,5 +538,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+.input{
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400
+        focus:outline-none focus:ring-2 focus:ring-indigo-500
+        dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100;
+}
+.inputDisabled{
+    @apply w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-600
+        dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300;
+}
 </style>

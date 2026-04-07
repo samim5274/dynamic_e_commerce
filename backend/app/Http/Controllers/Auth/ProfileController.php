@@ -101,7 +101,7 @@ class ProfileController extends Controller
 
     public function getUsers(){
         try {
-            $users = User::with('referrer')->whereNot('role', 'super_admin')->latest()->get();
+            $users = User::with('referrer')->where('is_match', 0)->whereNot('role', 'super_admin')->latest()->get();
 
             return response()->json([
                 'success' => true,
@@ -140,7 +140,7 @@ class ProfileController extends Controller
             $path = $request->file('photo')->store('users', 'public');
             $data['photo'] = $path;
         }
-        
+
         // Check reference user
         if (!empty($data['refer_id'])) {
             $referUser = User::where('user_id', $data['refer_id'])->first();
@@ -169,6 +169,34 @@ class ProfileController extends Controller
             'data' => $user,
             'message' => 'User created successfully'
         ]);
+    }
+
+    public function getRootUsers(Request $request){
+        try {
+            $authUser = $request->user();
+
+            // $users = User::whereKeyNot($authUser->id)
+            //         ->where(function ($query) {
+            //             $query->whereNull('left_child_id')
+            //                 ->orWhereNull('right_child_id');
+            //         })
+            //         ->latest()
+            //         ->get();
+
+            $users = User::where('is_match', 0)->latest()->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Fetched all admin users',
+                'data' => $users,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
 }
