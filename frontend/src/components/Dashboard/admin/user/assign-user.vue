@@ -537,17 +537,17 @@ const assignInTree = async () => {
 
         if (res.data?.success) {
             successMsg.value = res.data.message || "User assigned successfully!";
-            
             selectedUser.value = null;
             selectedRootUser.value = null;
             placement.value = null;
+            fetchedUsers();
         } else {
             errorMsg.value = res.data.message || "Assignment failed!";
         }
 
         // await new Promise(resolve => setTimeout(resolve, 1500));
         // successMsg.value = "Successfully assigned to tree!";
-        console.log(form);
+        // console.log(form);
     } catch (error) {
         errorMsg.value = error.response?.data?.message || "Something is wrong. Please try again!";
         console.error(error);
