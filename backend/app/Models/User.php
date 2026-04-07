@@ -60,13 +60,13 @@ class User extends Authenticatable
     // Left child relationship
     public function leftChild()
     {
-        return $this->belongsTo(User::class, 'left_child_id')->with(['leftChild', 'rightChild']);
+        return $this->belongsTo(User::class, 'left_child_id');
     }
 
     // Right child relationship
     public function rightChild()
     {
-        return $this->belongsTo(User::class, 'right_child_id')->with(['leftChild', 'rightChild']);
+        return $this->belongsTo(User::class, 'right_child_id');
     }
 
     // Parent (who referred me)

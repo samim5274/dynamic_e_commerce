@@ -101,7 +101,11 @@ class ProfileController extends Controller
 
     public function getUsers(){
         try {
-            $users = User::with('referrer')->where('is_match', 0)->whereNot('role', 'super_admin')->latest()->get();
+            $users = User::with(['referrer', 'leftChild', 'rightChild'])
+                    ->where('is_match', 0)
+                    ->where('role', '!=', 'super_admin')
+                    ->latest()
+                    ->get();
 
             return response()->json([
                 'success' => true,
