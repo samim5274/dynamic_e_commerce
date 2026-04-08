@@ -88,39 +88,21 @@
 import { ref, computed, onMounted, h } from 'vue';
 import api, { makeImg } from "../../../services/api.js";
 
-defineExpose({
-    fetchedUsers
+
+const props = defineProps({
+    users: Array
 });
 
-const users = ref([]);
-const loadingUsers = ref(false);
-// fetch all admin and customer
-async function fetchedUsers() {
-    loadingUsers.value = true;
-    try {
-        const res = await api.get('/customer/users');
-        if (res.data?.success) {
-        users.value = res.data.data;
-        }
-    } catch (err) {
-        console.error(err);
-    } finally {
-        loadingUsers.value = false;
-    }
-}
 
 const search = ref("");
 const filteredUsers = computed(() => {
-    return users.value.filter(user =>
-        user.name.toLowerCase().includes(search.value.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.value.toLowerCase()) ||
-        user.user_id.toLowerCase().includes(search.value.toLowerCase())
+    if (!props.users) return [];
+
+    return props.users.filter(user =>
+        user.name?.toLowerCase().includes(search.value.toLowerCase()) ||
+        user.email?.toLowerCase().includes(search.value.toLowerCase()) ||
+        user.user_id?.toLowerCase().includes(search.value.toLowerCase())
     );
-});
-
-
-onMounted(() => {
-    fetchedUsers();
 });
 
 </script>

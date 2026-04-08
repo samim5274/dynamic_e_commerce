@@ -73,8 +73,17 @@
             <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Reference</h2>
 
             <div class="mt-4 grid grid-cols-1 gap-4">
-                <Field label="Referer user id">
+                <Field label="Referer Code">
                 <input v-model="form.refer_id" type="text" readonly class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
+                </Field>
+
+                <Field label="Root User">
+                <select v-model="form.root_user_id" class="input">
+                    <option disabled value="">Select user</option>
+                    <option v-for="u in props.users" :key="u.id" :value="u.id">
+                        {{ u.name }} - {{ u.user_id }}
+                    </option>
+                </select>
                 </Field>
             </div>
         </div>
@@ -107,8 +116,15 @@
 
 <script setup>
 import { ref, computed, onMounted, h } from 'vue';
-import api, { makeImg } from "../../../services/api.js";
-import Message from '../../Message/message.vue'
+import api, { makeImg } from "../../../services/api";
+import Message from '../../Message/message.vue';
+
+const props = defineProps({
+    users: {
+        type: Array,
+        default: () => []
+    }
+});
 
 const successMsg = ref('');
 const errorMsg = ref('');
@@ -132,18 +148,17 @@ function onPhotoChange(e) {
 }
 
 const photoUrl = computed(() => {
-    const p = users.value?.photo;
-    if (!p) return "/images/avatar.png";
-    return makeImg(p);
+    const p = authUser.value?.photo;
+    return p ? makeImg(p) : "/images/avatar.png";
 });
 
 
-const users = ref([]);
+const authUser = ref(null);
 async function fetchedAuthUser(){
     try{
         const res = await api.get('/customer/users/auth');
-        users.value = res.data.data;
-        form.value.refer_id = users.value.user_id;        
+        authUser.value = res.data.data;
+        form.value.refer_id = authUser.value.user_id;
     } catch(err) {
         errorMsg.value = err.response?.data?.message || "Failed to create user";
     } finally {
@@ -167,36 +182,35 @@ const form = ref({
     national_id: "",
     religion: "",
     refer_id: "",
+    root_user_id: "",
 });
 
 
 async function CreateUser() {
     loading.value = true;
-
-    // Simple frontend check
-    if(!form.value.email) {
-        errorMsg.value = "Email is required";
-        loading.value = false;
-        return;
-    }
+    errorMsg.value = "";
 
     const payload = new FormData();
     Object.keys(form.value).forEach(key => payload.append(key, form.value[key] || ""));
     if(photoFile.value) payload.append("photo", photoFile.value);
 
     try {
-        const res = await api.post("/customer/users/create", payload, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
-        successMsg.value = res.data.message || "User created successfully!";
+        const res = await api.post("/customer/users/create", payload);
 
-        // fetch userd
+        successMsg.value = res.data.message || "User created successfully!";
         emit('userCreated');
 
         Object.keys(form.value).forEach(key => form.value[key] = "");
         photoPreview.value = null;
+
     } catch(err) {
-        errorMsg.value = err.response?.data?.message || "Failed to create user";
+        console.log("FULL ERROR:", err);
+
+        if (err.response?.data?.errors) {
+            errorMsg.value = Object.values(err.response.data.errors).flat().join(", ");
+        } else {
+            errorMsg.value = err.response?.data?.message || "Failed to create user";
+        }
     } finally {
         loading.value = false;
     }

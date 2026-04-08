@@ -106,7 +106,6 @@ class CustomerController extends Controller
             $users = User::with(['referrer', 'leftChild', 'rightChild'])
                     ->where('is_match', 0)
                     ->where('refer_id', $authUser->id)
-                    ->where('role', '!=', 'super_admin')
                     ->latest()
                     ->get();
 
