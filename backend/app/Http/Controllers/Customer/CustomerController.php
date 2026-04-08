@@ -139,6 +139,9 @@ class CustomerController extends Controller
             'religion'          => ['nullable','string','max:50'],
             'photo'             => ['nullable','image','max:2048'],
             'refer_id'          => ['required','string'],
+
+            'root_user_id'      => ['required','exists:users,id'],
+            'position'          => ['required','in:left,right'],
         ]);
 
         // Handle photo upload
@@ -169,6 +172,87 @@ class CustomerController extends Controller
 
         // Add photo_url for frontend
         $user->photo_url = $user->photo ? asset('storage/'.$user->photo) : null;
+
+
+
+
+
+
+
+
+
+        // After create user then assign in tree
+        $userId = $user->id;
+        $userRootId = $data['root_user_id'];
+        $position = $data['position'];
+
+        // prevent self assignment
+        if ($userId == $userRootId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User and Root User cannot be the same.',
+            ], 422);
+        }
+
+        try{
+            DB::transaction(function () use ($data, $userId, $userRootId) {
+
+                $user = User::where('id', $userId)->lockForUpdate()->firstOrFail();
+                $rootUser = User::where('id', $userRootId)->lockForUpdate()->firstOrFail();
+
+                // already has parent
+                if ($user->parent_id) {
+                    throw new \Exception('User already has a parent.');
+                }
+
+                if ($this->isDescendant($rootUser, $user)) {
+                    throw new \Exception('Circular reference detected.');
+                }
+
+                // position check
+                if ($data['position'] === 'left' && $rootUser->left_child_id) {
+                    throw new \Exception('Left position already occupied.');
+                }
+                if ($data['position'] === 'right' && $rootUser->right_child_id) {
+                    throw new \Exception('Right position already occupied.');
+                }
+
+                // assign parent
+                $user->parent_id = $rootUser->id;
+
+                // assign child to root user
+                if ($data['position'] == 'left') {
+                    $rootUser->left_child_id = $user->id;
+                } else {
+                    $rootUser->right_child_id = $user->id;
+                }
+
+                // save both
+                $user->save();
+                $rootUser->save();
+
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'User assigned successfully.',
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+
+
+
+
+
+
+
+
+
 
         return response()->json([
             'success' => true,
