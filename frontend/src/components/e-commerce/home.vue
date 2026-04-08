@@ -26,6 +26,7 @@
 
           <div class="flex items-center gap-4 md:gap-6">
             <button class="hover:text-indigo-600 transition"><i class="fa-regular fa-user text-xl"></i></button>
+            <router-link to="/login">Login</router-link>
             <div class="relative cursor-pointer group">
               <i class="fa-solid fa-bag-shopping text-xl group-hover:text-indigo-600 transition"></i>
               <span class="absolute -top-2 -right-2 bg-indigo-600 text-white text-[10px] rounded-full h-5 w-5 flex items-center justify-center font-bold">2</span>

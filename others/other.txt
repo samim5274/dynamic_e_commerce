@@ -38,3 +38,7 @@ php artisan optimize:clear
 php artisan view:clear
 php artisan route:clear
 php artisan config:cache
+
+chmod 644 public/storage/users/*.png
+chmod 755 public/storage/users
+chmod 755 public/storage

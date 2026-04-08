@@ -109,7 +109,7 @@ const routes = [
   // customer dashboard
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},
   { path: '/profile', component: Profile, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Profile"}},
-  { path: '/reference', component: Reference, meta: { requiresAuth: true, role: ['customer', 'admin', 'super_admin'], title: "Reference"}},
+  { path: '/reference', component: Reference, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Reference"}},
 ]
 
 
@@ -124,7 +124,7 @@ const routes = [
 
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL || '/'),
   routes,
 });
 
