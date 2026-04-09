@@ -25,6 +25,17 @@ protected $fillable = [
 ];
 
 
+echo "# dynamic_e_commerce_back_end" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/samim5274/dynamic_e_commerce_back_end.git
+git push -u origin main
+
+// frontend env file // VITE_API_BASE_URL=http://127.0.0.1:8080/api
+
+
 cp .env.example .env
 composer install
 php artisan key:generate

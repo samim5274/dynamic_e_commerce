@@ -115,10 +115,12 @@ class AuthController extends Controller
         }
 
         // Optional: revoke old tokens (single-device login)
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
+
 
         // 6) Create token with abilities
-        $deviceName = $credentials['device_name'] ?? 'api-token';
+        // $deviceName = $credentials['device_name'] ?? 'api-token';
+        $deviceName = $request->userAgent() ?? 'unknown-device';
         $token = $user->createToken($deviceName, ['*'])->plainTextToken;
 
         return response()->json([
