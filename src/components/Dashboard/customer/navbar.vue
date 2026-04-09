@@ -167,7 +167,7 @@
               : ''"
             @click="pick('reference')">
             <span class="opacity-90 w-5 text-center">
-              <i class="fa-solid fa-credit-card"></i>
+              <i class="fa-brands fa-slideshare"></i>
             </span>
             <span class="text-sm font-medium">Reference</span>
           </button>

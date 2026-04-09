@@ -26,7 +26,7 @@
             <!-- Header -->
             <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">My Profile</h1>
+                    <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">Create Profile</h1>
                     <p class="text-sm text-slate-600 dark:text-slate-300">Update your personal information</p>
                 </div>
             </div>
