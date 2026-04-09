@@ -15,7 +15,7 @@
                 </Field>
 
                 <Field label="Phone">
-                <input v-model="form.phone" type="text" class="input" placeholder="01XXXXXXXXX" />
+                <input v-model="form.phone" type="text" class="input" required placeholder="01XXXXXXXXX" />
                 </Field>
 
                 <Field label="Email">
@@ -46,7 +46,7 @@
                 </Field>
 
                 <Field label="National ID" class="sm:col-span-2">
-                <input v-model="form.national_id" type="text" class="input" placeholder="NID number" />
+                <input v-model="form.national_id" type="text" class="input" required placeholder="NID number" />
                 </Field>
 
                 <Field label="Religion" class="sm:col-span-2">
@@ -201,11 +201,11 @@ async function CreateUser() {
 
     try {
         const res = await api.post("/users/create", payload, {
-        headers: { "Content-Type": "multipart/form-data" }
+            headers: { "Content-Type": "multipart/form-data" }
         });
         successMsg.value = res.data.message || "User created successfully!";
         
-        // fetch userd
+        // fetch users
         emit('userCreated');
 
         Object.keys(form.value).forEach(key => form.value[key] = "");
