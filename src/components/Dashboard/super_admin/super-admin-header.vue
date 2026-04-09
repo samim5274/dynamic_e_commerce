@@ -195,7 +195,7 @@ import api, { makeImg } from '../../../services/api';
 const router = useRouter();
 
 
-
+const loading = ref(false);
 
 const authUser = ref(null);
 const isLoggedIn = ref(false);
@@ -282,7 +282,7 @@ async function pickProfile(action) {
   if (action === "logout") {
     try {
       loading.value = true;
-      await api.post("/logout");
+      await api.post("/auth/logout");
     } catch (error) {
       console.error("Logout failed API side:", error);
     } finally {

@@ -282,7 +282,7 @@ async function pick(key) {
 
   if (key === "logout") {
     try {
-      // await api.post("/logout");
+      await api.post("/auth/logout");
     } catch (e) {
       // ignore
     } finally {
