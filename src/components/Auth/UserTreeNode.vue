@@ -14,6 +14,8 @@
                 </h4>
                 
                 <p v-if="user?.id" class="text-[10px] text-blue-500 font-mono">D{{ user.id }}</p>
+                <p v-if="user?.left_count" class="text-[10px] text-blue-500 font-mono">Left:{{ user.left_count }}</p>
+                <p v-if="user?.right_count" class="text-[10px] text-blue-500 font-mono">Right:{{ user.right_count }}</p>
                 
                 <div v-if="user?.id" class="text-[9px] mt-1">
                     <span class="text-green-500 font-bold uppercase">Active</span>

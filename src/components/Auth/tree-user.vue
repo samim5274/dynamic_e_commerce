@@ -1,6 +1,6 @@
 <template>
     <section class="min-h-screen bg-slate-50 dark:bg-[#0f172a] py-10">
-        <div class="container mx-auto px-4">
+        <div class="mx-auto px-4">
             <div class="text-center mb-10">
                 <h2 class="text-2xl font-bold dark:text-white">User Genealogy Tree</h2>
             </div>

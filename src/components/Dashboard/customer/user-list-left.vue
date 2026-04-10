@@ -80,7 +80,7 @@
                 <Field label="Root User">
                 <input type="text" v-model="searchRootUser" placeholder="Search by ID, name or email..." class="input mb-2" />
                 <select v-model="form.root_user_id" class="input">
-                    <option disabled value="">Select user</option>
+                    <option disabled value="">-- Select user --</option>
                     <option v-for="u in filteredRootUsers" :key="u.id" :value="u.id">
                         {{ u.name }} - {{ u.user_id }}
                     </option>
