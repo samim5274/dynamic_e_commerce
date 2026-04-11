@@ -317,7 +317,7 @@ async function CreateUser() {
         
         // fetch users
         emit('userCreated');
-
+        fetchedUsers();
         Object.keys(form.value).forEach(key => form.value[key] = "");
         photoPreview.value = null;
     } catch(err) {
