@@ -21,8 +21,8 @@ import treeUser from '../components/Auth/tree-user.vue';
 
 
 // E-commerce Routes
-import Home from '../components/e-commerce/home.vue'
-import ProductDetails from '../components/e-commerce/product-details.vue'
+import Home from '../components/e-commerce/home.vue';
+import productDetails from '../components/e-commerce/product-details.vue';
 
 
 
@@ -68,9 +68,9 @@ import Reference from '../components/Dashboard/customer/reference.vue';
 
 
 const routes = [
-  // Public Routes
+  // Public E-commerce Routes
   { path: '/', component: Home, meta: {title: "Home - Mercuvaix"} },
-  { path: '/product-details', component: ProductDetails, meta: {title: "Product Details"} },
+  { path: '/product-details/:slug', component: productDetails, meta: { title: "Product Details"} },
 
 
 

@@ -82,7 +82,7 @@
 
                         <!-- Product Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            <div v-for="product in items" :key="product.id" 
+                            <div v-for="product in items" :key="product.id" @click="ProductDetails(product)"
                                 class="group relative bg-white dark:bg-[#111827] rounded-xl p-4 border border-gray-200 dark:border-white/10 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2">
                                 
                                 <div class="relative aspect-square overflow-hidden rounded-[2rem]">
@@ -104,7 +104,7 @@
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out">
                                     
                                     <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 hidden md:block">
-                                        <button class="w-full bg-white/90 dark:bg-[#fff]/90 backdrop-blur-md text-gray-900 font-bold py-3 rounded-2xl shadow-xl hover:bg-indigo-600 dark:hover:bg-indigo-500 dark:hover:text-white transition-colors duration-300">
+                                        <button type="button" @click="ProductDetails(product)" class="w-full bg-white/90 dark:bg-[#fff]/90 backdrop-blur-md text-gray-900 font-bold py-3 rounded-2xl shadow-xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-colors duration-300">
                                             Quick View
                                         </button>
                                     </div>
@@ -125,7 +125,7 @@
                                         </div>
                                     </div>
 
-                                    <h3 class="text-xl font-extrabold text-gray-900 dark:text-white tracking-tight truncate transition-all duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
+                                    <h3 @click="ProductDetails(product)" class="text-xl cursor-pointer font-extrabold text-gray-900 dark:text-white tracking-tight truncate transition-all duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
                                         {{ product.name }}
                                     </h3>
 
@@ -326,6 +326,17 @@ const groupedProducts = computed(() => {
 });
 
 
+
+
+
+
+
+
+
+
+function ProductDetails(product){
+    router.push(`/product-details/${product.slug}`);
+}
 
 
 
