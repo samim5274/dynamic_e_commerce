@@ -1,6 +1,6 @@
 <template>
     <div :class="{ 'dark': isDark }">
-        <div class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans">
+        <div class="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 font-sans">
         
         <div class="bg-indigo-600 text-white text-[10px] md:text-sm py-2 px-4 flex justify-between items-center">
             <div class="truncate">🔥 Flash Sale: Get 50% Off Today!</div>

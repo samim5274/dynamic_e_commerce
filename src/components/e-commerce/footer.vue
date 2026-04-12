@@ -1,6 +1,14 @@
 <template>
     <footer class="bg-white dark:bg-[#0f172a] border-t border-slate-200 dark:border-white/10 transition-colors duration-500">
         <div class="max-w-7xl mx-auto py-4">
+
+            <!-- Back to Top Button -->
+            <button 
+                v-show="showButton"
+                @click="scrollToTop"
+                class="fixed bottom-6 right-6 bg-slate-600 text-white p-2 rounded-full shadow-lg hover:bg-slate-700 transition">
+                <i class="fa-solid fa-angle-up"></i>
+            </button>
         
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
             
@@ -45,7 +53,31 @@
 </template>
 
 <script setup>
-// No extra logic needed for static footer
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const showButton = ref(false)
+
+// scroll detect
+const handleScroll = () => {
+    showButton.value = window.scrollY > 300
+}
+
+// scroll to top
+const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+}
+
+// lifecycle
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>
