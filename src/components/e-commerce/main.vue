@@ -68,7 +68,7 @@
                                 </p>
                             </div>
 
-                            <router-link to="/show-all" 
+                            <router-link to="/" 
                                 class="group flex items-center gap-2 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition-all duration-300">
                                 <span class="relative">
                                     View All

@@ -5,6 +5,8 @@
         <Navbar 
             :isDark="isDark"
             :mobileMenu="mobileMenu"
+            :authUser="authUser"
+            :avatarUrl="avatarUrl"
             @toggle-dark="toggleDarkMode"
             @toggle-menu="toggleMenu"
         />
@@ -17,7 +19,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import api, {makeImg} from '../../services/api'
 
 import Navbar from './navbar.vue';
 import slider from './slider.vue';
@@ -34,6 +37,39 @@ const toggleDarkMode = () => {
 const toggleMenu = () => {
     mobileMenu.value = !mobileMenu.value
 }
+
+const authUser = ref(null);
+const isLoggedIn = ref(false);
+
+async function loadAuthUser() {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            isLoggedIn.value = false;
+            authUser.value = null;
+            return;
+        }
+
+        const res = await api.get("/user");
+        authUser.value = res.data;
+        isLoggedIn.value = true;
+    } catch (err) {
+        isLoggedIn.value = false;
+        authUser.value = null;
+        localStorage.removeItem("token");
+    }
+}
+
+const defaultAvatar = "/images/avatar.png";
+
+const avatarUrl = computed(() => {
+    const photo = authUser.value?.photo;
+    return photo ? makeImg(photo) : defaultAvatar;
+});
+
+onMounted(() => {
+    loadAuthUser();
+});
 </script>
 
 <style scoped>
