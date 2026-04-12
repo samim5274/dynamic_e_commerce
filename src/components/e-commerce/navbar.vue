@@ -92,11 +92,18 @@
                                     </div>
 
                                     <div class="p-2">
+                                        <router-link to="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-indigo-50 dark:hover:bg-indigo-500/10 group/item transition-colors">
+                                            <div class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover/item:bg-indigo-600 transition-colors shadow-sm">
+                                                <i class="fa-solid fa-gauge text-gray-500 group-hover/item:text-white text-sm"></i>
+                                            </div>
+                                            <span class="text-xs font-bold text-gray-600 group-hover/item:text-indigo-600 dark:text-white">Dashboard</span>
+                                        </router-link>
+
                                         <router-link to="/profile" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-indigo-50 dark:hover:bg-indigo-500/10 group/item transition-colors">
                                             <div class="w-8 h-8 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover/item:bg-indigo-600 transition-colors shadow-sm">
                                                 <i class="fa-regular fa-user text-gray-500 group-hover/item:text-white text-sm"></i>
                                             </div>
-                                            <span class="text-xs font-bold text-gray-600 group-hover/item:text-indigo-600 dark:text-white">Profile Overview</span>
+                                            <span class="text-xs font-bold text-gray-600 group-hover/item:text-indigo-600 dark:text-white">Profile</span>
                                         </router-link>
 
                                         <router-link to="/" class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-indigo-50 dark:hover:bg-indigo-500/10 group/item transition-colors">
