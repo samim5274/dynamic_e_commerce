@@ -371,6 +371,7 @@ import api, { makeImg } from '../../services/api'
 
 import Navbar from './navbar.vue'
 import FooterSection from './footer.vue'
+import { useAuth } from '../../stores/auth';
 
 const route = useRoute()
 
@@ -407,7 +408,7 @@ const toggleMenu = () => {
 
 
 
-
+const { loadUser } = useAuth()
 
 
 
@@ -448,7 +449,8 @@ const getProductImage = (product) => {
 
 
 onMounted(() => {
-    getProduct()
+    getProduct();
+    loadUser();
 })
 </script>
 

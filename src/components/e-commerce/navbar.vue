@@ -112,11 +112,30 @@
                                             <div class="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-500/10 flex items-center justify-center group-hover/logout:bg-red-500 transition-colors shadow-sm">
                                                 <i class="fa-solid fa-arrow-right-from-bracket text-red-500 group-hover/logout:text-white text-sm"></i>
                                             </div>
-                                            <span class="text-xs font-bold text-red-600 group-hover/logout:text-red-700">Logout System</span>
+                                            <span class="text-xs font-bold text-red-600 group-hover/logout:text-red-700">Logout</span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div v-else class="flex items-center gap-3">
+                            <router-link to="/login" 
+                                class="group relative flex items-center gap-2.5 p-1 pr-4 rounded-full border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/[0.05] hover:border-indigo-500/30 transition-all duration-300 shadow-sm hover:shadow-md">
+                                
+                                <div class="w-9 h-9 rounded-full bg-white dark:bg-white/5 flex items-center justify-center border border-gray-100 dark:border-white/10 shadow-sm group-hover:bg-indigo-600 transition-all duration-500">
+                                    <i class="fa-regular fa-user text-sm text-gray-500 group-hover:text-white transition-colors"></i>
+                                </div>
+
+                                <div class="flex flex-col leading-none">
+                                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest group-hover:text-indigo-500 transition-colors">Hello, Guest</span>
+                                    <span class="text-xs font-black text-gray-900 dark:text-white uppercase tracking-tighter">Login / Sign up</span>
+                                </div>
+
+                                <div class="absolute inset-0 rounded-full bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </router-link>
+
+                            <div class="hidden sm:block h-6 w-px bg-gray-100 dark:bg-white/10 mx-1"></div>
                         </div>
                     </div>
                 </div>
@@ -170,34 +189,24 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../../services/api'
+import { useAuth } from '../../stores/auth'
+
 const router = useRouter()
+
+const { authUser, avatarUrl, logout } = useAuth()
 
 const props = defineProps({
     isDark: Boolean,
     mobileMenu: Boolean,
-    authUser: Object,
-    avatarUrl: String
 })
 
-const emit = defineEmits(['toggle-dark', 'toggle-menu', 'logout'])
+const emit = defineEmits(['toggle-dark', 'toggle-menu'])
 
 const menus = ['Home', 'New Arrivals', 'Collections', 'Limited Edition', 'Sale']
 
-const loading = ref(false);
-
-async function logout() {
-    try {
-        loading.value = true
-        await api.post("/auth/logout")
-    } catch (error) {
-        console.error("Logout failed API side:", error)
-    } finally {
-        localStorage.removeItem("token")
-        localStorage.removeItem("user")
-
-        emit('logout')
-
-        router.push("/login")
-    }
+function handleLogout() {
+    logout()
+    router.push("/login")
+    emit('logout')
 }
 </script>

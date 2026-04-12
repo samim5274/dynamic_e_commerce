@@ -5,8 +5,6 @@
         <Navbar 
             :isDark="isDark"
             :mobileMenu="mobileMenu"
-            :authUser="authUser"
-            :avatarUrl="avatarUrl"
             @toggle-dark="toggleDarkMode"
             @toggle-menu="toggleMenu"
         />
@@ -26,6 +24,17 @@ import Navbar from './navbar.vue';
 import slider from './slider.vue';
 import Main from './main.vue';
 import FooterSection from './footer.vue';
+import { useAuth } from '../../stores/auth';
+
+
+
+
+
+
+
+
+
+
 
 const isDark = ref(false)
 const mobileMenu = ref(false)
@@ -38,38 +47,28 @@ const toggleMenu = () => {
     mobileMenu.value = !mobileMenu.value
 }
 
-const authUser = ref(null);
-const isLoggedIn = ref(false);
 
-async function loadAuthUser() {
-    try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            isLoggedIn.value = false;
-            authUser.value = null;
-            return;
-        }
 
-        const res = await api.get("/user");
-        authUser.value = res.data;
-        isLoggedIn.value = true;
-    } catch (err) {
-        isLoggedIn.value = false;
-        authUser.value = null;
-        localStorage.removeItem("token");
-    }
-}
 
-const defaultAvatar = "/images/avatar.png";
 
-const avatarUrl = computed(() => {
-    const photo = authUser.value?.photo;
-    return photo ? makeImg(photo) : defaultAvatar;
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+const { loadUser } = useAuth()
 
 onMounted(() => {
-    loadAuthUser();
-});
+    loadUser()
+})
 </script>
 
 <style scoped>
