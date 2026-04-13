@@ -361,9 +361,12 @@ async function fetchSubCategories(){
 
 // filter subcategories based on selected category
 const filteredSubCategories = computed(() => {
-    if(!form.category) return [];
-    return subcategories.value.filter(sub => sub.category_id === form.category)
-})
+    if (!form.category) return [];
+
+    return subcategories.value.filter(sub =>
+        Number(sub.category_id) === Number(form.category)
+    );
+});
 
 
 
