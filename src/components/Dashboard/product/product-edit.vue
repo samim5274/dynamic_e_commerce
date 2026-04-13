@@ -202,7 +202,7 @@
                                     </div>
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Stock</label>
-                                        <input v-model="variant.stock" type="number" class="input mt-1" placeholder="Quantity"/>
+                                        <input v-model="variant.stock_quantity" type="number" class="input mt-1" placeholder="Quantity"/>
                                     </div>
                                 </div>
                             </div>
@@ -501,18 +501,38 @@ function addVariant() {
 }
 function removeVariant(i) { form.variants.splice(i, 1) }
 
-// --- IMAGE HANDLING ---
+// --- IMAGE HANDLING (REFACTORED) ---
 function setFile(file) {
-    if(!file.type.startsWith('image/')) return
-    form.images.push(file)
-    preview.value.push({ file, url: URL.createObjectURL(file) })
+    if (!file.type.startsWith('image/')) return;
+    
+    form.images.push(file);
+    
+    preview.value.push({ 
+        file: file, 
+        url: URL.createObjectURL(file),
+        isNew: true
+    });
 }
 
-function handleImage(e) { Array.from(e.target.files).forEach(setFile) }
+function handleImage(e) { 
+    Array.from(e.target.files).forEach(setFile);
+    e.target.value = '';
+}
+
+function removeImage(idx) {
+    const target = preview.value[idx];
+    
+    if (target.file) {
+        const fileIndex = form.images.indexOf(target.file);
+        if (fileIndex > -1) form.images.splice(fileIndex, 1);
+    }
+    
+    preview.value.splice(idx, 1);
+}
+
 function onDrop(e) { isDragOver.value = false; Array.from(e.dataTransfer.files).forEach(setFile) }
 function onDragOver(e){ e.preventDefault(); isDragOver.value = true }
 function onDragLeave(){ isDragOver.value = false }
-function removeImage(idx){ form.images.splice(idx,1); preview.value.splice(idx,1) }
 
 
 
@@ -532,56 +552,69 @@ async function submitEdit() {
     errorMsg.value = ''
     Object.keys(errors).forEach(k => delete errors[k])
 
-    if(!form.id){ errorMsg.value = 'Product ID missing'; loading.value=false; return }
+    // if(!form.id){ errorMsg.value = 'Product ID missing'; loading.value=false; return }
 
     try {
-        const fd = new FormData()
+        const fd = new FormData();
         
         // Basic fields
-        fd.append('name', form.name)
-        fd.append('sku', form.sku)
-        fd.append('category', form.category)
-        fd.append('subcategory', form.subcategory)
-        fd.append('brand', form.brand)
-        fd.append('price', form.price || 0)
-        fd.append('discount_price', form.discount_price || 0)
-        fd.append('stock_quantity', form.stock_quantity || 0)
-        fd.append('min_stock', form.min_stock || 0)
-        fd.append('summary', form.summary || '')
-        fd.append('description', form.description || '')
-        fd.append('slug', form.slug || '')
-        fd.append('title', form.title || '')
-        fd.append('keywords', form.keywords || '')
-        fd.append('meta_title', form.meta_title || '')
-        fd.append('meta_keywords', form.meta_keywords || '')
-        fd.append('meta_description', form.meta_description || '')
-        fd.append('is_featured', form.is_featured ? 1 : 0)
-        fd.append('is_on_sale', form.is_on_sale ? 1 : 0)
-        fd.append('is_active', form.is_active ? 1 : 0)
+        const fields = {
+            name: form.name,
+            sku: form.sku,
+            brand: form.brand,
+            category: form.category,
+            subcategory: form.subcategory,
+            price: form.price || 0,
+            discount_price: form.discount_price || 0,
+            stock_quantity: form.stock_quantity || 0,
+            min_stock: form.min_stock || 0,
+            summary: form.summary,
+            description: form.description,
+            slug: form.slug,
+            meta_title: form.meta_title,
+            meta_keywords: form.meta_keywords,
+            meta_description: form.meta_description,
+            is_featured: form.is_featured ? 1 : 0,
+            is_on_sale: form.is_on_sale ? 1 : 0,
+            is_active: form.is_active ? 1 : 0,
+        };
+
+
+        Object.entries(fields).forEach(([key, value]) => {
+            if (value !== null && value !== undefined) fd.append(key, value);
+        });
         
 
         // Variants
-        form.variants.forEach((v,i)=>{
-            fd.append(`variants[${i}][color]`, v.color || '')
-            fd.append(`variants[${i}][size]`, v.size || '')
-            fd.append(`variants[${i}][price]`, v.price || 0)
-            fd.append(`variants[${i}][stock]`, v.stock || 0)
-        })
+        if (form.variants.length > 0) {
+            form.variants.forEach((v, i) => {
+                fd.append(`variants[${i}][color]`, v.color || '');
+                fd.append(`variants[${i}][size]`, v.size || '');
+                fd.append(`variants[${i}][price]`, v.price || 0);
+                fd.append(`variants[${i}][stock]`, v.stock || 0);
+            });
+        }
 
         // Images
-        form.images.forEach(f => fd.append('images[]', f))
+        if (form.images.length > 0) {
+            form.images.forEach(f => fd.append('images[]', f));
+        }
 
-        const res = await api.post(`/products/update/${form.id}`, fd, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
+        fd.append('_method', 'POST');
 
-        successMsg.value = res.data.message || 'Product updated successfully!'
-        setTimeout(() => router.back(), 800)
+        const res = await api.post(`/products/update/${form.id}`, fd);
 
-    } catch(err) {
-        if(err.response?.data?.errors) Object.assign(errors, err.response.data.errors)
-        errorMsg.value = err.response?.data?.message || 'Failed to update product.'
-    } finally { loading.value = false }
+        successMsg.value = res.data.message || 'Product updated successfully!';
+        setTimeout(() => router.back(), 1000);
+
+    } catch (err) {
+        if (err.response?.status === 422) {
+            Object.assign(errors, err.response.data.errors);
+        }
+        errorMsg.value = err.response?.data?.message || 'Something went wrong.';
+    } finally {
+        loading.value = false;
+    }
 }
 
 
