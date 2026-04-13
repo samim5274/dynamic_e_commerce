@@ -70,7 +70,7 @@ export const makeImg = (path) => {
 
   const root = API_BASE_URL.replace(/\/api\/?$/, "");
 
-  const cleanPath = path.replace(/^\/+/, "");
+  const cleanPath = path.replace(/^\/+/, '').replace(/\/+/g, '/');
 
   return `${root}/storage/${cleanPath}`;
 };
