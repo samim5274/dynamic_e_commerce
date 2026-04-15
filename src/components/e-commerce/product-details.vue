@@ -9,6 +9,12 @@
             @toggle-menu="toggleMenu"
         />
 
+        <Message
+            :successMsg="successMsg"
+            :errorMsg="errorMsg"
+            @update:successMsg="successMsg = $event"
+            @update:errorMsg="errorMsg = $event"
+        />
 
 
 
@@ -25,138 +31,7 @@
 
 
 
-        <!-- <section v-if="product" class="py-12 bg-white dark:bg-[#0a0a0b] text-gray-900 dark:text-gray-100 min-h-screen">
-            <div class="container mx-auto px-4">
-                
-                <nav class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-10 overflow-x-auto whitespace-nowrap">
-                    <router-link to="/" class="hover:text-indigo-500 transition">Home</router-link>
-                    <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                    <span class="hover:text-indigo-500 transition cursor-pointer">{{ product.category?.name }}</span>
-                    <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                    <span class="text-gray-900 dark:text-white">{{ product.name }}</span>
-                </nav>
 
-                <div class="flex flex-col lg:flex-row gap-16">
-
-                    <div class="w-full lg:w-[55%]">
-                        <div class="lg:sticky lg:top-28 space-y-6">
-                            <div class="relative group aspect-[4/5] rounded-xl overflow-hidden bg-gray-50 dark:bg-[#111113] border border-gray-100 dark:border-white/5 shadow-2xl">
-                                <img :src="activeImage" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                
-                                <button class="absolute bottom-6 right-6 bg-white/90 dark:bg-black/50 backdrop-blur-xl p-4 rounded-2xl shadow-xl text-gray-900 dark:text-white">
-                                    <i class="fa-solid fa-expand text-lg"></i>
-                                </button>
-                            </div>
-
-                            <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                                <div v-for="img in product.images" :key="img.id"
-                                    @click="activeImage = makeImg(img.image_path)"
-                                    class="relative min-w-[100px] h-[120px] rounded-[1.5rem] overflow-hidden cursor-pointer border-2 transition-all duration-300"
-                                    :class="activeImage === makeImg(img.image_path) ? 'border-indigo-600 scale-95 shadow-lg' : 'border-transparent opacity-60 hover:opacity-100'">
-                                    <img :src="makeImg(img.image_path)" class="w-full h-full object-cover">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-[45%] space-y-8">
-                        
-                        <div class="space-y-4">
-                            <span class="px-4 py-1.5 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border border-indigo-500/20">
-                                In Stock & Ready to Ship
-                            </span>
-                            <h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-tight text-gray-900 dark:text-white">
-                                {{ product.name }}
-                            </h1>
-                            
-                            <div class="flex items-center gap-6">
-                                <div class="flex flex-col">
-                                    <span class="text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
-                                        ৳{{ product.discount_price || product.price }}
-                                    </span>
-                                    <span v-if="product.discount_price" class="text-sm text-gray-400 line-through font-medium">
-                                        Original: ৳{{ product.price }}
-                                    </span>
-                                </div>
-                                <div v-if="product.discount_price" class="bg-emerald-500 text-white text-[10px] font-black px-3 py-1 rounded-lg">
-                                    SAVE {{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}%
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-gray-500 dark:text-gray-400 text-lg leading-relaxed border-l-4 border-indigo-500 pl-6 py-2 bg-gray-50 dark:bg-white/5 rounded-r-2xl font-medium">
-                            {{ product.summary }}
-                        </p>
-
-                        <div class="space-y-6">
-                            <h4 class="text-sm font-black uppercase tracking-widest text-gray-400 flex items-center gap-3">
-                                Select Variant <span class="h-[1px] flex-1 bg-gray-100 dark:bg-gray-800"></span>
-                            </h4>
-                            
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <button v-for="(variant, index) in product.variants" :key="index"
-                                    @click="selectedVariant = variant"
-                                    class="relative p-4 rounded-2xl border-2 text-left transition-all duration-300 group"
-                                    :class="selectedVariant?.id === variant.id ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-500/10' : 'border-gray-100 dark:border-white/5 hover:border-gray-300'">
-                                    
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ variant.color || 'Standard' }}</p>
-                                            <p class="font-black text-gray-900 dark:text-white">{{ variant.size || 'No Size' }}</p>
-                                        </div>
-                                        <span class="text-xs font-black text-indigo-600">৳{{ variant.price }}</span>
-                                    </div>
-
-                                    <div v-if="selectedVariant?.id === variant.id" class="absolute -top-2 -right-2 bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg animate-bounce">
-                                        <i class="fa-solid fa-check text-[10px]"></i>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4 pt-6">
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <div class="flex items-center bg-gray-100 dark:bg-[#1c1c1e] rounded-2xl p-2 border border-transparent focus-within:border-indigo-500 transition">
-                                    <button @click="qty > 1 ? qty-- : null" class="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white dark:hover:bg-gray-800 transition shadow-sm active:scale-90 text-xl font-bold">-</button>
-                                    <input type="number" v-model="qty" class="w-16 bg-transparent text-center font-black text-lg outline-none" readonly>
-                                    <button @click="qty++" class="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white dark:hover:bg-gray-800 transition shadow-sm active:scale-90 text-xl font-bold">+</button>
-                                </div>
-
-                                <button class="flex-1 bg-gray-900 dark:bg-indigo-600 text-white py-4 rounded-[1.5rem] font-black text-lg hover:shadow-[0_20px_40px_rgba(79,70,229,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
-                                    <i class="fa-solid fa-cart-shopping text-sm"></i>
-                                    ADD TO CART
-                                </button>
-                            </div>
-
-                            <div class="flex gap-4">
-                                <button class="flex-1 h-14 rounded-2xl border-2 border-gray-100 dark:border-white/5 font-bold flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-white/5 transition">
-                                    <i class="fa-regular fa-heart"></i> Add to Wishlist
-                                </button>
-                                <button class="h-14 w-14 rounded-2xl border-2 border-gray-100 dark:border-white/5 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-white/5 transition text-gray-500">
-                                    <i class="fa-solid fa-share-nodes"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-4 pt-8 border-t dark:border-white/5">
-                            <div class="text-center space-y-2">
-                                <i class="fa-solid fa-truck-fast text-indigo-500 text-xl"></i>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Free Shipping</p>
-                            </div>
-                            <div class="text-center space-y-2 border-x dark:border-white/5">
-                                <i class="fa-solid fa-rotate-left text-indigo-500 text-xl"></i>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">30 Day Return</p>
-                            </div>
-                            <div class="text-center space-y-2">
-                                <i class="fa-solid fa-shield-halved text-indigo-500 text-xl"></i>
-                                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Secure Pay</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section> -->
         
         
         <section v-if="product" class="py-16 bg-white dark:bg-[#111827] text-gray-900 dark:text-gray-100 min-h-screen selection:bg-indigo-500 selection:text-white">
@@ -231,7 +106,7 @@
                                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Market Price</span>
                                     <div class="flex items-baseline gap-3">
                                         <span class="text-5xl font-black text-indigo-600 dark:text-white tracking-tighter transition-all group-hover:text-indigo-800">
-                                            ৳{{ product.discount_price || product.price }}
+                                            ৳{{ selectedVariant?.price || product.discount_price || product.price }}
                                         </span>
                                         <span v-if="product.discount_price" class="text-lg text-gray-400 line-through font-bold opacity-50">
                                             ৳{{ product.price }}
@@ -307,7 +182,7 @@
                                         </button>
                                     </div>
 
-                                    <button class="relative w-full sm:flex-1 h-[68px] sm:h-[64px] group overflow-hidden rounded-[2.2rem] bg-gray-950 dark:bg-indigo-600 transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(79,70,229,0.5)] active:scale-[0.98]">
+                                    <button @click="addToCart(product)" class="relative w-full sm:flex-1 h-[68px] sm:h-[64px] group overflow-hidden rounded-[2.2rem] bg-gray-950 dark:bg-indigo-600 transition-all duration-500 hover:shadow-[0_25px_50px_-12px_rgba(79,70,229,0.5)] active:scale-[0.98]">
                                         
                                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.08] to-transparent -skew-x-[35deg] -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms] ease-in-out"></div>
                                         
@@ -365,21 +240,85 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import api from '../../services/api'
-
-import Navbar from './navbar.vue'
-import FooterSection from './footer.vue'
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import api from '../../services/api';
+import Message from '../Message/message.vue';
+import Navbar from './navbar.vue';
+import FooterSection from './footer.vue';
 import { useAuth } from '../../stores/auth';
 
-const route = useRoute()
+const route = useRoute();
 
-const product = ref(null)
+const product = ref(null);
+const activeImage = ref('');
+const loading = ref(false);
+const successMsg = ref('');
+const errorMsg = ref('');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const qty = ref(1)
-const activeImage = ref('')
-const loading = ref(false)
 const selectedVariant = ref(null)
+const isAddingToCart = ref(false);
+
+
+
+async function addToCart(product) {
+    if (!selectedVariant.value) {
+        errorMsg.value = "Please select a variant first!";
+        return;
+    }
+
+    const cartData = {
+        product_id: product.id,
+        variant_id: selectedVariant.value.id, 
+        quantity: qty.value, 
+    };
+
+    try {
+        isAddingToCart.value = true;
+        const res = await api.post("/public/add-to-cart", cartData);
+        // Success handling
+        if (res.data?.success) {
+            successMsg.value = res.data.message || "Added to cart!", "success";
+            qty.value = 1;
+        } else {
+            errorMsg.value = res.data?.message || "Something went wrong", "error";
+        }
+        console.log(successMsg.value);
+    } catch (err) {
+        errorMsg.value = err;
+        console.error("Add to cart error:", err);
+    } finally {
+        isAddingToCart.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -439,6 +378,11 @@ const defaultProductImage = "/images/product/default-product.png"
 onMounted(() => {
     getProduct();
     loadUser();
+
+    // page load first variant select
+    if (product.value?.variants?.length > 0) {
+        selectedVariant.value = product.value.variants[0];
+    }
 })
 </script>
 

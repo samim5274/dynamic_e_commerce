@@ -172,20 +172,60 @@
 
 
         <!-- Order -->
-        <li>
+         <li>
           <button
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
                    focus:outline-none focus:ring-2 focus:ring-slate-500/40
                    hover:bg-slate-100 dark:hover:bg-white/10"
-            :class="activeKey === 'order'
-              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+            :class="orderPagesOpen
+              ? 'bg-slate-100 ring-1 ring-slate-200 dark:bg-white/10 dark:ring-white/10'
               : ''"
-            @click="pick('order')">
-            <span class="opacity-90 w-5 text-center">
-              <i class="fa-solid fa-cart-arrow-down"></i>
+            @click="orderPagesOpen = !orderPagesOpen"
+            type="button">
+            <span class="opacity-90">
+              <i class="fa-solid fa-check-to-slot"></i>
             </span>
-            <span class="text-sm font-medium">Order</span>
+            <span class="text-sm font-medium flex-1">Order</span>
+
+            <svg
+              class="h-4 w-4 transition-transform opacity-80"
+              :class="orderPagesOpen ? 'rotate-180' : ''"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
+
+          <div v-show="orderPagesOpen" class="mt-1 ml-6 mr-2 rounded-xl ring-1
+                   bg-slate-50 ring-slate-200
+                   dark:bg-black/20 dark:ring-white/10">
+            <ul class="py-2">
+              <li>
+                <button
+                  class="w-full px-4 py-2 text-sm text-left transition
+                         hover:bg-white dark:hover:bg-white/10"
+                  :class="activeKey === 'orders'
+                    ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                    : 'text-slate-700 dark:text-slate-200/90'"
+                  @click="pick('orders')">
+                  Orders
+                </button>
+              </li>
+
+              <li>
+                <button
+                  class="w-full px-4 py-2 text-sm text-left transition
+                         hover:bg-white dark:hover:bg-white/10"
+                  :class="activeKey === 'order_status'
+                    ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                    : 'text-slate-700 dark:text-slate-200/90'"
+                  @click="pick('order_status')">
+                  Status
+                </button>
+              </li>
+            </ul>
+          </div>
         </li>
 
 
@@ -357,6 +397,7 @@ const router = useRouter();
 
 const pagesOpen = ref(false);
 const userPagesOpen = ref(false);
+const orderPagesOpen = ref(false);
 
 const routeMap = {
   dashboard: "/admin/dashboard",
@@ -364,6 +405,8 @@ const routeMap = {
 
   products: "/products",
   create: "/create-product",
+
+  orders: "/orders",
 
   users: "/admin/users",
   assignUserToTree: "/admin/assign-user-tree",
@@ -380,6 +423,8 @@ const routeMatch = [
 
   { key: "products", prefixes: ["/products", "/product-edit"] },
   { key: "create", prefixes: ["/create-product"] },
+
+  { key: "orders", prefixes: ["/orders"] },
 
   { key: "users", prefixes: ["/admin/users"] },
   { key: "assignUserToTree", prefixes: ["/admin/assign-user-tree"] },
@@ -442,6 +487,18 @@ watch(
     }
   },
   {immediate: true }
+);
+
+// Order page open close
+watch(
+  () => activeKey.value,
+  (k) => {
+    const orderKeys = ["orders",];
+    if (orderKeys.includes(k)) {
+      orderPagesOpen.value = true;
+    }
+  },
+  { immediate: true }
 );
 
 

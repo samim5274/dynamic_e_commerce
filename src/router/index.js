@@ -53,7 +53,8 @@ import ProductList from '../components/Dashboard/product/product-list.vue'
 import ProductEdit from '../components/Dashboard/product/product-edit.vue'
 
 
-
+// Order Details
+import OrderDetails from '../components/Dashboard/order/order.vue';
 
 
 
@@ -103,7 +104,8 @@ const routes = [
   { path: '/products', component: ProductList, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Details" } },
   { path: '/product-edit/:slug', component: ProductEdit, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Edit Product" } },
 
-
+  // Order Routes
+  { path: '/orders', component: OrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},
 
 
   // customer dashboard
