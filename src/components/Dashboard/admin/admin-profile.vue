@@ -266,8 +266,11 @@ const photoFile = ref(null);
 const photoPreview = ref("");
 
 const photoUrl = computed(() => {
+    if (user.value?.photo_url) return user.value.photo_url;
+
     const p = user.value?.photo;
     if (!p) return "/images/avatar.png";
+    
     return makeImg(p);
 });
 

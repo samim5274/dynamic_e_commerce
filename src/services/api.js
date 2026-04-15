@@ -70,15 +70,19 @@ api.interceptors.response.use(
 */
 
 export const makeImg = (path) => {
-  if (!path) return ""
+  if (!path) return "";
 
-  if (/^https?:\/\//i.test(path)) return path
+  if (/^https?:\/\//i.test(path)) return path;
 
-  const base = import.meta.env.VITE_API_BASE_URL
+  const base = import.meta.env.VITE_API_BASE_URL;
 
-  if (!base) return ""
+  if (!base) return "";
 
-  return `${base.replace(/\/$/, "")}/storage/${path.replace(/^\/+/, "")}`
+  const cleanBase = base.replace(/\/api\/?$/, "");
+  const cleanPath = path.replace(/^\/+/, "");
+  return `${cleanBase}/storage/${cleanPath}`;
+
+  // return `${base.replace(/\/$/, "")}/storage/${path.replace(/^\/+/, "")}`;
 }
 
 // export const makeImg = (path) => {
