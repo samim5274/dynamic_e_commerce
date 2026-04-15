@@ -87,8 +87,49 @@
                                         <i class="fa-regular fa-heart"></i>
                                     </button>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     <img :src="getProductImage(product)" :alt="product.name"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     
                                     <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                                         <button @click="ProductDetails(product)" class="w-full bg-white dark:bg-indigo-600 text-gray-900 dark:text-white font-black text-[10px] uppercase tracking-widest py-3.5 rounded-2xl shadow-xl">
@@ -157,42 +198,60 @@ const defaultProductImage = "/images/product/default-product.png"
 
 // Get Product Image Logic
 const getProductImage = (product) => {
-    const images = product?.images
-    if (Array.isArray(images) && images.length > 0) {
-        const primary = images.find(i => i.is_primary)
-        return makeImg((primary || images[0]).image_path)
+    if (!product || !product.images || product.images.length === 0) {
+        return defaultProductImage;
     }
-    return defaultProductImage
+
+    const primaryImg = product.images.find(i => i.is_primary == 1);
+    
+    const selectedImg = primaryImg || product.images[0];
+
+    return selectedImg.url ? selectedImg.url : defaultProductImage;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Fetch Categories
 async function fetchCategories() {
     try {
         const res = await api.get('/public/get-categories')
         categories.value = res.data.data
-    } catch (err) { console.error('Category error:', err) }
+    } catch (err) { 
+        console.error('Category error:', err); 
+    }
 }
 
 // Fetch Products
 async function fetchProducts() {
     loading.value = true
     try {
-        const res = await api.get('/public/products')
-        let data = res.data.data
-        products.value = Array.isArray(data) ? data : Object.values(data).flat()
-    } catch (err) { console.error('Product error:', err) }
-    finally { loading.value = false }
+        const res = await api.get('/public/products');
+        let data = res.data.data;
+        products.value = Array.isArray(data) ? data : Object.values(data).flat();
+    } catch (err) { 
+        console.error('Product error:', err); 
+    }
+    finally { 
+        loading.value = false;
+    }
 }
 
-// Filtered Products
-const filterProducts = computed(() => {
-    if (!products.value) return []
-    let filtered = [...products.value]
-    if (selectedCategory.value) {
-        filtered = filtered.filter(p => Number(p.category?.id) === Number(selectedCategory.value))
-    }
-    return filtered
-})
 
 // Group Products by Category
 const groupedProducts = computed(() => {
@@ -205,6 +264,41 @@ const groupedProducts = computed(() => {
     return groups
 })
 
+// Filtered Products
+const filterProducts = computed(() => {
+    if (!products.value) return []
+    let filtered = [...products.value]
+    if (selectedCategory.value) {
+        filtered = filtered.filter(p => Number(p.category?.id) === Number(selectedCategory.value))
+    }
+    return filtered
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Slider Navigation Logic
 const scrollSlider = (index, direction) => {
     const element = document.getElementById('slider-' + index)
@@ -216,6 +310,27 @@ const scrollSlider = (index, direction) => {
         })
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function ProductDetails(product) {
     router.push(`/product-details/${product.slug}`)

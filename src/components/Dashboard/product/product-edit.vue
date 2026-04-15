@@ -429,7 +429,7 @@ async function fetchProduct() {
         // Preview images
         preview.value = (product.images || []).map(img => ({
             file: null,
-            url: img.image_path ? makeImg(img.image_path) : '',
+            url: img.url || '',
             name: img.image_path ? img.image_path.split('/').pop() : 'Image'
         }))
 

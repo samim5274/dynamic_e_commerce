@@ -68,18 +68,31 @@ api.interceptors.response.use(
 | Image URL Helper (Optimized for Production)
 |--------------------------------------------------------------------------
 */
+
 export const makeImg = (path) => {
-  if (!path) return "";
+  if (!path) return ""
 
-  if (/^https?:\/\//i.test(path)) return path;
+  if (/^https?:\/\//i.test(path)) return path
 
-  if (!API_BASE_URL) return "";
-  const base = API_BASE_URL.replace(/\/api\/?$/, "");
+  const base = import.meta.env.VITE_API_BASE_URL
 
-  // const cleanPath = path.replace(/^\/+/, "").replace(/^storage\//, "");
-  const cleanPath = path.replace(/^\/+/, "");
+  if (!base) return ""
 
-  return `${base}/storage/${cleanPath}`;
-};
+  return `${base.replace(/\/$/, "")}/storage/${path.replace(/^\/+/, "")}`
+}
+
+// export const makeImg = (path) => {
+//   if (!path) return "";
+
+//   if (/^https?:\/\//i.test(path)) return path;
+
+//   if (!API_BASE_URL) return "";
+//   const base = API_BASE_URL.replace(/\/api\/?$/, "");
+
+//   // const cleanPath = path.replace(/^\/+/, "").replace(/^storage\//, "");
+//   const cleanPath = path.replace(/^\/+/, "");
+
+//   return `${base}/storage/${cleanPath}`;
+// };
 
 export default api;

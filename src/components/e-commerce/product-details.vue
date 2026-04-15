@@ -198,12 +198,12 @@
 
                             <div class="flex justify-center gap-6 px-4">
                                 <button v-for="img in product.images" :key="img.id"
-                                    @click="activeImage = makeImg(img.image_path)"
+                                    @click="activeImage = img.url"
                                     class="relative w-16 h-16 rounded-[2rem] overflow-hidden transition-all duration-700 border-2 shadow-sm"
-                                    :class="activeImage === makeImg(img.image_path) 
+                                    :class="activeImage === img.url 
                                         ? 'border-indigo-600 dark:border-indigo-400 scale-110 shadow-indigo-500/20' 
                                         : 'border-transparent opacity-40 grayscale hover:grayscale-0 hover:opacity-100'">
-                                    <img :src="makeImg(img.image_path)" class="w-full h-full object-cover">
+                                    <img :src="img.url" class="w-full h-full object-cover">
                                 </button>
                             </div>
                         </div>
@@ -367,7 +367,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import api, { makeImg } from '../../services/api'
+import api from '../../services/api'
 
 import Navbar from './navbar.vue'
 import FooterSection from './footer.vue'
@@ -423,7 +423,7 @@ async function getProduct() {
         product.value = res.data.data
 
         if (product.value?.images?.length) {
-            activeImage.value = makeImg(product.value.images[0].image_path)
+            activeImage.value = product.value.images[0].url;
         }
     } catch (err) {
         console.error(err)
@@ -434,18 +434,6 @@ async function getProduct() {
 
 // default image
 const defaultProductImage = "/images/product/default-product.png"
-
-// helper function
-const getProductImage = (product) => {
-    const images = product?.images
-
-    if (Array.isArray(images) && images.length > 0) {
-        const primary = images.find(i => i.is_primary)
-        return makeImg((primary || images[0]).image_path)
-    }
-
-    return defaultProductImage
-}
 
 
 onMounted(() => {
