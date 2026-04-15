@@ -19,13 +19,16 @@
                 <img src="/logo/white-logo.png" alt="Logo" class="hidden dark:block w-6 h-6 object-contain drop-shadow-[0_4px_8px_rgba(163,217,33,0.3)]" />
                 </div>
                 <span class="text-sm font-black tracking-tighter uppercase italic text-slate-900 dark:text-white">
-                Mercuvaix <span class="text-[#A3D921]">Business</span>
+                Dynamic <span class="text-[#38808d]">Bazar</span> Merchant BD
                 </span>
             </a>
             
             <div class="hidden md:block h-4 w-px bg-slate-300 dark:bg-slate-800"></div>
                 <p class="text-[11px] text-slate-500 dark:text-slate-500 font-bold uppercase tracking-widest">
-                    © {{ new Date().getFullYear() }} All Rights Reserved <a href="https://dynamicbazarmerchantbd.com/" class="hover:underline">Dynamic Bazar Merchant BD</a>.
+                    © {{ new Date().getFullYear() }} All Rights Reserved <a href="https://dynamicbazarmerchantbd.com/" class="hover:underline text-[#38808d]">Dynamic Bazar Merchant BD</a>.
+                </p>
+                <p class="text-[11px] text-slate-500 dark:text-slate-500 font-bold uppercase tracking-widest">
+                    Powered By:<a href="https://mercuviax.vercel.app/" target="_black" class="hover:underline italic text-[#A3D921]"> Mercuviax Business</a>.
                 </p>
             </div>
 
@@ -41,9 +44,9 @@
             </div>
 
             <div class="flex items-center gap-4 text-slate-400 dark:text-slate-600">
-                <a href="#" class="hover:text-[#A3D921] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="hover:text-[#A3D921] transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a href="#" class="hover:text-[#A3D921] transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-github"></i></a>
             </div>
             </div>
 

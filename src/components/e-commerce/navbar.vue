@@ -20,12 +20,13 @@
                 <div class="flex items-center justify-between h-20 gap-4 sm:gap-8">
                     
                     <router-link to="/" class="flex items-center gap-2 group shrink-0">
-                        <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:rotate-6 transition-transform">
-                            <i class="fa-solid fa-bolt-lightning text-white text-lg"></i>
+                        <div class="relative flex items-center justify-center overflow-hidden h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-transform group-hover:scale-105">
+                            <img src="/logo/logo.png" alt="Brand Logo" class="w-7 h-7 object-contain drop-shadow-sm dark:hidden" />
+                            <img src="/logo/white-logo.png" alt="Brand Logo" class="hidden dark:block w-7 h-7 object-contain drop-shadow-[0_4px_10px_rgba(163,217,33,0.3)]" />
                         </div>
                         <div class="flex flex-col leading-none">
                             <span class="font-black text-lg sm:text-xl tracking-tighter text-gray-900 dark:text-white uppercase">
-                                Dynamic<span class="text-indigo-600">Bazar</span>
+                                Dynamic<span class="text-[#38808d]"> Bazar</span>
                             </span>
                             <span class="text-[8px] sm:text-[9px] font-bold text-gray-400 uppercase tracking-[0.3em]">Premium Store</span>
                         </div>
