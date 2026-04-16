@@ -23,6 +23,7 @@ import treeUser from '../components/Auth/tree-user.vue';
 // E-commerce Routes
 import Home from '../components/e-commerce/home.vue';
 import productDetails from '../components/e-commerce/product-details.vue';
+import CartDetails from '../components/e-commerce/cart.vue';
 
 
 
@@ -72,6 +73,7 @@ const routes = [
   // Public E-commerce Routes
   { path: '/', component: Home, meta: {title: "Home - Mercuvaix"} },
   { path: '/product-details/:slug', component: productDetails, meta: { title: "Product Details"} },
+  { path: '/cart', component: CartDetails, meta: { title: "Cart", requiresAuth: true} },
 
 
 

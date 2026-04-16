@@ -46,7 +46,7 @@
 
                     <div class="flex items-center gap-2 sm:gap-4">
                         
-                        <button class="relative w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
+                        <button @click="goToCart()" class="relative w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
                             <i class="fa-solid fa-bag-shopping"></i>
                             <span class="absolute -top-1 -right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] font-black flex items-center justify-center rounded-full border-2 border-white dark:border-[#080809]">{{ cartStore.items.reduce((total, item) => total + item.quantity, 0) }}</span>
                         </button>
@@ -221,7 +221,9 @@ function handleLogout() {
 
 
 
-
+function goToCart() {
+    router.push('/cart');
+}
 
 const cartStore = useCartStore()
 
