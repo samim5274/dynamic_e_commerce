@@ -48,7 +48,7 @@
                         
                         <button class="relative w-11 h-11 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
                             <i class="fa-solid fa-bag-shopping"></i>
-                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] font-black flex items-center justify-center rounded-full border-2 border-white dark:border-[#080809]">0</span>
+                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-indigo-600 text-white text-[9px] font-black flex items-center justify-center rounded-full border-2 border-white dark:border-[#080809]">{{ cartStore.items.reduce((total, item) => total + item.quantity, 0) }}</span>
                         </button>
 
                         <div class="relative group" v-if="authUser">
@@ -194,10 +194,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import api from '../../services/api'
-import { useAuth } from '../../stores/auth'
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import api from '../../services/api';
+import { useAuth } from '../../stores/auth';
+import { useCartStore } from './stores/cart.js';
 
 const router = useRouter()
 
@@ -217,4 +218,19 @@ function handleLogout() {
     router.push("/login")
     emit('logout')
 }
+
+
+
+
+
+const cartStore = useCartStore()
+
+onMounted(async () => {
+    try {
+        await cartStore.fetchCart()
+        // console.log(cartStore.items)
+    } catch (error) {
+        console.error('Navbar cart error:', error)
+    }
+})
 </script>

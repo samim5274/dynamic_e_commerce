@@ -153,6 +153,10 @@
                                                     <span class="text-[10px] font-black text-indigo-600 dark:text-indigo-400">
                                                         ৳{{ variant.price }}
                                                     </span>
+                                                    <span class="w-px h-2 bg-gray-200 dark:bg-gray-700"></span>
+                                                    <span class="text-[10px] font-black text-indigo-600 dark:text-indigo-400">
+                                                        {{ variant.stock_quantity }}
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -247,6 +251,7 @@ import Message from '../Message/message.vue';
 import Navbar from './navbar.vue';
 import FooterSection from './footer.vue';
 import { useAuth } from '../../stores/auth';
+import { useCartStore } from './stores/cart';
 
 const route = useRoute();
 
@@ -273,7 +278,8 @@ const errorMsg = ref('');
 const qty = ref(1)
 const selectedVariant = ref(null)
 const isAddingToCart = ref(false);
-
+const CartItem = ref(null);
+const cartStore = useCartStore();
 
 
 async function addToCart(product) {
@@ -290,18 +296,38 @@ async function addToCart(product) {
 
     try {
         isAddingToCart.value = true;
-        const res = await api.post("/public/add-to-cart", cartData);
-        // Success handling
+
+        const res = await api.post("/cart/add-to-cart", cartData);
+
         if (res.data?.success) {
-            successMsg.value = res.data.message || "Added to cart!", "success";
+            successMsg.value = res.data.message || "Added to cart!";
+            errorMsg.value = null;
+
             qty.value = 1;
+            CartItem.value = res.data.data;
+
+            cartStore.addToCartLocal({
+                product_id: product.id,
+                variant_id: selectedVariant.value.id,
+                quantity: qty.value,
+                price: selectedVariant.value.price || product.price
+            })
+
+            // console.log(CartItem.value);
         } else {
-            errorMsg.value = res.data?.message || "Something went wrong", "error";
+            errorMsg.value = res.data?.message || "Something went wrong";
+            successMsg.value = null;
         }
-        console.log(successMsg.value);
-    } catch (err) {
-        errorMsg.value = err;
-        console.error("Add to cart error:", err);
+
+    } catch (error) {
+
+        if (error.response) {
+            errorMsg.value = error.response.data?.message || "Server error";
+        } else {
+            errorMsg.value = "Network error";
+            console.error(error);
+        }
+
     } finally {
         isAddingToCart.value = false;
     }
