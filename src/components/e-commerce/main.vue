@@ -105,7 +105,7 @@
 
 
 
-                                    <img :src="getProductImage(product)" :alt="product.name"
+                                    <img @click="ProductDetails(product)" :src="getProductImage(product)" :alt="product.name"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out">
 
 

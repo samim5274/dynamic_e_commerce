@@ -74,7 +74,7 @@
                             class="group relative bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-300 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
                             
                             <div class="flex flex-col sm:flex-row gap-6">
-                                <div class="relative w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-700">
+                                <div @click="ProductDetails(item)" class="relative w-20 h-20 rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-700">
                                     <img :src="getProductImage(item)" :alt="item.product?.name || 'Product Image'"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                         @error="(e) => e.target.src = defaultProductImage" />
@@ -83,7 +83,7 @@
                                 <div class="flex-1 flex flex-col justify-between">
                                     <div class="flex justify-between items-start">
                                         <div>
-                                            <h3 class="text-lg font-black text-gray-900 dark:text-white group-hover:text-indigo-600 transition-colors line-clamp-1">
+                                            <h3  @click="ProductDetails(item)" class="text-lg font-black text-gray-900 dark:text-white group-hover:text-indigo-600 transition-colors line-clamp-1 hover:underline">
                                                 {{ item.product?.name }}
                                             </h3>
                                             <div class="flex flex-wrap gap-2 mt-2">
@@ -216,7 +216,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import api from '../../services/api';
 import Message from '../Message/message.vue';
 import Navbar from './navbar.vue';
@@ -224,7 +224,7 @@ import FooterSection from './footer.vue';
 import { useAuth } from '../../stores/auth';
 
 const route = useRoute();
-
+const router = useRouter();
 
 
 
@@ -382,6 +382,11 @@ const getProductImage = (item) => {
 
 
 
+
+
+function ProductDetails(item) {
+    router.push(`/product-details/${item.product.slug}`)
+}
 
 
 
