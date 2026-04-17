@@ -45,7 +45,7 @@
                             <span class="text-gray-900 dark:text-white">Shopping Cart</span>
                         </nav>
                         <h1 class="text-4xl font-black text-gray-900 dark:text-white tracking-tight">
-                            Shopping Cart <span class="text-indigo-600">.</span>
+                            Shopping Cart <span class="text-indigo-600"></span>
                         </h1>
                     </div>
                     <div class="bg-white dark:bg-gray-800 px-5 py-2 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
@@ -125,9 +125,25 @@
                                             </button>
                                         </div>
 
-                                        <div class="text-right">
-                                            <p class="text-xs font-black text-gray-400 uppercase tracking-widest">Subtotal</p>
-                                            <p class="text-xl font-black text-gray-900 dark:text-white">৳ {{ (item.price * item.quantity).toLocaleString() }}</p>
+                                        <div class="text-right flex flex-col items-end">
+                                            <div class="flex items-center gap-1.5 mb-1">
+                                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Unit:</span>
+                                                <span class="text-sm font-bold text-gray-500 dark:text-gray-400">
+                                                    ৳{{ Number(item.price).toLocaleString() }}
+                                                </span>
+                                            </div>
+
+                                            <p class="text-[10px] font-black text-indigo-500/60 dark:text-indigo-400/60 uppercase tracking-widest mb-0.5">
+                                                Subtotal
+                                            </p>
+
+                                            <p class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter">
+                                                <span class="text-lg mr-0.5">৳</span>{{ (Number(item.price) * item.quantity).toLocaleString() }}
+                                            </p>
+                                            
+                                            <span v-if="item.discount > 0" class="text-[9px] font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 px-1.5 py-0.5 rounded mt-1">
+                                                You saved ৳{{ (item.discount * item.quantity).toLocaleString() }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -136,9 +152,9 @@
                     </div>
 
                     <div class="lg:col-span-4">
-                        <div class="sticky top-24 bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div class="sticky top-24 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm border border-gray-300 dark:border-gray-700">
                             <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                Summary <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                Order Summary <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                             </h2>
 
                             <div class="space-y-4">
@@ -167,7 +183,7 @@
                                     </div>
                                 </div>
 
-                                <button class="w-full mt-8 bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-2xl font-black text-lg transition-all shadow-xl shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-3 group">
+                                <button class="w-full mt-8 bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-black text-lg transition-all shadow-xl shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-3 group">
                                     Checkout Now
                                     <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                                 </button>
@@ -229,7 +245,7 @@ async function getCartItems() {
     try {
         const res = await api.get(`/cart`);
         cartItems.value = res.data.data;
-        console.log(cartItems.value);
+        // console.log(cartItems.value);
     } catch (err) {
         console.error(err);
         errorMsg.value = err || "Something is wrong";
@@ -319,8 +335,27 @@ async function updateQty(item) {
 
 
 
-function remove(item) {
-    cartItems.value = cartItems.value.filter(i => i.id !== item.id)
+async function remove(item) {
+    try {
+        const res = await api.post(`/cart/remove-to-cart/${item.id}/${item.reg}/${item.product_id}/${item.variant_id}`, {
+            quantity: Number(item.quantity),
+        });
+        if (res?.data?.status === 'success') {
+            item.quantity = Number(res.data.quantity);
+            if (res.data.available_stock !== undefined) {
+                item.available_stock = res.data.available_stock;
+            }
+        }
+        await getCartItems(); 
+    } catch (err) {
+        await getCartItems();
+        const msg = err?.response?.data?.message || "Something went wrong.";
+        errorMsg.value = msg;
+        
+        setTimeout(() => {
+            errorMsg.value = "";
+        }, 3000);
+    }
 }
 
 

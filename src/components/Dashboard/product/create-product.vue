@@ -187,7 +187,7 @@
                                     <i class="fa-solid fa-x"></i>
                                 </button>
 
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Color</label>
                                         <input v-model="variant.color" type="text" class="input mt-1" placeholder="e.g. Red / #000"/>
@@ -199,6 +199,10 @@
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Price</label>
                                         <input v-model="variant.price" type="number" class="input mt-1" placeholder="Variant Price"/>
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Discount Price</label>
+                                        <input v-model="variant.discount_price" type="number" class="input mt-1" placeholder="Variant Discount Price"/>
                                     </div>
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Stock</label>
@@ -485,6 +489,7 @@ async function submit(){
             fd.append(`variants[${i}][color]`, variant.color || '');
             fd.append(`variants[${i}][size]`, variant.size || '');
             fd.append(`variants[${i}][price]`, variant.price || 0);
+            fd.append(`variants[${i}][discount_price]`, variant.discount_price || 0);
             fd.append(`variants[${i}][stock]`, variant.stock || 0);
         })
 
