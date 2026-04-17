@@ -106,7 +106,7 @@
                                             </div>
                                         </div>
                                         <button @click="remove(item)" 
-                                            class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                                            class="w-10 h-10 flex items-center justify-center rounded-xl text-gray-400 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-red-500 transition-all">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </div>
