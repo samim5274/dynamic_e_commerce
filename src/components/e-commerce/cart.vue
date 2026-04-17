@@ -157,7 +157,7 @@
                                 Order Summary <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                             </h2>
 
-                            <div class="space-y-4">
+                            <div class="space-y-4">                                
                                 <div class="flex justify-between font-bold">
                                     <span class="text-gray-500">Subtotal</span>
                                     <span class="text-gray-900 dark:text-white">৳ {{ subtotal.toLocaleString() }}</span>
@@ -169,6 +169,11 @@
                                 <div class="flex justify-between font-bold text-sm">
                                     <span class="text-gray-500">Estimated Tax</span>
                                     <span class="text-gray-900 dark:text-white">৳ 0</span>
+                                </div>
+
+                                <div class="flex justify-between font-bold text-sm">
+                                    <span class="text-gray-500">Discount</span>
+                                    <span class="text-gray-900 dark:text-white">৳ {{ discount.toLocaleString() }}</span>
                                 </div>
                                 
                                 <div class="h-px bg-gray-100 dark:bg-gray-700 my-6"></div>
@@ -183,7 +188,7 @@
                                     </div>
                                 </div>
 
-                                <button class="w-full mt-8 bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-black text-lg transition-all shadow-xl shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-3 group">
+                                <button @click="checkOut(cartItems)" class="w-full mt-8 bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-black text-lg transition-all shadow-xl shadow-indigo-200 dark:shadow-none flex items-center justify-center gap-3 group">
                                     Checkout Now
                                     <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                                 </button>
@@ -274,6 +279,14 @@ const subtotal = computed(() =>
 )
 
 
+// Discount
+const discount = computed(() =>
+    (cartItems.value || []).reduce((sum, i) => {
+        return sum + (Number(i.discount) * Number(i.quantity))
+    }, 0)
+)
+
+
 // qty update 
 const qtyTimers = {};
 
@@ -358,6 +371,46 @@ async function remove(item) {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+async function  checkOut(cartItems) {
+    loading.value = true;
+    errorMsg.value = "";
+    successMsg.value = "";
+
+    try{
+        const reg = cartItems?.[0]?.reg;
+        if(!reg || cartItems.length === 0){
+            errorMsg.value = "Cart is empty.";
+            return;
+        }
+
+        const payload = {
+            reg,
+            discount: Number(discount.value || 0),
+            vat_rate: Number(vatRate.value || 0),
+            payment_method_id: paymentMethod.value,
+            received_amount: Number(paymentMethod.value) === cashMethodId.value ? Number(paidAmount.value || 0) : 0,
+        }
+        
+        console.log("Reg:", reg);
+    } catch (err) {
+        console.log(err?.response?.data?.message);
+        errorMsg.value = err?.response?.data?.message || "Order failed";
+        errorMsg.value = "Order failed";
+    } finally {
+        loading.value = false;
+    }
+}
 
 
 

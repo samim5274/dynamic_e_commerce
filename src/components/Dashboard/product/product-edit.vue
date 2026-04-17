@@ -187,7 +187,7 @@
                                     <i class="fa-solid fa-x"></i>
                                 </button>
 
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Color</label>
                                         <input v-model="variant.color" type="text" class="input mt-1" placeholder="e.g. Red / #000"/>
@@ -199,6 +199,10 @@
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Price</label>
                                         <input v-model="variant.price" type="number" class="input mt-1" placeholder="Variant Price"/>
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Discount Price</label>
+                                        <input v-model="variant.discount_price" type="number" class="input mt-1" placeholder="Variant Price"/>
                                     </div>
                                     <div>
                                         <label class="text-xs font-bold text-slate-500 uppercase">Stock</label>
@@ -497,7 +501,7 @@ const filteredSubCategories = computed(() => {
 
 // --- VARIANTS ---
 function addVariant() {
-    form.variants.push({ color: '', size: '', price: form.price || 0, stock: 0 })
+    form.variants.push({ color: '', size: '', price: form.price || 0, discount_price: 0, stock: 0 })
 }
 function removeVariant(i) { form.variants.splice(i, 1) }
 
@@ -591,6 +595,7 @@ async function submitEdit() {
                 fd.append(`variants[${i}][color]`, v.color || '');
                 fd.append(`variants[${i}][size]`, v.size || '');
                 fd.append(`variants[${i}][price]`, v.price || 0);
+                fd.append(`variants[${i}][discount_price]`, v.discount_price || 0);
                 fd.append(`variants[${i}][stock]`, v.stock || 0);
             });
         }
