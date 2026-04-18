@@ -125,6 +125,19 @@
                                             </button>
                                         </div>
 
+                                        <div class="flex flex-col items-end px-3 py-2 bg-indigo-50/50 dark:bg-indigo-500/5 rounded-xl border border-indigo-100/50 dark:border-indigo-500/10">
+                                            <p class="flex items-center gap-1 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.15em] mb-0.5">
+                                                <i class="fa-solid fa-arrows-to-circle"></i>
+                                                Points Earned
+                                            </p>
+
+                                            <div class="flex items-baseline gap-1">
+                                                <span class="text-2xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+                                                    {{ (Number(item.point) * item.quantity).toLocaleString() }}
+                                                </span>
+                                                <span class="text-[10px] font-bold text-indigo-500/80 dark:text-indigo-400/80 uppercase">pts</span>
+                                            </div>
+                                        </div>
                                         <div class="text-right flex flex-col items-end">
                                             <div class="flex items-center gap-1.5 mb-1">
                                                 <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Unit:</span>
@@ -165,6 +178,10 @@
                                 <div class="flex justify-between font-bold text-sm">
                                     <span class="text-gray-500">Shipping</span>
                                     <span class="text-emerald-500">FREE</span>
+                                </div>
+                                <div class="flex justify-between font-bold text-sm">
+                                    <span class="text-gray-500">Point</span>
+                                    <span class="text-gray-500">{{ totalPoint.toLocaleString() }}</span>
                                 </div>
                                 <div class="flex justify-between font-bold text-sm">
                                     <span class="text-gray-500">Estimated Tax</span>
@@ -271,6 +288,13 @@ async function getCartItems() {
 const subtotal = computed(() =>
     (cartItems.value || []).reduce((sum, i) => {
         return sum + (Number(i.price) * Number(i.quantity))
+    }, 0)
+)
+
+// total point
+const totalPoint = computed(() =>
+    (cartItems.value || []).reduce((sum, i) => {
+        return sum + (Number(i.point) * Number(i.quantity))
     }, 0)
 )
 

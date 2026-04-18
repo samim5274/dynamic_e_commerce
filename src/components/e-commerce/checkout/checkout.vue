@@ -189,6 +189,10 @@
                                     <span class="text-emerald-500">FREE</span>
                                 </div>
                                 <div class="flex justify-between font-bold text-sm">
+                                    <span class="text-gray-500">Point</span>
+                                    <span class="text-gray-500">{{ totalPoint.toLocaleString() }}</span>
+                                </div>
+                                <div class="flex justify-between font-bold text-sm">
                                     <span class="text-gray-500">Estimated Tax</span>
                                     <span class="text-gray-900 dark:text-white">৳ 0</span>
                                 </div>
@@ -309,6 +313,13 @@ const subtotal = computed(() => {
         return sum + (Number(item.price) * Number(item.quantity));
     }, 0);
 });
+
+// total point
+const totalPoint = computed(() =>
+    (cartItems.value || []).reduce((sum, i) => {
+        return sum + (Number(i.point) * Number(i.quantity))
+    }, 0)
+)
 
 const total = computed(() => {
     return subtotal.value;

@@ -50,7 +50,13 @@
 
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             <div class="lg:col-span-2 space-y-6">
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                    <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Payment Date</p>
+                                        <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                            {{ order.paid_at ? formatDate(order.paid_at) : 'Waiting for Payment' }}
+                                        </p>
+                                    </div>
                                     <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
                                         <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Total Amount</p>
                                         <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ order.currency }} ৳ {{ order.amount.toLocaleString() }}</p>
@@ -58,21 +64,19 @@
                                     <div 
                                         @click="isStatusModalOpen = true" 
                                         class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group">
-                                            <div class="flex justify-between items-start">
-                                                <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Order Status</p>
-                                                <i class="fa-solid fa-pencil h-4 w-4 text-slate-400 opacity-0 group-hover:opacity-100 transition"></i>
-                                            </div>
-                                            
-                                            <span :class="getStatus(order.status).container" class="px-3 py-1 rounded-lg text-[11px] font-bold uppercase inline-flex items-center gap-2 border border-transparent dark:border-current/10">
-                                                <span class="h-2 w-2 rounded-full" :class="getStatus(order.status).dot"></span>
-                                                {{ order.status }}
-                                            </span>
+                                        <div class="flex justify-between items-start">
+                                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Order Status</p>
+                                            <i class="fa-solid fa-pencil h-4 w-4 text-slate-400 opacity-0 group-hover:opacity-100 transition"></i>
                                         </div>
+                                        
+                                        <span :class="getStatus(order.status).container" class="px-3 py-1 rounded-lg text-[11px] font-bold uppercase inline-flex items-center gap-2 border border-transparent dark:border-current/10">
+                                            <span class="h-2 w-2 rounded-full" :class="getStatus(order.status).dot"></span>
+                                            {{ order.status }}
+                                        </span>
+                                    </div>
                                     <div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-                                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Payment Date</p>
-                                        <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                                            {{ order.paid_at ? formatDate(order.paid_at) : 'Waiting for Payment' }}
-                                        </p>
+                                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Total Point</p>
+                                        <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ order.point.toLocaleString() }}</p>
                                     </div>
                                 </div>
 
@@ -150,6 +154,19 @@
                                                             class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-50 dark:bg-slate-800 text-slate-400 border border-slate-100 dark:border-slate-700">
                                                         Standard
                                                     </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="flex flex-col md:items-end justify-center min-w-[120px]">
+                                                    <p class="flex items-center gap-1 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.15em] mb-0.5">
+                                                        <i class="fa-solid fa-arrows-to-circle"></i>
+                                                        Points Earned
+                                                    </p>
+                                                    <div class="flex items-baseline gap-1">
+                                                        <span class="text-2xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
+                                                            {{ (Number(item.point) * item.quantity).toLocaleString() }}
+                                                        </span>
+                                                        <span class="text-[10px] font-bold text-indigo-500/80 dark:text-indigo-400/80 uppercase">pts</span>
                                                     </div>
                                                 </div>
 
