@@ -201,7 +201,7 @@
                                         <input v-model="variant.price" type="number" class="input mt-1" placeholder="Variant Price"/>
                                     </div>
                                     <div>
-                                        <label class="text-xs font-bold text-slate-500 uppercase">Discount Price</label>
+                                        <label class="text-xs font-bold text-slate-500 uppercase">Discount</label>
                                         <input v-model="variant.discount_price" type="number" class="input mt-1" placeholder="Variant Discount Price"/>
                                     </div>
                                     <div>
