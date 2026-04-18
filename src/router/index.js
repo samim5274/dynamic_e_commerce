@@ -24,6 +24,7 @@ import treeUser from '../components/Auth/tree-user.vue';
 import Home from '../components/e-commerce/home.vue';
 import productDetails from '../components/e-commerce/product-details.vue';
 import CartDetails from '../components/e-commerce/cart.vue';
+import Checkout from '../components/e-commerce/checkout/checkout.vue';
 
 
 
@@ -74,6 +75,7 @@ const routes = [
   { path: '/', component: Home, meta: {title: "Home - Mercuvaix"} },
   { path: '/product-details/:slug', component: productDetails, meta: { title: "Product Details"} },
   { path: '/cart', component: CartDetails, meta: { title: "Cart", requiresAuth: true} },
+  { path: '/checkout/:reg', component: Checkout, meta: { title: "Checkout", requiresAuth: true} },
 
 
 

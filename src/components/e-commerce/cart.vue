@@ -152,7 +152,7 @@
                     </div>
 
                     <div class="lg:col-span-4">
-                        <div class="sticky top-24 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm border border-gray-300 dark:border-gray-700">
+                        <div class="sticky top-10 bg-white dark:bg-gray-800 rounded-xl p-8 shadow-sm border border-gray-300 dark:border-gray-700">
                             <h2 class="text-xl font-black text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                                 Order Summary <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                             </h2>
@@ -169,11 +169,6 @@
                                 <div class="flex justify-between font-bold text-sm">
                                     <span class="text-gray-500">Estimated Tax</span>
                                     <span class="text-gray-900 dark:text-white">৳ 0</span>
-                                </div>
-
-                                <div class="flex justify-between font-bold text-sm">
-                                    <span class="text-gray-500">Discount</span>
-                                    <span class="text-gray-900 dark:text-white">৳ {{ discount.toLocaleString() }}</span>
                                 </div>
                                 
                                 <div class="h-px bg-gray-100 dark:bg-gray-700 my-6"></div>
@@ -223,6 +218,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import api from '../../services/api';
+
 import Message from '../Message/message.vue';
 import Navbar from './navbar.vue';
 import FooterSection from './footer.vue';
@@ -275,14 +271,6 @@ async function getCartItems() {
 const subtotal = computed(() =>
     (cartItems.value || []).reduce((sum, i) => {
         return sum + (Number(i.price) * Number(i.quantity))
-    }, 0)
-)
-
-
-// Discount
-const discount = computed(() =>
-    (cartItems.value || []).reduce((sum, i) => {
-        return sum + (Number(i.discount) * Number(i.quantity))
     }, 0)
 )
 
@@ -393,16 +381,8 @@ async function  checkOut(cartItems) {
             errorMsg.value = "Cart is empty.";
             return;
         }
-
-        const payload = {
-            reg,
-            discount: Number(discount.value || 0),
-            vat_rate: Number(vatRate.value || 0),
-            payment_method_id: paymentMethod.value,
-            received_amount: Number(paymentMethod.value) === cashMethodId.value ? Number(paidAmount.value || 0) : 0,
-        }
         
-        console.log("Reg:", reg);
+        router.push(`/checkout/${reg}`);
     } catch (err) {
         console.log(err?.response?.data?.message);
         errorMsg.value = err?.response?.data?.message || "Order failed";
