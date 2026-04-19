@@ -200,6 +200,7 @@
         </main>
         </div>
     </div>
+    <FooterSection />
 </template>
 
 <script setup>
@@ -209,6 +210,7 @@ import Message from '../../Message/message.vue'
 
 import Navbar from "./admin-navbar.vue";
 import Header from "./admin-header.vue";
+import FooterSection from "../../e-commerce/footer.vue";
 
 /** small inline components */
 const InfoRow = (props) =>

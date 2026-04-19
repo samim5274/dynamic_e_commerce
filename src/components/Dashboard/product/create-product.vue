@@ -272,6 +272,7 @@
         </div>
         
     </div>
+    <FooterSection />
 </template>
 
 <script setup>
@@ -281,7 +282,8 @@ import api from '../../../services/api.js'
 
 import Navbar from "../admin/admin-navbar.vue";
 import HeaderSection from "../admin/admin-header.vue";
-import Message from '../../Message/message.vue'
+import Message from '../../Message/message.vue';
+import FooterSection from "../../e-commerce/footer.vue";
 
 const router = useRouter()
 

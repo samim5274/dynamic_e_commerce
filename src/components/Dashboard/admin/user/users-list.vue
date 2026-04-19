@@ -44,6 +44,7 @@
     </div>
     
   </div>
+  <FooterSection />
 </template>
 
 <script setup>
@@ -52,7 +53,8 @@ import { useRouter } from "vue-router";
 
 import Navbar from '../admin-navbar.vue';
 import Header from '../admin-header.vue';
-import Message from '../../../Message/message.vue'
+import Message from '../../../Message/message.vue';
+import FooterSection from "../../../e-commerce/footer.vue";
 import rightSection from './user-list-right.vue';
 import leftSection from './user-list-left.vue';
 

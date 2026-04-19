@@ -38,6 +38,7 @@
     </div>
     
   </div>
+  <FooterSection />
 </template>
 
 <script setup>
@@ -49,6 +50,7 @@ import Header from '../admin-header.vue';
 import rightSection from './user-list-right.vue';
 import leftSection from './user-list-left.vue';
 import Maintenance from '../../../Auth/maintenance.vue';
+import FooterSection from "../../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");

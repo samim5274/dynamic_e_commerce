@@ -22,7 +22,7 @@
 
             <!-- Content -->
             <div class="flex-1 min-w-0">
-                <main class="flex-1 min-w-0 bg-gray-50 dark:bg-[#0C1326] px-4 sm:px-6 lg:px-8 py-6">
+                <main class="flex-1 min-w-0 min-h-full bg-gray-50 dark:bg-[#0C1326] px-4 sm:px-6 lg:px-8 py-6">
                     <!-- Header -->
                     <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>
@@ -369,6 +369,7 @@
         </div>
         
     </div>
+    <FooterSection />
 </template>
 
 <script setup>
@@ -379,6 +380,7 @@ import api, { makeImg } from "../../../../services/api.js";
 import Navbar from '../admin-navbar.vue';
 import Header from '../admin-header.vue';
 import Message from '../../../Message/message.vue';
+import FooterSection from "../../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");

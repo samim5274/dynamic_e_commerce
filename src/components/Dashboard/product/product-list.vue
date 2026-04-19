@@ -185,7 +185,7 @@
                 </div>
             </div>
         </div>
-        <Footer />
+        <FooterSection />
     </div>
 </template>
 
@@ -197,7 +197,7 @@ import api, {makeImg} from '../../../services/api.js'
 import Navbar from "../admin/admin-navbar.vue";
 import HeaderSection from "../admin/admin-header.vue";
 import Message from '../../Message/message.vue'
-import Footer from '../admin/admin-footer.vue';
+import FooterSection from "../../e-commerce/footer.vue";
 
 const router = useRouter()
 

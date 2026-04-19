@@ -37,7 +37,7 @@
 
                     
                     <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto max-h-[850px]">
                             <table class="w-full text-left border-collapse">
                                 <thead class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
                                 <tr>
@@ -116,7 +116,7 @@
                 </main>
             </div>
         </div>
-        
+        <FooterSection />
     </div>
 </template>
 
@@ -128,6 +128,7 @@ import api from '../../../services/api';
 import Navbar from '../admin/admin-navbar.vue';
 import Header from '../admin/admin-header.vue';
 import Message from '../../Message/message.vue';
+import FooterSection from "../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");

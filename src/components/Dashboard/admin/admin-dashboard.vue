@@ -28,6 +28,7 @@
     </div>
     
   </div>
+  <FooterSection />
 </template>
 
 <script setup>
@@ -38,6 +39,7 @@ import Navbar from './admin-navbar.vue';
 import Header from './admin-header.vue';
 import Main from './admin-main.vue';
 import Message from '../../Message/message.vue'
+import FooterSection from "../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");
