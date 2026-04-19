@@ -69,6 +69,8 @@ import Status from '../components/Dashboard/order/status.vue';
 import Dashboard from '../components/Dashboard/customer/dashboard.vue'
 import Profile from '../components/Dashboard/customer/profile.vue'
 import Reference from '../components/Dashboard/customer/reference.vue';
+import CustomerOrders from '../components/Dashboard/customer/order/order-list.vue';
+import C_OrderDetails from '../components/Dashboard/customer/order/order-details.vue';
 
 
 
@@ -122,6 +124,8 @@ const routes = [
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},
   { path: '/profile', component: Profile, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Profile"}},
   { path: '/reference', component: Reference, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Reference"}},
+  { path: '/orders-list', component: CustomerOrders, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Orders"}},
+  { path: '/orders-details/:reg/:slug', component: C_OrderDetails, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Details"}},
 ]
 
 

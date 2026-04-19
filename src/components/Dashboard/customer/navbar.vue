@@ -105,10 +105,10 @@
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
                    focus:outline-none focus:ring-2 focus:ring-slate-500/40
                    hover:bg-slate-100 dark:hover:bg-white/10"
-            :class="activeKey === 'setting'
+            :class="activeKey === 'order'
               ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
               : ''"
-            @click="pick('setting')">
+            @click="pick('order')">
             <span class="opacity-90 w-5 text-center">
               <i class="fa-solid fa-cart-arrow-down"></i>
             </span>
@@ -131,29 +131,9 @@
             <span class="opacity-90 w-5 text-center">
               <i class="fa-solid fa-truck-fast"></i>
             </span>
-            <span class="text-sm font-medium">Delivery</span>
+            <span class="text-sm font-medium">Tracking</span>
           </button>
         </li>
-
-
-
-        <!-- Payment -->
-        <li>
-          <button
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
-                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
-                   hover:bg-slate-100 dark:hover:bg-white/10"
-            :class="activeKey === 'setting'
-              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
-              : ''"
-            @click="pick('setting')">
-            <span class="opacity-90 w-5 text-center">
-              <i class="fa-solid fa-credit-card"></i>
-            </span>
-            <span class="text-sm font-medium">Payment</span>
-          </button>
-        </li>
-
 
 
         <!-- Reference -->
@@ -237,6 +217,8 @@ const routeMap = {
   profile: "/profile",
   reference: "/reference",
   tree: "/tree-user",
+  order: "/orders-list",
+  order_details: "/orders-details",
   setting: "/setting",
   logout: "/login",
 };
@@ -246,15 +228,22 @@ const routeMatch = [
   { key: "profile", prefixes: ["/profile"] },
   { key: "reference", prefixes: ["/reference"] },
   { key: "tree", prefixes: ["/tree-user"] },
+  { key: "order", prefixes: ["/orders-list"] },
+  { key: "order_details", prefixes: ["/orders-details"] },
   { key: "setting", prefixes: ["/setting"] },
   { key: "logout", prefixes: ["/logout"] },
 ];
 
 const activeKey = computed(() => {
   const path = route.path;
+
+  if (path.startsWith("/orders-details")) return "order";
+  if (path.startsWith("/orders-list")) return "order";
+
   const hit = routeMatch.find((r) =>
     r.prefixes.some((pre) => path.startsWith(pre))
   );
+
   return hit?.key ?? "dashboard";
 });
 
@@ -282,14 +271,4 @@ async function pick(key) {
   emit("close");
 }
 
-watch(
-  () => activeKey.value,
-  (k) => {
-    const complainKeys = ["myComplain", "create", "complainList"];
-    if (complainKeys.includes(k)) {
-      pagesOpen.value = true;
-    }
-  },
-  { immediate: true }
-);
 </script>
