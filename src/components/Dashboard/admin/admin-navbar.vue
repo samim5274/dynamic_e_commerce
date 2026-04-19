@@ -399,6 +399,17 @@ const pagesOpen = ref(false);
 const userPagesOpen = ref(false);
 const orderPagesOpen = ref(false);
 
+
+
+
+
+
+
+
+
+
+
+
 const routeMap = {
   dashboard: "/admin/dashboard",
   profile: "/admin/profile",
@@ -416,6 +427,19 @@ const routeMap = {
   logout: "/login",
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const routeMatch = [
   { key: "dashboard", prefixes: ["/admin/dashboard"] },
   { key: "profile", prefixes: ["/admin/profile"] },
@@ -432,6 +456,17 @@ const routeMatch = [
 
   { key: "logout", prefixes: ["/logout"] },
 ];
+
+
+
+
+
+
+
+
+
+
+
 
 const activeKey = computed(() => {
   const path = route.path;
@@ -465,6 +500,16 @@ async function pick(key) {
   emit("close");
 }
 
+
+
+
+
+
+
+
+
+
+
 // product page open close
 watch(
   () => activeKey.value,
@@ -476,6 +521,17 @@ watch(
   },
   { immediate: true }
 );
+
+
+
+
+
+
+
+
+
+
+
 
 // user dropdown
 watch(
@@ -489,11 +545,20 @@ watch(
   {immediate: true }
 );
 
+
+
+
+
+
+
+
+
+
 // Order page open close
 watch(
   () => activeKey.value,
   (k) => {
-    const orderKeys = ["orders",];
+    const orderKeys = ["orders"];
     if (orderKeys.includes(k)) {
       orderPagesOpen.value = true;
     }

@@ -205,15 +205,16 @@
                                         </div>
                                         <div class="p-6 text-center">
                                             <div class="relative inline-block mb-4">
-                                                <div class="h-20 w-20 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/30">
+                                                <img v-if="order.user?.photo" :src="photoUrl" alt="User photo" class="h-16 w-16 rounded-2xl object-cover ring-2 ring-slate-200 dark:ring-white/10"/>
+                                                <div v-else class="h-20 w-20 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-indigo-500/30">
                                                     {{ order.user?.name.substring(0, 2).toUpperCase() }}
                                                 </div>
                                                 <div class="absolute -bottom-2 -right-2 bg-green-500 border-4 border-white dark:border-slate-900 h-6 w-6 rounded-full" title="Active User"></div>
                                             </div>
 
                                             <h4 class="text-lg font-bold text-slate-900 dark:text-white">{{ order.user?.name }}</h4>
-                                            <p class="text-sm text-slate-500 mb-6">Customer ID: {{ order.user_id }}</p>
-                                            <p class="text-sm text-slate-500 mb-6">#{{ order.user?.user_id }}</p>
+                                            <!-- <p class="text-sm text-slate-500 mb-6">Customer ID: {{ order.user_id }}</p> -->
+                                            <p class="text-sm text-slate-500 mb-6">UID:#{{ order.user?.user_id }}</p>
                                         
                                             <div class="text-left space-y-3 border-t border-slate-100 dark:border-slate-800 pt-6">
                                                 <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
@@ -225,7 +226,7 @@
                                                 </div>
                                             </div>
 
-                                            <button class="w-full mt-8 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-bold rounded-xl transition-all border border-transparent hover:border-indigo-200 dark:hover:border-indigo-500/30 text-sm">
+                                            <button @click="viewCustomerFullProfile(order)" class="w-full mt-8 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-bold rounded-xl transition-all border border-transparent hover:border-indigo-200 dark:hover:border-indigo-500/30 text-sm">
                                                 View Full Profile
                                             </button>
                                         </div>
@@ -318,9 +319,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import api from '../../../services/api';
+import api, {makeImg} from '../../../services/api';
 
 import Navbar from '../admin/admin-navbar.vue';
 import Header from '../admin/admin-header.vue';
@@ -402,6 +403,11 @@ const getStatus = (status) => {
 };
 
 
+const photoUrl = computed(() => {
+    const p = order.value?.user?.photo;
+    if (!p) return "/images/avatar.png";
+    return makeImg(p);
+});
 
 
 
@@ -491,6 +497,18 @@ function ProductDetails(item) {
     router.push(`/product-details/${item.product.slug}`)
 }
 
+
+
+
+
+
+
+
+
+
+function viewCustomerFullProfile(order){
+    router.push(`/customer-details/${order?.user.user_id}`);
+}
 
 
 
