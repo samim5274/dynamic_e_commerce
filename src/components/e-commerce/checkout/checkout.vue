@@ -360,7 +360,7 @@ async function confirmPayment(){
         return;
     }
     try {
-        const res = await api.post(`/pay/${routeReg}`);
+        const res = await api.post(`/orders/confirm/${routeReg}`);
         successMsg.value = res.data.message || "Your order is confirmed. Thanks You";
         // console.log(res.data);
         setTimeout(() => {

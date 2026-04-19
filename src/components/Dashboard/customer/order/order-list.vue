@@ -58,20 +58,24 @@
                                 </div>
                                 <select 
                                     v-model="statusFilter" 
-                                    class="min-w-[160px] rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-4 text-sm font-semibold text-slate-700 outline-none transition-all focus:border-indigo-500 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-indigo-500"
-                                >
+                                    class="min-w-[160px] rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-4 text-sm font-semibold text-slate-700 outline-none transition-all focus:border-indigo-500 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-indigo-500">
                                     <option value="">All Statuses</option>
                                     <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
                                     <option value="processing">Processing</option>
+                                    <option value="picked">Picked</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="out for delivery">Out for Delivery</option>
                                     <option value="delivered">Delivered</option>
                                     <option value="cancelled">Cancelled</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="returned">Returned</option>
                                 </select>
 
                                 <button 
                                     @click="resetFilters" 
                                     class="p-2.5 text-slate-400 hover:text-rose-500 transition-colors"
-                                    title="Reset Filters"
-                                >
+                                    title="Reset Filters">
                                     <i class="fa-solid fa-rotate h-5 w-5"></i>
                                 </button>
                             </div>
@@ -205,32 +209,57 @@ async function fetchOrders(){
 }
 
 const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
-
 const statusConfig = {
-    pending: {
+    'pending': {
         container: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
         dot: 'bg-amber-500'
     },
-    processing: {
-        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
-        dot: 'bg-emerald-500'
+    'confirmed': {
+        container: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400',
+        dot: 'bg-sky-500'
     },
-    delivered: {
+    'processing': {
+        container: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400',
+        dot: 'bg-indigo-500'
+    },
+    'picked': {
+        container: 'bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400',
+        dot: 'bg-violet-500'
+    },
+    'shipped': {
         container: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
         dot: 'bg-blue-500'
     },
-    cancelled: {
+    'out for delivery': {
+        container: 'bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400',
+        dot: 'bg-orange-500'
+    },
+    'delivered': {
+        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
+        dot: 'bg-emerald-500'
+    },
+    'cancelled': {
         container: 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
         dot: 'bg-rose-500'
     },
-    default: {
+    'failed': {
+        container: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+        dot: 'bg-red-600'
+    },
+    'returned': {
+        container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
+        dot: 'bg-slate-500'
+    },
+    'default': {
         container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
         dot: 'bg-slate-500'
     }
 };
 
 const getStatus = (status) => {
-    return statusConfig[status.toLowerCase()] || statusConfig.default;
+    if (!status) return statusConfig.default;
+    const normalizedStatus = status.toLowerCase().trim().replace(/_/g, ' ');
+    return statusConfig[normalizedStatus] || statusConfig.default;
 };
 
 // =============================

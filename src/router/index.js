@@ -56,10 +56,10 @@ import ProductEdit from '../components/Dashboard/product/product-edit.vue'
 
 
 // Order Details
-import Orders from '../components/Dashboard/order/order.vue';
-import OrderDetails from '../components/Dashboard/order/order-details.vue';
-import CustomerDetails from '../components/Dashboard/order/customer-details.vue';
-import Status from '../components/Dashboard/order/status.vue';
+import AdminOrders from '../components/Dashboard/order/order.vue';
+import AdminOrderDetails from '../components/Dashboard/order/order-details.vue';
+import AdminCustomerDetails from '../components/Dashboard/order/customer-details.vue';
+import AdminStatus from '../components/Dashboard/order/status.vue';
 
 
 
@@ -71,6 +71,7 @@ import Profile from '../components/Dashboard/customer/profile.vue'
 import Reference from '../components/Dashboard/customer/reference.vue';
 import CustomerOrders from '../components/Dashboard/customer/order/order-list.vue';
 import C_OrderDetails from '../components/Dashboard/customer/order/order-details.vue';
+import C_OrderTracking from '../components/Dashboard/customer/order/tracking.vue';
 
 
 
@@ -109,15 +110,15 @@ const routes = [
 
 
   // Product Routes
-  { path: '/create-product', component: CreateProduct, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Create Product" } },
-  { path: '/products', component: ProductList, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Details" } },
-  { path: '/product-edit/:slug', component: ProductEdit, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Edit Product" } },
+  { path: '/admin/create-product', component: CreateProduct, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Create Product" } },
+  { path: '/admin/products', component: ProductList, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Details" } },
+  { path: '/admin/product-edit/:slug', component: ProductEdit, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Edit Product" } },
 
   // Order Routes
-  { path: '/orders', component: Orders, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Orders"}},
-  { path: '/orders/:reg/:slug', component: OrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},
-  { path: '/customer-details/:user_id', component: CustomerDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Customer Details"}},
-  { path: '/orders/status', component: Status, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
+  { path: '/admin/orders', component: AdminOrders, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Orders"}},
+  { path: '/admin/orders/:reg/:slug', component: AdminOrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},
+  { path: '/admin/customer-details/:user_id', component: AdminCustomerDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Customer Details"}},
+  { path: '/admin/orders/status', component: AdminStatus, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
 
 
   // customer dashboard
@@ -126,6 +127,7 @@ const routes = [
   { path: '/reference', component: Reference, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Reference"}},
   { path: '/orders-list', component: CustomerOrders, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Orders"}},
   { path: '/orders-details/:reg/:slug', component: C_OrderDetails, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Details"}},
+  { path: '/orders-tracking', component: C_OrderTracking, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Tracking"}},
 ]
 
 

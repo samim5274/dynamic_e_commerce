@@ -414,11 +414,11 @@ const routeMap = {
   dashboard: "/admin/dashboard",
   profile: "/admin/profile",
 
-  products: "/products",
-  create: "/create-product",
+  products: "/admin/products",
+  create: "/admin/create-product",
 
-  orders: "/orders",
-  order_status: "/orders/status",
+  orders: "/admin/orders",
+  order_status: "/admin/orders/status",
 
   users: "/admin/users",
   assignUserToTree: "/admin/assign-user-tree",
@@ -446,11 +446,11 @@ const routeMatch = [
   { key: "profile", prefixes: ["/admin/profile"] },
   { key: "setting", prefixes: ["/admin/setting"] },
 
-  { key: "products", prefixes: ["/products", "/product-edit"] },
-  { key: "create", prefixes: ["/create-product"] },
+  { key: "products", prefixes: ["/admin/products", "/admin/product-edit"] },
+  { key: "create", prefixes: ["/admin/create-product"] },
 
-  { key: "order_status", prefixes: ["/orders/status"] },
-  { key: "orders", prefixes: ["/orders"] },
+  { key: "order_status", prefixes: ["/admin/orders/status"] },
+  { key: "orders", prefixes: ["/admin/orders", "/admin/customer-details/"] },
 
   { key: "users", prefixes: ["/admin/users"] },
   { key: "assignUserToTree", prefixes: ["/admin/assign-user-tree"] },

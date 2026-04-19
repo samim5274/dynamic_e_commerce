@@ -256,7 +256,7 @@ const filterProducts = computed(() => {
 
 
 function editProduct(slug){
-    router.push(`/product-edit/${slug}`);
+    router.push(`/admin/product-edit/${slug}`);
 }
 
 

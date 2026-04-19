@@ -269,7 +269,7 @@ const resetFilters = () => {
 
 
 function viewOrderDetails(order){
-    router.push(`/orders/${order.reg}/${order.slug}`);
+    router.push(`/admin/orders/${order.reg}/${order.slug}`);
 }
 
 

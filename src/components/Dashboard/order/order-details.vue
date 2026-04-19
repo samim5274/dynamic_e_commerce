@@ -264,54 +264,52 @@
             enter-to-class="opacity-100"
             leave-active-class="transition duration-200 ease-in"
             leave-from-class="opacity-100"
-            leave-to-class="opacity-0"
-        >
+            leave-to-class="opacity-0">
             <div v-if="isStatusModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
             
-            <div 
-                @click.stop 
-                class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden"
-            >
-                <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Update Order Status</h3>
-                <button @click="isStatusModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-                </div>
-
-                <div class="p-6 space-y-3">
-                <p class="text-sm text-slate-500 mb-4">Select the new status for order #{{ order.reg }}</p>
-                
-                <button 
-                    v-for="(config, statusName) in statusConfig" 
-                    :key="statusName"
-                    @click="updateStatus(statusName)"
-                    class="w-full flex items-center justify-between p-3 rounded-xl border transition-all"
-                    :class="[
-                    order.status.toLowerCase() === statusName 
-                        ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10' 
-                        : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
-                    ]"
-                >
-                    <span :class="config.container" class="px-3 py-1 rounded-lg text-[10px] font-bold uppercase inline-flex items-center gap-2">
-                    <span class="h-2 w-2 rounded-full" :class="config.dot"></span>
-                    {{ statusName }}
-                    </span>
+                <div 
+                    @click.stop 
+                    class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                     
-                    <div v-if="order.status.toLowerCase() === statusName" class="text-indigo-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
+                    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Update Order Status</h3>
+                        <button @click="isStatusModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                            <i class="fa-solid fa-x h-6 w-6"></i>
+                        </button>
                     </div>
-                </button>
-                </div>
 
-                <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end">
-                <button @click="isStatusModalOpen = false" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:underline">
-                    Cancel
-                </button>
+                    <div class="p-6 space-y-3">
+                        <p class="text-sm text-slate-500 mb-4">Select the new status for order #{{ order.reg }}</p>
+                    
+                        <button 
+                            v-for="(config, statusName) in statusConfig" 
+                            :key="statusName"
+                            v-show="statusName !== 'default'"
+                            @click="updateStatus(statusName)"
+                            class="w-full flex items-center justify-between p-3 rounded-xl border transition-all"
+                            :class="[
+                                order.status.toLowerCase() === statusName.toLowerCase() 
+                                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-500/10' 
+                                    : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ]">
+
+                            <span :class="config.container" class="px-3 py-1 rounded-lg text-[10px] font-bold uppercase inline-flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full" :class="config.dot"></span>
+                                {{ statusName }}
+                            </span>
+                            
+                            <div v-if="order.status.toLowerCase() === statusName.toLowerCase()" class="text-indigo-600">
+                                <i class="fa-solid fa-check h-5 w-5"></i>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end">
+                        <button @click="isStatusModalOpen = false" class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:underline">
+                            Cancel
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
         </Transition>
     </Teleport>
@@ -377,32 +375,58 @@ async function fetchOrderDetails(){
 const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
 const statusConfig = {
-    pending: {
+    'Pending': {
         container: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
         dot: 'bg-amber-500'
     },
-    processing: {
-        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
-        dot: 'bg-emerald-500'
+    'Confirmed': {
+        container: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400',
+        dot: 'bg-sky-500'
     },
-    delivered: {
+    'Processing': {
+        container: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400',
+        dot: 'bg-indigo-500'
+    },
+    'Picked': {
+        container: 'bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400',
+        dot: 'bg-violet-500'
+    },
+    'Shipped': {
         container: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
         dot: 'bg-blue-500'
     },
-    cancelled: {
+    'Out for Delivery': {
+        container: 'bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400',
+        dot: 'bg-orange-500'
+    },
+    'Delivered': {
+        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
+        dot: 'bg-emerald-500'
+    },
+    'Cancelled': {
         container: 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
         dot: 'bg-rose-500'
     },
-    default: {
+    'Failed': {
+        container: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
+        dot: 'bg-red-600'
+    },
+    'Returned': {
         container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
         dot: 'bg-slate-500'
+    },
+    default: {
+        container: 'bg-gray-100 text-gray-700 dark:bg-gray-500/10 dark:text-gray-400',
+        dot: 'bg-gray-500'
     }
 };
 
 const getStatus = (status) => {
     if (!status) return statusConfig.default;
-
-    return statusConfig[status.toLowerCase()] || statusConfig.default;
+    const matchedKey = Object.keys(statusConfig).find(
+        key => key.toLowerCase() === status.toLowerCase()
+    );
+    return statusConfig[matchedKey] || statusConfig.default;
 };
 
 
@@ -521,7 +545,7 @@ function ProductDetails(item) {
 
 
 function viewCustomerFullProfile(order){
-    router.push(`/customer-details/${order?.user.user_id}`);
+    router.push(`/admin/customer-details/${order?.user.user_id}`);
 }
 
 
