@@ -418,6 +418,7 @@ const routeMap = {
   create: "/create-product",
 
   orders: "/orders",
+  order_status: "/orders/status",
 
   users: "/admin/users",
   assignUserToTree: "/admin/assign-user-tree",
@@ -448,6 +449,7 @@ const routeMatch = [
   { key: "products", prefixes: ["/products", "/product-edit"] },
   { key: "create", prefixes: ["/create-product"] },
 
+  { key: "order_status", prefixes: ["/orders/status"] },
   { key: "orders", prefixes: ["/orders"] },
 
   { key: "users", prefixes: ["/admin/users"] },
@@ -558,13 +560,24 @@ watch(
 watch(
   () => activeKey.value,
   (k) => {
-    const orderKeys = ["orders"];
+    const orderKeys = ["orders", "order_status"];
     if (orderKeys.includes(k)) {
       orderPagesOpen.value = true;
     }
   },
   { immediate: true }
 );
+
+
+
+
+
+
+
+
+
+
+
 
 
 const authUser = ref({

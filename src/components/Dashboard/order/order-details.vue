@@ -62,7 +62,10 @@
                                         <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ order.currency }} ৳ {{ order.amount.toLocaleString() }}</p>
                                     </div>
                                     <div 
-                                        @click="isStatusModalOpen = true" 
+                                        @click="openStatusModal"
+                                        :class="(order.status === 'cancelled' || order.status === 'delivered')
+                                            ? 'opacity-50 cursor-not-allowed'
+                                            : ''"
                                         class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500 dark:hover:border-indigo-500 transition-all group">
                                         <div class="flex justify-between items-start">
                                             <p class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Order Status</p>
@@ -423,6 +426,17 @@ const photoUrl = computed(() => {
 
 // open pop-up
 const isStatusModalOpen = ref(false);
+
+function openStatusModal() {
+    const status = order.value?.status?.toLowerCase();
+
+    if (status === "cancelled" || status === "delivered") {
+        errorMsg.value = "This order status cannot be modified.";
+        return;
+    }
+
+    isStatusModalOpen.value = true;
+}
 
 async function updateStatus(newStatus){
     try{

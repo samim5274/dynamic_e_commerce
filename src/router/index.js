@@ -59,6 +59,7 @@ import ProductEdit from '../components/Dashboard/product/product-edit.vue'
 import Orders from '../components/Dashboard/order/order.vue';
 import OrderDetails from '../components/Dashboard/order/order-details.vue';
 import CustomerDetails from '../components/Dashboard/order/customer-details.vue';
+import Status from '../components/Dashboard/order/status.vue';
 
 
 
@@ -114,6 +115,7 @@ const routes = [
   { path: '/orders', component: Orders, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Orders"}},
   { path: '/orders/:reg/:slug', component: OrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},
   { path: '/customer-details/:user_id', component: CustomerDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Customer Details"}},
+  { path: '/orders/status', component: Status, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
 
 
   // customer dashboard

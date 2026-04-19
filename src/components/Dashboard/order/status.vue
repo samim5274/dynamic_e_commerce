@@ -27,7 +27,7 @@
                     <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                         <div>
                             <div class="flex items-center gap-3">
-                                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Order Management</h1>
+                                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Status Order Filter</h1>
                                 <span class="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
                                     {{ orders.length }} Orders
                                 </span>
@@ -195,7 +195,7 @@ const errorMsg = ref('');
 const orders = ref([]);
 async function fetchOrders(){
     try{
-        const res = await api.get('/orders');
+        const res = await api.get('/orders/status');
         orders.value = res.data.data;
         // console.log(orders.value);
     } catch(err){
@@ -304,10 +304,6 @@ function toggleTheme() {
 /* ESC to close drawer */
 onMounted(() => {
     fetchOrders();
-
-
-
-
 
 
     window.addEventListener("keydown", (e) => {
