@@ -30,7 +30,7 @@
                             <p class="text-sm text-slate-500 dark:text-slate-400">Manage and track all customer transactions</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <input type="text" placeholder="Search orders..." class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-full md:w-64" />
+                            <input type="text" v-model="search" placeholder="Search orders..." class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-sm w-full md:w-64" />
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@
                                 </thead>
 
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                    <tr v-for="order in orders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                                    <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                                         
                                         <td class="px-6 py-4">
                                             <div class="text-xs text-slate-700 dark:text-slate-300">{{ formatDate(order.date) }}</div>
@@ -121,7 +121,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import api from '../../../services/api';
 
@@ -188,7 +188,19 @@ const getStatus = (status) => {
     return statusConfig[status.toLowerCase()] || statusConfig.default;
 };
 
-
+// =============================
+// Filter orders
+// =============================
+const search = ref("");
+const filteredOrders = computed(() => {
+    if (!search.value) return orders.value;
+    return orders.value.filter(order =>
+        order.reg.toLowerCase().includes(search.value.toLowerCase()) ||
+        order.user?.name.toLowerCase().includes(search.value.toLowerCase()) ||
+        order.user?.user_id.toLowerCase().includes(search.value.toLowerCase()) ||
+        order.transaction_id.toLowerCase().includes(search.value.toLowerCase())
+    );
+});
 
 
 
@@ -229,10 +241,6 @@ function applyTheme(dark) {
 
 function toggleTheme() {
     applyTheme(!isDark.value);
-}
-
-function onSearch(q) {
-    console.log("search:", q);
 }
 
 
