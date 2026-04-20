@@ -47,9 +47,27 @@
                                 </button>
 
                                 <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
-                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Wallet</p>
+                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Balance</p>
                                     <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
-                                        ৳{{ authUser?.wallet_balance || '0.00' }}
+                                        ৳{{ authUser?.bonus_balance || '0.00' }}
+                                    </p>
+                                </div>
+                                <!-- <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
+                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Deposit</p>
+                                    <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
+                                        ৳{{ authUser?.total_deposit_bonus || '0.00' }}
+                                    </p>
+                                </div>
+                                <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
+                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Withdraw</p>
+                                    <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
+                                        ৳{{ authUser?.total_withdraw_bonus || '0.00' }}
+                                    </p>
+                                </div> -->
+                                <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
+                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Points</p>
+                                    <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
+                                        ৳{{ authUser?.total_points || '0.00' }}
                                     </p>
                                 </div>
                             </div>
