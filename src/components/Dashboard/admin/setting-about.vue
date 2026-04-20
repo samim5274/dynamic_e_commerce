@@ -51,7 +51,7 @@
                         <h1 class="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-[1.1]">
                             The Future of <br>
                             <span class="relative">
-                                <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                                <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#2A7B9A] to-[#2D647C]">
                                     Dynamic Bazar Merchant BD
                                 </span>
                                 <span class="absolute bottom-2 left-0 w-full h-3 bg-blue-500/10 -z-10 rounded-full"></span>
