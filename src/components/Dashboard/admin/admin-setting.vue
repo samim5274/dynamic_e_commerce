@@ -90,6 +90,11 @@
                                     </div>
                                 </div>
 
+                                <!-- Privacy & Policy -->
+                                <div v-if="activeTab === 'privacyAndPolicy'">
+                                    <privacyAndPolicy />
+                                </div>
+
                                 <!-- About -->
                                 <div v-if="activeTab === 'about'">
                                     <settingAbout />
@@ -97,12 +102,7 @@
 
                                 <!-- Security -->
                                 <div v-if="activeTab === 'security'">
-                                    <h2 class="section-title">Security</h2>
-
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="number" placeholder="Password Length" class="input"/>
-                                    <input type="number" placeholder="Session Timeout" class="input"/>
-                                    </div>
+                                    <settingSecurity />
                                 </div>
 
                             </div>
@@ -154,6 +154,8 @@ const errorMsg = ref('');
 
 import settingGeneral from "./setting-general.vue";
 import settingAbout from "./setting-about.vue";
+import privacyAndPolicy from "./setting-privacy.vue";
+import settingSecurity from "./setting-security.vue";
 
 
 
@@ -168,7 +170,7 @@ const menus = [
     { key: 'theme', label: 'Theme', icon: 'fa-brands fa-affiliatetheme' },
     { key: 'notification', label: 'Notification', icon: 'fa-solid fa-bell' },
     { key: 'security', label: 'Security', icon: 'fa-solid fa-lock' },
-    { key: 'privacy', label: 'Privacy & Policy', icon: 'fa-solid fa-shield-halved' },
+    { key: 'privacyAndPolicy', label: 'Privacy & Policy', icon: 'fa-solid fa-shield-halved' },
     { key: 'about', label: 'About', icon: 'fa-solid fa-info' },
 ]
 
