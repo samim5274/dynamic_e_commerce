@@ -15,7 +15,7 @@
 
       <!-- Content -->
       <div class="flex-1 min-w-0">
-        <!-- <Main class="w-full h-full" /> -->
+        <Main class="w-full h-full" />
       </div>
     </div>
   </div>

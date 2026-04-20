@@ -206,6 +206,7 @@ async function loadAuthUser() {
     if (!token) {
       isLoggedIn.value = false;
       authUser.value = null;
+      loading.value = false; //
       return;
     }
 
