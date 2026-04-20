@@ -81,13 +81,14 @@
                                     <settingGeneral />
                                 </div>
 
+                                <!-- Theme -->
+                                 <div v-if="activeTab === 'theme'">
+                                    <settingTheme />
+                                 </div>
+
                                 <!-- Notification -->
                                 <div v-if="activeTab === 'notification'">
-                                    <h2 class="section-title">Notification</h2>
-
-                                    <div class="space-y-4">
-                                    kk
-                                    </div>
+                                    <settingNotification />
                                 </div>
 
                                 <!-- Privacy & Policy -->
@@ -156,6 +157,8 @@ import settingGeneral from "./setting-general.vue";
 import settingAbout from "./setting-about.vue";
 import privacyAndPolicy from "./setting-privacy.vue";
 import settingSecurity from "./setting-security.vue";
+import settingNotification from "./setting-notification.vue";
+import settingTheme from "./setting-theme.vue";
 
 
 
