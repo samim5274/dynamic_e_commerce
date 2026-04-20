@@ -73,6 +73,7 @@ import Reference from '../components/Dashboard/customer/reference.vue';
 import CustomerOrders from '../components/Dashboard/customer/order/order-list.vue';
 import C_OrderDetails from '../components/Dashboard/customer/order/order-details.vue';
 import C_OrderTracking from '../components/Dashboard/customer/order/tracking.vue';
+import C_Setting from '../components/Dashboard/customer/setting/setting.vue';
 
 
 
@@ -130,6 +131,7 @@ const routes = [
   { path: '/orders-list', component: CustomerOrders, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Orders"}},
   { path: '/orders-details/:reg/:slug', component: C_OrderDetails, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Details"}},
   { path: '/orders-tracking', component: C_OrderTracking, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Tracking"}},
+  { path: '/setting', component: C_Setting, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Setting"}},
 ]
 
 
