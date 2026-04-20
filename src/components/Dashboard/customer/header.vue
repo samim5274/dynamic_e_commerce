@@ -276,7 +276,7 @@ async function pickProfile(action) {
   }
 
   if (action === "settings") {
-    return router.push("/settings"); 
+    return router.push("/setting"); 
   }
 
 
