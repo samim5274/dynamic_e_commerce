@@ -52,7 +52,7 @@
                             The Future of <br>
                             <span class="relative">
                                 <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                                    Merchant BD
+                                    Dynamic Bazar Merchant BD
                                 </span>
                                 <span class="absolute bottom-2 left-0 w-full h-3 bg-blue-500/10 -z-10 rounded-full"></span>
                             </span>
