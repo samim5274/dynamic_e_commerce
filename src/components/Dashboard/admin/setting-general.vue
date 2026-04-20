@@ -1,23 +1,16 @@
 <template>
-    <div class="max-w-4xl mx-auto p-6 bg-white dark:bg-slate-900 rounded-xl shadow-md border border-slate-100 dark:border-slate-800">
+    <div class="p-6 md:p-10 min-h-screen">
         
-        <!-- Message component -->
-        <Message
-            :successMsg="successMsg"
-            :errorMsg="errorMsg"
-            @update:successMsg="successMsg = $event"
-            @update:errorMsg="errorMsg = $event"
-        />
-
         <!-- Header -->
         <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
-                <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Shop Settings</h1>
+                <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Dynamic Bazar Merchant BD Settings</h1>
                 <p class="text-sm text-slate-500 dark:text-slate-400">Manage your store details and appearance</p>
             </div>
             <div class="relative group">
-                <div v-if="shopLogoPreview" class="h-16 w-16 rounded-full ring-4 ring-emerald-500/20 overflow-hidden">
-                    <img :src="shopLogoPreview" class="h-full w-full object-cover" />
+                <div v-if="bazarLogoLight" class="h-16 w-16 rounded-full ring-4 ring-emerald-500/20 overflow-hidden">
+                    <img :src="bazarLogoLight" class="max-w-full max-h-full object-contain block dark:hidden transition-opacity duration-300" />
+                    <img :src="bazarLogoDark" class="max-w-full max-h-full object-contain hidden dark:block transition-opacity duration-300" />
                 </div>
                 <div v-else class="h-16 w-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border-2 border-dashed border-slate-300">
                     <span class="text-[10px] text-slate-400 font-medium">LOGO</span>
@@ -26,14 +19,13 @@
         </div>
 
         <!-- Main Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 gap-8">
         
             <!-- Branding Assets -->
-            <div class="space-y-6">
+            <!-- <div class="space-y-6">
                 <div>
                     <label class="section-label">Branding Assets</label>
                     
-                    <!-- Logo Upload -->
                     <div class="mt-2 flex flex-col items-center p-4 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl hover:border-emerald-400 transition-colors cursor-pointer relative">
                         <input type="file" @change="onLogoChange" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" />
                         <div v-if="!shopLogoPreview" class="text-center">
@@ -43,7 +35,7 @@
                         <img v-else :src="shopLogoPreview" class="h-24 w-24 object-contain rounded-lg" />
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Shop Details -->
             <div class="lg:col-span-2 space-y-5">
@@ -121,79 +113,32 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import api, { makeImg } from "../../../services/api.js";
-import Message from '../../Message/message.vue'
 
 const loading = ref(false);
-const successMsg = ref("");
-const errorMsg = ref("");
 
-const shopLogoPreview = ref(null);
+
+
+const bazarLogoLight = "/logo/logo.png";
+const bazarLogoDark = "/logo/white-logo.png";
+
+
+
 
 const form = ref({
-    shop_name: '',
-    shop_slug: '',
+    shop_name: 'Dynamic Bazar Merchant BD',
+    shop_slug: 'dynamic-bazar-merchant-bd',
     shopLogo: null,
     shopBanner: null,
-    shop_description: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    country: '',
-    postal_code: '',
+    shop_description: 'Dynamic Bazar Merchant BD is an online e-commerce platform that offers a wide range of products, including electronics, home appliances, and daily essentials. It focuses on providing quality products, attractive deals, and fast delivery, making online shopping convenient and reliable for customers.',
+    email: 'info@dynamicbazarmerchantbd.com',
+    phone: '+8801533021557',
+    address: 'Kaliakair, Gazipur, Dhaka',
+    city: 'Gazipur',
+    state: 'Dhaka',
+    country: 'Bangladesh',
+    postal_code: '1750',
 });
 
-// Fetch vendor
-const fetchVendor = async () => {
-    try {
-        const res = await api.get("/vendor/auth-user");
-        // console.log("Vendor API:", res.data.data);
-        if(res.data.success && res.data.data){
-            const v = res.data.data;
-
-            form.value.shop_name = v.shop_name ?? '';
-            form.value.shop_slug = v.shop_slug ?? '';
-            form.value.shop_description = v.shop_description ?? '';
-            form.value.email = v.email ?? '';
-            form.value.phone = v.phone ?? '';
-            form.value.address = v.address ?? '';
-            form.value.city = v.city ?? '';
-            form.value.state = v.state ?? '';
-            form.value.country = v.country ?? '';
-            form.value.postal_code = v.postal_code ?? '';
-
-            shopLogoPreview.value = v.shop_logo ? makeImg(v.shop_logo) : null;
-        }
-    } catch(err){
-        console.log("Vendor fetch error:", err);
-        errorMsg.value = "Failed to fetch vendor data!";
-    }
-};
-
-// Image Handlers
-const onLogoChange = (e) => {
-    const file = e.target.files[0];
-    if(file){
-        form.value.shopLogo = file;
-        shopLogoPreview.value = URL.createObjectURL(file);
-    }
-};
-
-// Save Settings (dummy)
-const saveSettings = async () => {
-    loading.value = true;
-    
-    setTimeout(() => {
-        loading.value = false;
-        successMsg.value = "Settings updated successfully!";
-    }, 1500);
-};
-
-onMounted(() => {
-    fetchVendor();
-});
 </script>
 
 <style scoped>
