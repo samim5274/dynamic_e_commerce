@@ -36,10 +36,11 @@ import Checkout from '../components/e-commerce/checkout/checkout.vue';
 // Admin Routes
 import AdminDashboard from '../components/Dashboard/admin/admin-dashboard.vue';
 import AdminProfile from '../components/Dashboard/admin/admin-profile.vue';
-
+import AdminSetting from '../components/Dashboard/admin/admin-setting.vue';
 import UserList from '../components/Dashboard/admin/user/users-list.vue';
 import AssignUserTree from '../components/Dashboard/admin/user/assign-user.vue';
 import UserSetting from '../components/Dashboard/admin/user/user-setting.vue';
+
 
 
 
@@ -105,6 +106,7 @@ const routes = [
   { path: '/admin/users', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/assign-user-tree', component: AssignUserTree, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/user-setting', component: UserSetting, meta:{title: 'User Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/setting', component: AdminSetting, meta:{title: 'Admin Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 
 

@@ -153,8 +153,6 @@ const errorMsg = ref('');
 
 
 import settingGeneral from "./setting-general.vue";
-
-
 import settingAbout from "./setting-about.vue";
 
 
