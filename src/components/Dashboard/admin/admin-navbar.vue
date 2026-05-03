@@ -311,7 +311,7 @@
                 </button>
               </li>
 
-              <li>
+              <!-- <li>
                 <button
                   class="w-full px-4 py-2 text-sm text-left transition
                          hover:bg-white dark:hover:bg-white/10"
@@ -321,7 +321,7 @@
                   @click="pick('assignUserToTree')">
                   Assign User Tree
                 </button>
-              </li>
+              </li> -->
 
               <li>
                 <button

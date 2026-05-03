@@ -67,7 +67,7 @@
                                 <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
                                     <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Points</p>
                                     <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
-                                        ৳{{ authUser?.total_points || '0.00' }}
+                                        {{ authUser?.total_points || '0.00' }}
                                     </p>
                                 </div>
                             </div>
