@@ -28,7 +28,7 @@
 
                 <Field label="Gender">
                 <select v-model="form.gender" class="input">
-                    <option value="" disabled="">Select</option>
+                    <option value="" disabled="">-- Select Gender --</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -37,7 +37,7 @@
 
                 <Field label="Blood group">
                 <select v-model="form.blood_group" class="input">
-                    <option value="" disabled selected>Select</option>
+                    <option value="" disabled selected>-- Select Blood Group --</option>
                     <option>O+</option><option>O-</option>
                     <option>A+</option><option>A-</option>
                     <option>B+</option><option>B-</option>
@@ -51,6 +51,15 @@
 
                 <Field label="Religion">
                 <input v-model="form.religion" type="text" class="input" placeholder="Religion" />
+                </Field>
+
+                <Field label="Products" class="sm:col-span-2">
+                <select v-model="form.product_id" class="input">
+                    <option value="" disabled selected>-- Select Product --</option>
+                    <option v-for="product in products" :key="product.id" :value="product.id">
+                        {{ product.id }} - {{ product.name }} - ৳{{ product.price }} - {{ product.point }}
+                    </option>
+                </select>
                 </Field>
 
             </div>
@@ -398,6 +407,42 @@ watch(placement, (val) => {
 
 
 
+
+const products = ref([]);
+// fetch all admin and customer
+async function fetchProducts() {
+    loading.value = true;
+    errorMsg.value = '';
+    try {
+        const res = await api.get('/users/products');
+        if (res.data?.success) {
+            products.value = res.data.data;
+            // console.log(products.value);
+        } else {
+            errorMsg.value = res.data?.message || "Failed to fetch products";
+        }
+    } catch (err) {
+        console.error(err);
+        errorMsg.value = err.response?.data?.message || err.message || "Something went wrong";
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const emit = defineEmits(['userCreated']);
 
 const form = ref({
@@ -416,6 +461,7 @@ const form = ref({
     position: '',
     password: '',
     password_confirmation: '',
+    product_id: '',
 });
 
 const showPassword = ref(false);
@@ -483,6 +529,7 @@ async function CreateUser() {
 
 onMounted(() => {
     fetchedUsers();
+    fetchProducts();
 });
 </script>
 
