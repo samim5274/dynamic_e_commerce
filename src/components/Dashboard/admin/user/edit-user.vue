@@ -1,0 +1,601 @@
+<template>
+    <div class="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-200">
+        <Header
+            @open-sidebar="sidebarOpen = true"
+            @search="onSearch"
+            :isDark="isDark" @toggle-theme="toggleTheme"
+        />
+
+        <Message
+            :successMsg="successMsg"
+            :errorMsg="errorMsg"
+            @update:successMsg="successMsg = $event"
+            @update:errorMsg="errorMsg = $event"
+        />
+
+        <div class="flex  min-h-[calc(100vh-56px)]">
+            <Navbar
+                v-model="active"
+                :open="sidebarOpen"
+                @close="sidebarOpen = false"
+            />
+
+            <!-- Content -->
+            <div class="flex-1 min-w-0">
+                <main class="flex-1 min-w-0 bg-gray-50 dark:bg-[#0C1326] px-4 sm:px-6 lg:px-8 py-6">
+                    <!-- Header -->
+                    <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">Setting</h1>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">Manage customer profiles.</p>
+                        </div>
+                    </div>
+
+                    <section class="lg:col-span-2">
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Personal Information</h2>
+
+                            <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <Field label="Name">
+                                <input v-model="form.name" type="text" class="input" placeholder="Your name" />
+                                </Field>
+
+                                <Field label="Phone">
+                                <input v-model="form.phone" type="text" class="input" required placeholder="01XXXXXXXXX" />
+                                </Field>
+
+                                <Field label="Email">
+                                <input v-model="form.email" class="input" placeholder="e.g example@example.com" />
+                                </Field>
+
+                                <Field label="Date of birth">
+                                <input v-model="form.dob" type="date" class="input" />
+                                </Field>
+
+                                <Field label="Gender">
+                                <select v-model="form.gender" class="input">
+                                    <option value="" disabled="">-- Select Gender --</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                </Field>
+
+                                <Field label="Blood group">
+                                <select v-model="form.blood_group" class="input">
+                                    <option value="" disabled selected>-- Select Blood Group --</option>
+                                    <option>O+</option><option>O-</option>
+                                    <option>A+</option><option>A-</option>
+                                    <option>B+</option><option>B-</option>
+                                    <option>AB+</option><option>AB-</option>
+                                </select>
+                                </Field>
+
+                                <Field label="National ID">
+                                <input v-model="form.national_id" type="text" class="input" required placeholder="NID number" />
+                                </Field>
+
+                                <Field label="Religion">
+                                <input v-model="form.religion" type="text" class="input" placeholder="Religion" />
+                                </Field>
+
+                                <Field label="Products" class="sm:col-span-2">
+                                <select v-model="form.product_id" class="input">
+                                    <option value="" disabled selected>-- Select Product --</option>
+                                    <option v-for="product in products" :key="product.id" :value="product.id">
+                                        {{ product.id }} - {{ product.name }} - ৳{{ product.price }} - {{ product.point }}
+                                    </option>
+                                </select>
+                                </Field>
+
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-6">
+                                Security Settings
+                            </h2>
+
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">New Password</label>
+                                    <div class="relative">
+                                        <input 
+                                            v-model="form.password" 
+                                            :type="showPassword ? 'text' : 'password'"
+                                            :class="[
+                                                'w-full px-4 py-2.5 rounded-xl border bg-transparent focus:ring-2 outline-none transition-all dark:text-white',
+                                                form.password_confirmation && !isMatched ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'
+                                            ]" 
+                                            placeholder="••••••••"
+                                        />
+                                        <button 
+                                            type="button"
+                                            @click="showPassword = !showPassword"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-indigo-500 transition-colors">
+                                            <i v-if="!showPassword" class="fa-solid fa-eye h-5 w-5"></i>
+                                            <i v-else class="fa-solid fa-eye-slash h-5 w-5"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        <span :class="form.password.length >= 8 ? 'text-green-500' : 'text-slate-400'" class="text-[11px] flex items-center">
+                                            <span class="mr-1">●</span> 8+ Digits
+                                        </span>
+                                        <span :class="/[A-Za-z]/.test(form.password) ? 'text-green-500' : 'text-slate-400'" class="text-[11px] flex items-center">
+                                            <span class="mr-1">●</span> Character
+                                        </span>
+                                        <span :class="/\d/.test(form.password) ? 'text-green-500' : 'text-slate-400'" class="text-[11px] flex items-center">
+                                            <span class="mr-1">●</span> Number
+                                        </span>
+                                        <span :class="/[!@#$%^&*]/.test(form.password) ? 'text-green-500' : 'text-slate-400'" class="text-[11px] flex items-center">
+                                            <span class="mr-1">●</span> Special Char
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Confirm Password</label>
+                                    <div class="relative">
+                                        <input 
+                                            v-model="form.password_confirmation" 
+                                            :type="showPassword ? 'text' : 'password'" 
+                                            :class="[
+                                                'w-full px-4 py-2.5 rounded-xl border bg-transparent focus:ring-2 outline-none transition-all dark:text-white',
+                                                form.password_confirmation && !isMatched ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'
+                                            ]" 
+                                            placeholder="••••••••" 
+                                        />
+                                        <button 
+                                            type="button"
+                                            @click="showPassword = !showPassword"
+                                            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-indigo-500 transition-colors">
+                                            <i v-if="!showPassword" class="fa-solid fa-eye h-5 w-5"></i>
+                                            <i v-else class="fa-solid fa-eye-slash h-5 w-5"></i>
+                                        </button>
+                                    </div>
+                                    <p v-if="form.password_confirmation && !isMatched" class="text-xs text-red-500 mt-1">
+                                        Passwords do not match.
+                                    </p>
+                                    <p v-if="form.password_confirmation && isMatched" class="text-xs text-green-500 mt-1">
+                                        Passwords matched!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Address</h2>
+
+                            <div class="mt-4 grid grid-cols-1 gap-4">
+                                <Field label="Present address">
+                                <textarea v-model="form.present_address" rows="3" class="input" placeholder="Present address"></textarea>
+                                </Field>
+
+                                <Field label="Permanent address">
+                                <textarea v-model="form.permanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
+                                </Field>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Reference</h2>
+
+                            <div class="mt-4 grid grid-cols-1 gap-4">
+                                <Field label="Referer Code">
+                                <input v-model="form.refer_id" type="text" class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
+                                </Field>
+
+                                <Field label="Root User">
+                                <input type="text" v-model="search" placeholder="Search by ID, name or email..." class="input mb-2" />
+                                <select v-model="form.root_user_id" class="input">
+                                    <option disabled value="">-- Select user-- </option>
+                                    <option v-for="u in filteredRootUsers" :key="u.id" :value="u.id">
+                                        {{ u.name }} - {{ u.user_id }}
+                                    </option>
+                                </select>
+                                </Field>
+
+                                <Field label="Placement">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <label :class="[
+                                            'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
+                                            selectedRootUser?.left_child_id 
+                                                ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
+                                                : (placement === 'left' 
+                                                    ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
+                                                    : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
+                                        ]">
+                                            <input type="radio" v-model="placement" value="left" :disabled="selectedRootUser?.left_child_id" class="sr-only" />
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Left Node</span>
+                                                <div v-if="placement === 'left' && !selectedRootUser?.left_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-2 flex items-center gap-1.5">
+                                                <span :class="['h-2 w-2 rounded-full', selectedRootUser?.left_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
+                                                <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.left_child_id ? 'text-rose-500' : 'text-emerald-500'">
+                                                    {{ selectedRootUser?.left_child_id ? 'Occupied' : 'Available' }}
+                                                </span>
+                                            </div>
+                                        </label>
+
+                                        <label :class="[
+                                            'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
+                                            selectedRootUser?.right_child_id 
+                                                ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
+                                                : (placement === 'right' 
+                                                    ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
+                                                    : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
+                                        ]">
+                                            <input type="radio" v-model="placement" value="right" :disabled="selectedRootUser?.right_child_id" class="sr-only" />
+                                            
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Right Node</span>
+                                                <div v-if="placement === 'right' && !selectedRootUser?.right_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-2 flex items-center gap-1.5">
+                                                <span :class="['h-2 w-2 rounded-full', selectedRootUser?.right_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
+                                                <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.right_child_id ? 'text-rose-500' : 'text-emerald-500'">
+                                                    {{ selectedRootUser?.right_child_id ? 'Occupied' : 'Available' }}
+                                                </span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </Field>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Photo</h2>
+
+                            <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
+                                <img :src="photoPreview || photoUrl" class="h-16 w-16 rounded-2xl object-cover ring-2 ring-slate-200 dark:ring-white/10" />
+
+                                <div class="flex-1">
+                                <input type="file" accept="image/*" @change="onPhotoChange" class="block w-full text-sm text-slate-600 dark:text-slate-200" />
+                                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">PNG/JPG recommended.</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-5 flex justify-end gap-2">
+                                <button
+                                type="button"  @click="CreateUser()"                        
+                                :disabled="loading"
+                                class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-60"
+                                >
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                {{ loading ? "loading..." : "Save Changes" }}
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+        </div>
+        
+    </div>
+    <FooterSection />
+</template>
+
+<script setup>
+import { ref, computed, onMounted, h, watch, reactive } from 'vue';
+import api, { makeImg } from "../../../../services/api.js";
+
+import Navbar from '../admin-navbar.vue';
+import Header from '../admin-header.vue';
+import Message from '../../../Message/message.vue'
+import FooterSection from "../../../e-commerce/footer.vue";
+
+const sidebarOpen = ref(false);
+const active = ref("dashboard");
+
+
+const successMsg = ref('');
+const errorMsg = ref('');
+const loading = ref(false);
+
+
+
+
+
+
+const Field = (props, { slots }) =>
+    h("div", { class: props.class || "" }, [
+        h("label", { class: "mb-2 block text-xs font-semibold text-slate-600 dark:text-slate-200" }, props.label),
+        slots.default?.(),
+    ]);
+
+const photoFile = ref(null);
+const photoPreview = ref("");
+
+function onPhotoChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    photoFile.value = file;
+    photoPreview.value = URL.createObjectURL(file);
+}
+
+const photoUrl = computed(() => {
+    const p = users.value?.photo;
+    if (!p) return "/images/avatar.png";
+    return makeImg(p);
+});
+
+const users = ref([]);
+const loadingUsers = ref(false);
+// fetch all admin and customer
+async function fetchedUsers() {
+    loadingUsers.value = true;
+    try {
+        const res = await api.get('/users');
+        if (res.data?.success) {
+            users.value = res.data.data;
+        }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        loadingUsers.value = false;
+    }
+}
+
+
+
+const search = ref("");
+const filteredRootUsers = computed(() => {
+    if (!users.value || !users.value.length) return [];
+
+    const term = search.value.toLowerCase();
+
+    return users.value.filter(user => {
+        if (!term) return true;
+
+        return (
+            user.name?.toLowerCase().includes(term) ||
+            user.email?.toLowerCase().includes(term) ||
+            user.user_id?.toLowerCase().includes(term) ||
+            String(user.id).includes(term)
+        );
+  });
+});
+
+
+
+
+const selectedRootUser = computed(() => {
+    return users.value.find(u => u.id == form.value.root_user_id) || null;
+});
+
+
+
+// Set placement
+const placement = ref(null);
+
+watch(() => selectedRootUser.value, (newUser) => {
+    if (newUser) {
+        if (!newUser.left_child_id && newUser.right_child_id) {
+            placement.value = 'left';
+        } else if (newUser.left_child_id && !newUser.right_child_id) {
+            placement.value = 'right';
+        } else if (!newUser.left_child_id && !newUser.right_child_id) {
+            placement.value = 'left'; 
+        } else {
+            placement.value = null;
+        }
+    } else {
+        placement.value = null;
+    }
+}, { immediate: true });
+
+watch(placement, (val) => {
+    form.value.position = val;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const products = ref([]);
+// fetch all admin and customer
+async function fetchProducts() {
+    loading.value = true;
+    errorMsg.value = '';
+    try {
+        const res = await api.get('/users/products');
+        if (res.data?.success) {
+            products.value = res.data.data;
+            // console.log(products.value);
+        } else {
+            errorMsg.value = res.data?.message || "Failed to fetch products";
+        }
+    } catch (err) {
+        console.error(err);
+        errorMsg.value = err.response?.data?.message || err.message || "Something went wrong";
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const emit = defineEmits(['userCreated']);
+
+const form = ref({
+    name: "",
+    phone: "",
+    dob: "",
+    email: "",
+    gender: "",
+    blood_group: "",
+    present_address: "",
+    permanent_address: "",
+    national_id: "",
+    religion: "",
+    refer_id: "",
+    root_user_id: "",
+    position: '',
+    password: '',
+    password_confirmation: '',
+    product_id: '',
+});
+
+const showPassword = ref(false);
+
+// Password Validation Logic (form.value use koro jodi ref hoy)
+const passwordErrors = computed(() => {
+    const errors = [];
+    const p = form.value.password; // ref hole .value lagbe
+    
+    if (p.length < 8) errors.push("At least 8 characters long.");
+    if (!/[A-Z]/.test(p) && !/[a-z]/.test(p)) errors.push("Include letters.");
+    if (!/\d/.test(p)) errors.push("Include at least one number.");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(p)) errors.push("Include a special character.");
+    
+    return errors;
+});
+
+const isMatched = computed(() => {
+    return form.value.password && form.value.password === form.value.password_confirmation;
+});
+
+
+
+
+async function CreateUser() {
+    loading.value = true;
+
+    // Simple frontend check
+    if(!form.value.email) {
+        errorMsg.value = "Email is required";
+        loading.value = false;
+        return;
+    }
+
+    const payload = new FormData();
+    Object.keys(form.value).forEach(key => payload.append(key, form.value[key] || ""));
+    if(photoFile.value) payload.append("photo", photoFile.value);
+
+    try {
+        const res = await api.post("/users/create", payload, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
+        successMsg.value = res.data.message || "User created successfully!";
+        
+        // fetch users
+        emit('userCreated');
+        fetchedUsers();
+        Object.keys(form.value).forEach(key => form.value[key] = "");
+        photoPreview.value = null;
+    } catch(err) {
+        errorMsg.value = err.response?.data?.message || "Failed to create user";
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const isDark = ref(false);
+
+function applyTheme(dark) {
+    isDark.value = dark;   // VERY IMPORTANT
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+}
+
+function toggleTheme() {
+    applyTheme(!isDark.value);
+}
+
+function onSearch(q) {
+    console.log("search:", q);
+}
+
+
+
+/* ESC to close drawer */
+onMounted(() => {
+
+    fetchedUsers();
+    fetchProducts();
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") sidebarOpen.value = false;
+    });
+
+    const saved = localStorage.getItem("theme");
+
+    if (saved === "dark") applyTheme(true);
+    else if (saved === "light") applyTheme(false);
+    else {
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(systemDark);
+    }
+});
+</script>
+
+
+<style scoped>
+.input{
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400
+        focus:outline-none focus:ring-2 focus:ring-indigo-500
+        dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100;
+}
+.inputDisabled{
+    @apply w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-600
+        dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300;
+}
+</style>
