@@ -54,7 +54,7 @@
                                         class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
                                         
                                         <td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-200">
-                                            {{ item.user_id }}
+                                            {{ item.user.name }}
                                         </td>
 
                                         <td class="px-4 py-3">
