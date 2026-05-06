@@ -507,7 +507,7 @@ async function CreateUser() {
         // fetch users
         emit('userCreated');
         fetchedUsers();
-        // Object.keys(form.value).forEach(key => form.value[key] = "");
+        Object.keys(form.value).forEach(key => form.value[key] = "");
         photoPreview.value = null;
     } catch(err) {
         errorMsg.value = err.response?.data?.message || "Failed to create user";
