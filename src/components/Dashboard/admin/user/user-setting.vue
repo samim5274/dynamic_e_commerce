@@ -28,7 +28,7 @@
                                 
                                 <div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-950 p-2 rounded-3xl border border-slate-100 dark:border-slate-800">
                                     <div class="relative">
-                                        <i class="fa-solid fa-terminal absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px]"></i>
+                                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px]"></i>
                                         <input 
                                             type="text" 
                                             v-model="search" 
@@ -37,8 +37,8 @@
                                         />
                                     </div>
                                     <div class="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
-                                    <button class="flex items-center gap-2 px-4 py-2 bg-[#A3D921] text-black rounded-2xl text-[10px] font-black hover:shadow-lg hover:shadow-[#A3D921]/40 transition-all">
-                                        <i class="fa-solid fa-plus"></i> NEW NODE
+                                    <button @click="goToUserList" class="flex items-center gap-2 px-4 py-2 bg-[#A3D921] text-black rounded-2xl text-[10px] font-black hover:shadow-lg hover:shadow-[#A3D921]/40 transition-all">
+                                        <i class="fa-solid fa-plus"></i> NEW USER
                                     </button>
                                 </div>
                             </div>
@@ -70,8 +70,14 @@
                                                         </div>
                                                         <!-- Status Dot -->
                                                         <span class="absolute -right-1 -top-1 flex h-3.5 w-3.5">
-                                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                                            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white dark:border-[#0B1222]"></span>
+                                                            <span 
+                                                                class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                                                :class="user.is_active ? 'bg-emerald-400' : 'bg-red-400'"
+                                                            ></span>
+                                                            <span 
+                                                                class="relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-white dark:border-[#0B1222]"
+                                                                :class="user.is_active ? 'bg-emerald-500' : 'bg-red-500'"
+                                                            ></span>
                                                         </span>
                                                     </div>
 
@@ -169,8 +175,12 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-
+import { useRouter } from 'vue-router';
 import api, { makeImg } from "../../../../services/api.js";
+
+const router = useRouter();
+
+
 
 import Navbar from '../admin-navbar.vue';
 import Header from '../admin-header.vue';
@@ -181,7 +191,9 @@ const sidebarOpen = ref(false);
 const active = ref("dashboard");
 
 
-
+function goToUserList() {
+    router.push({ name: 'UserList' });
+}
 
 
 
@@ -220,6 +232,18 @@ const filteredUsers = computed(() => {
 
 
 
+
+
+
+
+
+
+
+
+
+function editUser(user){
+    router.push(`/admin/user-setting/edit/${user.id}`);
+}
 
 
 

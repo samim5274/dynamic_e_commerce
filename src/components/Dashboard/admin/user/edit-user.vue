@@ -26,14 +26,57 @@
                     <!-- Header -->
                     <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">Setting</h1>
-                            <p class="text-sm text-slate-600 dark:text-slate-300">Manage customer profiles.</p>
+                            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">{{ form.name }} - Modifeing</h1>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">{{ form.email }} - {{ form.user_id }}</p>
                         </div>
                     </div>
 
                     <section class="lg:col-span-2">
                         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
-                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Personal Information</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-8 w-1 bg-[#A3D921] rounded-full"></div>
+                                        <h2 class="text-sm font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
+                                            Personal Information
+                                        </h2>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-900/50 px-4 py-2 rounded-2xl border border-slate-100 dark:border-slate-800 transition-all">
+                                        <span class="text-[10px] font-black uppercase tracking-widest transition-colors duration-300" 
+                                            :class="form.is_active ? 'text-[#A3D921]' : 'text-slate-400'">
+                                            {{ form.is_active ? 'Account Active' : 'Account Inactive' }}
+                                        </span>
+                                        
+                                        <button 
+                                            @click="form.is_active = !form.is_active"
+                                            type="button"
+                                            :class="form.is_active ? 'bg-[#A3D921]' : 'bg-slate-300 dark:bg-slate-700'"
+                                            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-300 ease-in-out focus:outline-none"
+                                        >
+                                            <span 
+                                                aria-hidden="true" 
+                                                :class="form.is_active ? 'translate-x-5 shadow-md' : 'translate-x-0'"
+                                                class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white transition duration-300 ease-in-out"
+                                            ></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
                             <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <Field label="Name">
@@ -55,9 +98,9 @@
                                 <Field label="Gender">
                                 <select v-model="form.gender" class="input">
                                     <option value="" disabled="">-- Select Gender --</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
                                 </select>
                                 </Field>
 
@@ -79,15 +122,20 @@
                                 <input v-model="form.religion" type="text" class="input" placeholder="Religion" />
                                 </Field>
 
-                                <Field label="Products" class="sm:col-span-2">
-                                <select v-model="form.product_id" class="input">
-                                    <option value="" disabled selected>-- Select Product --</option>
-                                    <option v-for="product in products" :key="product.id" :value="product.id">
-                                        {{ product.id }} - {{ product.name }} - ৳{{ product.price }} - {{ product.point }}
-                                    </option>
-                                </select>
+                            </div>
+                        </div>
+
+                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
+                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Address</h2>
+
+                            <div class="mt-4 grid grid-cols-1 gap-4">
+                                <Field label="Present address">
+                                <textarea v-model="form.present_address" rows="3" class="input" placeholder="Present address"></textarea>
                                 </Field>
 
+                                <Field label="Permanent address">
+                                <textarea v-model="form.permanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
+                                </Field>
                             </div>
                         </div>
 
@@ -164,98 +212,6 @@
                         </div>
 
                         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
-                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Address</h2>
-
-                            <div class="mt-4 grid grid-cols-1 gap-4">
-                                <Field label="Present address">
-                                <textarea v-model="form.present_address" rows="3" class="input" placeholder="Present address"></textarea>
-                                </Field>
-
-                                <Field label="Permanent address">
-                                <textarea v-model="form.permanent_address" rows="3" class="input" placeholder="Permanent address"></textarea>
-                                </Field>
-                            </div>
-                        </div>
-
-                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
-                            <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Reference</h2>
-
-                            <div class="mt-4 grid grid-cols-1 gap-4">
-                                <Field label="Referer Code">
-                                <input v-model="form.refer_id" type="text" class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
-                                </Field>
-
-                                <Field label="Root User">
-                                <input type="text" v-model="search" placeholder="Search by ID, name or email..." class="input mb-2" />
-                                <select v-model="form.root_user_id" class="input">
-                                    <option disabled value="">-- Select user-- </option>
-                                    <option v-for="u in filteredRootUsers" :key="u.id" :value="u.id">
-                                        {{ u.name }} - {{ u.user_id }}
-                                    </option>
-                                </select>
-                                </Field>
-
-                                <Field label="Placement">
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <label :class="[
-                                            'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
-                                            selectedRootUser?.left_child_id 
-                                                ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
-                                                : (placement === 'left' 
-                                                    ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
-                                                    : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
-                                        ]">
-                                            <input type="radio" v-model="placement" value="left" :disabled="selectedRootUser?.left_child_id" class="sr-only" />
-                                            
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Left Node</span>
-                                                <div v-if="placement === 'left' && !selectedRootUser?.left_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                            <div class="mt-2 flex items-center gap-1.5">
-                                                <span :class="['h-2 w-2 rounded-full', selectedRootUser?.left_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
-                                                <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.left_child_id ? 'text-rose-500' : 'text-emerald-500'">
-                                                    {{ selectedRootUser?.left_child_id ? 'Occupied' : 'Available' }}
-                                                </span>
-                                            </div>
-                                        </label>
-
-                                        <label :class="[
-                                            'relative flex cursor-pointer flex-col rounded-xl border-2 p-4 transition-all duration-300',
-                                            selectedRootUser?.right_child_id 
-                                                ? 'bg-slate-50 dark:bg-slate-900/40 border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed' 
-                                                : (placement === 'right' 
-                                                    ? 'border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900' 
-                                                    : 'border-slate-200 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-slate-500')
-                                        ]">
-                                            <input type="radio" v-model="placement" value="right" :disabled="selectedRootUser?.right_child_id" class="sr-only" />
-                                            
-                                            <div class="flex items-center justify-between">
-                                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Right Node</span>
-                                                <div v-if="placement === 'right' && !selectedRootUser?.right_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                            <div class="mt-2 flex items-center gap-1.5">
-                                                <span :class="['h-2 w-2 rounded-full', selectedRootUser?.right_child_id ? 'bg-rose-500' : 'bg-emerald-500 animate-pulse']"></span>
-                                                <span class="text-[10px] font-semibold uppercase tracking-wide" :class="selectedRootUser?.right_child_id ? 'text-rose-500' : 'text-emerald-500'">
-                                                    {{ selectedRootUser?.right_child_id ? 'Occupied' : 'Available' }}
-                                                </span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                </Field>
-                            </div>
-                        </div>
-
-                        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 mt-4">
                             <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Photo</h2>
 
                             <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -269,12 +225,12 @@
 
                             <div class="mt-5 flex justify-end gap-2">
                                 <button
-                                type="button"  @click="CreateUser()"                        
+                                type="button" @click="updateUser()"
                                 :disabled="loading"
                                 class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-60"
                                 >
                                 <i class="fa-solid fa-floppy-disk"></i>
-                                {{ loading ? "loading..." : "Save Changes" }}
+                                {{ loading ? "loading..." : "Modify Changes" }}
                                 </button>
                             </div>
                         </div>
@@ -290,7 +246,11 @@
 
 <script setup>
 import { ref, computed, onMounted, h, watch, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import api, { makeImg } from "../../../../services/api.js";
+
+const router = useRouter();
+const route = useRoute();
 
 import Navbar from '../admin-navbar.vue';
 import Header from '../admin-header.vue';
@@ -304,6 +264,116 @@ const active = ref("dashboard");
 const successMsg = ref('');
 const errorMsg = ref('');
 const loading = ref(false);
+
+
+
+
+
+
+
+// fetched edit user details
+const editUser = ref(null);
+
+const form = ref({
+    name: "",
+    phone: "",
+    dob: "",
+    email: "",
+    user_id: "",
+    gender: "",
+    blood_group: "",
+    present_address: "",
+    permanent_address: "",
+    national_id: "",
+    religion: "",
+    refer_id: "",
+    root_user_id: "",
+    position: '',
+    password: '',
+    password_confirmation: '',
+    is_active: false,
+});
+
+async function fetchedEditedUsers() {
+    loading.value = true;
+    try {
+        const userId = route.params.id;
+        const res = await api.get(`/customer/users/edit/${userId}`);
+        if (res.data?.success) {
+            const user = res.data.data;
+
+            editUser.value = user;
+
+            form.value = {
+                name: user.name || '',
+                email: user.email || '', 
+                user_id: user.user_id || '',
+                phone: user.phone || '',
+                dob: user.dob?.substring(0, 10) || '',
+                gender: user.gender || '',
+                blood_group: user.blood_group || '',
+                national_id: user.national_id || '',
+                religion: user.religion || '',
+                present_address: user.present_address || '',
+                permanent_address: user.permanent_address || '',
+                is_active: Boolean(Number(user.is_active)),
+
+                password: '',
+                password_confirmation: '',
+            };
+        }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const showPassword = ref(false);
+
+// Password Validation Logic (form.value use koro jodi ref hoy)
+const passwordErrors = computed(() => {
+    const errors = [];
+    const p = form.value.password; // ref hole .value lagbe
+    
+    if (p.length < 8) errors.push("At least 8 characters long.");
+    if (!/[A-Z]/.test(p) && !/[a-z]/.test(p)) errors.push("Include letters.");
+    if (!/\d/.test(p)) errors.push("Include at least one number.");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(p)) errors.push("Include a special character.");
+    
+    return errors;
+});
+
+const isMatched = computed(() => {
+    return form.value.password && form.value.password === form.value.password_confirmation;
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -328,79 +398,11 @@ function onPhotoChange(e) {
 }
 
 const photoUrl = computed(() => {
-    const p = users.value?.photo;
+    const p = editUser.value?.photo;
     if (!p) return "/images/avatar.png";
     return makeImg(p);
 });
 
-const users = ref([]);
-const loadingUsers = ref(false);
-// fetch all admin and customer
-async function fetchedUsers() {
-    loadingUsers.value = true;
-    try {
-        const res = await api.get('/users');
-        if (res.data?.success) {
-            users.value = res.data.data;
-        }
-    } catch (err) {
-        console.error(err);
-    } finally {
-        loadingUsers.value = false;
-    }
-}
-
-
-
-const search = ref("");
-const filteredRootUsers = computed(() => {
-    if (!users.value || !users.value.length) return [];
-
-    const term = search.value.toLowerCase();
-
-    return users.value.filter(user => {
-        if (!term) return true;
-
-        return (
-            user.name?.toLowerCase().includes(term) ||
-            user.email?.toLowerCase().includes(term) ||
-            user.user_id?.toLowerCase().includes(term) ||
-            String(user.id).includes(term)
-        );
-  });
-});
-
-
-
-
-const selectedRootUser = computed(() => {
-    return users.value.find(u => u.id == form.value.root_user_id) || null;
-});
-
-
-
-// Set placement
-const placement = ref(null);
-
-watch(() => selectedRootUser.value, (newUser) => {
-    if (newUser) {
-        if (!newUser.left_child_id && newUser.right_child_id) {
-            placement.value = 'left';
-        } else if (newUser.left_child_id && !newUser.right_child_id) {
-            placement.value = 'right';
-        } else if (!newUser.left_child_id && !newUser.right_child_id) {
-            placement.value = 'left'; 
-        } else {
-            placement.value = null;
-        }
-    } else {
-        placement.value = null;
-    }
-}, { immediate: true });
-
-watch(placement, (val) => {
-    form.value.position = val;
-});
 
 
 
@@ -414,27 +416,58 @@ watch(placement, (val) => {
 
 
 
-
-
-
-
-
-const products = ref([]);
-// fetch all admin and customer
-async function fetchProducts() {
+async function updateUser() {
     loading.value = true;
+    successMsg.value = '';
     errorMsg.value = '';
+
     try {
-        const res = await api.get('/users/products');
-        if (res.data?.success) {
-            products.value = res.data.data;
-            // console.log(products.value);
-        } else {
-            errorMsg.value = res.data?.message || "Failed to fetch products";
+        const userId = route.params.id;
+
+        // FormData use করবো (image upload এর জন্য)
+        const formData = new FormData();
+
+        // basic fields
+        formData.append('name', form.value.name || '');
+        formData.append('email', form.value.email || '');
+        formData.append('phone', form.value.phone || '');
+        formData.append('dob', form.value.dob || '');
+        formData.append('gender', form.value.gender || '');
+        formData.append('blood_group', form.value.blood_group || '');
+        formData.append('national_id', form.value.national_id || '');
+        formData.append('religion', form.value.religion || '');
+        formData.append('present_address', form.value.present_address || '');
+        formData.append('permanent_address', form.value.permanent_address || '');
+        formData.append('is_active', form.value.is_active ? 1 : 0);
+
+        // optional fields
+        if (form.value.password) {
+            formData.append('password', form.value.password);
+            formData.append('password_confirmation', form.value.password_confirmation);
         }
+
+        // image
+        if (photoFile.value) {
+            formData.append('photo', photoFile.value);
+        }
+
+        // API call
+        const res = await api.post(`/customer/users/update/${userId}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        if (res.data?.success) {
+            successMsg.value = res.data.message || "User updated successfully!";
+            
+            // optional redirect
+            // router.push('/admin/users');
+        }
+
     } catch (err) {
         console.error(err);
-        errorMsg.value = err.response?.data?.message || err.message || "Something went wrong";
+        errorMsg.value = err.response?.data?.message || "Something went wrong!";
     } finally {
         loading.value = false;
     }
@@ -444,98 +477,17 @@ async function fetchProducts() {
 
 
 
+const originalActive = ref(null);
 
-
-
-
-
-
-
-
-
-
-const emit = defineEmits(['userCreated']);
-
-const form = ref({
-    name: "",
-    phone: "",
-    dob: "",
-    email: "",
-    gender: "",
-    blood_group: "",
-    present_address: "",
-    permanent_address: "",
-    national_id: "",
-    religion: "",
-    refer_id: "",
-    root_user_id: "",
-    position: '',
-    password: '',
-    password_confirmation: '',
-    product_id: '',
-});
-
-const showPassword = ref(false);
-
-// Password Validation Logic (form.value use koro jodi ref hoy)
-const passwordErrors = computed(() => {
-    const errors = [];
-    const p = form.value.password; // ref hole .value lagbe
-    
-    if (p.length < 8) errors.push("At least 8 characters long.");
-    if (!/[A-Z]/.test(p) && !/[a-z]/.test(p)) errors.push("Include letters.");
-    if (!/\d/.test(p)) errors.push("Include at least one number.");
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(p)) errors.push("Include a special character.");
-    
-    return errors;
-});
-
-const isMatched = computed(() => {
-    return form.value.password && form.value.password === form.value.password_confirmation;
-});
-
-
-
-
-async function CreateUser() {
-    loading.value = true;
-
-    // Simple frontend check
-    if(!form.value.email) {
-        errorMsg.value = "Email is required";
-        loading.value = false;
-        return;
+watch(editUser, (user) => {
+    if (user) {
+        originalActive.value = Boolean(Number(user.is_active));
     }
+});
 
-    const payload = new FormData();
-    Object.keys(form.value).forEach(key => payload.append(key, form.value[key] || ""));
-    if(photoFile.value) payload.append("photo", photoFile.value);
-
-    try {
-        const res = await api.post("/users/create", payload, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
-        successMsg.value = res.data.message || "User created successfully!";
-        
-        // fetch users
-        emit('userCreated');
-        fetchedUsers();
-        Object.keys(form.value).forEach(key => form.value[key] = "");
-        photoPreview.value = null;
-    } catch(err) {
-        errorMsg.value = err.response?.data?.message || "Failed to create user";
-    } finally {
-        loading.value = false;
-    }
-}
-
-
-
-
-
-
-
-
+const isChanged = computed(() => {
+    return originalActive.value !== form.value.is_active;
+});
 
 
 
@@ -569,8 +521,7 @@ function onSearch(q) {
 /* ESC to close drawer */
 onMounted(() => {
 
-    fetchedUsers();
-    fetchProducts();
+    fetchedEditedUsers();
 
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") sidebarOpen.value = false;

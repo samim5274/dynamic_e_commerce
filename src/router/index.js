@@ -40,6 +40,7 @@ import AdminSetting from '../components/Dashboard/admin/admin-setting.vue';
 import UserList from '../components/Dashboard/admin/user/users-list.vue';
 import AssignUserTree from '../components/Dashboard/admin/user/assign-user.vue';
 import UserSetting from '../components/Dashboard/admin/user/user-setting.vue';
+import EditUser from '../components/Dashboard/admin/user/edit-user.vue';
 
 
 
@@ -105,9 +106,10 @@ const routes = [
   { path: '/admin/dashboard', component: AdminDashboard, meta:{title: 'Admin Dashboard', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/profile', component: AdminProfile, meta:{title: 'Admin Profile', requiresAuth: true, roles: ['admin', 'super_admin']}},
   // user route
-  { path: '/admin/users', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/users', name: 'UserList', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/assign-user-tree', component: AssignUserTree, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/user-setting', component: UserSetting, meta:{title: 'User Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/user-setting/edit/:id', component: EditUser, meta:{title: 'Edit User', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/setting', component: AdminSetting, meta:{title: 'Admin Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 
