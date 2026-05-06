@@ -159,7 +159,7 @@
                 <input v-model="form.refer_id" type="text" class="input" placeholder="e.g DBMBL-ABC456SA8Q" />
                 </Field>
 
-                <Field label="Root User">
+                <Field label="Placement">
                 <input type="text" v-model="search" placeholder="Search by ID, name or email..." class="input mb-2" />
                 <select v-model="form.root_user_id" class="input">
                     <option disabled value="">-- Select user-- </option>
@@ -182,7 +182,7 @@
                             <input type="radio" v-model="placement" value="left" :disabled="selectedRootUser?.left_child_id" class="sr-only" />
                             
                             <div class="flex items-center justify-between">
-                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Left Node</span>
+                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">A Group</span>
                                 <div v-if="placement === 'left' && !selectedRootUser?.left_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -209,7 +209,7 @@
                             <input type="radio" v-model="placement" value="right" :disabled="selectedRootUser?.right_child_id" class="sr-only" />
                             
                             <div class="flex items-center justify-between">
-                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">Right Node</span>
+                                <span class="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">B Group</span>
                                 <div v-if="placement === 'right' && !selectedRootUser?.right_child_id" class="h-5 w-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -507,7 +507,7 @@ async function CreateUser() {
         // fetch users
         emit('userCreated');
         fetchedUsers();
-        Object.keys(form.value).forEach(key => form.value[key] = "");
+        // Object.keys(form.value).forEach(key => form.value[key] = "");
         photoPreview.value = null;
     } catch(err) {
         errorMsg.value = err.response?.data?.message || "Failed to create user";

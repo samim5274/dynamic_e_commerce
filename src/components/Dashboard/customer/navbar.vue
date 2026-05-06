@@ -118,7 +118,7 @@
 
 
 
-        <!-- Delivery -->
+        <!-- Tracking -->
         <li>
           <button
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
@@ -132,6 +132,25 @@
               <i class="fa-solid fa-truck-fast"></i>
             </span>
             <span class="text-sm font-medium">Tracking</span>
+          </button>
+        </li>
+
+        
+
+        <!-- Account -->
+        <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'account'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('account')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-solid fa-money-bill-transfer"></i>
+            </span>
+            <span class="text-sm font-medium">Account</span>
           </button>
         </li>
 
@@ -220,6 +239,7 @@ const routeMap = {
   order: "/orders-list",
   order_details: "/orders-details",
   tracking: "/orders-tracking",
+  account: "/account",
   setting: "/setting",
   logout: "/login",
 };
@@ -232,6 +252,7 @@ const routeMatch = [
   { key: "order", prefixes: ["/orders-list"] },
   { key: "order_details", prefixes: ["/orders-details"] },
   { key: "tracking", prefixes: ["/orders-tracking"] },
+  { key: "account", prefixes: ["/account"] },
   { key: "setting", prefixes: ["/setting"] },
   { key: "logout", prefixes: ["/logout"] },
 ];

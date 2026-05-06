@@ -76,6 +76,7 @@ import C_OrderDetails from '../components/Dashboard/customer/order/order-details
 import C_OrderTracking from '../components/Dashboard/customer/order/tracking.vue';
 import C_Setting from '../components/Dashboard/customer/setting/setting.vue';
 import C_tree from '../components/Dashboard/customer/tree/tree-user.vue';
+import C_Account from '../components/Dashboard/customer/account/account.vue';
 
 
 
@@ -136,6 +137,7 @@ const routes = [
   { path: '/orders-tracking', component: C_OrderTracking, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Tracking"}},
   { path: '/setting', component: C_Setting, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Setting"}},
   { path: '/tree-user', component: C_tree, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Tree"}},
+  { path: '/account', component: C_Account, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Account"}},
 ]
 
 

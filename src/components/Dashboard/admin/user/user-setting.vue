@@ -111,10 +111,11 @@
                                                             :class="user.left_child_id ? 'border-[#A3D921] text-[#A3D921] bg-[#A3D921]/5 shadow-lg shadow-[#A3D921]/20' : 'border-slate-200 dark:border-slate-800 text-slate-300'"
                                                             class="w-12 h-12 rounded-2xl border-2 border-dashed flex items-center justify-center transition-all duration-500">
                                                             <!-- <i class="fa-solid fa-microchip text-sm"></i> -->
-                                                            <i class="fa-solid fa-street-view text-sm"></i>
+                                                            <!-- <i class="fa-solid fa-street-view text-sm"></i> -->
+                                                            A
                                                         </div>
                                                         <div class="absolute pb-2 -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                                            <span class="text-[8px] font-black tracking-[0.2em] text-slate-400 uppercase">Left</span>
+                                                            <span class="text-[8px] font-black tracking-[0.2em] text-slate-400 uppercase">A Group</span>
                                                         </div>
                                                     </div>
 
@@ -131,10 +132,11 @@
                                                         <div 
                                                             :class="user.right_child_id ? 'border-[#A3D921] text-[#A3D921] bg-[#A3D921]/5 shadow-lg shadow-[#A3D921]/20' : 'border-slate-200 dark:border-slate-800 text-slate-300'"
                                                             class="w-12 h-12 rounded-2xl border-2 border-dashed flex items-center justify-center transition-all duration-500">
-                                                            <i class="fa-solid fa-street-view text-sm"></i>
+                                                            <!-- <i class="fa-solid fa-street-view text-sm"></i> -->
+                                                            B
                                                         </div>
                                                         <div class="absolute pb-2 -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                                            <span class="text-[8px] font-black tracking-[0.2em] text-slate-400 uppercase">Right</span>
+                                                            <span class="text-[8px] font-black tracking-[0.2em] text-slate-400 uppercase">B Group</span>
                                                         </div>
                                                     </div>
                                                 </div>
