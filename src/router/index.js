@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Auth Routes
-import Login from '../components/Auth/login.vue';
-import Register from '../components/Auth/register.vue'
-import FindAccount from '../components/Auth/find-account.vue'
-import otpVerification from '../components/Auth/otp-verification.vue';
-import resetPassword from '../components/Auth/reset-password.vue';
-import Unauthorized from '../components/Auth/unauthorized.vue';
-import treeUser from '../components/Auth/tree-user.vue';
+const Login = () => import('../components/Auth/login.vue');
+const Register = () => import('../components/Auth/register.vue');
+const FindAccount = () => import('../components/Auth/find-account.vue');
+const otpVerification = () => import('../components/Auth/otp-verification.vue');
+const resetPassword = () => import('../components/Auth/reset-password.vue');
+const Unauthorized = () => import('../components/Auth/unauthorized.vue');
+const treeUser = () => import('../components/Auth/tree-user.vue');
 
 
 
@@ -21,10 +21,10 @@ import treeUser from '../components/Auth/tree-user.vue';
 
 
 // E-commerce Routes
-import Home from '../components/e-commerce/home.vue';
-import productDetails from '../components/e-commerce/product-details.vue';
-import CartDetails from '../components/e-commerce/cart.vue';
-import Checkout from '../components/e-commerce/checkout/checkout.vue';
+const Home = () => import('../components/e-commerce/home.vue');
+const productDetails = () => import('../components/e-commerce/product-details.vue');
+const CartDetails = () => import('../components/e-commerce/cart.vue');
+const Checkout = () => import('../components/e-commerce/checkout/checkout.vue');
 
 
 
@@ -32,53 +32,50 @@ import Checkout from '../components/e-commerce/checkout/checkout.vue';
 
 
 
+// =======================
+// Admin Routes (group: admin)
+// =======================
+const AdminDashboard = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-dashboard.vue');
+const AdminProfile = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-profile.vue');
+const AdminSetting = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-setting.vue');
 
-// Admin Routes
-import AdminDashboard from '../components/Dashboard/admin/admin-dashboard.vue';
-import AdminProfile from '../components/Dashboard/admin/admin-profile.vue';
-import AdminSetting from '../components/Dashboard/admin/admin-setting.vue';
-import UserList from '../components/Dashboard/admin/user/users-list.vue';
-import AssignUserTree from '../components/Dashboard/admin/user/assign-user.vue';
-import UserSetting from '../components/Dashboard/admin/user/user-setting.vue';
-import EditUser from '../components/Dashboard/admin/user/edit-user.vue';
-
-
-
-
+const UserList = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/users-list.vue');
+const AssignUserTree = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/assign-user.vue');
+const UserSetting = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/user-setting.vue');
+const EditUser = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/edit-user.vue');
 
 
+// =======================
+// Product Routes (group: product)
+// =======================
+const CreateProduct = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/create-product.vue');
+const ProductList = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/product-list.vue');
+const ProductEdit = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/product-edit.vue');
 
 
+// =======================
+// Order Routes (group: order)
+// =======================
+const AdminOrders = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/order.vue');
+const AdminOrderDetails = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/order-details.vue');
+const AdminCustomerDetails = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/customer-details.vue');
+const AdminStatus = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/status.vue');
 
 
-// Product Routes
-import CreateProduct from '../components/Dashboard/product/create-product.vue'
-import ProductList from '../components/Dashboard/product/product-list.vue'
-import ProductEdit from '../components/Dashboard/product/product-edit.vue'
+// =======================
+// Customer Dashboard (group: customer)
+// =======================
+const Dashboard = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/dashboard.vue');
+const Profile = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/profile.vue');
+const Reference = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/reference.vue');
 
+const CustomerOrders = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/order-list.vue');
+const C_OrderDetails = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/order-details.vue');
+const C_OrderTracking = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/tracking.vue');
 
-// Order Details
-import AdminOrders from '../components/Dashboard/order/order.vue';
-import AdminOrderDetails from '../components/Dashboard/order/order-details.vue';
-import AdminCustomerDetails from '../components/Dashboard/order/customer-details.vue';
-import AdminStatus from '../components/Dashboard/order/status.vue';
-
-
-
-
-
-// customer dashboard
-import Dashboard from '../components/Dashboard/customer/dashboard.vue'
-import Profile from '../components/Dashboard/customer/profile.vue'
-import Reference from '../components/Dashboard/customer/reference.vue';
-import CustomerOrders from '../components/Dashboard/customer/order/order-list.vue';
-import C_OrderDetails from '../components/Dashboard/customer/order/order-details.vue';
-import C_OrderTracking from '../components/Dashboard/customer/order/tracking.vue';
-import C_Setting from '../components/Dashboard/customer/setting/setting.vue';
-import C_tree from '../components/Dashboard/customer/tree/tree-user.vue';
-import C_Account from '../components/Dashboard/customer/account/account.vue';
-
-
+const C_Setting = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/setting/setting.vue');
+const C_tree = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/tree/tree-user.vue');
+const C_Account = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/account/account.vue');
 
 
 const routes = [
