@@ -87,10 +87,17 @@
                         </div>
 
                         <!-- Discount Price -->
-                        <div>
-                            <label class="label">Discount Price (Optional)</label>
-                            <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
-                            <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="label">Discount Price (Optional)</label>
+                                <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
+                                <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
+                            </div>
+                            <!-- <div>
+                                <label class="label">Point</label>
+                                <input type="number" v-model="form.point" class="input" placeholder="e.g 100"/>
+                                <p class="error" v-if="errors.point">{{ errors.point[0] }}</p>
+                            </div> -->
                         </div>
 
                         <!-- Minimum Stock -->
@@ -420,7 +427,8 @@ const initialForm = {
     is_active: true,
     title: '',
     keywords: '',
-    meta_description: ''
+    meta_description: '',
+    // point: '',
 }
 
 // reactive form
@@ -505,7 +513,7 @@ async function submit(){
         })
         resetForm();
         successMsg.value = res.data.message || 'Product created successfully!';
-        router.push('/create-product')
+        router.push('/admin/create-product')
 
     }catch(err){
         if(err.response?.data?.errors){
