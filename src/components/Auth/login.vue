@@ -112,17 +112,17 @@
             <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
           </div>
 
-          <div class="grid grid-cols-3 gap-4">
+          <!-- <div class="grid grid-cols-3 gap-4">
             <button v-for="social in ['google', 'github', 'facebook']" :key="social" type="button" @click="handleSocialLogin(social)"
               class="h-12 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#A3D921] transition-all flex items-center justify-center group"
             >
               <i :class="`fa-brands fa-${social} text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition`"></i>
             </button>
-          </div>
+          </div> -->
 
           <p class="text-center text-slate-500 text-sm mt-6">
             New here? 
-            <router-link to="/register" class="text-slate-900 dark:text-white font-bold hover:text-[#A3D921] transition underline underline-offset-4">Create account</router-link>
+            <router-link to="/register" class="text-slate-900 dark:text-white font-bold hover:text-[#A3D921] transition underline underline-offset-4">Register</router-link>
           </p>
         </form>
       </div>
