@@ -89,7 +89,7 @@ async function fetchedUsers() {
     try {
         const res = await api.get('/customer/users');
         if (res.data?.success) {
-        users.value = res.data.data;
+            users.value = res.data.data;
         }
     } catch (err) {
         console.error(err);
