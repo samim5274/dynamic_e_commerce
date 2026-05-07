@@ -21,7 +21,7 @@
       <div class="flex items-center gap-3 min-w-[120px]">
         <div class="font-semibold tracking-wide text-lg text-slate-900 dark:text-white">
           <router-link 
-            to="/admin/dashboard" 
+            to="/" 
             class="flex items-center gap-3 group transition-all duration-300 hover:opacity-90">
             <div class="relative flex items-center justify-center overflow-hidden h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-transform group-hover:scale-105">
               <img src="/logo/logo.png" alt="Brand Logo" class="w-7 h-7 object-contain drop-shadow-sm dark:hidden" />

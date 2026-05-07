@@ -15,7 +15,7 @@
             <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent flex items-center">
               <div class="px-8 md:px-16 max-w-2xl text-white">
-                <span class="inline-block px-4 py-1 rounded-full bg-indigo-600 text-xs font-bold uppercase tracking-widest mb-4 animate-bounce">
+                <!-- <span class="inline-block px-4 py-1 rounded-full bg-indigo-600 text-xs font-bold uppercase tracking-widest mb-4 animate-bounce">
                   {{ slide.tag }}
                 </span>
                 <h2 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
@@ -31,7 +31,7 @@
                   <button class="border border-white/50 backdrop-blur-sm px-8 py-3 rounded-xl font-bold hover:bg-white/10 transition">
                     View Details
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -75,19 +75,25 @@ const slides = [
     tag: "New Arrival",
     title: "Next-Gen Wireless Audio Experience",
     description: "Immerse yourself in pure sound with our latest noise-cancelling technology. Limited edition colors available.",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200"
+    image: "./images/slide/1.png"
   },
   {
     tag: "Summer Sale",
     title: "Step Up Your Lifestyle Fashion",
     description: "Get up to 50% off on all premium sneakers and sports apparel this season. Move with style.",
-    image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1200"
+    image: "./images/slide/2.jpeg"
   },
   {
     tag: "Limited Stock",
     title: "Elegance on Your Wrist",
     description: "Modern smartwatches designed for both health and luxury. Experience the future of timekeeping.",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200"
+    image: "./images/slide/3.jpeg"
+  },
+  {
+    tag: "Limited Stock",
+    title: "Elegance on Your Wrist",
+    description: "Modern smartwatches designed for both health and luxury. Experience the future of timekeeping.",
+    image: "./images/slide/4.jpeg"
   }
 ]
 

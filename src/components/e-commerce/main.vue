@@ -150,7 +150,7 @@
                                     </div>
 
                                     <h3 @click="ProductDetails(product)" class="text-lg font-black text-gray-900 dark:text-white truncate cursor-pointer group-hover:text-indigo-600 transition-colors hover:underline">
-                                        {{ product.name }}
+                                        {{ product.name }} - {{ product.point }}
                                     </h3>
 
                                     <div class="mt-6 flex items-end justify-between">

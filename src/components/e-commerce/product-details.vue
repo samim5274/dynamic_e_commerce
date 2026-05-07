@@ -89,7 +89,7 @@
                         <div class="space-y-10">
                             <div class="space-y-4">
                                 <h1 class="text-5xl md:text-6xl font-black tracking-tight leading-[0.9] text-gray-900 dark:text-white">
-                                    {{ product.name }}
+                                    {{ product.name }} - {{ product.point }}
                                 </h1>
                                 <div class="flex items-center gap-4">
                                     <div class="flex text-amber-400 text-xs gap-0.5">
