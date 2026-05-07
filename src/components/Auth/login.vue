@@ -175,10 +175,7 @@ const handleLogin = async () => {
   loading.value = true;
 
   try {
-    const { data } = await api.post("auth/login", {
-      ...form,
-      device_name: "web"
-    });
+    const { data } = await api.post("auth/login", form);
 
     if (!data?.token) throw new Error("Invalid response from server.");
 
