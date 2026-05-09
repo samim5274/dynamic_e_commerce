@@ -86,11 +86,18 @@
                             </div>
                         </div>
 
-                        <!-- Discount Price -->
-                        <div>
-                            <label class="label">Discount Price (Optional)</label>
-                            <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
-                            <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Discount Price -->
+                            <div>
+                                <label class="label">Discount Price (Optional)</label>
+                                <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
+                                <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
+                            </div>
+                            <div>
+                                <label class="label">Point</label>
+                                <input type="number" v-model="form.point" class="input" placeholder="e.g 100"/>
+                                <p class="error" v-if="errors.point">{{ errors.point[0] }}</p>
+                            </div>
                         </div>
 
                         <!-- Minimum Stock -->
@@ -369,7 +376,8 @@ const initialForm = {
     meta_keywords: '',
     meta_description: '',
     variants: [],
-    images: []
+    images: [],
+    point: '',
 }
 
 const form = reactive({ ...initialForm })
@@ -427,7 +435,8 @@ async function fetchProduct() {
             meta_title: product.meta_title,
             meta_keywords: product.meta_keywords,
             meta_description: product.meta_description,
-            variants: product.variants || []
+            variants: product.variants || [],
+            point: product.point,
         })
 
         // Preview images
@@ -581,6 +590,7 @@ async function submitEdit() {
             is_featured: form.is_featured ? 1 : 0,
             is_on_sale: form.is_on_sale ? 1 : 0,
             is_active: form.is_active ? 1 : 0,
+            point: form.point || 0,
         };
 
 

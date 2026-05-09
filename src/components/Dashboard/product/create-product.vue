@@ -93,11 +93,11 @@
                                 <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
                                 <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
                             </div>
-                            <!-- <div>
+                            <div>
                                 <label class="label">Point</label>
                                 <input type="number" v-model="form.point" class="input" placeholder="e.g 100"/>
                                 <p class="error" v-if="errors.point">{{ errors.point[0] }}</p>
-                            </div> -->
+                            </div>
                         </div>
 
                         <!-- Minimum Stock -->
@@ -428,7 +428,7 @@ const initialForm = {
     title: '',
     keywords: '',
     meta_description: '',
-    // point: '',
+    point: '',
 }
 
 // reactive form
@@ -481,6 +481,7 @@ async function submit(){
         fd.append('discount_price', form.discount_price || 0);
         fd.append('stock_quantity', form.stock_quantity);
         fd.append('min_stock', form.min_stock || 0);
+        fd.append('point', form.point || 0);
 
         fd.append('summary', form.summary || '');
         fd.append('description', form.description || '');
