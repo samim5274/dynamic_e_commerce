@@ -57,7 +57,7 @@
                     <div class="absolute top-0 right-0 w-1/2 h-0.5 bg-[#A3D921]/40"></div>
                     <div class="absolute top-0 right-1/2 w-0.5 h-8 bg-[#A3D921]/40"></div>
                     <UserTreeNode 
-                        :user="user.children?.[0]" 
+                        :user="user.left_child_recursive || user.leftChildRecursive || null" 
                         :depth="depth + 1" 
                         @select-node="$emit('select-node', $event)" 
                     />
@@ -68,7 +68,7 @@
                     <div class="absolute top-0 left-0 w-1/2 h-0.5 bg-[#A3D921]/40"></div>
                     <div class="absolute top-0 left-1/2 w-0.5 h-8 bg-[#A3D921]/40"></div>
                     <UserTreeNode 
-                        :user="user.children?.[1]" 
+                        :user="user.right_child_recursive || user.rightChildRecursive || null" 
                         :depth="depth + 1" 
                         @select-node="$emit('select-node', $event)" 
                     />
@@ -82,7 +82,10 @@
 import { computed } from 'vue';
 
 const props = defineProps({
-    user: Object,
+    user: {
+        type: Object,
+        default: () => ({})
+    },
     depth: {
         type: Number,
         default: 1
