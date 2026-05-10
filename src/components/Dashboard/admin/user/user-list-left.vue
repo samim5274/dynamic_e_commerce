@@ -407,42 +407,6 @@ watch(placement, (val) => {
 
 
 
-
-const products = ref([]);
-// fetch all admin and customer
-async function fetchProducts() {
-    loading.value = true;
-    errorMsg.value = '';
-    try {
-        const res = await api.get('/users/products');
-        if (res.data?.success) {
-            products.value = res.data.data;
-            // console.log(products.value);
-        } else {
-            errorMsg.value = res.data?.message || "Failed to fetch products";
-        }
-    } catch (err) {
-        console.error(err);
-        errorMsg.value = err.response?.data?.message || err.message || "Something went wrong";
-    } finally {
-        loading.value = false;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const emit = defineEmits(['userCreated']);
 
 const form = ref({
@@ -517,6 +481,42 @@ async function CreateUser() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const products = ref([]);
+// fetch all admin and customer
+async function fetchProducts() {
+    loading.value = true;
+    errorMsg.value = '';
+    try {
+        const res = await api.get('/users/products');
+        if (res.data?.success) {
+            products.value = res.data.data;
+            // console.log(products.value);
+        } else {
+            errorMsg.value = res.data?.message || "Failed to fetch products";
+        }
+    } catch (err) {
+        console.error(err);
+        errorMsg.value = err.response?.data?.message || err.message || "Something went wrong";
+    } finally {
+        loading.value = false;
+    }
+}
 
 
 

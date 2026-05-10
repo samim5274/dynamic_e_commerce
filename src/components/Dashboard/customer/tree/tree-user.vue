@@ -61,7 +61,7 @@
                                 </div>
 
                                 <div class="px-4 py-2 bg-[#A3D921]/10 border border-[#A3D921]/20 rounded-lg">
-                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Own Point</p>
+                                    <p class="text-[10px] uppercase text-gray-500 dark:text-slate-400 font-bold">Personal Point</p>
                                     <p class="text-sm font-bold text-gray-800 dark:text-gray-100">
                                         {{ authUser?.total_own_points || '0' }}
                                     </p>
