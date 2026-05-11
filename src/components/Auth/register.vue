@@ -512,9 +512,9 @@ async function CreateUser() {
     if(photoFile.value) payload.append("photo", photoFile.value);
 
     try {
-        // const res = await api.post("/users/create", payload, {
-        //     headers: { "Content-Type": "multipart/form-data" }
-        // });
+        const res = await api.post("/register/create-user", payload, {
+            headers: { "Content-Type": "multipart/form-data" }
+        });
         successMsg.value = res.data.message || "User created successfully!";
         
         // fetch users
