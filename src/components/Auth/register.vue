@@ -14,6 +14,14 @@
                     <!-- Header -->
                     <header class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
+                            <button 
+                                @click="$router.back()" 
+                                class="fixed top-6 left-6 flex items-center gap-2 text-white/80 hover:text-white transition-all group">
+                                <div class="h-8 w-8 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-all">
+                                    <i class="fa-solid fa-arrow-left text-sm"></i>
+                                </div>
+                                <span class="text-sm font-semibold tracking-wide">Go Back</span>
+                            </button>
                             <div class="flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-2">
                                 <i class="fa-solid fa-user-plus"></i>
                                 <span>Administration</span>
