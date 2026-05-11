@@ -104,6 +104,7 @@
                     <InfoRow label="Last login" :value="formatDateTime(user?.last_login_at)" />
                     <InfoRow label="Login IP" :value="user?.last_login_ip || 'N/A'" />
                     </div>
+                    <ReferLink :user="user" class="mt-4"/>
                 </section>
 
                 <!-- Right: form -->
@@ -209,6 +210,8 @@ import Message from '../../Message/message.vue'
 
 import Navbar from "./navbar.vue";
 import Header from "./header.vue";
+
+import ReferLink from "./refer-link.vue";
 
 /** small inline components */
 const InfoRow = (props) =>
