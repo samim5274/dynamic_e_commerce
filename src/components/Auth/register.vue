@@ -46,13 +46,13 @@
                                 </div>
                                 <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <Field label="Full Name">
-                                        <input v-model="form.name" type="text" class="input-pro" placeholder="e.g. Rahim Uddin" />
+                                        <input v-model="form.name" type="text" required class="input-pro" placeholder="e.g. Rahim Uddin" />
                                     </Field>
                                     <Field label="Phone Number">
-                                        <input v-model="form.phone" type="text" class="input-pro" placeholder="01XXXXXXXXX" />
+                                        <input v-model="form.phone" type="text" required class="input-pro" placeholder="01XXXXXXXXX" />
                                     </Field>
                                     <Field label="Email Address">
-                                        <input v-model="form.email" type="email" class="input-pro" placeholder="name@example.com" />
+                                        <input v-model="form.email" type="email" required class="input-pro" placeholder="name@example.com" />
                                     </Field>
                                     <Field label="Date of Birth">
                                         <input v-model="form.dob" type="date" class="input-pro" />
@@ -71,7 +71,7 @@
                                         </select>
                                     </Field>
                                     <Field label="National ID (NID)">
-                                        <input v-model="form.national_id" type="text" class="input-pro" placeholder="123456789" />
+                                        <input v-model="form.national_id" type="text" required class="input-pro" placeholder="123456789" />
                                     </Field>
                                     <Field label="Religion">
                                         <input v-model="form.religion" type="text" class="input-pro" placeholder="Islam/Hinduism..." />
@@ -95,6 +95,7 @@
                                                     'w-full px-4 py-2.5 rounded-xl border bg-transparent focus:ring-2 outline-none transition-all dark:text-white',
                                                     form.password_confirmation && !isMatched ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'
                                                 ]" 
+                                                required
                                                 placeholder="••••••••"
                                             />
                                             <button 
@@ -131,6 +132,7 @@
                                                     'w-full px-4 py-2.5 rounded-xl border bg-transparent focus:ring-2 outline-none transition-all dark:text-white',
                                                     form.password_confirmation && !isMatched ? 'border-red-500 focus:ring-red-500' : 'border-slate-200 dark:border-slate-700 focus:ring-indigo-500'
                                                 ]" 
+                                                required
                                                 placeholder="••••••••" 
                                             />
                                             <button 
@@ -159,20 +161,39 @@
                                 <div class="p-6 space-y-6">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         <Field label="Referrer Code">
-                                            <input v-model="form.refer_id" type="text" class="input-pro bg-indigo-50/30 dark:bg-indigo-500/5 font-mono border-dashed" placeholder="DBMBL-XXXX" />
+                                            <div class="relative">
+                                                <input 
+                                                    v-model="form.refer_id" 
+                                                    type="text" required
+                                                    :readonly="referUser?.user_id"
+                                                    class="input-pro font-mono border-dashed" 
+                                                    :class="referUser?.user_id ? 'bg-slate-50 dark:bg-slate-800/50 cursor-not-allowed text-indigo-600 dark:text-indigo-400 font-bold' : 'bg-indigo-50/30 dark:bg-indigo-500/5'"
+                                                    placeholder="DBMBL-XXXX" 
+                                                />
+                                                <div v-if="referUser?.user_id" class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                                                    <span class="text-[10px] font-bold text-emerald-500 uppercase">Verified</span>
+                                                    <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                                </div>
+                                            </div>
+                                            <p v-if="referUser?.name" class="mt-1 text-[11px] text-slate-500">
+                                                Referred by: <span class="font-bold text-slate-700 dark:text-slate-300">{{ referUser.name }}</span>
+                                            </p>
                                         </Field>
                                         <Field label="Search Placement User">
                                             <div class="relative flex items-center">
-                                                <!-- <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm p-4"></i>
-                                                </div> -->
-                                                <input type="text" v-model="search" placeholder="Search by ID or Name..." class="input-pro pl-10 w-full" />
+                                                <input 
+                                                    type="text" 
+                                                    v-model="search" 
+                                                    required 
+                                                    placeholder="Type User ID to auto-select..." 
+                                                    class="input-pro pl-11 w-full border-indigo-100 dark:border-indigo-900/30" 
+                                                />
                                             </div>
                                         </Field>
                                     </div>
 
                                     <Field label="Select Parent Node">
-                                        <select v-model="form.root_user_id" class="input-pro">
+                                        <select v-model="form.root_user_id" required class="input-pro">
                                             <option disabled value="">-- Choose Placement Parent -- </option>
                                             <option v-for="u in filteredRootUsers" :key="u.id" :value="u.id">{{ u.name }} ({{ u.user_id }})</option>
                                         </select>
@@ -306,9 +327,13 @@
 
 <script setup>
 import { ref, computed, onMounted, h, watch, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import api, { makeImg } from "../../services/api.js";
 
-import Message from '../Message/message.vue'
+import Message from '../Message/message.vue';
+
+const router = useRouter()
+const route = useRoute()
 
 const successMsg = ref('');
 const errorMsg = ref('');
@@ -337,6 +362,61 @@ const photoUrl = computed(() => {
     if (!p) return "/images/avatar.png";
     return makeImg(p);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+const referUser = ref(null);
+async function fetchRefer(){
+    try
+    {
+        loading.value = true;
+        errorMsg.value = "";
+
+        const referCode = route.params.refer_code;
+
+        if (!referCode) {
+            return;
+        }
+
+        const res = await api.get(`/register/get-refer/${referCode}`);
+        referUser.value = res.data.data;
+        // console.log(referUser.value);
+    } catch (error) {
+        console.error("Failed to fetch refer user:", error);
+        errorMsg.value =
+            error?.res?.data?.message ||
+            "Unable to fetch referral information.";
+
+    } finally {
+        loading.value = false;
+    }
+}
+
+// referUser আপডেট হলে অটোমেটিক ফর্মে refer_id সেট হবে
+watch(() => referUser.value, (newUser) => {
+    if (newUser && newUser.user_id) {
+        form.value.refer_id = newUser.user_id;
+    }
+}, { immediate: true });
+
+
+
+
+
+
+
+
+
 
 
 const users = ref([]);
@@ -387,7 +467,23 @@ const filteredRootUsers = computed(() => {
   });
 });
 
+// সার্চ ভ্যালু ওয়াচ করে অটোমেটিক ইউজার সিলেক্ট করা
+watch(search, (newVal) => {
+    if (!newVal) return;
 
+    const term = newVal.trim().toLowerCase();
+    
+    // চেক করা হচ্ছে কোনো ইউজারের user_id বা email এর সাথে হুবহু মিলে যায় কি না
+    const exactMatch = users.value.find(user => 
+        user.user_id?.toLowerCase() === term || 
+        user.email?.toLowerCase() === term
+    );
+
+    if (exactMatch) {
+        // যদি মিলে যায়, তবে root_user_id আপডেট হবে
+        form.value.root_user_id = exactMatch.id;
+    }
+});
 
 
 
@@ -577,6 +673,7 @@ async function fetchProducts() {
 
 
 onMounted(() => {
+    fetchRefer();
     fetchedUsers();
     fetchProducts();
 });
