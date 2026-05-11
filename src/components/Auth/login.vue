@@ -1,5 +1,6 @@
 <template>
-  <section class="min-h-screen bg-slate-50 dark:bg-[#0f172a] text-slate-900 dark:text-slate-200 flex items-center justify-center px-4 py-10 selection:bg-[#A3D921] selection:text-black transition-colors duration-500">
+  <section class="min-h-screen bg-gradient-to-b from-[#1E4DAB] to-[#0A235D] text-white flex flex-col items-center justify-center p-6 selection:bg-[#FF782D]/20 selection:text-white transition-colors duration-500 font-sans">
+      
     <Message
       :successMsg="successMsg"
       :errorMsg="errorMsg"
@@ -7,33 +8,75 @@
       @update:errorMsg="errorMsg = $event"
     />
 
-    <div class="w-full max-w-5xl grid md:grid-cols-2 gap-0 overflow-hidden rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl bg-white dark:bg-[#111a3e]/40 backdrop-blur-sm">
-      
-      <div class="hidden md:flex flex-col justify-center p-12 bg-slate-100 dark:bg-gradient-to-br dark:from-[#111a3e] dark:to-[#0f172a] border-r border-slate-200 dark:border-slate-800">
-        <div class="mb-10">
-          <div class="h-16 w-16 bg-[#A3D921] rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-[#A3D921]/20 group hover:rotate-6 transition-all">
-            <i class="fa-solid fa-shield-halved text-black text-2xl"></i>
-          </div>
-          <h2 class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white leading-tight">
-            Elevate your <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#A3D921] to-[#639d00]">Experience.</span>
-          </h2>
-          <p class="text-slate-600 dark:text-slate-400 mt-6 text-lg leading-relaxed">
-            Secure access to your professional dashboard with encrypted authentication and real-time monitoring.
-          </p>
-        </div>
+    <div class="w-full max-w-sm flex flex-col items-center">
 
-        <div class="space-y-5">
-          <div v-for="feature in ['Encrypted Data Protection', 'Real-time Analytics', 'Multi-device Sync']" :key="feature" class="flex items-center gap-4 group">
-            <div class="h-6 w-6 rounded-full bg-[#A3D921]/20 flex items-center justify-center group-hover:bg-[#A3D921] transition-all">
-              <i class="fa-solid fa-check text-black text-[10px] font-bold"></i>
-            </div>
-            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300 tracking-wide">{{ feature }}</span>
-          </div>
-        </div>
+      <div class="text-center mb-4">        
+        <h2 class="text-4xl font-extrabold text-white leading-tight">
+          Welcome
+        </h2>
       </div>
 
-      <div class="p-8 lg:p-12 bg-white/80 dark:bg-[#111a3e]/60 backdrop-blur-xl">
+      <div class="h-24 w-24 mb-4 bg-slate-100 dark:bg-[#111a3e]/60 dark:bg-slate-50 rounded-[2rem] flex items-center justify-center border border-slate-200 dark:border-white/10 shadow-xl transition-all duration-500 hover:scale-105">
+        <img src="/logo/logo.png" alt="Logo" class="w-20 h-20 object-contain drop-shadow-md dark:hidden" />
+        <img src="/logo/white-logo.png" alt="Logo" class="hidden dark:block w-20 h-20 object-contain drop-shadow-[0_5px_15px_rgba(163,217,33,0.3)]" />
+      </div>
+
+      <div class="text-center mb-8">
+        <p class="text-lg font-semibold text-white/90">Dynamic Bazar Merchant BD Ltd.</p>
+      </div>
+
+      <form @submit.prevent="handleLogin" class="w-full space-y-6">
+        
+        <div class="space-y-1.5">
+          <label class="text-sm font-semibold text-white/90">Username</label>
+          <div class="relative group">
+            <input
+              type="email" v-model.trim="form.email"
+              placeholder="Your username"
+              class="w-full h-14 px-6 rounded-full border border-white bg-white text-[#111] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF782D] transition"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center px-1">
+            <label class="text-sm font-semibold text-white/90">Password</label>
+            <router-link to="/forget-password" class="text-xs font-medium text-white/70 hover:text-white transition-colors underline underline-offset-2">
+                Forgot Password?
+            </router-link>
+          </div>
+          <div class="relative group">
+            <input
+              :type="showPassword ? 'text' : 'password'" v-model="form.password"
+              placeholder="Your password"
+              class="w-full h-14 px-6 rounded-full border border-white bg-white text-[#111] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF782D] transition"
+            />
+            <button type="button" @click="showPassword = !showPassword" class="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-900 transition">
+              <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit" :disabled="loading"
+          class="w-full h-14 bg-[#FF782D] text-white text-lg font-bold rounded-full hover:bg-[#e66c28] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 shadow-lg shadow-[#FF782D]/20 flex items-center justify-center gap-3"
+        >
+          <i v-if="loading" class="fa-solid fa-circle-notch fa-spin"></i>
+          {{ loading ? 'AUTHENTICATING...' : 'Login' }}
+        </button>
+
+        <p class="text-center text-white/80 text-sm mt-8">
+          Don't have an account? 
+          <router-link to="/register" class="text-white font-bold hover:text-[#FF782D] transition underline underline-offset-2">Register</router-link>
+        </p>
+      </form>
+
+      <footer class="mt-16 w-full flex justify-between text-xs text-white/80">
+        <button class="hover:text-white transition">Privacy Policy</button>
+        <button class="hover:text-white transition">Cookies Settings</button>
+      </footer>
+
+      <!-- <div class="p-8 lg:p-12 bg-white/80 dark:bg-[#111a3e]/60 backdrop-blur-xl">
         
         <div class="flex flex-col items-center mb-10 text-center">
           <div class="mb-6 group">
@@ -112,20 +155,20 @@
             <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
           </div>
 
-          <!-- <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-3 gap-4">
             <button v-for="social in ['google', 'github', 'facebook']" :key="social" type="button" @click="handleSocialLogin(social)"
               class="h-12 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-[#A3D921] transition-all flex items-center justify-center group"
             >
               <i :class="`fa-brands fa-${social} text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition`"></i>
             </button>
-          </div> -->
+          </div>
 
           <p class="text-center text-slate-500 text-sm mt-6">
             New here? 
             <router-link to="/register" class="text-slate-900 dark:text-white font-bold hover:text-[#A3D921] transition underline underline-offset-4">Register</router-link>
           </p>
         </form>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
