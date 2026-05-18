@@ -35,47 +35,51 @@ const Checkout = () => import('../components/e-commerce/checkout/checkout.vue');
 // =======================
 // Admin Routes (group: admin)
 // =======================
-const AdminDashboard = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-dashboard.vue');
-const AdminProfile = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-profile.vue');
-const AdminSetting = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/admin-setting.vue');
+const AdminDashboard = () => import('../components/Dashboard/admin/admin-dashboard.vue');
+const AdminProfile = () => import('../components/Dashboard/admin/admin-profile.vue');
+const AdminTree = () => import('../components/Dashboard/admin/tree/tree-user.vue');
+const AdminSetting = () => import('../components/Dashboard/admin/admin-setting.vue');
 
-const UserList = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/users-list.vue');
-const AssignUserTree = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/assign-user.vue');
-const UserSetting = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/user-setting.vue');
-const EditUser = () => import(/* webpackChunkName: "admin" */ '../components/Dashboard/admin/user/edit-user.vue');
+const UserList = () => import('../components/Dashboard/admin/user/users-list.vue');
+const AssignUserTree = () => import('../components/Dashboard/admin/user/assign-user.vue');
+const UserSetting = () => import('../components/Dashboard/admin/user/user-setting.vue');
+const EditUser = () => import('../components/Dashboard/admin/user/edit-user.vue');
 
 
 // =======================
 // Product Routes (group: product)
 // =======================
-const CreateProduct = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/create-product.vue');
-const ProductList = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/product-list.vue');
-const ProductEdit = () => import(/* webpackChunkName: "product" */ '../components/Dashboard/product/product-edit.vue');
+const CreateProduct = () => import('../components/Dashboard/product/create-product.vue');
+const ProductList = () => import('../components/Dashboard/product/product-list.vue');
+const ProductEdit = () => import('../components/Dashboard/product/product-edit.vue');
 
 
 // =======================
 // Order Routes (group: order)
 // =======================
-const AdminOrders = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/order.vue');
-const AdminOrderDetails = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/order-details.vue');
-const AdminCustomerDetails = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/customer-details.vue');
-const AdminStatus = () => import(/* webpackChunkName: "order" */ '../components/Dashboard/order/status.vue');
+const AdminOrders = () => import('../components/Dashboard/order/order.vue');
+const AdminOrderDetails = () => import('../components/Dashboard/order/order-details.vue');
+const AdminCustomerDetails = () => import('../components/Dashboard/order/customer-details.vue');
+const AdminStatus = () => import('../components/Dashboard/order/status.vue');
+const AdminPayment = () => import('../components/Dashboard/admin/payment/payment.vue');
 
 
 // =======================
 // Customer Dashboard (group: customer)
 // =======================
-const Dashboard = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/dashboard.vue');
-const Profile = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/profile.vue');
-const Reference = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/reference.vue');
+const Dashboard = () => import('../components/Dashboard/customer/dashboard.vue');
+const Profile = () => import('../components/Dashboard/customer/profile.vue');
+const Reference = () => import('../components/Dashboard/customer/reference.vue');
 
-const CustomerOrders = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/order-list.vue');
-const C_OrderDetails = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/order-details.vue');
-const C_OrderTracking = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/order/tracking.vue');
+const CustomerOrders = () => import('../components/Dashboard/customer/order/order-list.vue');
+const C_OrderDetails = () => import('../components/Dashboard/customer/order/order-details.vue');
+const C_OrderTracking = () => import('../components/Dashboard/customer/order/tracking.vue');
 
-const C_Setting = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/setting/setting.vue');
-const C_tree = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/tree/tree-user.vue');
-const C_Account = () => import(/* webpackChunkName: "customer" */ '../components/Dashboard/customer/account/account.vue');
+const C_Setting = () => import('../components/Dashboard/customer/setting/setting.vue');
+const C_tree = () => import('../components/Dashboard/customer/tree/tree-user.vue');
+const C_Account = () => import('../components/Dashboard/customer/account/account.vue');
+const C_Withdrawal = () => import('../components/Dashboard/customer/account/withdrawal.vue');
+const C_WithdrawalForm = () => import('../components/Dashboard/customer/account/withdrawal-form.vue');
 
 
 const routes = [
@@ -103,6 +107,7 @@ const routes = [
   // admin dashboard
   { path: '/admin/dashboard', component: AdminDashboard, meta:{title: 'Admin Dashboard', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/profile', component: AdminProfile, meta:{title: 'Admin Profile', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/tree', component: AdminTree, meta:{title: 'Admin Tree', requiresAuth: true, roles: ['admin', 'super_admin']}},
   // user route
   { path: '/admin/users', name: 'UserList', component: UserList, meta:{title: 'Users List', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/assign-user-tree', component: AssignUserTree, meta:{title: 'Create user', requiresAuth: true, roles: ['admin', 'super_admin']}},
@@ -124,6 +129,9 @@ const routes = [
   { path: '/admin/customer-details/:user_id', component: AdminCustomerDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Customer Details"}},
   { path: '/admin/orders/status', component: AdminStatus, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
 
+  // Payment Routes
+  { path: '/admin/payment', component: AdminPayment, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Payment" }},
+
 
   // customer dashboard
   { path: '/dashboard', component: Dashboard, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Dashboard"}},
@@ -135,6 +143,8 @@ const routes = [
   { path: '/setting', component: C_Setting, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Setting"}},
   { path: '/tree-user', component: C_tree, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Tree"}},
   { path: '/account', component: C_Account, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Account"}},
+  { path: '/withdraw', component: C_Withdrawal, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw"}},
+  { path: '/withdraw/create', component: C_WithdrawalForm, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Balance"}},
 ]
 
 

@@ -211,7 +211,7 @@ const loadingUsers = ref(false);
 async function fetchedUsers() {
     loadingUsers.value = true;
     try {
-        const res = await api.get('/users');
+        const res = await api.get('/users/get-all');
         if (res.data?.success) {
         users.value = res.data.data;
         }

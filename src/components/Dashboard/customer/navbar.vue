@@ -148,9 +148,24 @@
               : ''"
             @click="pick('account')">
             <span class="opacity-90 w-5 text-center">
-              <i class="fa-solid fa-money-bill-transfer"></i>
+              <i class="fa-solid fa-money-bill-trend-up"></i>
             </span>
             <span class="text-sm font-medium">Account</span>
+          </button>
+        </li>
+        <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'withdraw'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('withdraw')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-solid fa-money-bill-transfer"></i>
+            </span>
+            <span class="text-sm font-medium">Withdraw</span>
           </button>
         </li>
 
@@ -240,6 +255,7 @@ const routeMap = {
   order_details: "/orders-details",
   tracking: "/orders-tracking",
   account: "/account",
+  withdraw: "/withdraw",
   setting: "/setting",
   logout: "/login",
 };
@@ -253,6 +269,7 @@ const routeMatch = [
   { key: "order_details", prefixes: ["/orders-details"] },
   { key: "tracking", prefixes: ["/orders-tracking"] },
   { key: "account", prefixes: ["/account"] },
+  { key: "withdraw", prefixes: ["/withdraw"] },
   { key: "setting", prefixes: ["/setting"] },
   { key: "logout", prefixes: ["/logout"] },
 ];
