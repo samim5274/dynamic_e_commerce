@@ -181,7 +181,7 @@ const router = useRouter();
 
 const successMsg = ref('');
 const errorMsg = ref('');
-
+const search = ref('');
 
 
 
@@ -299,7 +299,9 @@ function toggleTheme() {
     applyTheme(!isDark.value);
 }
 
-
+const onSearch = () => {
+    console.log(search.value)
+}
 
 /* ESC to close drawer */
 onMounted(() => {

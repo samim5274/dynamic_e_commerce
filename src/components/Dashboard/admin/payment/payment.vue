@@ -24,18 +24,6 @@
             <div class="flex-1 min-w-0">
                 <main class="flex-1 min-h-screen min-w-0 bg-gray-50 dark:bg-[#0C1326] px-4 sm:px-6 lg:px-8 py-6">
 
-                    <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                        <div>
-                            <div class="flex items-center gap-3">
-                                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Order Management</h1>
-                                <span class="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
-                                    {{ orders.length }} Orders
-                                </span>
-                            </div>
-                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Monitor and manage your customer transactions and shipping status.</p>
-                        </div>
-                    </div>
-
                     <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                         <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
                             
@@ -63,7 +51,8 @@
                                     <option value="">All Statuses</option>
                                     <option value="pending">Pending</option>
                                     <option value="processing">Processing</option>
-                                    <option value="delivered">Delivered</option>
+                                    <option value="paid">Paid</option>
+                                    <option value="rejected">Rejected</option>
                                     <option value="cancelled">Cancelled</option>
                                 </select>
 
@@ -80,75 +69,120 @@
 
 
                     
-                    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
-                        <div class="overflow-x-auto max-h-[850px]">
+                    <div class="bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                            <h2 class="text-lg font-bold text-slate-800 dark:text-white">Withdrawal History</h2>
+                            <button class="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition">View All</button>
+                        </div>
+
+                        <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse">
-                                <thead class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Registration</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Customer</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Amount</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Transaction ID</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
-                                </tr>
+                                <thead>
+                                    <tr class="bg-slate-50 dark:bg-slate-800/50">
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Requested Date</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Method & Details</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Amount</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Charge</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Net Amount</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500 text-right">Action</th>
+                                    </tr>
                                 </thead>
-
-                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                    <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                                        
-                                        <td class="px-6 py-4">
-                                            <div class="text-xs text-slate-700 dark:text-slate-300">{{ formatDate(order.date) }}</div>
-                                            <div v-if="order.paid_at" class="text-[10px] text-green-600 dark:text-green-400 mt-0.5">
-                                                Paid: {{ formatDate(order.paid_at) }}
-                                            </div>
-                                        </td>
-
-                                        <td class="px-6 py-4">
-                                            <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">{{ order.reg }}</span>
-                                        </td>
-
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <div class="h-9 w-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
-                                                    {{ order.user?.name.substring(0, 2).toUpperCase() }}
-                                                </div>
-                                                <div>
-                                                    <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ order.user?.name }}</div>
-                                                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ order.user?.user_id }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-100">
-                                            {{ order.currency }} ৳ {{ order.amount.toLocaleString() }}
-                                        </td>
-
-                                        <td class="px-6 py-4">
-                                            <div class="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded inline-block">
-                                                {{ order.transaction_id || 'N/A' }}
-                                            </div>
-                                        </td>
-
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span 
-                                                :class="getStatus(order.status).container" 
-                                                class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-2 border border-transparent dark:border-current/10 transition-all duration-300 shadow-sm"
-                                            >
-                                                <span class="relative flex h-2 w-2">
-                                                    <span 
-                                                        v-if="order.status.toLowerCase() === 'pending'"
-                                                        class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                                                        :class="getStatus(order.status).dot"
-                                                    ></span>
-                                                    <span 
-                                                        class="relative inline-flex rounded-full h-2 w-2"
-                                                        :class="getStatus(order.status).dot"
-                                                    ></span>
-                                                </span>
+                                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                                    <tr v-if="filteredTransactions.length === 0">
+                                        <td colspan="7" class="px-6 py-12 text-center">
+                                            <div class="flex flex-col items-center justify-center py-6">
                                                 
-                                                {{ order.status }}
+                                                <div class="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-full mb-4 text-slate-400 dark:text-slate-500 fallback-icon animate-pulse-slow">
+                                                    <i class="fa-solid fa-receipt text-3xl"></i>
+                                                </div>
+                                                
+                                                <h3 class="text-base font-semibold text-slate-700 dark:text-slate-300">
+                                                    No Transactions Found
+                                                </h3>
+                                                
+                                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 max-w-xs mx-auto">
+                                                    We couldn't find any records matching your search or filters. Try adjusting your keywords or clearing the status filter.
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Row 1: Bank Withdrawal -->
+                                    <tr
+                                        v-for="item in filteredTransactions"
+                                        :key="item.id"
+                                         @click="viewOrderDetails(item)"
+                                        class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition">
+                                        <!-- DATE -->
+                                        <td class="px-6 py-4">
+                                            <span class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                {{ formatDate(item.requested_at) }}
                                             </span>
+                                            <span class="text-[11px] text-slate-400">
+                                                {{ formatTime(item.requested_at) }}
+                                            </span>
+                                        </td>
+
+                                        <!-- PAYMENT METHOD -->
+                                        <td class="px-6 py-4">
+                                            <div class="flex flex-col">
+                                                <span class="text-sm font-semibold text-slate-800 dark:text-slate-200 uppercase">
+                                                    {{ item.payment_method ?? 'N/A' }}
+                                                </span>
+                                                <span class="text-xs text-slate-500">
+                                                    {{ item.bank_name ?? '---' }} - ****{{ item.account_number?.slice(-4) }}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <!-- AMOUNT -->
+                                        <td class="px-6 py-4 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                            ৳{{ item.amount }}
+                                        </td>
+
+                                        <!-- CHARGE -->
+                                        <td class="px-6 py-4 text-sm text-red-400">
+                                            ৳{{ item.charge ?? 0 }}
+                                        </td>
+
+                                        <!-- NET AMOUNT -->
+                                        <td class="px-6 py-4">
+                                            <span class="text-sm font-bold text-slate-900 dark:text-white">
+                                                ৳{{ item.net_amount }}
+                                            </span>
+                                        </td>
+
+                                        <!-- STATUS -->
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                                                :class="statusClass(item.status)"
+                                            >
+                                                {{ item.status }}
+                                            </span>
+                                        </td>
+
+                                        <!-- ACTION -->
+                                        <td class="px-6 py-4 text-right">
+                                            <div class="flex items-center justify-end gap-3">
+                                                <!-- VIEW -->
+                                                <button
+                                                    @click="viewTransaction(item)"
+                                                    class="text-slate-400 hover:text-indigo-600 transition"
+                                                    title="View Details">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+
+                                                <!-- DELETE -->
+                                                <button
+                                                    v-if="item.status === 'pending' && !item.is_confirm"
+                                                    @click="deleteTransaction(item.id)"
+                                                    class="text-slate-400 hover:text-red-600 transition"
+                                                    title="Delete">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -179,6 +213,7 @@ const active = ref("dashboard");
 
 const router = useRouter();
 
+const loading = ref(false);
 const successMsg = ref('');
 const errorMsg = ref('');
 
@@ -189,68 +224,98 @@ const errorMsg = ref('');
 
 
 
-// =============================
-// Get orders
-// =============================
-const orders = ref([]);
-async function fetchOrders(){
-    try{
-        const res = await api.get('/orders');
-        orders.value = res.data.data;
-        // console.log(orders.value);
-    } catch(err){
-        errorMsg.value = err || "Something is wrong to fetched orders.";
-        console.log(err);
+const searchQuery = ref('');
+const statusFilter = ref('');
+const transactions = ref([]);
+async function fetcheTransection()
+{
+    try {
+        loading.value = true;
+        errorMsg.value = null;
+
+        const res = await api.get('/finance/admin/transaction');
+        if (res.data?.success) {
+            transactions.value = res.data.data ?? [];
+        } else {
+            errorMsg.value = res.data?.message || 'Failed to fetch transactions';
+        }
+    } catch (err) {
+        console.error('Fetch Transactions Error:', err);
+        errorMsg.value = err?.response?.data?.message || 'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
     }
 }
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+const formatDate = (date) => {
+    if (!date) return '-';
+    return new Date(date).toLocaleDateString();
+};
 
-const statusConfig = {
-    pending: {
-        container: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
-        dot: 'bg-amber-500'
-    },
-    processing: {
-        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
-        dot: 'bg-emerald-500'
-    },
-    delivered: {
-        container: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
-        dot: 'bg-blue-500'
-    },
-    cancelled: {
-        container: 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
-        dot: 'bg-rose-500'
-    },
-    default: {
-        container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
-        dot: 'bg-slate-500'
+const formatTime = (date) => {
+    if (!date) return '-';
+    return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+};
+
+const statusClass = (status) => {
+    switch (status) {
+        case 'pending':
+            return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400';
+
+        case 'processing':
+            return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400';
+
+        case 'paid':
+            return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400';
+
+        case 'rejected':
+            return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
+
+        case 'cancelled':
+            return 'bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+
+        default:
+            return 'bg-slate-100 text-slate-700';
     }
 };
 
-const getStatus = (status) => {
-    return statusConfig[status.toLowerCase()] || statusConfig.default;
-};
+
+
+
 
 // =============================
 // Filter orders
 // =============================
-const searchQuery = ref('');
-const statusFilter = ref('');
 
-const filteredOrders = computed(() => {
-    return orders.value.filter(order => {
-        const matchesStatus = !statusFilter.value || 
-        order.status.toLowerCase() === statusFilter.value.toLowerCase();
+const filteredTransactions = computed(() => {
+    return transactions.value.filter(item => {
+
+        // =====================
+        // STATUS FILTER
+        // =====================
+        const matchesStatus =
+            !statusFilter.value ||
+            item.status?.toLowerCase() === statusFilter.value.toLowerCase();
+
+        // =====================
+        // SEARCH FILTER
+        // =====================
         const search = searchQuery.value.toLowerCase().trim();
+
         if (!search) return matchesStatus;
-        const matchesSearch = 
-            (order.reg?.toLowerCase().includes(search)) ||
-            (order.user?.name?.toLowerCase().includes(search)) ||
-            (String(order.user?.user_id || '').includes(search)) ||
-            (order.transaction_id?.toLowerCase().includes(search)) ||
-            (order.status?.toLowerCase().includes(search));
+
+        const matchesSearch =
+            item.transaction_id?.toLowerCase().includes(search) ||
+            item.payment_method?.toLowerCase().includes(search) ||
+            item.bank_name?.toLowerCase().includes(search) ||
+            item.account_number?.toLowerCase().includes(search) ||
+            item.amount?.toString().includes(search) ||
+            item.net_amount?.toString().includes(search) ||
+            item.status?.toLowerCase().includes(search);
+
         return matchesStatus && matchesSearch;
     });
 });
@@ -268,8 +333,8 @@ const resetFilters = () => {
 
 
 
-function viewOrderDetails(order){
-    router.push(`/admin/orders/${order.reg}/${order.slug}`);
+function viewOrderDetails(item){
+    router.push(`/admin/payment/details/${item.transaction_id}/${item.user_id}`);
 }
 
 
@@ -299,11 +364,15 @@ function toggleTheme() {
     applyTheme(!isDark.value);
 }
 
+const onSearch = (value) => {
+    searchQuery.value = value;
+};
 
 
 /* ESC to close drawer */
 onMounted(() => {
-    fetchOrders();
+    
+    fetcheTransection();
 
 
 
