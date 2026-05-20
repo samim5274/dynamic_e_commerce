@@ -62,6 +62,7 @@ const AdminOrderDetails = () => import('../components/Dashboard/order/order-deta
 const AdminCustomerDetails = () => import('../components/Dashboard/order/customer-details.vue');
 const AdminStatus = () => import('../components/Dashboard/order/status.vue');
 const AdminPayment = () => import('../components/Dashboard/admin/payment/payment.vue');
+const AdminPayDetails = () => import('../components/Dashboard/admin/payment/payment-details.vue');
 
 
 // =======================
@@ -130,7 +131,8 @@ const routes = [
   { path: '/admin/orders/status', component: AdminStatus, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
 
   // Payment Routes
-  { path: '/admin/payment', component: AdminPayment, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Payment" }},
+  { path: '/admin/payment', component: AdminPayment, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Payments" }},
+  { path: '/admin/payment/details/:transaction_id/:user_id', component: AdminPayDetails, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Payment Details" }},
 
 
   // customer dashboard

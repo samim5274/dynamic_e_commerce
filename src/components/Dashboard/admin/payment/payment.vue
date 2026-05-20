@@ -333,7 +333,15 @@ const resetFilters = () => {
 
 
 
-function viewOrderDetails(item){
+function viewOrderDetails(item) {
+    console.log('Full item object:', item); // Inspect this in your browser console!
+    
+    // Safety check: Prevent navigating if the ID is missing
+    if (!item || !item.transaction_id) {
+        console.error("Routing failed: transaction_id is missing from item.");
+        return;
+    }
+    
     router.push(`/admin/payment/details/${item.transaction_id}/${item.user_id}`);
 }
 
