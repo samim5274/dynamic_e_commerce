@@ -171,11 +171,10 @@
 
                                                 <!-- DELETE -->
                                                 <button
-                                                    v-if="item.status === 'pending' && !item.is_confirm"
+                                                    v-if="canDelete(item)"
                                                     @click="deleteTransaction(item.id)"
                                                     class="text-slate-400 hover:text-red-600 transition"
-                                                    title="Delete"
-                                                >
+                                                    title="Delete">
                                                     <i class="fa-solid fa-trash-can"></i>
                                                 </button>
 
@@ -384,6 +383,19 @@ function WithdrawCreate()
 }
 
 
+
+
+
+
+
+
+
+
+
+function canDelete(item) {
+    return item.status === 'pending' &&
+        [0, '0', false, null].includes(item.is_confirm)
+}
 
 
 
