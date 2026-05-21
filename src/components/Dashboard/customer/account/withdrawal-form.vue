@@ -125,38 +125,56 @@
                                 <!-- Input Wrapper -->
                                 <div class="p-1 bg-slate-50 dark:bg-slate-950/50 rounded-[1.5rem]">
                                     
-                                    <!-- Dynamic Fields (Bank) -->
+                                    <!-- Dynamic Fields Wrapper -->
                                     <div id="bank_fields" class="p-5 space-y-5">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                            <!-- Bank Name -->
+                                            <!-- Bank / Wallet Name (উভয় মেথডেই দেখাবে, কিন্তু লেবেল পরিবর্তন হবে) -->
                                             <div class="space-y-2">
                                                 <label class="flex items-center gap-2 text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 ml-1">
-                                                    <i class="fa-solid fa-building-columns opacity-50"></i> Bank Name <span class="text-rose-500 text-xs">*</span>
+                                                    <i :class="form.payment_method === 'mobile' ? 'fa-solid fa-wallet' : 'fa-solid fa-building-columns'" class="opacity-50"></i> 
+                                                    {{ form.payment_method === 'mobile' ? 'Wallet Name' : 'Bank Name' }} <span class="text-rose-500 text-xs">*</span>
                                                 </label>
-                                                <input type="text" v-model="form.bank_name" name="bank_name" placeholder="e.g. Dutch Bangla Bank" 
+                                                
+                                                <!-- যদি মোবাইল ওয়ালেট হয়, ড্রপডাউন দিলে ইউজার এক্সপেরিয়েন্স সবচেয়ে ভালো হয় -->
+                                                <select v-if="form.payment_method === 'mobile'" v-model="form.bank_name" name="bank_name"
+                                                    class="w-full px-4 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-slate-700 dark:text-slate-200 transition-all">
+                                                    <option value="" disabled selected>Select Wallet</option>
+                                                    <option value="bKash">bKash</option>
+                                                    <option value="Nagad">Nagad</option>
+                                                    <option value="Rocket">Rocket</option>
+                                                    <option value="Upay">Upay</option>
+                                                </select>
+
+                                                <!-- ব্যাংক সিলেক্ট করা থাকলে নরমাল ইনপুট বক্স দেখাবে -->
+                                                <input v-else type="text" v-model="form.bank_name" name="bank_name" placeholder="e.g. Dutch Bangla Bank" 
                                                     class="w-full px-4 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-slate-700 dark:text-slate-200 transition-all">
                                             </div>
-                                            <!-- Account Holder -->
+
+                                            <!-- Account Holder Name (উভয় মেথডেই দেখাবে) -->
                                             <div class="space-y-2">
                                                 <label class="flex items-center gap-2 text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 ml-1">
                                                     <i class="fa-solid fa-user-tag opacity-50"></i> Account Holder Name <span class="text-rose-500 text-xs">*</span>
                                                 </label>
-                                                <input type="text" v-model="form.account_holder_name" name="account_holder_name" placeholder="Name on bank account" 
+                                                <input type="text" v-model="form.account_holder_name" name="account_holder_name" 
+                                                    :placeholder="form.payment_method === 'mobile' ? 'Receiver Name / Your Name' : 'Name on bank account'" 
                                                     class="w-full px-4 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-slate-700 dark:text-slate-200 transition-all">
                                             </div>
                                         </div>
 
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                            <!-- Account Number -->
+                                            <!-- Account / Mobile Number (উভয় মেথডেই দেখাবে, লেবেল চেঞ্জ হবে) -->
                                             <div class="space-y-2">
                                                 <label class="flex items-center gap-2 text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 ml-1">
-                                                    <i class="fa-solid fa-hashtag opacity-50"></i> Account Number <span class="text-rose-500 text-xs">*</span>
+                                                    <i :class="form.payment_method === 'mobile' ? 'fa-solid fa-phone' : 'fa-solid fa-hashtag'" class="opacity-50"></i> 
+                                                    {{ form.payment_method === 'mobile' ? 'Mobile Number' : 'Account Number' }} <span class="text-rose-500 text-xs">*</span>
                                                 </label>
-                                                <input type="text" v-model="form.account_number" name="account_number" placeholder="Enter bank account number" 
+                                                <input type="text" v-model="form.account_number" name="account_number" 
+                                                    :placeholder="form.payment_method === 'mobile' ? 'e.g. 017XXXXXXXX' : 'Enter bank account number'" 
                                                     class="w-full px-4 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none text-slate-700 dark:text-slate-200 transition-all">
                                             </div>
-                                            <!-- Routing Number -->
-                                            <div class="space-y-2">
+
+                                            <!-- Routing Number (শুধুমাত্র ব্যাংক সিলেক্ট করা থাকলে দেখাবে) -->
+                                            <div v-if="form.payment_method === 'bank'" class="space-y-2">
                                                 <label class="flex items-center gap-2 text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 ml-1">
                                                     <i class="fa-solid fa-code-branch opacity-50"></i> Routing Number
                                                 </label>
@@ -165,7 +183,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                        <!-- এই পুরো গ্রিডটি (Branch Name & Swift Code) শুধুমাত্র ব্যাংক সিলেক্ট করা থাকলে দৃশ্যমান হবে -->
+                                        <div v-if="form.payment_method === 'bank'" class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                             <!-- Branch Name -->
                                             <div class="space-y-2">
                                                 <label class="flex items-center gap-2 text-[11px] font-black uppercase text-slate-500 dark:text-slate-400 ml-1">

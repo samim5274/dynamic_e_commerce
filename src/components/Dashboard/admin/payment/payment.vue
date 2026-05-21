@@ -111,7 +111,7 @@
                                     <tr
                                         v-for="item in filteredTransactions"
                                         :key="item.id"
-                                         @click="viewOrderDetails(item)"
+                                         @click="viewPaymentDetails(item)"
                                         class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition">
                                         <!-- DATE -->
                                         <td class="px-6 py-4">
@@ -333,7 +333,7 @@ const resetFilters = () => {
 
 
 
-function viewOrderDetails(item) {
+function viewPaymentDetails(item) {
     console.log('Full item object:', item); // Inspect this in your browser console!
     
     // Safety check: Prevent navigating if the ID is missing

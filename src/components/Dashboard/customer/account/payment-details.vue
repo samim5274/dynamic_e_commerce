@@ -116,6 +116,18 @@
                                 <div v-if="details.admin_note" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-xl p-5">
                                 <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-400">Admin Remarks</h3>
                                 <p class="mt-1 text-sm text-amber-800 dark:text-amber-300/90 whitespace-pre-line">{{ details.admin_note }}</p>
+                                <p class="mt-1 text-sm text-amber-800 dark:text-amber-300/90 font-medium">
+                                    <template v-if="details.processed_at">
+                                        <!-- এটি দেখাবে: May 22, 2026 -->
+                                        <span>{{ formatDate(details.processed_at) }}</span> 
+                                        
+                                        <!-- পাশে ছোট করে টাইম (যেমন: 12:34 AM) দেখাতে চাইলে এটি রাখতে পারেন -->
+                                        <span class="text-xs ml-2 opacity-75">
+                                            at {{ formatTime(details.processed_at) }}
+                                        </span>
+                                    </template>
+                                    <span v-else class="italic opacity-60 text-xs">Not processed yet</span>
+                                </p>
                                 </div>
 
                             </div>
@@ -162,12 +174,6 @@
                                 </div>
                                 </div>
 
-                                <button v-if="details.status !== 'paid'"
-                                    @click="openModal"
-                                    class="px-5 py-2.5 w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-lg transition">
-                                    Update Status
-                                </button>
-
                             </div>
                         </div>
 
@@ -185,109 +191,16 @@
         <FooterSection />
     </div>
 
-
-<!-- Professional Update Status Modal -->
-<transition name="fade">
-    <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-        <div class="w-full max-w-md rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-800 transform transition-all overflow-hidden">
-            
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
-                <div class="flex items-center gap-2.5 text-slate-800 dark:text-white">
-                    <div class="p-2 bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 rounded-lg">
-                        <i class="fa-solid fa-sliders text-sm"></i>
-                    </div>
-                    <h2 class="text-lg font-bold tracking-tight">Update Payment Status</h2>
-                </div>
-                <button @click="isOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="p-6 space-y-5">
-                
-                <!-- Status Dropdown -->
-                <div>
-                    <label class="block mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        Payment Status
-                    </label>
-                    <div class="relative">
-                        <select
-                            v-model="form.status"
-                            class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-white pl-4 pr-10 py-3 appearance-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition font-medium shadow-sm">
-                            <option value="pending">Pending</option>
-                            <option value="processing">Processing</option>
-                            <option value="paid">Paid</option>
-                            <option value="rejected">Rejected</option>
-                            <!-- <option value="cancelled">Cancelled</option> -->
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
-                            <i class="fa-solid fa-chevron-down text-xs"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Admin Note Textarea -->
-                <div>
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            Admin Note / Remarks
-                        </label>
-                        <span class="text-[11px] text-slate-400">(Optional)</span>
-                    </div>
-                    <textarea
-                        v-model="form.admin_note"
-                        rows="4"
-                        placeholder="Add internal notes or reason for rejection/cancellation..."
-                        class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-white px-4 py-3 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition resize-none text-sm placeholder-slate-400 shadow-sm"
-                    ></textarea>
-                </div>
-
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
-                <button
-                    @click="isOpen = false"
-                    :disabled="loading"
-                    class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium text-sm transition disabled:opacity-50"
-                >
-                    Cancel
-                </button>
-
-                <button
-                    @click="updatePayStatus"
-                    :disabled="loading"
-                    class="inline-flex items-center justify-center min-w-[120px] px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-medium text-sm shadow-md transition disabled:opacity-75 disabled:cursor-not-allowed"
-                >
-                    <template v-if="loading">
-                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Saving...
-                    </template>
-                    <template v-else>
-                        Save Changes
-                    </template>
-                </button>
-            </div>
-
-        </div>
-    </div>
-</transition>
-
 </template>
 
 <script setup>
 import { onMounted, ref, computed, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import api, { makeImg } from '../../../../services/api';
+import api, {makeImg} from '../../../../services/api';
 
-import Navbar from '../admin-navbar.vue';
-import Header from '../admin-header.vue';
-import Message from '../../../Message/message.vue';
+import Navbar from "../navbar.vue";
+import Header from "../header.vue";
+import Message from '../../../Message/message.vue'
 import FooterSection from "../../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
@@ -331,20 +244,20 @@ const fetchTransactionDetails = async () => {
     }
 }
 
+const formatTime = (date) => {
+    if (!date) return '-';
+    return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+};
+
 const formatDate = (date) => {
     if (!date) return '-';
     return new Date(date).toLocaleDateString('en-US', {
         day: 'numeric',
         month: 'long',
         year: 'numeric'
-    });
-};
-
-const formatTime = (date) => {
-    if (!date) return '-';
-    return new Date(date).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
     });
 };
 
@@ -396,84 +309,6 @@ const photoUrl = computed(() => {
 
 
 
-
-
-
-// ===============================
-// Modal Update Status
-// ===============================
-const isOpen = ref(false);
-
-const form = reactive({
-    status: "pending",
-    admin_note: "",
-});
-
-const openModal = () => {
-    if (!details.value) return;
-
-    form.status = details.value.status || "pending";
-    form.admin_note = details.value.admin_note || "";
-
-    isOpen.value = true;
-};
-
-async function updatePayStatus() {
-    
-    const confirmUpdate = confirm("Are you sure you want to update payment status?");
-    if (!confirmUpdate) return;
-
-    if (!details.value?.id) {
-        alert("Invalid transaction ID");
-        return;
-    }
-
-    try {
-        loading.value = true;
-        errorMsg.value = null;
-
-        const payload = {
-            status: form.status,
-            admin_note: form.admin_note,
-        };
-
-        const response = await api.put(
-            `/finance/update-status/${details.value.id}`,
-            payload
-        );
-
-        if (response.data.success) {
-            details.status = form.status;
-            details.admin_note = form.admin_note;
-
-            isOpen.value = false;
-            successMsg.value = 
-                response.data.message || "Status update successfully.";
-            fetchTransactionDetails();
-        } else {
-            errorMsg.value =
-                response.data.message || "Failed to update payment status.";
-        }
-    } catch (error) {
-        // console.error("Update Payment Status Error:", error);
-
-        if (error.response?.data?.message) {
-            errorMsg.value = error.response.data.message;
-        } else if (error.message) {
-            errorMsg.value = error.message;
-        } else {
-            errorMsg.value = "Something went wrong. Please try again.";
-        }
-
-        Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: errorMsg.value,
-        });
-    } finally {
-        loading.value = false;
-    }
-}
 
 
 

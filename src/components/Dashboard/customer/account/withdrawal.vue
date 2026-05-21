@@ -106,6 +106,7 @@
                                     <tr
                                         v-for="item in transactions"
                                         :key="item.id"
+                                        @click="viewPaymentDetails(item)"
                                         class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition"
                                     >
                                         <!-- DATE -->
@@ -396,6 +397,35 @@ function canDelete(item) {
     return item.status === 'pending' &&
         [0, '0', false, null].includes(item.is_confirm)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+function viewPaymentDetails(item) {
+    console.log('Full item object:', item); // Inspect this in your browser console!
+    
+    // Safety check: Prevent navigating if the ID is missing
+    if (!item || !item.transaction_id) {
+        console.error("Routing failed: transaction_id is missing from item.");
+        return;
+    }
+    
+    router.push(`/withdraw/details/${item.transaction_id}/${item.user_id}`);
+}
+
+
+
+
+
 
 
 

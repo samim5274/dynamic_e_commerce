@@ -81,6 +81,7 @@ const C_tree = () => import('../components/Dashboard/customer/tree/tree-user.vue
 const C_Account = () => import('../components/Dashboard/customer/account/account.vue');
 const C_Withdrawal = () => import('../components/Dashboard/customer/account/withdrawal.vue');
 const C_WithdrawalForm = () => import('../components/Dashboard/customer/account/withdrawal-form.vue');
+const C_WithdrawalDetails = () => import('../components/Dashboard/customer/account/payment-details.vue');
 
 
 const routes = [
@@ -147,6 +148,7 @@ const routes = [
   { path: '/account', component: C_Account, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Account"}},
   { path: '/withdraw', component: C_Withdrawal, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw"}},
   { path: '/withdraw/create', component: C_WithdrawalForm, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Balance"}},
+  { path: '/withdraw/details/:transaction_id/:user_id', component: C_WithdrawalDetails, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Details"}},
 ]
 
 

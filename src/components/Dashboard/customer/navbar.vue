@@ -91,7 +91,9 @@
               : ''"
             @click="pick('tree')">
             <span class="opacity-90 w-5 text-center">
-              <i class="fa-solid fa-chart-diagram"></i>
+              <!-- <i class="fa-solid fa-chart-diagram"></i> -->
+              <i class="fa-solid fa-diagram-project"></i>
+              <!-- <i class="fa-solid fa-boxes-stacked"></i> -->
             </span>
             <span class="text-sm font-medium">Tree</span>
           </button>
