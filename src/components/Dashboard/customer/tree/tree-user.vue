@@ -16,7 +16,7 @@
                             <div class="space-y-1">
                                 <div class="flex items-center gap-3">
                                     <div class="p-2.5 bg-[#3cabd3]/10 rounded-xl">
-                                        <i class="fa-solid fa-sitemap text-[#3cabd3] text-xl"></i>
+                                        <i class="bi bi-diagram-2-fill text-[#3cabd3] text-xl"></i>
                                     </div>
                                     <div>
                                         <h1 class="text-xl font-extrabold text-gray-800 dark:text-gray-100 tracking-tight">

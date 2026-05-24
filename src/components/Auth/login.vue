@@ -28,7 +28,7 @@
       <form @submit.prevent="handleLogin" class="w-full space-y-6">
         
         <div class="space-y-1.5">
-          <label class="text-sm font-semibold text-white/90">Username</label>
+          <label class="text-sm font-semibold text-white/90">Email</label>
           <div class="relative group">
             <input
               type="email" v-model.trim="form.email"

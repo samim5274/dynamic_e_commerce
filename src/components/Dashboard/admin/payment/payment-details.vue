@@ -157,7 +157,7 @@
                                     
                                     <div class="flex justify-between items-center">
                                     <span class="text-sm font-semibold text-slate-900 dark:text-white">Net Payout amount</span>
-                                    <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">${{ Number(details.net_amount).toFixed(2) }}</span>
+                                    <span class="text-xl font-bold text-emerald-600 dark:text-emerald-400">৳{{ Number(details.net_amount).toFixed(2) }}</span>
                                     </div>
                                 </div>
                                 </div>

@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 
 import './style.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import "leaflet/dist/leaflet.css"
 
 // theme

@@ -92,8 +92,7 @@
             @click="pick('tree')">
             <span class="opacity-90 w-5 text-center">
               <!-- <i class="fa-solid fa-chart-diagram"></i> -->
-              <i class="fa-solid fa-diagram-project"></i>
-              <!-- <i class="fa-solid fa-boxes-stacked"></i> -->
+              <i class="bi bi-diagram-2-fill"></i>
             </span>
             <span class="text-sm font-medium">Tree</span>
           </button>
@@ -152,7 +151,7 @@
             <span class="opacity-90 w-5 text-center">
               <i class="fa-solid fa-money-bill-trend-up"></i>
             </span>
-            <span class="text-sm font-medium">Account</span>
+            <span class="text-sm font-medium">Statements</span>
           </button>
         </li>
         <li>
