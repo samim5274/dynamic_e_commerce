@@ -83,6 +83,9 @@ const C_Withdrawal = () => import('../components/Dashboard/customer/account/with
 const C_WithdrawalForm = () => import('../components/Dashboard/customer/account/withdrawal-form.vue');
 const C_WithdrawalDetails = () => import('../components/Dashboard/customer/account/payment-details.vue');
 
+const C_Withdrawal_Reports = () => import('../components/Dashboard/customer/report/report-withdrawal.vue');
+const C_Sale_Reports = () => import('../components/Dashboard/customer/report/report-sale.vue');
+
 
 const routes = [
   // Public E-commerce Routes
@@ -149,6 +152,8 @@ const routes = [
   { path: '/withdraw', component: C_Withdrawal, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw"}},
   { path: '/withdraw/create', component: C_WithdrawalForm, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Balance"}},
   { path: '/withdraw/details/:transaction_id/:user_id', component: C_WithdrawalDetails, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Details"}},
+  { path: '/reports-withdrawal', component: C_Withdrawal_Reports,  meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdrawal Reports"}},
+  { path: '/reports-sales', component: C_Sale_Reports,  meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Sale Reports"}},
 ]
 
 
