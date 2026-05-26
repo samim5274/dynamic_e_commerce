@@ -59,6 +59,7 @@ const ProductEdit = () => import('../components/Dashboard/product/product-edit.v
 // =======================
 const AdminOrders = () => import('../components/Dashboard/order/order.vue');
 const AdminOrderDetails = () => import('../components/Dashboard/order/order-details.vue');
+const AdminOrderCreate = () => import('../components/Dashboard/order/create-order.vue');
 const AdminCustomerDetails = () => import('../components/Dashboard/order/customer-details.vue');
 const AdminStatus = () => import('../components/Dashboard/order/status.vue');
 const AdminPayment = () => import('../components/Dashboard/admin/payment/payment.vue');
@@ -133,6 +134,7 @@ const routes = [
   { path: '/admin/orders/:reg/:slug', component: AdminOrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},
   { path: '/admin/customer-details/:user_id', component: AdminCustomerDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Customer Details"}},
   { path: '/admin/orders/status', component: AdminStatus, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Status Filter"}},
+  { path: '/admin/orders/create', component: AdminOrderCreate, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Create Order"}},
 
   // Payment Routes
   { path: '/admin/payment', component: AdminPayment, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Payments" }},

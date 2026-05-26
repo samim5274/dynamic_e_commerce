@@ -242,6 +242,18 @@
                   Status
                 </button>
               </li>
+
+              <li>
+                <button
+                  class="w-full px-4 py-2 text-sm text-left transition
+                         hover:bg-white dark:hover:bg-white/10"
+                  :class="activeKey === 'order_create'
+                    ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                    : 'text-slate-700 dark:text-slate-200/90'"
+                  @click="pick('order_create')">
+                  Create
+                </button>
+              </li>
             </ul>
           </div>
         </li>
@@ -437,6 +449,7 @@ const routeMap = {
 
   orders: "/admin/orders",
   order_status: "/admin/orders/status",
+  order_create: "/admin/orders/create",
 
   payment: "/admin/payment",
 
@@ -470,6 +483,7 @@ const routeMatch = [
   { key: "products", prefixes: ["/admin/products", "/admin/product-edit"] },
   { key: "create", prefixes: ["/admin/create-product"] },
 
+  { key: "order_create", prefixes: ["/admin/orders/create"] },
   { key: "order_status", prefixes: ["/admin/orders/status"] },
   { key: "orders", prefixes: ["/admin/orders", "/admin/customer-details/"] },
 
@@ -583,7 +597,7 @@ watch(
 watch(
   () => activeKey.value,
   (k) => {
-    const orderKeys = ["orders", "order_status", "sales"];
+    const orderKeys = ["orders", "order_status", "sales", "order_create"];
     if (orderKeys.includes(k)) {
       orderPagesOpen.value = true;
     }
