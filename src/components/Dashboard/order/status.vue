@@ -101,60 +101,84 @@
                                 </thead>
 
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                    <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                                        
-                                        <td class="px-6 py-4">
-                                            <div class="text-xs text-slate-700 dark:text-slate-300">{{ formatDate(order.date) }}</div>
-                                            <div v-if="order.paid_at" class="text-[10px] text-green-600 dark:text-green-400 mt-0.5">
-                                                Paid: {{ formatDate(order.paid_at) }}
-                                            </div>
-                                        </td>
+                                    <div v-if="loading" class="w-full flex flex-col items-center justify-center py-20">
+                                        <div class="animate-spin h-10 w-10 border-4 border-[#A3D921] border-t-transparent rounded-full"></div>
+                                        <p class="mt-4 text-sm text-gray-500">Updating Tree...</p>
+                                    </div>
 
-                                        <td class="px-6 py-4">
-                                            <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">{{ order.reg }}</span>
-                                        </td>
-
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center gap-3">
-                                                <div class="h-9 w-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
-                                                    {{ order.user?.name.substring(0, 2).toUpperCase() }}
+                                    <template v-if="filteredOrders && filteredOrders.length > 0">
+                                        <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                                            
+                                            <td class="px-6 py-4">
+                                                <div class="text-xs text-slate-700 dark:text-slate-300">{{ formatDate(order.date) }}</div>
+                                                <div v-if="order.paid_at" class="text-[10px] text-green-600 dark:text-green-400 mt-0.5">
+                                                    Paid: {{ formatDate(order.paid_at) }}
                                                 </div>
-                                                <div>
-                                                    <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ order.user?.name }}</div>
-                                                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ order.user?.user_id }}</div>
+                                            </td>
+
+                                            <td class="px-6 py-4">
+                                                <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">{{ order.reg }}</span>
+                                            </td>
+
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="h-9 w-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
+                                                        {{ order.user?.name.substring(0, 2).toUpperCase() }}
+                                                    </div>
+                                                    <div>
+                                                        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ order.user?.name }}</div>
+                                                        <div class="text-xs text-slate-500 dark:text-slate-400">{{ order.user?.user_id }}</div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-100">
-                                            {{ order.currency }} ৳ {{ order.amount.toLocaleString() }}
-                                        </td>
+                                            <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-100">
+                                                {{ order.currency }} ৳ {{ order.amount.toLocaleString() }}
+                                            </td>
 
-                                        <td class="px-6 py-4">
-                                            <div class="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded inline-block">
-                                                {{ order.transaction_id || 'N/A' }}
-                                            </div>
-                                        </td>
+                                            <td class="px-6 py-4">
+                                                <div class="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded inline-block">
+                                                    {{ order.transaction_id || 'N/A' }}
+                                                </div>
+                                            </td>
 
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span 
-                                                :class="getStatus(order.status).container" 
-                                                class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-2 border border-transparent dark:border-current/10 transition-all duration-300 shadow-sm"
-                                            >
-                                                <span class="relative flex h-2 w-2">
-                                                    <span 
-                                                        v-if="order.status.toLowerCase() === 'pending'"
-                                                        class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                                                        :class="getStatus(order.status).dot"
-                                                    ></span>
-                                                    <span 
-                                                        class="relative inline-flex rounded-full h-2 w-2"
-                                                        :class="getStatus(order.status).dot"
-                                                    ></span>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span 
+                                                    :class="getStatus(order.status).container" 
+                                                    class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-2 border border-transparent dark:border-current/10 transition-all duration-300 shadow-sm"
+                                                >
+                                                    <span class="relative flex h-2 w-2">
+                                                        <span 
+                                                            v-if="order.status.toLowerCase() === 'pending'"
+                                                            class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                                            :class="getStatus(order.status).dot"
+                                                        ></span>
+                                                        <span 
+                                                            class="relative inline-flex rounded-full h-2 w-2"
+                                                            :class="getStatus(order.status).dot"
+                                                        ></span>
+                                                    </span>
+                                                    
+                                                    {{ order.status }}
                                                 </span>
-                                                
-                                                {{ order.status }}
-                                            </span>
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    <!-- Empty State -->
+                                    <tr v-else>
+                                        <td colspan="6" class="px-6 py-12 text-center">
+                                            <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                                <div class="p-3 bg-slate-100 dark:bg-slate-800/50 rounded-full text-slate-400 dark:text-slate-500 mb-4 ring-8 ring-slate-50 dark:ring-slate-900/30 flex items-center justify-center w-12 h-12 mx-auto">
+                                                    <i class="fas fa-box-open text-xl"></i>
+                                                </div>
+                                                <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                                                    No orders found
+                                                </h3>
+                                                <p class="text-xs text-slate-400 dark:text-slate-500">
+                                                    Your search or filter criteria didn't match any orders.
+                                                </p>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

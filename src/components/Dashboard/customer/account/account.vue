@@ -76,6 +76,11 @@
                             <span v-else class="text-xs font-bold text-indigo-500">Total: {{ statements.length }} Records</span>
                         </div>
 
+                        <div v-if="loading" class="w-full flex flex-col items-center justify-center py-20">
+                            <div class="animate-spin h-10 w-10 border-4 border-[#A3D921] border-t-transparent rounded-full"></div>
+                            <p class="mt-4 text-sm text-gray-500">Updating Tree...</p>
+                        </div>
+
                         <div class="overflow-x-auto max-h-[850px]">
                             <table class="min-w-full text-sm">
                                 <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-widest">
@@ -92,6 +97,7 @@
                                 </thead>
 
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    
                                     <tr v-for="(item, index) in filteredTransactions" :key="index"
                                         class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
                                         
