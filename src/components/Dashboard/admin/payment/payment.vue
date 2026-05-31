@@ -75,7 +75,7 @@
                             <button class="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition">View All</button>
                         </div>
 
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto max-h-[850px]">
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-slate-50 dark:bg-slate-800/50">

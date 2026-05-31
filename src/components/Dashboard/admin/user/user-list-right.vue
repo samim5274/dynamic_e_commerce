@@ -7,7 +7,7 @@
         </div>
 
         <!-- Table -->
-        <div class="overflow-x-auto max-h-[1100px]">
+        <div class="overflow-x-auto max-h-[1600px]">
             <table class="min-w-full text-sm">
                 <!-- Body -->
                 <tbody>

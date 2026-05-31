@@ -76,7 +76,7 @@
                             <span v-else class="text-xs font-bold text-indigo-500">Total: {{ statements.length }} Records</span>
                         </div>
 
-                        <div class="overflow-x-auto">
+                        <div class="overflow-x-auto max-h-[850px]">
                             <table class="min-w-full text-sm">
                                 <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-widest">
                                     <tr>
@@ -96,7 +96,7 @@
                                         class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
                                         
                                         <td class="px-4 py-3 font-semibold text-slate-700 dark:text-slate-200">
-                                            {{ item.user.name }}
+                                            {{ index++ }} - {{ item.user.name }}
                                         </td>
 
                                         <td class="px-4 py-3">
