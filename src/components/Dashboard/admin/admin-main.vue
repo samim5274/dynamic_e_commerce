@@ -285,7 +285,6 @@
             </div>
             <!-- =========================== Card Section =========================== -->
         </div>
-        <FooterSection />
     </main>
 </template>
 
@@ -303,7 +302,6 @@ const errorMsg = ref("");
 /* ====================== */
 /* Dashboard component */
 /* ====================== */
-import FooterSection from "../../e-commerce/footer.vue";
 import profileCard from "./dashboard/profile-card.vue";
 
 
