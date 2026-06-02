@@ -104,6 +104,7 @@
                 </main>
             </div>
         </div>
+        <FooterSection />
     </div>
 </template>
 
@@ -120,6 +121,7 @@ import Header from '../header.vue'
 const successMsg = ref("");
 const errorMsg = ref("");
 
+import FooterSection from "../../../e-commerce/footer.vue";
 import settingGeneral from "./setting-general.vue";
 import settingAbout from "./setting-about.vue";
 import privacyAndPolicy from "./setting-privacy.vue";

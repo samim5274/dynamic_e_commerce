@@ -40,7 +40,7 @@
                 </main>
             </div>
         </div>
-        
+        <FooterSection />
     </div>
 </template>
 
@@ -52,7 +52,7 @@ import api from "../../../services/api";
 import Navbar from "./navbar.vue";
 import Header from "./header.vue";
 import Message from '../../Message/message.vue'
-
+import FooterSection from "../../e-commerce/footer.vue";
 import rightSection from './user-list-right.vue';
 import leftSection from './user-list-left.vue';
 

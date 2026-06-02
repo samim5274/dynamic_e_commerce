@@ -200,6 +200,7 @@
             </div>
         </main>
         </div>
+        <FooterSection />
     </div>
 </template>
 
@@ -210,6 +211,7 @@ import Message from '../../Message/message.vue'
 
 import Navbar from "./navbar.vue";
 import Header from "./header.vue";
+import FooterSection from "../../e-commerce/footer.vue";
 
 import ReferLink from "./refer-link.vue";
 

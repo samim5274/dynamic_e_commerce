@@ -18,7 +18,7 @@
 
 
             <!-- =========================== Profile Card Section =========================== -->
-            <profileCard />
+            <profileCard :user="user" />
             <!-- =========================== Profile Card Section =========================== -->
 
 
@@ -43,7 +43,7 @@
                             </div>
                             <div class="flex items-baseline text-white">
                                 <span class="text-2xl font-medium text-slate-500 mr-2">৳</span>
-                                <h2 class="font-mono text-4xl font-black tracking-tight">{{ formatCount(balance ?? 0) }}</h2>
+                                <h2 class="font-mono text-4xl font-black tracking-tight">{{ balance ?? 0 }}</h2>
                             </div>
                         </div>
 
@@ -59,55 +59,183 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-amber-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-amber-500/30">
-                        <div class="relative flex h-full flex-col justify-between min-h-[140px]">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2.5">
-                                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 border border-amber-100 text-amber-600 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-400">
-                                        <i class="fa-solid fa-clock-rotate-left text-sm"></i>
+                <div class="space-y-8">
+                    <!-- ================= SECTION 1: PRIMARY ESCROW & EARNINGS OVERVIEW ================= -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <!-- CARD 1: PENDING ESCROW (SOFT AMBER ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-amber-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-amber-500/30">
+                            <div class="relative flex h-full flex-col justify-between min-h-[140px]">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50 border border-amber-100 text-amber-600 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-400">
+                                            <i class="fa-solid fa-clock-rotate-left text-sm"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Pending Escrow</span>
                                     </div>
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Pending Escrow</span>
+                                    <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 border border-amber-200/40 dark:bg-amber-500/10 dark:text-amber-400 dark:border-transparent">In Process</span>
                                 </div>
-                                <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 border border-amber-200/40 dark:bg-amber-500/10 dark:text-amber-400 dark:border-transparent">In Process</span>
-                            </div>
-                            <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
-                                <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
-                                <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ formatCount(pending ?? 0) }}</h2>
-                            </div>
-                            <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
-                                <span class="text-[11px] font-medium text-slate-400">Locked for review</span>
-                                <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
-                                    <span>Details</span>
-                                    <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
+                                    <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ pending ?? 0 }}</h2>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
+                                    <span class="text-[11px] font-medium text-slate-400">Locked for review</span>
+                                    <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
+                                        <span>Details</span>
+                                        <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- CARD 2: WITHDRAW ESCROW (SOFT PURPLE ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-purple-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-purple-500/30">
+                            <div class="relative flex h-full flex-col justify-between min-h-[140px]">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-purple-50 border border-purple-100 text-purple-600 dark:bg-purple-500/10 dark:border-purple-500/20 dark:text-purple-400">
+                                            <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Withdraw Escrow</span>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 border border-purple-200/40 dark:bg-purple-500/10 dark:text-purple-400 dark:border-transparent">In Process</span>
+                                </div>
+                                <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
+                                    <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ withdraw ?? 0 }}</h2>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
+                                    <span class="text-[11px] font-medium text-slate-400">Payout processing</span>
+                                    <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
+                                        <span>Details</span>
+                                        <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: REFER BONUS (SOFT INDIGO ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-indigo-500/30">
+                            <div class="relative flex h-full flex-col justify-between min-h-[140px]">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400">
+                                            <i class="fa-solid fa-comment-dollar text-sm"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Refer Bonus</span>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-indigo-700 border border-indigo-200/40 dark:bg-indigo-500/10 dark:text-indigo-400 dark:border-transparent">Direct Reward</span>
+                                </div>
+                                <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
+                                    <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ bonus ?? 0 }}</h2>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
+                                    <span class="text-[11px] font-medium text-slate-400">Sponsor earnings</span>
+                                    <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
+                                        <span>Details</span>
+                                        <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 4: TOTAL EARNINGS (SOFT EMERALD ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-emerald-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-emerald-500/30">
+                            <div class="relative flex h-full flex-col justify-between min-h-[140px]">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400">
+                                            <i class="fa-solid fa-money-bill-wheat text-sm"></i>
+                                        </div>
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Total Earnings</span>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 border border-emerald-200/40 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-transparent">Lifetime</span>
+                                </div>
+                                <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
+                                    <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ credit ?? 0 }}</h2>
+                                </div>
+                                <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
+                                    <span class="text-[11px] font-medium text-slate-400">All time transactions</span>
+                                    <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
+                                        <span>Statement</span>
+                                        <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="group relative overflow-hidden rounded-2xl border border-slate-200/60 bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 hover:border-emerald-200 hover:shadow-md dark:border-slate-800/80 dark:bg-slate-900 dark:hover:border-emerald-500/30">
-                        <div class="relative flex h-full flex-col justify-between min-h-[140px]">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2.5">
-                                    <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400">
-                                        <i class="fa-solid fa-money-bill-wheat text-sm"></i>
-                                    </div>
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Gross Earnings</span>
+                    <!-- ================= SECTION 2: BINARY & TRANSACTION ANALYTICS ================= -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                            
+                        <!-- CARD 5: BINARY MATCHING (SKY BLUE ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-xl border border-slate-200/60 bg-white p-5 transition-all duration-300 hover:border-sky-200 hover:shadow-sm dark:border-slate-800/60 dark:bg-slate-900/40 dark:hover:border-sky-500/20">
+                            <div class="flex items-center gap-3">
+                                <!-- Icon Wrapper -->
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-50 border border-sky-100 text-sky-600 dark:bg-sky-500/10 dark:border-transparent dark:text-sky-400">
+                                    <i class="fa-solid fa-circle-nodes text-base"></i>
                                 </div>
-                                <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-700 border border-emerald-200/40 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-transparent">Lifetime</span>
-                            </div>
-                            <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
-                                <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
-                                <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ formatCount(credit ?? 0) }}</h2>
-                            </div>
-                            <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
-                                <span class="text-[11px] font-medium text-slate-400">All time transactions</span>
-                                <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
-                                    <span>Statement</span>
-                                    <svg class="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-                                </a>
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Matching Bonus</p>
+                                    <h4 class="font-mono text-xl font-extrabold text-slate-800 dark:text-slate-200 mt-0.5">
+                                        <span class="text-slate-400 dark:text-slate-500 font-sans text-lg font-medium mr-0.5">৳</span>{{ matching ?? 0 }}
+                                    </h4>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- CARD 6: GENUINE EARN (CYAN ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-xl border border-slate-200/60 bg-white p-5 transition-all duration-300 hover:border-cyan-200 hover:shadow-sm dark:border-slate-800/60 dark:bg-slate-900/40 dark:hover:border-cyan-500/20">
+                            <div class="flex items-center gap-3">
+                                <!-- Icon Wrapper -->
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-cyan-50 border border-cyan-100 text-cyan-600 dark:bg-cyan-500/10 dark:border-transparent dark:text-cyan-400">
+                                    <i class="fa-solid fa-arrow-trend-up text-base"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Net Earned</p>
+                                    <h4 class="font-mono text-xl font-extrabold text-slate-800 dark:text-slate-200 mt-0.5">
+                                        <span class="text-slate-400 dark:text-slate-500 font-sans text-lg font-medium mr-0.5">৳</span>{{ earn ?? 0 }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 7: DEBIT / SPEND (ROSE ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-xl border border-slate-200/60 bg-white p-5 transition-all duration-300 hover:border-rose-200 hover:shadow-sm dark:border-slate-800/60 dark:bg-slate-900/40 dark:hover:border-rose-500/20">
+                            <div class="flex items-center gap-3">
+                                <!-- Icon Wrapper -->
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-50 border border-rose-100 text-rose-600 dark:bg-rose-500/10 dark:border-transparent dark:text-rose-400">
+                                    <i class="fa-solid fa-wallet text-base"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Total Spend / Debit</p>
+                                    <h4 class="font-mono text-xl font-extrabold text-slate-800 dark:text-slate-200 mt-0.5">
+                                        <span class="text-slate-400 dark:text-slate-500 font-sans text-lg font-medium mr-0.5">৳</span>{{ spend ?? debit ?? 0 }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD 8: REFUNDED AMOUNT (TEAL ACCENT) -->
+                        <div class="group relative overflow-hidden rounded-xl border border-slate-200/60 bg-white p-5 transition-all duration-300 hover:border-teal-200 hover:shadow-sm dark:border-slate-800/60 dark:bg-slate-900/40 dark:hover:border-teal-500/20">
+                            <div class="flex items-center gap-3">
+                                <!-- Icon Wrapper -->
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-50 border border-teal-100 text-teal-600 dark:bg-teal-500/10 dark:border-transparent dark:text-teal-400">
+                                    <i class="fa-solid fa-arrow-rotate-left text-base"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Refund Capital</p>
+                                    <h4 class="font-mono text-xl font-extrabold text-slate-800 dark:text-slate-200 mt-0.5">
+                                        <span class="text-slate-400 dark:text-slate-500 font-sans text-lg font-medium mr-0.5">৳</span>{{ refund ?? 0 }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -142,7 +270,7 @@
 
                     <div class="my-4 flex items-baseline text-slate-900 dark:text-white">
                         <h2 class="font-mono text-3xl font-black tracking-tight">
-                        {{ formatCount(card.value ?? 0) }}
+                        {{ card.value ?? 0 }}
                         </h2>
                     </div>
 
@@ -157,393 +285,7 @@
             </div>
             <!-- =========================== Card Section =========================== -->
         </div>
-
-        <div class="mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
-                <div class="xl:col-span-8 bg-gray-50 dark:bg-[#0c1326] border dark:border-slate-700 rounded-md p-3 text-white">
-                    <h4 class="pb-2">My Order</h4>
-                    <div class="w-full overflow-hidden rounded-2xl dark:border-slate-700  shadow-sm">
-                        
-                        
-                        <!-- List -->
-                        <div class="w-full overflow-x-auto max-h-[950px] mb-3">
-                            <div class="space-y-3">
-                                <!-- Items -->
-                                <article
-                                    v-for="complaint in complaints"
-                                    :key="complaint.id"
-                                    @click="viewComplaint(complaint)"
-                                    class="group cursor-pointer rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition
-                                        hover:shadow-md hover:bg-slate-50/60
-                                        dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800/40">
-                                    <div class="flex items-start gap-4">
-                                        <!-- left icon -->
-                                        <div class="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600
-                                                    dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                            <i class="fa-regular fa-file-lines"></i>
-                                        </div>
-
-                                        <!-- content -->
-                                        <div class="min-w-0 flex-1">
-                                            <!-- top row -->
-                                            <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                                                <!-- left -->
-                                                <div class="min-w-0">
-                                                    <div class="flex flex-wrap items-center gap-2">
-                                                        <h3 class="truncate text-sm font-bold text-slate-900 dark:text-slate-100 group-hover:underline">
-                                                            {{ complaint.title || "Untitled Complaint" }}
-                                                        </h3>
-
-                                                        <span
-                                                            class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-600
-                                                                dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                                            #{{ complaint.complaint_no || "N/A" }}
-                                                        </span>
-
-                                                        <span
-                                                            v-if="complaint.is_anonymous"
-                                                            class="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-semibold text-purple-700
-                                                                dark:bg-purple-900/30 dark:text-purple-300"
-                                                        >
-                                                            Anonymous
-                                                        </span>
-
-                                                        <span
-                                                            v-if="complaint.is_public"
-                                                            class="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
-                                                            Public
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- tags -->
-                                                    <div class="mt-2 flex flex-wrap gap-2">
-                                                        <span class="inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                                            {{ complaint.category?.name || "No Category" }}
-                                                        </span>
-
-                                                        <span
-                                                            v-if="complaint.sub_category?.name"
-                                                            class="inline-flex rounded-full bg-blue-50 px-2 py-0.5 text-[11px] text-blue-700 dark:bg-blue-900/20 dark:text-blue-300">
-                                                            {{ complaint.sub_category?.name }}
-                                                        </span>
-                                                    </div>
-
-                                                    <!-- meta line -->
-                                                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                                                        <span class="inline-flex items-center gap-2">
-                                                            <i class="fa-regular fa-clock"></i>
-                                                            {{ formatDate(complaint.created_at) }} • {{ formatTime(complaint.created_at) }}
-                                                        </span>
-                                                    </p>
-                                                </div>
-
-                                                <!-- right: badges -->
-                                                <div class="flex flex-wrap items-center gap-2">
-                                                    <span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize" :class="priorityBadge(complaint.priority)">
-                                                        {{ complaint.priority || "N/A" }}
-                                                    </span>
-
-                                                    <span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize" :class="statusBadge(complaint.status)" >
-                                                        {{ formatStatus(complaint.status) }}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <!-- location -->
-                                            <div class="mt-3 flex flex-col gap-1 text-xs text-slate-600 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-                                                <p class="truncate">
-                                                    <i class="fa-solid fa-location-dot me-2"></i>
-                                                    {{ complaint.division?.name || "-" }},
-                                                    {{ complaint.district?.name || "-" }}
-                                                    <span v-if="complaint.upazila?.name">, {{ complaint.upazila?.name }}</span>
-                                                    <span v-if="complaint.police_station?.name">, {{ complaint.police_station?.name }}</span>
-                                                    <span v-if="complaint.attachments?.length" class="inline-flex items-center ml-2">
-                                                        <i class="fa-solid fa-paperclip me-2"></i>
-                                                        {{ complaint.attachments.length }} attachment(s)
-                                                    </span>
-                                                </p>
-
-                                                <p class="truncate sm:max-w-[320px]">
-                                                    {{ complaint.address_line || "No address" }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
-
-                                <!-- Empty -->
-                                <div
-                                    v-if="!loading && (!complaints || complaints.length === 0)"
-                                    class="rounded-2xl border border-slate-200 bg-white p-8 text-center dark:border-slate-700 dark:bg-slate-900">
-                                    <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">No complaints found.</p>
-                                    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Try adjusting filters or search.</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Pegination section -->
-                        <div class="flex flex-col gap-2 border-slate-200 bg-white dark:bg-slate-900 shadow-sm px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-                            <p class="text-xs text-slate-500">
-                                Showing
-                                <span class="font-semibold text-slate-700">{{ publicFromItem }}</span>
-                                –
-                                <span class="font-semibold text-slate-700">{{ publicToItem }}</span>
-                                of
-                                <span class="font-semibold text-slate-700">{{ publicTotal }}</span>
-                            </p>
-
-                            <div class="flex flex-wrap items-center justify-end gap-2">
-                                <!-- First -->
-                                <button
-                                    @click="getComplaints(1)"
-                                    :disabled="publicPage === 1 || publicLoading"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                    <i class="fa-solid fa-angles-left"></i>
-                                </button>
-
-                                <!-- Prev -->
-                                <button
-                                    @click="getComplaints(Math.max(1, publicPage - 1))"
-                                    :disabled="publicPage === 1 || publicLoading"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </button>
-
-                                <!-- Pages -->
-                                <button
-                                    v-for="page in publicVisiblePages"
-                                    :key="String(page)"
-                                    :disabled="page === '...' || publicLoading"
-                                    @click="page !== '...' && getComplaints(page)"
-                                    class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
-                                    :class="[
-                                        page === '...'
-                                            ? 'border-slate-200 bg-white dark:bg-slate-900 text-slate-400 cursor-default'
-                                            : publicPage === page
-                                                ? 'border-slate-900 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
-                                                : 'border-slate-200 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 hover:bg-slate-50'
-                                    ]">
-                                    {{ page }}
-                                </button>
-
-                                <!-- Next -->
-                                <button
-                                    @click="getComplaints(Math.min(publicLastPage, publicPage + 1))"
-                                    :disabled="publicPage === publicLastPage || publicLoading"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                    <i class="fa-solid fa-angle-right"></i>
-                                </button>
-
-                                <!-- Last -->
-                                <button
-                                    @click="getComplaints(publicLastPage)"
-                                    :disabled="publicPage === publicLastPage || publicLoading"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                    <i class="fa-solid fa-angles-right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="xl:col-span-4 bg-gray-50 dark:bg-[#0c1326] border dark:border-slate-700 rounded-md p-3 text-white">
-                    <h4 class="pb-2">My Transection</h4>
-                    <!-- <p class="text-xs text-red-500">Count: {{ myComplaints.length }}</p> -->
-                    <div class="w-full overflow-x-auto max-h-[950px] mb-3">
-                        <div class="w-full overflow-x-auto">
-                            <div class="space-y-3">
-                                <!-- List items -->
-                                <article
-                                    v-for="c in myComplaints"
-                                    :key="c.id" 
-                                    class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
-
-                                    <div class="flex items-start gap-4">
-                                        <!-- icon chip -->
-                                        <div class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                            <i class="fa-regular fa-file-lines"></i>
-                                        </div>
-
-                                        <!-- main -->
-                                        <div class="min-w-0 flex-1">
-                                            <!-- top row -->
-                                            <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                                                <div class="min-w-0">
-                                                    <div class="flex flex-wrap items-center gap-2">
-                                                        <h3 @click="viewComplaint(c)" class="truncate text-sm font-bold text-slate-900 dark:text-slate-100 hover:underline hover:cursor-pointer">
-                                                            {{ c.title || "Untitled Complaint" }}
-                                                        </h3>
-
-                                                        <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                                            #{{ c.complaint_no || "N/A" }}
-                                                        </span>
-
-                                                        <!-- <span
-                                                            v-if="c.is_anonymous"
-                                                            class="inline-flex items-center rounded-full bg-purple-100 px-2 py-0.5 text-[11px] font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
-                                                            Anonymous
-                                                        </span>
-
-                                                        <span
-                                                            v-if="c.is_public"
-                                                            class="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
-                                                            Public
-                                                        </span> -->
-                                                    </div>
-
-                                                    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                                                        {{ c.category?.name || "Category N/A" }}
-                                                        <span class="mx-1">•</span>
-                                                        {{ c.sub_category?.name || "Sub N/A" }}
-                                                        <span class="mx-1">•</span>
-                                                        {{ c.district?.name || "District N/A" }}
-                                                        <span v-if="c.upazila?.name">, {{ c.upazila?.name }}</span>
-                                                        <span v-if="c.ward_no"> (Ward {{ c.ward_no }})</span>
-                                                    </p>
-                                                </div>
-
-                                                <!-- badges -->
-                                                <!-- <div class="flex flex-wrap items-center gap-2">
-                                                    <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold capitalize" :class="priorityBadge(c.priority)">
-                                                    {{ c.priority || "N/A" }}
-                                                    </span>
-
-                                                    <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold capitalize" :class="statusBadge(c.status)">
-                                                    {{ formatStatus(c.status) }}
-                                                    </span>
-                                                </div> -->
-
-                                                <div v-if="c.status === 'pending'" class="flex flex-wrap items-center gap-2">
-                                                    <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold capitalize text-red-500">
-                                                        <i class="fa-solid fa-trash-can"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <!-- bottom meta -->
-                                            <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-                                                <span class="inline-flex items-center gap-2">
-                                                    <i class="fa-regular fa-clock"></i>
-                                                    {{ formatDate(c.created_at) }} • {{ formatTime(c.created_at) }}
-                                                </span>
-
-                                                <span v-if="c.assigned_to" class="inline-flex items-center gap-2">
-                                                    <i class="fa-solid fa-user-check"></i>
-                                                    Assigned
-                                                </span>
-
-                                                <!-- <span v-if="c.attachments?.length" class="inline-flex items-center gap-2">
-                                                    <i class="fa-solid fa-paperclip"></i>
-                                                    {{ c.attachments.length }} attachment(s)
-                                                </span> -->
-                                            </div>
-
-                                            <!-- actions -->
-                                            <!-- <div class="mt-4 flex flex-wrap items-center justify-end gap-2">
-                                                <button
-                                                    type="button"
-                                                    @click="viewComplaint(c)"
-                                                    class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800">
-                                                    <i class="fa-regular fa-eye"></i>
-                                                    View
-                                                </button>
-
-                                                <button
-                                                    v-if="c.status === 'pending'"
-                                                    type="button"
-                                                    @click="onDelete(c)"
-                                                        class="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-700 shadow-sm
-                                                        hover:bg-red-100 active:bg-red-200 transition
-                                                        dark:border-red-800 dark:bg-red-950/30 dark:text-red-300 dark:hover:bg-red-900/40
-                                                        focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                    Delete
-                                                </button>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </article>
-
-                                <!-- Empty -->
-                                <div
-                                    v-if="!loading && (myComplaints?.length ?? 0) === 0"
-                                    class="rounded-2xl border border-slate-200 bg-white p-8 text-center dark:border-slate-700 dark:bg-slate-900">
-                                    <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">No complaints found</p>
-                                    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Try changing filters or create a new complaint.</p>
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-
-
-                    <!-- Pegination section -->
-                    <div class="flex flex-col gap-2 border-slate-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-                        <p class="text-xs text-slate-500">
-                            Showing
-                            <span class="font-semibold text-slate-700">{{ myFromItem }}</span>
-                            –
-                            <span class="font-semibold text-slate-700">{{ myToItem }}</span>
-                            of
-                            <span class="font-semibold text-slate-700">{{ myTotal }}</span>
-                        </p>
-
-                        <div class="flex flex-wrap items-center justify-end gap-2">
-                            <!-- First -->
-                            <button
-                                @click="getMyComplaints(1)"
-                                :disabled="myPage === 1 || myLoading"
-                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </button>
-
-                            <!-- Prev -->
-                            <button
-                                @click="getMyComplaints(Math.max(1, myPage - 1))"
-                                :disabled="myPage === 1 || myLoading"
-                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                <i class="fa-solid fa-chevron-left"></i>
-                            </button>
-
-                            <!-- Pages -->
-                            <button
-                                v-for="page in myVisiblePages"
-                                :key="String(page)"
-                                :disabled="page === '...' || myLoading"
-                                @click="page !== '...' && getMyComplaints(page)"
-                                class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
-                                :class="[
-                                    page === '...'
-                                        ? 'border-slate-200 bg-white dark:bg-slate-900 text-slate-400 cursor-default'
-                                        : myPage === page
-                                            ? 'border-slate-900 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
-                                            : 'border-slate-200 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 hover:bg-slate-50'
-                                ]">
-                                {{ page }}
-                            </button>
-
-                            <!-- Next -->
-                            <button
-                                @click="getMyComplaints(Math.min(myLastPage, myPage + 1))"
-                                :disabled="myPage === myLastPage || myLoading"
-                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </button>
-
-                            <!-- Last -->
-                            <button
-                                @click="getMyComplaints(myLastPage)"
-                                :disabled="myPage === myLastPage || myLoading"
-                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+        <FooterSection />
     </main>
 </template>
 
@@ -561,6 +303,7 @@ const errorMsg = ref("");
 /* ====================== */
 /* Dashboard component */
 /* ====================== */
+import FooterSection from "../../e-commerce/footer.vue";
 import profileCard from "./dashboard/profile-card.vue";
 
 
@@ -571,7 +314,18 @@ import profileCard from "./dashboard/profile-card.vue";
 
 const balance = ref(0);
 const pending = ref(0);
-const credit  = ref(0);
+
+const credit = ref(0);
+const debit = ref(0);
+
+const earn = ref(0);
+const spend = ref(0);
+const bonus = ref(0);
+const matching = ref(0);
+const withdraw = ref(0);
+const refund = ref(0);
+const user = ref([]);
+
 const fetchDashBoardData = async () => {
     try {
         loading.value = true;
@@ -580,12 +334,22 @@ const fetchDashBoardData = async () => {
         const response = await api.get('/customer/dashboard'); 
 
         if (response.data.success === true) {
-            const data = response.data.data;
-            balance.value = data.balance ?? 0;
-            pending.value = data.pending ?? 0;
-            credit.value  = data.credit ?? 0;
+            const data      = response.data.data;
+            balance.value   = Number(data.balance ?? 0);
+            pending.value   = Number(data.pending ?? 0);
 
-            status.value  = data.status ?? {};
+            credit.value    = Number(data.credit ?? 0);
+            debit.value     = Number(data.debit ?? 0);
+
+            earn.value      = Number(data.earn ?? 0);
+            spend.value     = Number(data.spend ?? 0);
+            bonus.value     = Number(data.bonus ?? 0);
+            matching.value  = Number(data.matching ?? 0);
+            withdraw.value  = Number(data.withdraw ?? 0);
+            refund.value    = Number(data.refund ?? 0);
+
+            status.value    = data.status ?? {};
+            user.value      = data.user ?? {};
         } else {
             errorMsg.value = response.data.message || "Failed to fetch balance";
         }

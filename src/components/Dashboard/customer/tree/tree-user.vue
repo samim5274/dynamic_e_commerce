@@ -138,6 +138,7 @@
                 </main>
             </div>
         </div>
+        <FooterSection />
     </div>
 </template>
 
@@ -148,6 +149,7 @@ import UserTreeNode from './UserTreeNode.vue';
 import Message from '../../../Message/message.vue';
 import Navbar from '../navbar.vue';
 import Header from '../header.vue';
+import FooterSection from "../../../e-commerce/footer.vue";
 
 const successMsg = ref("");
 const errorMsg = ref("");
