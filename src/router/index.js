@@ -15,6 +15,18 @@ const treeUser = () => import('../components/Auth/tree-user.vue');
 
 
 
+// ===========================
+// Supper Admin
+// ===========================
+const Super_Admin_Dashboard = () => import('../components/Dashboard/super_admin/super-admin-dashboard.vue');
+const Super_Admin_Profile = () => import('../components/Dashboard/super_admin/super-admin-profile.vue');
+const Super_Admin_Tree = () => import('../components/Dashboard/super_admin/tree/tree-user.vue');
+const Super_Admin_Orders = () => import('../components/Dashboard/super_admin/order/order.vue');
+const Super_Admin_Orders_Status = () => import('../components/Dashboard/super_admin/order/status.vue');
+const Super_Admin_Order_Details = () => import('../components/Dashboard/super_admin/order/order-details.vue');
+const Super_Admin_Customer_Details = () => import('../components/Dashboard/super_admin/order/customer-details.vue');
+const Super_Admin_Payments = () => import('../components/Dashboard/super_admin/payment/payment.vue');
+const Super_Admin_Payments_Details = () => import('../components/Dashboard/super_admin/payment/payment-details.vue');
 
 
 
@@ -106,6 +118,22 @@ const routes = [
   { path: '/unauthorized', component: Unauthorized, meta: {title: "Unauthorized"} },
 
   { path: '/public-tree-user', component: treeUser, meta: {title: "Tree User", requiresAuth: true}},
+
+
+
+
+  // Super admin dashboard
+  { path: '/super-admin/dashboard', component: Super_Admin_Dashboard, meta:{title: 'Super Admin Dashboard', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/profile', component: Super_Admin_Profile, meta:{title: 'Super Admin Profile', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/tree', component: Super_Admin_Tree, meta:{title: 'Super Admin Tree', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/orders', component: Super_Admin_Orders, meta:{title: 'Orders', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/orders/status', component: Super_Admin_Orders_Status, meta:{title: 'Status', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/orders/:reg/:slug', component: Super_Admin_Order_Details, meta:{title: 'Order Details', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/customer-details/:user_id', component: Super_Admin_Customer_Details, meta:{title: 'Customer Details', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/payment', component: Super_Admin_Payments, meta:{title: 'Payments', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/payment/details/:transaction_id/:user_id', component: Super_Admin_Payments_Details, meta:{title: 'Payments Details', requiresAuth: true, roles: ['super_admin']} },
+
+
 
 
 
