@@ -233,7 +233,7 @@ async function fetcheTransection()
         loading.value = true;
         errorMsg.value = null;
 
-        const res = await api.get('/finance/super-admin/transaction');
+        const res = await api.get('/super-admin/transaction');
         if (res.data?.success) {
             transactions.value = res.data.data ?? [];
         } else {

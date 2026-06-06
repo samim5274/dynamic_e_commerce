@@ -27,6 +27,8 @@ const Super_Admin_Order_Details = () => import('../components/Dashboard/super_ad
 const Super_Admin_Customer_Details = () => import('../components/Dashboard/super_admin/order/customer-details.vue');
 const Super_Admin_Payments = () => import('../components/Dashboard/super_admin/payment/payment.vue');
 const Super_Admin_Payments_Details = () => import('../components/Dashboard/super_admin/payment/payment-details.vue');
+const Super_Admin_Designation_star_club = () => import('../components/Dashboard/super_admin/designation/star-club.vue');
+const Super_Admin_Designation_dynamic_club = () => import('../components/Dashboard/super_admin/designation/dynamic-club.vue');
 
 
 
@@ -132,6 +134,8 @@ const routes = [
   { path: '/super-admin/customer-details/:user_id', component: Super_Admin_Customer_Details, meta:{title: 'Customer Details', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/payment', component: Super_Admin_Payments, meta:{title: 'Payments', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/payment/details/:transaction_id/:user_id', component: Super_Admin_Payments_Details, meta:{title: 'Payments Details', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/designation/star-club', component: Super_Admin_Designation_star_club, meta:{title: 'Star Club', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/designation/dynamic-club', component: Super_Admin_Designation_dynamic_club, meta:{title: 'Dynamic Club', requiresAuth: true, roles: ['super_admin']} },
 
 
 

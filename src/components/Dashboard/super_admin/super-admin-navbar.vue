@@ -357,6 +357,69 @@
             </div>
             </li>
 
+
+
+
+
+
+            <!-- Users Designation -->
+            <li>
+                <button
+                    class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                        focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                        hover:bg-slate-100 dark:hover:bg-white/10"
+                    :class="userDesignationPagesOpen
+                    ? 'bg-slate-100 ring-1 ring-slate-200 dark:bg-white/10 dark:ring-white/10'
+                    : ''"
+                    @click="userDesignationPagesOpen = !userDesignationPagesOpen"
+                    type="button">
+                    <span class="opacity-90">
+                    <i class="fa-solid fa-arrows-turn-to-dots"></i>
+                    </span>
+                    <span class="text-sm font-medium flex-1">Designation</span>
+
+                    <svg
+                    class="h-4 w-4 transition-transform opacity-80"
+                    :class="userDesignationPagesOpen ? 'rotate-180' : ''"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <div v-show="userDesignationPagesOpen" class="mt-1 ml-6 mr-2 rounded-xl ring-1
+                        bg-slate-50 ring-slate-200
+                        dark:bg-black/20 dark:ring-white/10">
+                    <ul class="py-2">
+                        <li>
+                            <button
+                            class="w-full px-4 py-2 text-sm text-left transition
+                                    hover:bg-white dark:hover:bg-white/10"
+                            :class="activeKey === 'star_club'
+                                ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                                : 'text-slate-700 dark:text-slate-200/90'"
+                            @click="pick('star_club')">
+                            Star
+                            </button>
+                        </li>
+
+                        <li>
+                            <button
+                            class="w-full px-4 py-2 text-sm text-left transition
+                                    hover:bg-white dark:hover:bg-white/10"
+                            :class="activeKey === 'dynamic_club'
+                                ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                                : 'text-slate-700 dark:text-slate-200/90'"
+                            @click="pick('dynamic_club')">
+                            Club
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
             <!-- Setting -->
             <li>
             <button
@@ -417,7 +480,7 @@ const router = useRouter();
 const pagesOpen = ref(false);
 const userPagesOpen = ref(false);
 const orderPagesOpen = ref(false);
-
+const userDesignationPagesOpen = ref(false);
 
 
 
@@ -442,6 +505,10 @@ const routeMap = {
     payment: "/super-admin/payment",
 
     users: "/super-admin/users",
+
+    star_club: "/super-admin/designation/star-club",
+    dynamic_club: "/super-admin/designation/dynamic-club",
+
     assignUserToTree: "/super-admin/assign-user-tree",
     userSetting: "/super-admin/user-setting",
 
@@ -477,6 +544,10 @@ const routeMatch = [
     { key: "payment", prefixes: ["/super-admin/payment"]},
 
     { key: "users", prefixes: ["/super-admin/users"] },
+
+    { key: "star_club", prefixes: ["/super-admin/designation/star-club"] },
+    { key: "dynamic_club", prefixes: ["/super-admin/designation/dynamic-club"] },
+
     { key: "assignUserToTree", prefixes: ["/super-admin/assign-user-tree"] },
     { key: "userSetting", prefixes: ["/super-admin/user-setting"] },
 
@@ -565,12 +636,30 @@ watch(
     (k) => {
         const userKeys = ['users', 'assignUserToTree','userSetting'];
         if(userKeys.includes(k)){
-        userPagesOpen.value = true;
+            userPagesOpen.value = true;
         }
     },
     {immediate: true }
 );
 
+
+
+
+
+
+
+
+// user designation dropdown
+watch(
+    () => activeKey.value,
+    (k) => {
+        const userDesignationKeys = ['star_club', 'dynamic_club'];
+        if(userDesignationKeys.includes(k)){
+            userDesignationPagesOpen.value = true;
+        }
+    },
+    { immediate: true }
+);
 
 
 
@@ -586,7 +675,7 @@ watch(
     (k) => {
         const orderKeys = ["orders", "order_status", "sales"];
         if (orderKeys.includes(k)) {
-        orderPagesOpen.value = true;
+            orderPagesOpen.value = true;
         }
     },
     { immediate: true }
