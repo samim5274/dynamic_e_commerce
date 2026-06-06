@@ -108,8 +108,8 @@
                                             </div>
                                         </td>
 
-                                        <td class="px-6 py-4 text-center">
-                                            <span class="inline-flex min-w-[54px] items-center justify-center gap-1.5 rounded-lg bg-indigo-50 border border-indigo-100/60 px-2.5 py-1 font-mono text-xs font-extrabold text-indigo-600 dark:bg-indigo-500/10 dark:border-indigo-500/20 dark:text-indigo-400 shadow-sm">
+                                        <td class="px-6 py-4">
+                                            <span class="inline-flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-mono font-bold text-slate-600 border border-slate-200/10 dark:bg-slate-800/60 dark:text-slate-300 dark:border-transparent">
                                                 <i class="fa-solid fa-users text-[10px] opacity-70"></i>
                                                 {{ item.referrals_count ?? 0 }}
                                             </span>
