@@ -33,7 +33,7 @@
                 <div class="flex flex-col items-end">
                     <span
                         class="text-[10px] font-bold uppercase tracking-widest text-slate-900 dark:text-slate-400">
-                        Tier Status
+                        Rank Status
                     </span>
 
                     <span

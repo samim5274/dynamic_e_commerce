@@ -181,7 +181,7 @@
                                     class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                                     
                                     <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Update Order Status</h3>
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Payment on {{ selectedUser ? selectedUser.name : '' }}</h3>
                                         <button @click="isStatusModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                                             <i class="fa-solid fa-x h-6 w-6"></i>
                                         </button>
@@ -195,7 +195,7 @@
                                             <p class="font-semibold text-slate-900 dark:text-white">
                                                {{ selectedUser ? selectedUser.name : '' }}
                                             </p>
-                                            <p>
+                                            <p class="font-semibold text-slate-900 dark:text-white">
                                                 {{ selectedUser ? selectedUser.email : '' }}
                                             </p>
 
@@ -334,9 +334,11 @@ async function submitAmount() {
 
 // reset helper
 function resetModal() {
-    isStatusModalOpen.value = false
-    selectedUser.value = null
-    amount.value = ''
+    isStatusModalOpen.value = false;
+    selectedUser.value = null;
+    amount.value = '';
+
+    fetchStarClubUsers();
 }
 
 
