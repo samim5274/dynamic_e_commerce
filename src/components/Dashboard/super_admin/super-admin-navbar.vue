@@ -368,19 +368,19 @@
                     class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
                         focus:outline-none focus:ring-2 focus:ring-slate-500/40
                         hover:bg-slate-100 dark:hover:bg-white/10"
-                    :class="userDesignationPagesOpen
+                    :class="userMoneyTransferPagesOpen
                     ? 'bg-slate-100 ring-1 ring-slate-200 dark:bg-white/10 dark:ring-white/10'
                     : ''"
-                    @click="userDesignationPagesOpen = !userDesignationPagesOpen"
+                    @click="userMoneyTransferPagesOpen = !userMoneyTransferPagesOpen"
                     type="button">
                     <span class="opacity-90">
                     <i class="fa-solid fa-arrows-turn-to-dots"></i>
                     </span>
-                    <span class="text-sm font-medium flex-1">Designation</span>
+                    <span class="text-sm font-medium flex-1">Money Transfer</span>
 
                     <svg
                     class="h-4 w-4 transition-transform opacity-80"
-                    :class="userDesignationPagesOpen ? 'rotate-180' : ''"
+                    :class="userMoneyTransferPagesOpen ? 'rotate-180' : ''"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor">
@@ -388,10 +388,22 @@
                     </svg>
                 </button>
 
-                <div v-show="userDesignationPagesOpen" class="mt-1 ml-6 mr-2 rounded-xl ring-1
+                <div v-show="userMoneyTransferPagesOpen" class="mt-1 ml-6 mr-2 rounded-xl ring-1
                         bg-slate-50 ring-slate-200
                         dark:bg-black/20 dark:ring-white/10">
                     <ul class="py-2">
+                        <li>
+                            <button
+                            class="w-full px-4 py-2 text-sm text-left transition
+                                    hover:bg-white dark:hover:bg-white/10"
+                            :class="activeKey === 'add_Money'
+                                ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                                : 'text-slate-700 dark:text-slate-200/90'"
+                            @click="pick('add_Money')">
+                            Add Money
+                            </button>
+                        </li>
+
                         <li>
                             <button
                             class="w-full px-4 py-2 text-sm text-left transition
@@ -480,7 +492,7 @@ const router = useRouter();
 const pagesOpen = ref(false);
 const userPagesOpen = ref(false);
 const orderPagesOpen = ref(false);
-const userDesignationPagesOpen = ref(false);
+const userMoneyTransferPagesOpen = ref(false);
 
 
 
@@ -506,6 +518,7 @@ const routeMap = {
 
     users: "/super-admin/users",
 
+    add_Money: "/super-admin/add-money",
     star_club: "/super-admin/designation/star-club",
     dynamic_club: "/super-admin/designation/dynamic-club",
 
@@ -545,6 +558,7 @@ const routeMatch = [
 
     { key: "users", prefixes: ["/super-admin/users"] },
 
+    { key: "add_Money", prefixes: ["/super-admin/add-money"] },
     { key: "star_club", prefixes: ["/super-admin/designation/star-club"] },
     { key: "dynamic_club", prefixes: ["/super-admin/designation/dynamic-club"] },
 
@@ -655,7 +669,7 @@ watch(
     (k) => {
         const userDesignationKeys = ['star_club', 'dynamic_club'];
         if(userDesignationKeys.includes(k)){
-            userDesignationPagesOpen.value = true;
+            userMoneyTransferPagesOpen.value = true;
         }
     },
     { immediate: true }

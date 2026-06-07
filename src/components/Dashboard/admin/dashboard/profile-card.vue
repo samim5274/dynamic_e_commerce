@@ -22,10 +22,13 @@
                     <!-- Online Dot -->
                     <span class="absolute -right-1 -top-1 flex h-3.5 w-3.5">
                         <span
-                            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+                            class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                            :class="user.is_active ? 'bg-emerald-400' : 'bg-red-400'"
                         ></span>
+                        
                         <span
-                            class="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500 dark:border-slate-900"
+                            class="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-white dark:border-slate-900"
+                            :class="user.is_active ? 'bg-emerald-500' : 'bg-red-500'"
                         ></span>
                     </span>
                 </div>
@@ -44,14 +47,31 @@
             </div>
 
             <!-- User Info -->
-            <div class="mt-6">
-                <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                    {{ user.name }}
-                </h2>
+            <div class="mt-6 space-y-2">
+                <div>
+                    <p class="text-xs font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                        Welcome Back
+                    </p>
+                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+                        {{ user.name }}
+                    </h2>
+                </div>
 
-                <p class="mt-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-400">
-                    Welcome, {{ user.name }}
-                </p>
+                <div class="flex items-center pt-1">
+                    <!-- Star Club Member Badge -->
+                    <span v-if="user.designation === 'star_club'" 
+                        class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/20">
+                        <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        Star Club Member
+                    </span>
+
+                    <!-- Dynamic Club Member Badge -->
+                    <span v-if="user.designation === 'dynamic_club'" 
+                        class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20">
+                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                        Dynamic Club Member
+                    </span>
+                </div>
             </div>
 
             <hr class="my-5 border-slate-100 dark:border-slate-800" />
