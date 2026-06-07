@@ -168,19 +168,23 @@
                                         <!-- Action Buttons -->
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex items-center justify-center gap-2">
-                                                <button 
+                                                <!-- <button 
                                                     @click="viewUser(user.id)" 
                                                     class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" 
-                                                    title="View Details"
-                                                >
+                                                    title="View Details">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </button>
                                                 <button 
                                                     @click="editUser(user.id)" 
                                                     class="p-2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition" 
-                                                    title="Edit User"
-                                                >
+                                                    title="Edit User">
                                                     <i class="fa-solid fa-pen-to-square"></i>
+                                                </button> -->
+                                                <button 
+                                                    @click="openStatusModal(user)"
+                                                    class="p-2 text-slate-400 hover:text-green-600 dark:hover:text-indigo-400 transition" 
+                                                    title="Add Money">
+                                                    <i class="fa-solid fa-money-bill-1-wave"></i>
                                                 </button>
                                             </div>
                                         </td>
@@ -189,6 +193,82 @@
                             </table>
                         </div>
                     </div>
+
+                    <Teleport to="body">
+                        <Transition 
+                            enter-active-class="transition duration-300 ease-out"
+                            enter-from-class="opacity-0"
+                            enter-to-class="opacity-100"
+                            leave-active-class="transition duration-200 ease-in"
+                            leave-from-class="opacity-100"
+                            leave-to-class="opacity-0">
+                            <div v-if="isStatusModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                            
+                                <div 
+                                    @click.stop 
+                                    class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                                    
+                                    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Payment on {{ selectedUser ? selectedUser.name : '' }}</h3>
+                                        <button @click="isStatusModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                            <i class="fa-solid fa-x h-6 w-6"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="p-6 space-y-4">
+                                        
+                                        <!-- User Info -->
+                                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800">
+                                            <p class="text-xs text-slate-500 mb-1">User Name</p>
+                                            <p class="font-semibold text-slate-900 dark:text-white">
+                                               {{ selectedUser ? selectedUser.name : '' }}
+                                            </p>
+                                            <p class="font-semibold text-slate-900 dark:text-white">
+                                                {{ selectedUser ? selectedUser.email : '' }}
+                                            </p>
+
+                                            <p class="text-xs text-slate-500 mt-3 mb-1">User ID</p>
+                                            <p class="font-medium text-slate-700 dark:text-slate-300">
+                                                {{ selectedUser?.user_id }}
+                                            </p>
+                                        </div>
+
+                                        <!-- Amount Input -->
+                                        <div>
+                                            <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                Amount
+                                            </label>
+
+                                            <input
+                                                v-model="amount"
+                                                type="number"
+                                                min="0"
+                                                step="0.01"
+                                                placeholder="Enter amount"
+                                                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                            >
+                                        </div>
+
+                                    </div>
+
+                                    <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
+                                        <button
+                                            @click="isStatusModalOpen = false"
+                                            class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                                            Cancel
+                                        </button>
+
+                                        <button
+                                            @click="submitAmount" :disabled="loading"
+                                            class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                                            <span v-if="loading">Saving...</span>
+                                            <span v-else>Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </Transition>
+                    </Teleport>
 
                 </main>
             </div>
@@ -215,6 +295,102 @@ const router = useRouter();
 const loading = ref(false);
 const successMsg = ref('');
 const errorMsg = ref('');
+
+
+
+
+
+
+
+
+// open pop-up
+const isStatusModalOpen = ref(false);
+const selectedUser = ref(null);
+const amount = ref('');
+
+
+function openStatusModal(item) {
+    selectedUser.value = item;
+    amount.value = '';
+    isStatusModalOpen.value = true;
+}
+
+
+async function submitAmount() {
+
+    if (!selectedUser.value?.id) {
+        errorMsg.value = 'User not selected';
+        return;
+    }
+
+    if (!amount.value || Number(amount.value) <= 0) {
+        errorMsg.value = 'Please enter a valid amount'
+        return
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.post(`/super-admin/add-money/${selectedUser.value.id}`,
+            { amount: Number(amount.value)}
+        )
+
+        if (response.data?.success) {
+            successMsg.value = response.data.message || 'Amount added successfully'
+
+            // refresh list
+            await fetchUsers();
+
+            // reset modal state
+            resetModal()
+
+        } else {
+            errorMsg.value = response.data?.message || 'Failed to add amount'
+        }
+
+    } catch(err) {
+        console.error('Submit Amount Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+
+}
+
+// reset helper
+function resetModal() {
+    isStatusModalOpen.value = false;
+    selectedUser.value = null;
+    amount.value = '';
+
+    fetchUsers();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const searchQuery = ref('');
 const statusFilter = ref('');
@@ -274,16 +450,42 @@ const resetFilters = () => {
     statusFilter.value = '';
 };
 
+
+
+
+
+
+
+
+
+
 // Action methods (Optional but placeholder added for functionality)
 const viewUser = (id) => {
     // router.push(`/super-admin/users/${id}`);
     console.log('View user:', id);
 };
 
+
+
+
+
+
 const editUser = (id) => {
     // router.push(`/super-admin/users/${id}/edit`);
     console.log('Edit user:', id);
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Theme Toggle Engine
 const isDark = ref(false);
@@ -301,6 +503,16 @@ function toggleTheme() {
 const onSearch = (value) => {
     searchQuery.value = value;
 };
+
+
+
+
+
+
+
+
+
+
 
 /* ESC to close drawer & On Mounted Hook */
 onMounted(() => {

@@ -667,7 +667,7 @@ watch(
 watch(
     () => activeKey.value,
     (k) => {
-        const userDesignationKeys = ['star_club', 'dynamic_club'];
+        const userDesignationKeys = ['star_club', 'dynamic_club', 'add_Money'];
         if(userDesignationKeys.includes(k)){
             userMoneyTransferPagesOpen.value = true;
         }
