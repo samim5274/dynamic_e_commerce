@@ -66,18 +66,6 @@
                                                 </div>
                                             </td>
 
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="relative h-11 w-11 flex-shrink-0 overflow-hidden rounded-xl border border-slate-100 bg-slate-50 dark:border-slate-800 dark:bg-slate-900 flex items-center justify-center shadow-sm">
-                                                    <img
-                                                        v-if="product.images?.length"
-                                                        :src="product.images[0].image_path"
-                                                        alt="Product Image"
-                                                        class="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                                                    />
-                                                    <i v-else class="fa-solid fa-image text-slate-300 dark:text-slate-700 text-lg"></i>
-                                                </div>
-                                            </td>
-
                                             <td class="px-6 py-4 min-w-[200px]">
                                                 <div class="font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
                                                     {{ product.name }}
