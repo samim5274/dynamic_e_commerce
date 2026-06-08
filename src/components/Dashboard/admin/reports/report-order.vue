@@ -36,50 +36,98 @@
                         </div>
                     </div>
 
-                    <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                        <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+                    <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+                        <div class="space-y-4">
                             
-                            <div class="relative flex-1">
-                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                                    <i class="fa-solid fa-magnifying-glass h-4 w-4"></i>
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center">
+                                
+                                <!-- Start Date (5 Columns) -->
+                                <div class="relative md:col-span-5">
+                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 dark:text-slate-500">
+                                        <i class="fa-solid fa-calendar-days h-4 w-4"></i>
+                                    </div>
+                                    <input
+                                        type="date"
+                                        v-model="startDate"
+                                        :max="today"
+                                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
+                                    />
                                 </div>
-                                <input 
-                                    type="text" 
-                                    v-model="searchQuery" 
-                                    placeholder="Search by ID, Customer name or Transaction..." 
-                                    class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-indigo-500"
-                                />
+
+                                <!-- End Date (5 Columns) -->
+                                <div class="relative md:col-span-5">
+                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 dark:text-slate-500">
+                                        <i class="fa-solid fa-calendar-days h-4 w-4"></i>
+                                    </div>
+                                    <input
+                                        type="date"
+                                        v-model="endDate"
+                                        :max="today"
+                                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
+                                    />
+                                </div>
+
+                                <!-- Submit Button (2 Columns) -->
+                                <div class="md:col-span-2">
+                                    <button
+                                        type="submit"
+                                        @click="fetchData"
+                                        class="flex w-full items-center justify-center gap-2 rounded-xl border border-indigo-600 bg-indigo-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:border-indigo-700 focus:ring-4 focus:ring-indigo-500/20 active:scale-[0.98]"
+                                    >
+                                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                                        <span>Search</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="flex flex-wrap items-center gap-3">
-                                <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-filter h-4 w-4 text-slate-400"></i>
-                                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Status:</span>
+                            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between pt-2 border-t border-slate-100 dark:border-slate-800/60">
+                                
+                                <!-- Text Search Input -->
+                                <div class="relative flex-1">
+                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 dark:text-slate-500">
+                                        <i class="fa-solid fa-magnifying-glass h-4 w-4"></i>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        v-model="searchQuery" 
+                                        placeholder="Search by ID, Customer name or Transaction..." 
+                                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
+                                    />
                                 </div>
-                                <select 
-                                    v-model="statusFilter" 
-                                    class="min-w-[160px] rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-4 text-sm font-semibold text-slate-700 outline-none transition-all focus:border-indigo-500 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-indigo-500"
-                                >
-                                    <option value="">All Statuses</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="processing">Processing</option>
-                                    <option value="picked">Picked</option>
-                                    <option value="shipped">Shipped</option>
-                                    <option value="out for delivery">Out for Delivery</option>
-                                    <option value="delivered">Delivered</option>
-                                    <option value="cancelled">Cancelled</option>
-                                    <option value="failed">Failed</option>
-                                    <option value="returned">Returned</option>
-                                </select>
 
-                                <button 
-                                    @click="resetFilters" 
-                                    class="p-2.5 text-slate-400 hover:text-rose-500 transition-colors"
-                                    title="Reset Filters"
-                                >
-                                    <i class="fa-solid fa-rotate h-5 w-5"></i>
-                                </button>
+                                <!-- Filters & Reset Actions -->
+                                <div class="flex flex-wrap items-center gap-3 sm:flex-nowrap">
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <i class="fa-solid fa-filter h-3.5 w-3.5 text-slate-400 dark:text-slate-500"></i>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Status:</span>
+                                    </div>
+                                    
+                                    <select 
+                                        v-model="statusFilter" 
+                                        class="w-full sm:w-[180px] rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-4 text-sm font-medium text-slate-700 outline-none transition-all focus:border-indigo-500 focus:bg-white dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
+                                    >
+                                        <option value="">All Statuses</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="picked">Picked</option>
+                                        <option value="shipped">Shipped</option>
+                                        <option value="out for delivery">Out for Delivery</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="cancelled">Cancelled</option>
+                                        <option value="failed">Failed</option>
+                                        <option value="returned">Returned</option>
+                                    </select>
+
+                                    <!-- Reset Button -->
+                                    <button 
+                                        @click="resetFilters" 
+                                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-400 hover:text-rose-500 hover:bg-rose-50/50 hover:border-rose-200 transition-all dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-400 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 dark:hover:border-rose-500/20"
+                                        title="Reset Filters"
+                                    >
+                                        <i class="fa-solid fa-rotate h-4 w-4"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,11 +149,7 @@
                                 </thead>
 
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                    <div v-if="loading" class="w-full flex flex-col items-center justify-center py-20">
-                                        <div class="animate-spin h-10 w-10 border-4 border-[#A3D921] border-t-transparent rounded-full"></div>
-                                        <p class="mt-4 text-sm text-gray-500">Updating Tree...</p>
-                                    </div>
-
+                                    
                                     <template v-if="filteredOrders && filteredOrders.length > 0">
                                         <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                                             
@@ -168,6 +212,11 @@
                                     <!-- Empty State -->
                                     <tr v-else>
                                         <td colspan="6" class="px-6 py-12 text-center">
+                                            <div v-if="loading" class="w-full flex flex-col items-center justify-center py-20">
+                                                <div class="animate-spin h-10 w-10 border-4 border-[#A3D921] border-t-transparent rounded-full"></div>
+                                                <p class="mt-4 text-sm text-gray-500">Updating Tree...</p>
+                                            </div>
+                                            
                                             <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
                                                 <div class="p-3 bg-slate-100 dark:bg-slate-800/50 rounded-full text-slate-400 dark:text-slate-500 mb-4 ring-8 ring-slate-50 dark:ring-slate-900/30 flex items-center justify-center w-12 h-12 mx-auto">
                                                     <i class="fas fa-box-open text-xl"></i>
@@ -201,14 +250,14 @@
                         <div class="flex flex-wrap items-center justify-end gap-2">
                             <!-- First -->
                             <button
-                                @click="fetchOrders(1)" :disabled="pagination.page === 1 || loading"
+                                @click="changePage(1)" :disabled="pagination.page === 1 || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angles-left"></i>
                             </button>
 
                             <!-- Prev -->
                             <button
-                                @click="fetchOrders(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
+                                @click="changePage(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
@@ -217,7 +266,7 @@
                             <button
                                 v-for="page in OrderVisiblePages"
                                 :key="String(page)"
-                                @click="page !== '...' && fetchOrders(page)"
+                                @click="page !== '...' && changePage(page)"
                                 class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
                                 :disabled="page === '...' || loading"
                                 :class="[
@@ -230,7 +279,7 @@
 
                             <!-- Next -->
                             <button
-                                @click="fetchOrders(pagination.page + 1)"
+                                @click="changePage(pagination.page + 1)"
                                 :disabled="pagination.page === pagination.lastPage || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angle-right"></i>
@@ -238,7 +287,7 @@
 
                             <!-- Last -->
                             <button
-                                @click="fetchOrders(pagination.lastPage)"
+                                @click="changePage(pagination.lastPage)"
                                 :disabled="pagination.page === pagination.lastPage || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angles-right"></i>
@@ -452,9 +501,93 @@ const filteredOrders = computed(() => {
     });
 });
 
-const resetFilters = () => {
+
+
+
+
+
+
+// Get data date wise
+const today = new Date().toISOString().split('T')[0];
+const startDate = ref(today);
+const endDate = ref(today);
+const isDateFilterActive = ref(false);
+
+async function fetchData(page = 1) {
+    try {
+
+        loading.value = true;
+        errorMsg.value = '';
+        isDateFilterActive.value = true;
+
+        const res = await api.get('/orders/reports/sale/filter', {
+            params: {
+                page,
+                start_date: startDate.value,
+                end_date: endDate.value
+            }
+        });
+
+        const response = res.data;
+
+        orders.value = response?.data?.data ?? [];
+
+        // PAGINATION META
+        pagination.value = {
+            page: response.data.current_page,
+            lastPage: response.data.last_page,
+            total: response.data.total,
+            perPage: response.data.per_page,
+            from: response.data.from,
+            to: response.data.to,
+        };
+        
+    } catch (error) {
+        console.error('Error fetching data:', error);
+
+        errorMsg.value = error?.response?.data?.message || "Failed to fetch orders";
+
+        orders.value = [];
+
+        pagination.value = {
+            page: 1,
+            lastPage: 1,
+            total: 0,
+            perPage: 20,
+            from: 0,
+            to: 0,
+        };
+
+    }finally {
+        loading.value = false;
+    }
+};
+
+
+async function changePage(page) {
+
+    if (isDateFilterActive.value) {
+        await fetchData(page);
+    } else {
+        await fetchOrders(page);
+    }
+
+}
+
+
+
+
+const resetFilters = async () => {
+
     searchQuery.value = '';
     statusFilter.value = '';
+
+    startDate.value = today;
+    endDate.value = today;
+
+    isDateFilterActive.value = false;
+
+    await fetchOrders(1);
 };
 
 
