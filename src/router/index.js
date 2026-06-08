@@ -61,6 +61,12 @@ const AssignUserTree = () => import('../components/Dashboard/admin/user/assign-u
 const UserSetting = () => import('../components/Dashboard/admin/user/user-setting.vue');
 const EditUser = () => import('../components/Dashboard/admin/user/edit-user.vue');
 
+// =======================
+// Admin Report Routes (group: admin)
+// =======================
+const Report_Sale = () => import('../components/Dashboard/admin/reports/report-sale.vue');
+const Report_Order = () => import('../components/Dashboard/admin/reports/report-order.vue');
+
 
 // =======================
 // Product Routes (group: product)
@@ -156,6 +162,9 @@ const routes = [
   { path: '/admin/user-setting', component: UserSetting, meta:{title: 'User Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/user-setting/edit/:id', component: EditUser, meta:{title: 'Edit User', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/setting', component: AdminSetting, meta:{title: 'Admin Setting', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  // Report routes
+  { path: '/admin/reports/sale', component: Report_Sale, meta:{title: 'Report Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/order', component: Report_Order, meta:{title: 'Report Order', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 
 

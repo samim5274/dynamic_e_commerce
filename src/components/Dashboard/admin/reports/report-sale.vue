@@ -186,6 +186,66 @@
                         </div>
                     </div>
 
+                    <!-- Pagination -->
+                    <div class="flex flex-col gap-2 border-slate-200 bg-white dark:bg-slate-900 shadow-sm px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                        <!-- Showing info -->
+                        <p class="text-xs text-slate-500">
+                            Showing
+                            <span class="font-semibold text-slate-700">{{ pagination.from }}</span>
+                            –
+                            <span class="font-semibold text-slate-700">{{ pagination.to }}</span>
+                            of
+                            <span class="font-semibold text-slate-700">{{ pagination.total }}</span>
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-end gap-2">
+                            <!-- First -->
+                            <button
+                                @click="fetchOrders(1)" :disabled="pagination.page === 1 || loading"
+                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                <i class="fa-solid fa-angles-left"></i>
+                            </button>
+
+                            <!-- Prev -->
+                            <button
+                                @click="fetchOrders(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
+                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+
+                            <!-- Pages -->
+                            <button
+                                v-for="page in OrderVisiblePages"
+                                :key="String(page)"
+                                @click="page !== '...' && fetchOrders(page)"
+                                class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
+                                :disabled="page === '...' || loading"
+                                :class="[
+                                    page === pagination.page
+                                        ? 'border-slate-900 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
+                                        : 'border-slate-200 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 hover:bg-slate-50'
+                                ]">
+                                {{ page }}
+                            </button>
+
+                            <!-- Next -->
+                            <button
+                                @click="fetchOrders(pagination.page + 1)"
+                                :disabled="pagination.page === pagination.lastPage || loading"
+                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
+
+                            <!-- Last -->
+                            <button
+                                @click="fetchOrders(pagination.lastPage)"
+                                :disabled="pagination.page === pagination.lastPage || loading"
+                                class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
 
                 </main>
             </div>
@@ -197,12 +257,12 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import api from '../../../services/api';
+import api from '../../../../services/api';
 
-import Navbar from '../admin/admin-navbar.vue';
-import Header from '../admin/admin-header.vue';
-import Message from '../../Message/message.vue';
-import FooterSection from "../../e-commerce/footer.vue";
+import Navbar from '../admin-navbar.vue';
+import Header from '../admin-header.vue';
+import Message from '../../../Message/message.vue';
+import FooterSection from "../../../e-commerce/footer.vue";
 
 const sidebarOpen = ref(false);
 const active = ref("dashboard");
@@ -220,18 +280,98 @@ const loading = ref(false);
 
 
 
+const orderPage = ref(1);
+const orderLastPage = ref(1);
+const orderTotal = ref(0);
+const orderPerPage = ref(20);
+const orderFromItem = ref(0);
+const orderToItem = ref(0);
+
+const OrderVisiblePages = computed(() => {
+    const pages = [];
+    const last = pagination.value.lastPage;
+    const cur = pagination.value.page;
+
+    if (last <= 5) {
+        for (let i = 1; i <= last; i++) pages.push(i);
+        return pages;
+    }
+
+    pages.push(1);
+
+    if (cur > 3) pages.push("...");
+
+    const start = Math.max(2, cur - 1);
+    const end = Math.min(last - 1, cur + 1);
+
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
+
+    if (cur < last - 2) pages.push("...");
+
+    pages.push(last);
+
+    return pages;
+});
+
+
+
 // =============================
 // Get orders
 // =============================
 const orders = ref([]);
-async function fetchOrders(){
-    try{
-        const res = await api.get('/orders/status');
-        orders.value = res.data.data;
-        // console.log(orders.value);
-    } catch(err){
-        errorMsg.value = err || "Something is wrong to fetched orders.";
+
+const pagination = ref({
+    page: 1,
+    lastPage: 1,
+    total: 0,
+    perPage: 20,
+    from: 0,
+    to: 0,
+});
+
+async function fetchOrders(page = 1) {
+    try {
+        loading.value = true;
+        errorMsg.value = '';
+
+        const res = await api.get('/orders/reports/sale', {
+            params: { page }
+        });
+
+        const response = res.data;
+
+        // REAL DATA ARRAY (IMPORTANT FIX)
+        orders.value = response?.data?.data ?? [];
+
+        // PAGINATION META
+        pagination.value = {
+            page: response?.data?.current_page ?? 1,
+            lastPage: response?.data?.last_page ?? 1,
+            total: response?.data?.total ?? 0,
+            perPage: response?.data?.per_page ?? 20,
+            from: response?.data?.from ?? 0,
+            to: response?.data?.to ?? 0,
+        };
+
+    } catch (err) {
         console.log(err);
+        errorMsg.value = "Failed to fetch orders";
+
+        orders.value = [];
+
+        pagination.value = {
+            page: 1,
+            lastPage: 1,
+            total: 0,
+            perPage: 20,
+            from: 0,
+            to: 0,
+        };
+
+    } finally {
+        loading.value = false;
     }
 }
 
