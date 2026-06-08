@@ -558,7 +558,7 @@ const routeMatch = [
 
     { key: "users", prefixes: ["/super-admin/users"] },
 
-    { key: "add_Money", prefixes: ["/super-admin/add-money"] },
+    { key: "add_Money", prefixes: ["/super-admin/add-money", "/super-admin/customer"] },
     { key: "star_club", prefixes: ["/super-admin/designation/star-club"] },
     { key: "dynamic_club", prefixes: ["/super-admin/designation/dynamic-club"] },
 

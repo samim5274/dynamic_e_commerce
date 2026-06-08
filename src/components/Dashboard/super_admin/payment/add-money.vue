@@ -435,7 +435,7 @@ const filteredUsers = computed(() => {
     // STATUS FILTER (Active / Inactive)
     if (statusFilter.value !== '') {
         if (statusFilter.value === 'active') {
-            data = data.filter(user => user.is_active == 1); // database এ integer বা string ২টাতেই হ্যান্ডেল করবে
+            data = data.filter(user => user.is_active == 1); // database এ integer বা string ২ টাতেই হ্যান্ডেল করবে
         }
         if (statusFilter.value === 'inactive') {
             data = data.filter(user => user.is_active == 0);
@@ -471,7 +471,7 @@ const viewUser = (id) => {
 
 
 const editUser = (user_id) => {
-    router.push(`/super-admin/users/${user_id}/edit`);
+    router.push(`/super-admin/customer/${user_id}/edit`);
     // console.log('Edit user:', id);
 };
 

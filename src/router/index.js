@@ -139,7 +139,7 @@ const routes = [
   { path: '/super-admin/designation/star-club', component: Super_Admin_Designation_star_club, meta:{title: 'Star Club', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/designation/dynamic-club', component: Super_Admin_Designation_dynamic_club, meta:{title: 'Dynamic Club', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/add-money', component: Super_Admin_Add_Money, meta:{title: 'Add Money', requiresAuth: true, roles: ['super_admin']} },
-  { path: '/super-admin/users/:user_id/edit', component: Super_Admin_Make_Admin, meta:{title: 'Make Admin', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/customer/:user_id/edit', component: Super_Admin_Make_Admin, meta:{title: 'Make Admin', requiresAuth: true, roles: ['super_admin']} },
 
 
 

@@ -32,7 +32,7 @@
                                 </button>
                                 <div>
                                     <h1 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                    Customer <span class="text-indigo-600 dark:text-indigo-400">#{{ customer?.user_id || "User" }}</span>
+                                    Customer Details<span class="text-indigo-600 dark:text-indigo-400">#{{ customer?.user_id || "User" }}</span>
                                     </h1>
                                 </div>
                             </div>
