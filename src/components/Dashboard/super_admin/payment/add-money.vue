@@ -173,13 +173,13 @@
                                                     class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" 
                                                     title="View Details">
                                                     <i class="fa-solid fa-eye"></i>
-                                                </button>
+                                                </button> -->
                                                 <button 
-                                                    @click="editUser(user.id)" 
+                                                    @click="editUser(user.user_id)" 
                                                     class="p-2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition" 
                                                     title="Edit User">
                                                     <i class="fa-solid fa-pen-to-square"></i>
-                                                </button> -->
+                                                </button>
                                                 <button 
                                                     @click="openStatusModal(user)"
                                                     class="p-2 text-slate-400 hover:text-green-600 dark:hover:text-indigo-400 transition" 
@@ -470,9 +470,9 @@ const viewUser = (id) => {
 
 
 
-const editUser = (id) => {
-    // router.push(`/super-admin/users/${id}/edit`);
-    console.log('Edit user:', id);
+const editUser = (user_id) => {
+    router.push(`/super-admin/users/${user_id}/edit`);
+    // console.log('Edit user:', id);
 };
 
 

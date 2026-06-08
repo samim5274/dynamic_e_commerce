@@ -30,6 +30,7 @@ const Super_Admin_Payments_Details = () => import('../components/Dashboard/super
 const Super_Admin_Designation_star_club = () => import('../components/Dashboard/super_admin/designation/star-club.vue');
 const Super_Admin_Designation_dynamic_club = () => import('../components/Dashboard/super_admin/designation/dynamic-club.vue');
 const Super_Admin_Add_Money = () => import('../components/Dashboard/super_admin/payment/add-money.vue');
+const Super_Admin_Make_Admin = () => import('../components/Dashboard/super_admin/payment/user-details.vue');
 
 
 
@@ -138,6 +139,7 @@ const routes = [
   { path: '/super-admin/designation/star-club', component: Super_Admin_Designation_star_club, meta:{title: 'Star Club', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/designation/dynamic-club', component: Super_Admin_Designation_dynamic_club, meta:{title: 'Dynamic Club', requiresAuth: true, roles: ['super_admin']} },
   { path: '/super-admin/add-money', component: Super_Admin_Add_Money, meta:{title: 'Add Money', requiresAuth: true, roles: ['super_admin']} },
+  { path: '/super-admin/users/:user_id/edit', component: Super_Admin_Make_Admin, meta:{title: 'Make Admin', requiresAuth: true, roles: ['super_admin']} },
 
 
 
