@@ -66,6 +66,7 @@ const EditUser = () => import('../components/Dashboard/admin/user/edit-user.vue'
 // =======================
 const Report_Sale = () => import('../components/Dashboard/admin/reports/report-sale.vue');
 const Report_Order = () => import('../components/Dashboard/admin/reports/report-order.vue');
+const Report_Product_Sale = () => import('../components/Dashboard/admin/reports/report-product.vue');
 
 
 // =======================
@@ -165,6 +166,7 @@ const routes = [
   // Report routes
   { path: '/admin/reports/sale', component: Report_Sale, meta:{title: 'Report Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/order', component: Report_Order, meta:{title: 'Report Order', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/products', component: Report_Product_Sale, meta:{title: 'Report Product Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
 
 
 

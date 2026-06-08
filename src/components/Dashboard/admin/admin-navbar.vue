@@ -440,10 +440,10 @@
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
-                    :class="activeKey === 'users'
+                    :class="activeKey === 'report_product_sale'
                         ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                         : 'text-slate-700 dark:text-slate-200/90'"
-                    @click="pick('users')">
+                    @click="pick('report_product_sale')">
                     Product Sale Report
                     </button>
                   </li>
@@ -452,10 +452,10 @@
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
-                    :class="activeKey === 'users'
+                    :class="activeKey === 'report_products'
                         ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                         : 'text-slate-700 dark:text-slate-200/90'"
-                    @click="pick('users')">
+                    @click="pick('report_products')">
                     Products Report
                     </button>
                   </li>
@@ -636,7 +636,7 @@ const routeMap = {
   // reports
   report_sale: "/admin/reports/sale",
   report_order: "/admin/reports/order",
-  report_product_sale: "/admin/reports/product-sale",
+  report_product_sale: "/admin/reports/product/sale",
   report_products: "/admin/reports/products",
   report_stock: "/admin/reports/stock",
   report_payment: "/admin/reports/payment",
@@ -683,7 +683,7 @@ const routeMatch = [
 
   { key: "report_sale", prefixes: ["/admin/reports/sale"] },
   { key: "report_order", prefixes: ["/admin/reports/order"] },
-  { key: "report_product_sale", prefixes: ["/admin/reports/product-sale"] },
+  { key: "report_product_sale", prefixes: ["/admin/reports/product/sale"] },
   { key: "report_products", prefixes: ["/admin/reports/products"] },
   { key: "report_stock", prefixes: ["/admin/reports/stock"] },
   { key: "report_payment", prefixes: ["/admin/reports/payment"] },
@@ -819,7 +819,18 @@ watch(
 watch(
   () => activeKey.value,
   (k) => {
-    const reportKeys = ["report_sale", "report_order", "report_product_sale", "report_products", "report_stock", "report_payment", "report_user", "report_reference", "report_star_club", "report_dynamic_club"];
+    const reportKeys = [
+      "report_sale", 
+      "report_order", 
+      "report_product_sale", 
+      "report_products", 
+      "report_stock", 
+      "report_payment", 
+      "report_user", 
+      "report_reference", 
+      "report_star_club", 
+      "report_dynamic_club"
+    ];
     if (reportKeys.includes(k)) {
       reportPagesOpen.value = true;
     }
