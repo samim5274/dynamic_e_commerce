@@ -51,7 +51,7 @@
                                     <option value="">All Types</option>
                                     <option value="earn">Earn</option>
                                     <option value="spend">Spend</option>
-                                    <option value="bonus">Bonus</option>
+                                    <option value="bonus">Sponsor Bonus</option>
                                     <option value="matching">Matching</option>
                                     <option value="withdraw">Withdraw</option>
                                     <option value="refund">Refund</option>
