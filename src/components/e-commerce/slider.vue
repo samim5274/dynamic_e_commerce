@@ -1,52 +1,27 @@
 <template>
   <section class="relative w-full overflow-hidden bg-gray-100 dark:bg-gray-900 px-4 py-6">
     <div class="container mx-auto">
-      <div class="relative h-[300px] md:h-[500px] w-full rounded-[2.5rem] overflow-hidden shadow-2xl">
+      <div class="relative h-[300px] md:h-[500px] w-full rounded-xl overflow-hidden shadow-2xl">
         
         <div 
           class="flex h-full transition-transform duration-700 ease-in-out" 
-          :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-        >
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
           <div 
             v-for="(slide, index) in slides" 
             :key="index"
-            class="min-w-full h-full relative"
-          >
-            <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent flex items-center">
-              <div class="px-8 md:px-16 max-w-2xl text-white">
-                <!-- <span class="inline-block px-4 py-1 rounded-full bg-indigo-600 text-xs font-bold uppercase tracking-widest mb-4 animate-bounce">
-                  {{ slide.tag }}
-                </span>
-                <h2 class="text-4xl md:text-6xl font-black mb-4 leading-tight">
-                  {{ slide.title }}
-                </h2>
-                <p class="text-lg text-gray-200 mb-8 hidden md:block">
-                  {{ slide.description }}
-                </p>
-                <div class="flex gap-4">
-                  <button class="bg-white text-gray-900 px-8 py-3 rounded-xl font-bold hover:bg-indigo-500 hover:text-white transition-all transform hover:-translate-y-1">
-                    Shop Now
-                  </button>
-                  <button class="border border-white/50 backdrop-blur-sm px-8 py-3 rounded-xl font-bold hover:bg-white/10 transition">
-                    View Details
-                  </button>
-                </div> -->
-              </div>
-            </div>
+            class="min-w-full h-full relative">
+            <img :src="slide.image" :alt="slide.title" class="w-full h-full">
           </div>
         </div>
 
         <button 
           @click="prevSlide" 
-          class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white flex items-center justify-center transition"
-        >
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white flex items-center justify-center transition">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
         <button 
           @click="nextSlide" 
-          class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white flex items-center justify-center transition"
-        >
+          class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white flex items-center justify-center transition">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
 
