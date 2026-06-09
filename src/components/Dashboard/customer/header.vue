@@ -115,7 +115,7 @@
   
               <li
                 v-for="notice in notices"
-                :key="notice.id"
+                :key="notice.id" @click="NoticeDetailsShow(notice)"
                 class="relative px-5 py-3.5 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex gap-3.5 items-start"
               >
                 <div class="flex-shrink-0 mt-0.5">
@@ -289,7 +289,9 @@ async function loadNotice() {
   }
 }
 
-
+function NoticeDetailsShow(notice){
+    router.push(`/admin/notice/${notice.id}/details`);
+}
 
 
 
