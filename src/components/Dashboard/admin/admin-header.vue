@@ -115,18 +115,72 @@
               Notifications
             </div>
 
-            <ul class="max-h-72 overflow-y-auto">
-              <li class="px-4 py-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5">
-                <div class="text-sm font-medium">New message</div>
-                <div class="text-xs text-slate-500 mt-1 dark:text-slate-400">You have 2 unread messages</div>
+            <ul class="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60 custom-scrollbar">
+  
+              <li
+                v-for="notice in notices"
+                :key="notice.id"
+                class="relative px-5 py-3.5 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors flex gap-3.5 items-start"
+              >
+                <div class="flex-shrink-0 mt-0.5">
+                  <span 
+                    class="flex h-8 w-8 items-center justify-center rounded-lg"
+                    :class="{
+                      'bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400': notice.notice_type === 'Urgent',
+                      'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400': notice.notice_type === 'Holiday',
+                      'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400': notice.notice_type === 'Academic',
+                      'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400': notice.notice_type === 'General' || !notice.notice_type
+                    }"
+                  >
+                    <svg v-if="notice.notice_type === 'Urgent'" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    <svg v-else-if="notice.notice_type === 'Holiday'" class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <svg v-else class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                  </span>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-2">
+                    <p class="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate" :title="notice.title">
+                      {{ notice.title }}
+                    </p>
+                    <span 
+                      v-if="notice.notice_type"
+                      class="inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider"
+                      :class="{
+                        'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400': notice.notice_type === 'Urgent',
+                        'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400': notice.notice_type === 'Holiday',
+                        'bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400': notice.notice_type === 'Academic',
+                        'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400': notice.notice_type === 'General'
+                      }"
+                    >
+                      {{ notice.notice_type }}
+                    </span>
+                  </div>
+
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                    {{ notice.description }}
+                  </p>
+
+                  <div class="flex items-center gap-1 text-[10px] text-slate-400 dark:text-slate-500 mt-2 font-medium">
+                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>{{ notice.publish_date }}</span>
+                  </div>
+                </div>
               </li>
-              <li class="px-4 py-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5">
-                <div class="text-sm font-medium">Project updated</div>
-                <div class="text-xs text-slate-500 mt-1 dark:text-slate-400">Windmill UI was updated</div>
-              </li>
-              <li class="px-4 py-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5">
-                <div class="text-sm font-medium">Server warning</div>
-                <div class="text-xs text-slate-500 mt-1 dark:text-slate-400">High CPU usage detected</div>
+
+              <li v-if="!notices || notices.length === 0" class="px-5 py-8 text-center text-sm text-slate-400 dark:text-slate-500 italic">
+                <svg class="mx-auto h-8 w-8 text-slate-300 dark:text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                </svg>
+                No notices available
               </li>
             </ul>
 
@@ -223,6 +277,23 @@ async function loadAuthUser() {
   }
 }
 
+
+
+
+
+
+
+
+
+const notices = ref([]);
+async function loadNotice() {
+  try {
+    const res = await api.get("/notice");
+    notices.value = res.data.data;
+  } catch (err) {
+    console.error("Notification load failed:", err);
+  }
+}
 
 
 
@@ -336,6 +407,7 @@ function onKey(e) {
 
 onMounted(() => {
   loadAuthUser();
+  loadNotice();
   document.addEventListener("click", onDocClick);
   window.addEventListener("keydown", onKey);
 });
