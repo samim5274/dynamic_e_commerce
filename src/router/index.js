@@ -61,6 +61,11 @@ const AssignUserTree = () => import('../components/Dashboard/admin/user/assign-u
 const UserSetting = () => import('../components/Dashboard/admin/user/user-setting.vue');
 const EditUser = () => import('../components/Dashboard/admin/user/edit-user.vue');
 
+const Notice = () => import('../components/Dashboard/admin/notice/notice.vue');
+const Notice_Create = () => import('../components/Dashboard/admin/notice/notice-create.vue');
+const Notice_Edit = () => import('../components/Dashboard/admin/notice/notice-edit.vue');
+const Notice_details = () => import('../components/Dashboard/admin/notice/notice-details.vue');
+
 // =======================
 // Admin Report Routes (group: admin)
 // =======================
@@ -167,6 +172,13 @@ const routes = [
   { path: '/admin/reports/sale', component: Report_Sale, meta:{title: 'Report Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/order', component: Report_Order, meta:{title: 'Report Order', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/products', component: Report_Product_Sale, meta:{title: 'Report Product Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  // Notice Routes
+  { path: '/admin/notice', component: Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/notice/create', component: Notice_Create, meta:{title: 'Create Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/notice-edit/:id', component: Notice_Edit, meta:{title: 'Modify Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/notice/:id/details', component: Notice_details, meta:{title: 'Notice Details', requiresAuth: true, roles: ['admin', 'super_admin']}},
+
+  
 
 
 

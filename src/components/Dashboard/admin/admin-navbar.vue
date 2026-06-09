@@ -544,6 +544,29 @@
 
 
 
+          <!-- Setting -->
+        <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'notice'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('notice')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-solid fa-bell"></i>
+            </span>
+            <span class="text-sm font-medium">Notice</span>
+          </button>
+        </li>
+
+
+
+
+
+
+
         <!-- Setting -->
         <li>
           <button
@@ -645,6 +668,9 @@ const routeMap = {
   report_star_club: "/admin/reports/star-club",
   report_dynamic_club: "/admin/reports/dynamic-club",
 
+  // Notice
+  notice: "/admin/notice",
+
   setting: "/admin/setting",
   logout: "/login",
 };
@@ -691,6 +717,8 @@ const routeMatch = [
   { key: "report_reference", prefixes: ["/admin/reports/reference"] },
   { key: "report_star_club", prefixes: ["/admin/reports/star-club"] },
   { key: "report_dynamic_club", prefixes: ["/admin/reports/dynamic-club"] },
+
+  { key: "notice", prefixes: ["/admin/notice"] },
 
   { key: "logout", prefixes: ["/logout"] },
 ];
