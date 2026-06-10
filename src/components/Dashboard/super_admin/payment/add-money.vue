@@ -85,6 +85,7 @@
                                     <tr class="bg-slate-50 dark:bg-slate-800/50">
                                         <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">User Info</th>
                                         <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Designation & Rank</th>
+                                        <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Balance</th>
                                         <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Carry Points (L/R)</th>
                                         <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Total Points (L/R)</th>
                                         <th class="px-6 py-3 text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
@@ -132,6 +133,10 @@
                                         <td class="px-6 py-4">
                                             <div class="capitalize font-medium">{{ user.designation || 'General' }}</div>
                                             <div class="text-xs text-indigo-500 font-semibold">{{ user.rank || 'No Rank' }}</div>
+                                        </td>
+
+                                        <td class="px-6 py-4">
+                                            <div class="capitalize font-medium">৳ {{ Number(user.wallet_balance ?? 0).toFixed(2) }}</div>
                                         </td>
 
                                         <!-- Carry Points -->

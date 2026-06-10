@@ -27,57 +27,12 @@
                     <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                         <div>
                             <div class="flex items-center gap-3">
-                                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Product Sale Report</h1>
+                                <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Status Order Filter</h1>
                                 <span class="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
-                                    {{ orproductsders.length }} Products
+                                    {{ products.length }} Products
                                 </span>
                             </div>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Monitor and manage your customer transactions and shipping status.</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
-                        <div class="space-y-4">
-                            <div class="grid grid-cols-1 gap-4 md:grid-cols-12 md:items-center">
-                                
-                                <!-- Start Date (5 Columns) -->
-                                <div class="relative md:col-span-5">
-                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 dark:text-slate-500">
-                                        <i class="fa-solid fa-calendar-days h-4 w-4"></i>
-                                    </div>
-                                    <input
-                                        type="date"
-                                        v-model="startDate"
-                                        :max="today"
-                                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
-                                    />
-                                </div>
-
-                                <!-- End Date (5 Columns) -->
-                                <div class="relative md:col-span-5">
-                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 dark:text-slate-500">
-                                        <i class="fa-solid fa-calendar-days h-4 w-4"></i>
-                                    </div>
-                                    <input
-                                        type="date"
-                                        v-model="endDate"
-                                        :max="today"
-                                        class="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-100 dark:focus:border-indigo-500 dark:focus:bg-slate-800"
-                                    />
-                                </div>
-
-                                <!-- Submit Button (2 Columns) -->
-                                <div class="md:col-span-2">
-                                    <button
-                                        type="submit"
-                                        @click="fetchData"
-                                        class="flex w-full items-center justify-center gap-2 rounded-xl border border-indigo-600 bg-indigo-600 py-2.5 px-4 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:border-indigo-700 focus:ring-4 focus:ring-indigo-500/20 active:scale-[0.98]"
-                                    >
-                                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                                        <span>Search</span>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -87,94 +42,117 @@
                         <div class="overflow-x-auto max-h-[850px]">
                             <table class="w-full text-left border-collapse">
                                 <thead class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Registration</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Customer</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Amount</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Transaction ID</th>
-                                    <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
-                                </tr>
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Product Info</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Category</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Brand</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Price</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Stock</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                                    </tr>
                                 </thead>
 
                                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-                                    
-                                    <template v-if="filteredOrders && filteredOrders.length > 0">
-                                        <tr v-for="order in filteredOrders" :key="order.id" @click="viewOrderDetails(order)" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                                            
-                                            <td class="px-6 py-4">
-                                                <div class="text-xs text-slate-700 dark:text-slate-300">{{ formatDate(order.date) }}</div>
-                                                <div v-if="order.paid_at" class="text-[10px] text-green-600 dark:text-green-400 mt-0.5">
-                                                    Paid: {{ formatDate(order.paid_at) }}
+                                    <template v-if="products && products.length > 0">
+                                        <tr v-for="product in products" :key="product.id"
+                                            class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+                                                    <i class="fa-regular fa-calendar text-slate-400 text-[11px]"></i>
+                                                    <span>{{ formatDate(product.created_at) }}</span>
                                                 </div>
                                             </td>
 
-                                            <td class="px-6 py-4">
-                                                <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">{{ order.reg }}</span>
-                                            </td>
-
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center gap-3">
-                                                    <div class="h-9 w-9 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-xs">
-                                                        {{ order.user?.name.substring(0, 2).toUpperCase() }}
-                                                    </div>
-                                                    <div>
-                                                        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ order.user?.name }}</div>
-                                                        <div class="text-xs text-slate-500 dark:text-slate-400">{{ order.user?.user_id }}</div>
-                                                    </div>
+                                            <td class="px-6 py-4 min-w-[200px]">
+                                                <div class="font-semibold text-sm text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                                                    {{ product.name }}
+                                                </div>
+                                                <div class="mt-0.5 inline-flex items-center rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-mono font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                                                    {{ product.sku || 'No SKU' }}
                                                 </div>
                                             </td>
 
-                                            <td class="px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-100">
-                                                {{ order.currency }} ৳ {{ order.amount.toLocaleString() }}
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    {{ product.category?.name || 'N/A' }}
+                                                </div>
+                                                <div class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+                                                    {{ product.subcategory?.name || '—' }}
+                                                </div>
                                             </td>
 
-                                            <td class="px-6 py-4">
-                                                <div class="text-xs font-mono text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded inline-block">
-                                                    {{ order.transaction_id || 'N/A' }}
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="inline-flex items-center rounded-full bg-slate-50 border border-slate-200/60 px-2.5 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-800/40 dark:border-slate-700/60 dark:text-slate-400">
+                                                    {{ product.brand?.name || 'Generic' }}
+                                                </span>
+                                            </td>
+
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex flex-col">
+                                                    <template v-if="product.discount_price">
+                                                        <span class="text-sm font-bold text-slate-900 dark:text-slate-100">
+                                                            ৳ {{ product.discount_price }}
+                                                        </span>
+                                                        <span class="text-xs text-slate-400 dark:text-slate-500 line-through mt-0.5">
+                                                            ৳ {{ product.price }}
+                                                        </span>
+                                                    </template>
+                                                    <template v-else>
+                                                        <span class="text-sm font-bold text-slate-900 dark:text-slate-100">
+                                                            ৳ {{ product.price }}
+                                                        </span>
+                                                    </template>
                                                 </div>
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span 
-                                                    :class="getStatus(order.status).container" 
-                                                    class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-2 border border-transparent dark:border-current/10 transition-all duration-300 shadow-sm"
+                                                    :class="product.stock_quantity > 0 
+                                                        ? 'text-green-700 dark:text-green-400 font-semibold' 
+                                                        : 'text-rose-600 dark:text-rose-400 font-semibold bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-md'"
+                                                    class="text-sm"
                                                 >
-                                                    <span class="relative flex h-2 w-2">
-                                                        <span 
-                                                            v-if="order.status.toLowerCase() === 'pending'"
-                                                            class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                                                            :class="getStatus(order.status).dot"
-                                                        ></span>
-                                                        <span 
-                                                            class="relative inline-flex rounded-full h-2 w-2"
-                                                            :class="getStatus(order.status).dot"
-                                                        ></span>
+                                                    {{ product.stock_quantity > 0 ? product.stock_quantity + ' Pcs' : 'Out of Stock' }}
+                                                </span>
+                                            </td>
+
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    :class="product.is_active
+                                                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20'
+                                                        : 'bg-rose-50 text-rose-700 border border-rose-200/60 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20'"
+                                                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm"
+                                                >
+                                                    <span class="relative flex h-1.5 w-1.5">
+                                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                                                            :class="product.is_active ? 'bg-emerald-400' : 'bg-rose-400'"></span>
+                                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5"
+                                                            :class="product.is_active ? 'bg-emerald-500' : 'bg-rose-500'"></span>
                                                     </span>
-                                                    
-                                                    {{ order.status }}
+                                                    {{ product.is_active ? 'Active' : 'Inactive' }}
                                                 </span>
                                             </td>
                                         </tr>
                                     </template>
 
-                                    <!-- Empty State -->
                                     <tr v-else>
-                                        <td colspan="6" class="px-6 py-12 text-center">
+                                        <td colspan="8" class="px-6 py-12 text-center">
                                             <div v-if="loading" class="w-full flex flex-col items-center justify-center py-20">
-                                                <div class="animate-spin h-10 w-10 border-4 border-[#A3D921] border-t-transparent rounded-full"></div>
-                                                <p class="mt-4 text-sm text-gray-500">Updating Tree...</p>
+                                                <div class="animate-spin h-10 w-10 border-4 border-indigo-500 border-t-transparent rounded-full"></div>
+                                                <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">Loading products data...</p>
                                             </div>
                                             
-                                            <div class="flex flex-col items-center justify-center max-w-sm mx-auto">
+                                            <div v-else class="flex flex-col items-center justify-center max-w-sm mx-auto py-8">
                                                 <div class="p-3 bg-slate-100 dark:bg-slate-800/50 rounded-full text-slate-400 dark:text-slate-500 mb-4 ring-8 ring-slate-50 dark:ring-slate-900/30 flex items-center justify-center w-12 h-12 mx-auto">
                                                     <i class="fas fa-box-open text-xl"></i>
                                                 </div>
                                                 <h3 class="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                                                    No orders found
+                                                    No products found
                                                 </h3>
                                                 <p class="text-xs text-slate-400 dark:text-slate-500">
-                                                    Your search or filter criteria didn't match any orders.
+                                                    Your search or filter criteria didn't match any products.
                                                 </p>
                                             </div>
                                         </td>
@@ -183,6 +161,7 @@
                             </table>
                         </div>
                     </div>
+
 
                     <!-- Pagination -->
                     <div class="flex flex-col gap-2 border-slate-200 bg-white dark:bg-slate-900 shadow-sm px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
@@ -199,23 +178,23 @@
                         <div class="flex flex-wrap items-center justify-end gap-2">
                             <!-- First -->
                             <button
-                                @click="changePage(1)" :disabled="pagination.page === 1 || loading"
+                                @click="fetchProducts(1)" :disabled="pagination.page === 1 || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angles-left"></i>
                             </button>
 
                             <!-- Prev -->
                             <button
-                                @click="changePage(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
+                                @click="fetchProducts(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
 
                             <!-- Pages -->
                             <button
-                                v-for="page in OrderVisiblePages"
+                                v-for="page in ProductVisiblePages"
                                 :key="String(page)"
-                                @click="page !== '...' && changePage(page)"
+                                @click="page !== '...' && fetchProducts(page)"
                                 class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
                                 :disabled="page === '...' || loading"
                                 :class="[
@@ -228,7 +207,7 @@
 
                             <!-- Next -->
                             <button
-                                @click="changePage(pagination.page + 1)"
+                                @click="fetchProducts(pagination.page + 1)"
                                 :disabled="pagination.page === pagination.lastPage || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angle-right"></i>
@@ -236,7 +215,7 @@
 
                             <!-- Last -->
                             <button
-                                @click="changePage(pagination.lastPage)"
+                                @click="fetchProducts(pagination.lastPage)"
                                 :disabled="pagination.page === pagination.lastPage || loading"
                                 class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
                                 <i class="fa-solid fa-angles-right"></i>
@@ -278,14 +257,14 @@ const loading = ref(false);
 
 
 
-const orderPage = ref(1);
-const orderLastPage = ref(1);
-const orderTotal = ref(0);
-const orderPerPage = ref(20);
-const orderFromItem = ref(0);
-const orderToItem = ref(0);
+const productPage = ref(1);
+const productLastPage = ref(1);
+const productTotal = ref(0);
+const productPerPage = ref(20);
+const productFromItem = ref(0);
+const productToItem = ref(0);
 
-const OrderVisiblePages = computed(() => {
+const ProductVisiblePages = computed(() => {
     const pages = [];
     const last = pagination.value.lastPage;
     const cur = pagination.value.page;
@@ -316,9 +295,9 @@ const OrderVisiblePages = computed(() => {
 
 
 // =============================
-// Get orders
+// Get Products
 // =============================
-const orders = ref([]);
+const products = ref([]);
 
 const pagination = ref({
     page: 1,
@@ -329,35 +308,35 @@ const pagination = ref({
     to: 0,
 });
 
-async function fetchOrders(page = 1) {
+async function fetchProducts(page = 1) {
     try {
         loading.value = true;
         errorMsg.value = '';
 
-        const res = await api.get('/orders/reports/sale', {
+        const res = await api.get('/products/report', {
             params: { page }
         });
 
-        const response = res.data;
+        const data = res.data?.data;
+        
 
-        // REAL DATA ARRAY (IMPORTANT FIX)
-        orders.value = response?.data?.data ?? [];
+        products.value = data?.data ?? [];
+        // console.log(products.value);
 
-        // PAGINATION META
         pagination.value = {
-            page: response?.data?.current_page ?? 1,
-            lastPage: response?.data?.last_page ?? 1,
-            total: response?.data?.total ?? 0,
-            perPage: response?.data?.per_page ?? 20,
-            from: response?.data?.from ?? 0,
-            to: response?.data?.to ?? 0,
+            page: data?.current_page ?? 1,
+            lastPage: data?.last_page ?? 1,
+            total: data?.total ?? 0,
+            perPage: data?.per_page ?? 20,
+            from: data?.from ?? 0,
+            to: data?.to ?? 0,
         };
 
     } catch (err) {
         console.log(err);
-        errorMsg.value = "Failed to fetch orders";
+        errorMsg.value = "Failed to fetch products";
 
-        orders.value = [];
+        products.value = [];
 
         pagination.value = {
             page: 1,
@@ -373,86 +352,16 @@ async function fetchOrders(page = 1) {
     }
 }
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
-const statusConfig = {
-    'pending': {
-        container: 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400',
-        dot: 'bg-amber-500'
-    },
-    'confirmed': {
-        container: 'bg-sky-100 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400',
-        dot: 'bg-sky-500'
-    },
-    'processing': {
-        container: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400',
-        dot: 'bg-indigo-500'
-    },
-    'picked': {
-        container: 'bg-violet-100 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400',
-        dot: 'bg-violet-500'
-    },
-    'shipped': {
-        container: 'bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400',
-        dot: 'bg-blue-500'
-    },
-    'out for delivery': {
-        container: 'bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400',
-        dot: 'bg-orange-500'
-    },
-    'delivered': {
-        container: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400',
-        dot: 'bg-emerald-500'
-    },
-    'cancelled': {
-        container: 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400',
-        dot: 'bg-rose-500'
-    },
-    'failed': {
-        container: 'bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400',
-        dot: 'bg-red-600'
-    },
-    'returned': {
-        container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
-        dot: 'bg-slate-500'
-    },
-    'default': {
-        container: 'bg-slate-100 text-slate-700 dark:bg-slate-500/10 dark:text-slate-400',
-        dot: 'bg-slate-500'
-    }
-};
+const formatDate = (date) => {
+    if (!date) return '-';
 
-const getStatus = (status) => {
-    if (!status) return statusConfig.default;
-    const normalizedStatus = status.toLowerCase().trim().replace(/_/g, ' '); 
-    return statusConfig[normalizedStatus] || statusConfig.default;
-};
-
-// =============================
-// Filter orders
-// =============================
-const searchQuery = ref('');
-const statusFilter = ref('');
-
-const filteredOrders = computed(() => {
-    return orders.value.filter(order => {
-        const matchesStatus = !statusFilter.value || 
-        order.status.toLowerCase() === statusFilter.value.toLowerCase();
-        const search = searchQuery.value.toLowerCase().trim();
-        if (!search) return matchesStatus;
-        const matchesSearch = 
-            (order.reg?.toLowerCase().includes(search)) ||
-            (order.user?.name?.toLowerCase().includes(search)) ||
-            (String(order.user?.user_id || '').includes(search)) ||
-            (order.transaction_id?.toLowerCase().includes(search)) ||
-            (order.status?.toLowerCase().includes(search));
-        return matchesStatus && matchesSearch;
+    return new Date(date).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
     });
-});
-
-
-
-
+};
 
 
 
@@ -460,108 +369,6 @@ const filteredOrders = computed(() => {
 const today = new Date().toISOString().split('T')[0];
 const startDate = ref(today);
 const endDate = ref(today);
-const isDateFilterActive = ref(false);
-
-async function fetchData(page = 1) {
-    try {
-
-        loading.value = true;
-        errorMsg.value = '';
-        isDateFilterActive.value = true;
-
-        const res = await api.get('/orders/reports/sale/filter', {
-            params: {
-                page,
-                start_date: startDate.value,
-                end_date: endDate.value
-            }
-        });
-
-        const response = res.data;
-
-        orders.value = response?.data?.data ?? [];
-
-        // PAGINATION META
-        pagination.value = {
-            page: response.data.current_page,
-            lastPage: response.data.last_page,
-            total: response.data.total,
-            perPage: response.data.per_page,
-            from: response.data.from,
-            to: response.data.to,
-        };
-        
-    } catch (error) {
-        console.error('Error fetching data:', error);
-
-        errorMsg.value = error?.response?.data?.message || "Failed to fetch orders";
-
-        orders.value = [];
-
-        pagination.value = {
-            page: 1,
-            lastPage: 1,
-            total: 0,
-            perPage: 20,
-            from: 0,
-            to: 0,
-        };
-
-    }finally {
-        loading.value = false;
-    }
-};
-
-
-async function changePage(page) {
-
-    if (isDateFilterActive.value) {
-        await fetchData(page);
-    } else {
-        await fetchOrders(page);
-    }
-
-}
-
-
-
-
-const resetFilters = async () => {
-
-    searchQuery.value = '';
-    statusFilter.value = '';
-
-    startDate.value = today;
-    endDate.value = today;
-
-    isDateFilterActive.value = false;
-
-    await fetchOrders(1);
-};
-
-
-
-
-
-
-
-
-
-function viewOrderDetails(order){
-    router.push(`/admin/orders/${order.reg}/${order.slug}`);
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -584,7 +391,7 @@ const onSearch = () => {
 
 /* ESC to close drawer */
 onMounted(() => {
-    fetchOrders();
+    fetchProducts();
 
 
     window.addEventListener("keydown", (e) => {

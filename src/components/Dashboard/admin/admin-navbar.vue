@@ -472,14 +472,14 @@
                     </button>
                   </li>
 
-                  <li>
+                  <!-- <li>
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
-                    :class="activeKey === 'users'
+                    :class="activeKey === 'report_stock'
                         ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                         : 'text-slate-700 dark:text-slate-200/90'"
-                    @click="pick('users')">
+                    @click="pick('report_stock')">
                     Stock Report
                     </button>
                   </li>
@@ -542,7 +542,7 @@
                     @click="pick('users')">
                     Dynamic Club Report
                     </button>
-                  </li>
+                  </li> -->
 
                 </ul>
               </div>

@@ -371,7 +371,7 @@
 
 
             <!-- Setting -->
-            <li>
+            <!-- <li>
             <button
                 class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
                     focus:outline-none focus:ring-2 focus:ring-slate-500/40
@@ -385,7 +385,7 @@
                 </span>
                 <span class="text-sm font-medium">Setting</span>
             </button>
-            </li>
+            </li> -->
 
 
 
