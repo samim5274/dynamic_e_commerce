@@ -244,7 +244,21 @@
                                                 type="number"
                                                 min="0"
                                                 step="0.01"
+                                                required
                                                 placeholder="Enter amount"
+                                                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                            >
+                                        </div>
+
+                                        <div>
+                                            <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                Note
+                                            </label>
+
+                                            <input
+                                                v-model="note"
+                                                type="text"
+                                                placeholder="Write something on note"
                                                 class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                                             >
                                         </div>
@@ -307,11 +321,13 @@ const errorMsg = ref('');
 const isStatusModalOpen = ref(false);
 const selectedUser = ref(null);
 const amount = ref('');
+const note = ref('');
 
 
 function openStatusModal(item) {
     selectedUser.value = item;
     amount.value = '';
+    note.value = '';
     isStatusModalOpen.value = true;
 }
 
@@ -334,7 +350,7 @@ async function submitAmount() {
 
     try{
         const response = await api.post(`/super-admin/add-money/${selectedUser.value.id}`,
-            { amount: Number(amount.value)}
+            { amount: Number(amount.value), note: String(note.value)}
         )
 
         if (response.data?.success) {
@@ -367,6 +383,7 @@ function resetModal() {
     isStatusModalOpen.value = false;
     selectedUser.value = null;
     amount.value = '';
+    note.value = '';
 
     fetchUsers();
 }

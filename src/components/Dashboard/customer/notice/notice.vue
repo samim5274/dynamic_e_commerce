@@ -29,14 +29,14 @@
                             <i class="fa-solid fa-dolly"></i> Notice Details
                         </h2>
 
-                        <div>
+                        <!-- <div>
                             <button 
                                 @click="openCreateModal" 
                                 class="inline-flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors dark:bg-indigo-500 dark:hover:bg-indigo-400">
                                 <i class="fa-regular fa-calendar-plus"></i>
                                 Create Notice
                             </button>
-                        </div>
+                        </div> -->
                     </div>
 
                     <input type="search" v-model="searchQuery" @input="onSearch" placeholder="Search products..." class="mb-4 w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm text-slate-700 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:focus:border-blue-400 dark:focus:ring-blue-900/30">
