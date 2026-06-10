@@ -55,6 +55,9 @@
                                     <option value="matching">Matching</option>
                                     <option value="withdraw">Withdraw</option>
                                     <option value="refund">Refund</option>
+
+                                    <option value="star_club">Star Club</option>
+                                    <option value="dynamic_club">Dynamic Club</option>
                                 </select>
 
                                 <button 
@@ -161,7 +164,8 @@
                                         </td>
 
                                         <td class="px-4 py-3 text-slate-400 text-xs">
-                                            {{ item.reference_id ? '#' + item.reference_id : '—' }}
+                                            <!-- {{ item.reference_id ? '#REF-' + item.reference_id : '—' }} -->
+                                            {{ item.reference_user?.name ?? '—' }}
                                         </td>
 
                                         <td class="px-4 py-3 text-slate-500 text-xs italic">
@@ -273,8 +277,19 @@ const filteredTransactions = computed(() => {
 
     return statements.value.filter(transaction => {
 
-        const matchesType = !typeFilter.value || 
-            transaction.type?.toLowerCase() === typeFilter.value.toLowerCase();
+        let matchesType = true;
+        if (typeFilter.value) {
+            if (typeFilter.value === 'star_club') {
+                matchesType = transaction.source?.toLowerCase() === 'star_club';
+            } else if (typeFilter.value === 'dynamic_club') {
+                matchesType = transaction.source?.toLowerCase() === 'dynamic_club';
+            } else if (typeFilter.value === 'bonus') {
+                matchesType = transaction.source?.toLowerCase() === 'sponsor_bonus' || 
+                              transaction.type?.toLowerCase() === 'bonus';
+            } else {
+                matchesType = transaction.type?.toLowerCase() === typeFilter.value.toLowerCase();
+            }
+        }
 
         const search = searchQuery.value.toLowerCase().trim();
         if (!search) return matchesType;
