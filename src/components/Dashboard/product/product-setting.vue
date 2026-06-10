@@ -526,16 +526,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@reference "../style.css";
 
-.label{
-  @apply text-sm font-semibold text-slate-700 block mb-1 dark:text-slate-300;
-}
-.input, select{
-  @apply w-full border rounded-xl px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none dark:bg-slate-800 dark:text-white dark:border-slate-600;
-}
-.error{
-  @apply text-xs text-red-500 mt-1;
-}
 </style>
 
