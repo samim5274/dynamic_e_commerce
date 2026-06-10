@@ -41,13 +41,69 @@
                                 </span>
                                 
                                 <button @click="openAddBrandModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
-                                    <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                    </svg>
+                                    <i class="fa-solid fa-plus h-3.5 w-3.5"></i>
                                     Add Brand
                                 </button>
                             </div>
                         </div>
+
+                        <Teleport to="body">
+                            <Transition 
+                                enter-active-class="transition duration-300 ease-out"
+                                enter-from-class="opacity-0"
+                                enter-to-class="opacity-100"
+                                leave-active-class="transition duration-200 ease-in"
+                                leave-from-class="opacity-100"
+                                leave-to-class="opacity-0">
+                                <div v-if="isBrandModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                                
+                                    <div 
+                                        @click.stop 
+                                        class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                                        
+                                        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Create New Brand</h3>
+                                            <button @click="isBrandModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                                <i class="fa-solid fa-x h-6 w-6"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="p-6 space-y-4">
+                                            
+                                            <!-- Brand Input -->
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    Brand
+                                                </label>
+
+                                                <input
+                                                    v-model="brand"
+                                                    type="text"
+                                                    required
+                                                    placeholder="Enter brand name"
+                                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
+                                            <button
+                                                @click="isBrandModalOpen = false"
+                                                class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                                                Cancel
+                                            </button>
+
+                                            <button
+                                                @click="submitBrand" :disabled="loading"
+                                                class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                                                <span v-if="loading">Saving...</span>
+                                                <span v-else>Save</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </Teleport>
 
                         <div class="overflow-x-auto max-h-[700px]">
                             <table class="min-w-full text-sm">
@@ -475,6 +531,94 @@ async function fetchBrands(){
         console.error('Failed to fetch brands:', err)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Brand create modal
+const isBrandModalOpen = ref(false);
+const brand = ref('');
+function openAddBrandModal(item) {
+    brand.value = '';
+    isBrandModalOpen.value = true;
+}
+
+async function submitBrand() {
+
+    if (!brand.value) {
+        errorMsg.value = 'Please enter a valid brand'
+        return
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.post('/products/create-brand', {
+            name: brand.value.trim()
+        });
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchBrands();
+            brand.value = '';
+            isBrandModalOpen.value = false; 
+        } else {
+            errorMsg.value = response.data.message
+        }
+
+    } catch(err) {
+        console.error('Submit Brands Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+
+}
+
+// Delete brand
+async function deleteBrand(brandId)
+{
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.delete(`/products/delete-brand/${brandId}`);
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchBrands();
+        } else {
+            errorMsg.value = response.data.message
+        }
+
+    } catch(err) {
+        console.error('Delete Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+}
+
+
 
 
 
