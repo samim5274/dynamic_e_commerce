@@ -83,6 +83,7 @@ const Report_Statement = () => import('../components/Dashboard/admin/reports/rep
 const CreateProduct = () => import('../components/Dashboard/product/create-product.vue');
 const ProductList = () => import('../components/Dashboard/product/product-list.vue');
 const ProductEdit = () => import('../components/Dashboard/product/product-edit.vue');
+const ProductSetting = () => import('../components/Dashboard/product/product-setting.vue');
 
 
 // =======================
@@ -197,7 +198,10 @@ const routes = [
   { path: '/admin/create-product', component: CreateProduct, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Create Product" } },
   { path: '/admin/products', component: ProductList, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Details" } },
   { path: '/admin/product-edit/:slug', component: ProductEdit, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Edit Product" } },
+  { path: '/admin/product/setting', component: ProductSetting, meta: { requiresAuth: true, roles: ['admin', 'super_admin'], title: "Product Setting" } },
 
+  
+  
   // Order Routes
   { path: '/admin/orders', component: AdminOrders, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Orders"}},
   { path: '/admin/orders/:reg/:slug', component: AdminOrderDetails, meta: {requiresAuth: true, roles: ['admin', 'super_admin'], title: "Order Details"}},

@@ -172,17 +172,17 @@
                 </button>
               </li>
 
-              <!-- <li>
+              <li>
                 <button
                   class="w-full px-4 py-2 text-sm text-left transition
                          hover:bg-white dark:hover:bg-white/10"
-                  :class="activeKey === 'setting'
+                  :class="activeKey === 'product_setting'
                     ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                     : 'text-slate-700 dark:text-slate-200/90'"
-                  @click="pick('setting')">
+                  @click="pick('product_setting')">
                   Settings
                 </button>
-              </li> -->
+              </li>
             </ul>
           </div>
         </li>
@@ -657,6 +657,7 @@ const routeMap = {
 
   products: "/admin/products",
   create: "/admin/create-product",
+  product_setting: "/admin/product/setting",
 
   orders: "/admin/orders",
   order_status: "/admin/orders/status",
@@ -709,6 +710,7 @@ const routeMatch = [
 
   { key: "products", prefixes: ["/admin/products", "/admin/product-edit"] },
   { key: "create", prefixes: ["/admin/create-product"] },
+  { key: "product_setting", prefixes: ["/admin/product/setting"] },
 
   { key: "order_create", prefixes: ["/admin/orders/create"] },
   { key: "order_status", prefixes: ["/admin/orders/status"] },
@@ -794,7 +796,7 @@ async function pick(key) {
 watch(
   () => activeKey.value,
   (k) => {
-    const productKeys = ["products", "create",];
+    const productKeys = ["products", "create","product_setting"];
     if (productKeys.includes(k)) {
       pagesOpen.value = true;
     }

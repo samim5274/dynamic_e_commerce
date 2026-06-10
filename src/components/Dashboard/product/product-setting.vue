@@ -1,0 +1,541 @@
+<template>
+    <div class="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-200">
+        <HeaderSection
+            @open-sidebar="sidebarOpen = true"
+            @search="onSearch"
+            :isDark="isDark" @toggle-theme="toggleTheme"
+        />
+
+        <div class="flex min-h-[calc(100vh-56px)]">
+            <Navbar
+                v-model="active"
+                :open="sidebarOpen"
+                @close="sidebarOpen = false"
+            />
+
+            <Message
+                :successMsg="successMsg"
+                :errorMsg="errorMsg"
+                @update:successMsg="successMsg = $event"
+                @update:errorMsg="errorMsg = $event"
+            />
+
+            <!-- Content -->
+            <div class="min-h-screen w-full bg-gray-50 dark:bg-slate-950 transition-colors duration-200 p-6">
+                <div class="mx-auto bg-white dark:bg-slate-900 shadow-lg rounded-2xl p-8">
+
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white"><i class="fa-solid fa-calendar-plus"></i> Product Setting</h2>
+
+                    <div class="mb-8 rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+                        <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-sm font-black uppercase tracking-widest text-slate-600 dark:text-slate-300">
+                                    Brand Management
+                                </h2>
+                                <p class="text-xs text-slate-400 mt-1">Total registered active/inactive brands</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-bold text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 whitespace-nowrap">
+                                    {{ brands.length }} Brands
+                                </span>
+                                
+                                <button @click="openAddBrandModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
+                                    <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                    </svg>
+                                    Add Brand
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto max-h-[700px]">
+                            <table class="min-w-full text-sm">
+                                <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left font-bold">ID</th>
+                                        <th class="px-6 py-4 text-left font-bold">Brand Name</th>
+                                        <th class="px-6 py-4 text-left font-bold">Slug / Code</th>
+                                        <th class="px-6 py-4 text-left font-bold">Status</th>
+                                        <th class="px-6 py-4 text-right font-bold">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tr v-for="brand in brands" :key="brand.id" class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+                                        <td class="px-6 py-4 text-xs font-mono font-bold text-slate-400">
+                                            #{{ brand.id }}
+                                        </td>
+                                        
+                                        <td class="px-6 py-4 font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                            {{ brand.name }}
+                                        </td>
+
+                                        <td class="px-6 py-4 text-xs text-slate-500 dark:text-slate-400">
+                                            {{ brand.slug || brand.name.toLowerCase().replace(/ /g, '-') }}
+                                        </td>
+
+                                        <td class="px-6 py-4">
+                                            <span :class="brand.is_active ?? true ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400' : 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400'"
+                                                class="px-2.5 py-0.5 rounded-full text-xs font-semibold inline-flex items-center gap-1">
+                                                <span class="h-1 w-1 rounded-full" :class="brand.is_active ?? true ? 'bg-emerald-500' : 'bg-rose-500'"></span>
+                                                {{ (brand.is_active ?? true) ? 'Active' : 'Inactive' }}
+                                            </span>
+                                        </td>
+
+                                        <td class="px-6 py-4 text-right whitespace-nowrap">
+                                            <div class="flex items-center justify-end gap-2">
+                                                <button @click="editBrand(brand)" class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-indigo-600 hover:border-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:border-indigo-500/30 shadow-sm transition-colors" title="Edit">
+                                                    <i class="fa-solid fa-pen-to-square h-3.5 w-3.5 flex items-center justify-center"></i>
+                                                </button>
+                                                <button @click="deleteBrand(brand.id)" class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-rose-600 hover:border-rose-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500 dark:hover:text-rose-400 dark:hover:border-rose-500/30 shadow-sm transition-colors" title="Delete">
+                                                    <i class="fa-solid fa-trash h-3.5 w-3.5 flex items-center justify-center"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr v-if="!brands || brands.length === 0">
+                                        <td colspan="5" class="px-6 py-12 text-center text-slate-400 italic">
+                                            No brands found. Please add a new brand.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+                        <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-sm font-black uppercase tracking-widest text-slate-600 dark:text-slate-300">
+                                    Category
+                                </h2>
+                                <p class="text-xs text-slate-400 mt-1">Structure of main categories and sub-branches</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-bold text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 whitespace-nowrap">
+                                    {{ categories.length }} Categories
+                                </span>
+                                
+                                <button @click="openAddModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
+                                    <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                    </svg>
+                                    Add Category
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto max-h-[700px] rounded-xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                            <table class="w-full min-w-[700px] text-sm text-left border-collapse">
+                                <!-- Table Header -->
+                                <thead class="bg-slate-50 dark:bg-slate-800/60">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Category</th>
+                                        <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Description</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+                                        <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Table Body -->
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tr
+                                        v-for="category in categories"
+                                        :key="category.id"
+                                        class="group hover:bg-indigo-50/40 dark:hover:bg-slate-800/50 transition-all duration-200">
+                                        <!-- Category -->
+                                        <td class="px-6 py-5">
+                                            <div class="flex flex-col">
+                                                <h3
+                                                    class="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                                                    {{ category.name }}
+                                                </h3>
+                                                <span class="text-xs text-slate-400 dark:text-slate-500 mt-1 font-mono">
+                                                    Category ID #{{ category.id }}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Slug -->
+                                        <td class="px-6 py-5">
+                                            <div class="flex justify-center">
+                                                <span
+                                                    class="inline-flex items-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                                                    {{ category.slug }}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Description -->
+                                        <td class="px-6 py-5 max-w-xs">
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2"
+                                                :title="category.description">
+                                                {{ category.description || 'No description available' }}
+                                            </p>
+                                        </td>
+
+                                        <!-- Status -->
+                                        <td class="px-6 py-5">
+                                            <span
+                                                v-if="category.is_active"
+                                                class="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                                                <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                                Active
+                                            </span>
+
+                                            <span
+                                                v-else
+                                                class="inline-flex items-center gap-2 rounded-full bg-rose-50 dark:bg-rose-500/10 px-3 py-1 text-xs font-semibold text-rose-600 dark:text-rose-400">
+                                                <span class="h-2 w-2 rounded-full bg-rose-500"></span>
+                                                Inactive
+                                            </span>
+                                        </td>
+
+                                        <!-- Actions -->
+                                        <td class="px-6 py-5 text-right">
+                                            <div class="inline-flex items-center overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+                                                <!-- Edit -->
+                                                <button
+                                                    @click="editCategory(category)"
+                                                    class="px-3 py-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400 transition">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <div class="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
+                                                <!-- Delete -->
+                                                <button
+                                                    @click="deleteCategory(category.id)"
+                                                    class="px-3 py-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 transition">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Empty State -->
+                                    <tr v-if="!categories || categories.length === 0">
+                                        <td colspan="5" class="py-20">
+                                            <div class="flex flex-col items-center justify-center">
+                                                <div
+                                                    class="w-20 h-20 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+                                                    <i class="fa-solid fa-folder-open text-3xl text-slate-400"></i>
+                                                </div>
+
+                                                <h3 class="mt-5 text-lg font-semibold text-slate-800 dark:text-slate-100">
+                                                    No Categories Found
+                                                </h3>
+
+                                                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400 text-center max-w-md">
+                                                    Start by creating your first category to organize products
+                                                    efficiently and improve inventory management.
+                                                </p>
+
+                                                <button
+                                                    @click="openCreateModal"
+                                                    class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Add Category
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="rounded-2xl mt-4 border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+                        <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-sm font-black uppercase tracking-widest text-slate-600 dark:text-slate-300">
+                                   Sub Category
+                                </h2>
+                                <p class="text-xs text-slate-400 mt-1">Structure of main sub-branches</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-bold text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 whitespace-nowrap">
+                                    {{ subcategories.length }} Sub-Categories
+                                </span>
+                                
+                                <button @click="openAddModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
+                                    <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                    </svg>
+                                    Add Sub-Category
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto max-h-[700px] rounded-xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                            <table class="w-full min-w-[700px] text-sm text-left border-collapse">
+                                <!-- Table Header -->
+                                <thead class="bg-slate-50 dark:bg-slate-800/60">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Sub-Category</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Category</th>
+                                        <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Description</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
+                                        <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Table Body -->
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tr
+                                        v-for="subCategory in subcategories"
+                                        :key="subCategory.id"
+                                        class="group hover:bg-indigo-50/40 dark:hover:bg-slate-800/50 transition-all duration-200">
+                                        <!-- Category -->
+                                        <td class="px-6 py-5">
+                                            <div class="flex flex-col">
+                                                <h3
+                                                    class="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                                                    {{ subCategory.name }}
+                                                </h3>
+                                                <span class="text-xs text-slate-400 dark:text-slate-500 mt-1 font-mono">
+                                                    Category ID #{{ subCategory.id }}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Category -->
+                                        <td class="px-6 py-5">
+                                            <div class="flex flex-col">
+                                                <h3
+                                                    class="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                                                    {{ subCategory.category.name }}
+                                                </h3>
+                                            </div>
+                                        </td>
+
+                                        <!-- Slug -->
+                                        <td class="px-6 py-5">
+                                            <div class="flex justify-center">
+                                                <span
+                                                    class="inline-flex items-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                                                    {{ subCategory.slug }}
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <!-- Description -->
+                                        <td class="px-6 py-5 max-w-xs">
+                                            <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2"
+                                                :title="subCategory.description">
+                                                {{ subCategory.description || 'No description available' }}
+                                            </p>
+                                        </td>
+
+                                        <!-- Status -->
+                                        <td class="px-6 py-5">
+                                            <span
+                                                v-if="subCategory.is_active"
+                                                class="inline-flex items-center gap-2 rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                                                <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                                Active
+                                            </span>
+
+                                            <span
+                                                v-else
+                                                class="inline-flex items-center gap-2 rounded-full bg-rose-50 dark:bg-rose-500/10 px-3 py-1 text-xs font-semibold text-rose-600 dark:text-rose-400">
+                                                <span class="h-2 w-2 rounded-full bg-rose-500"></span>
+                                                Inactive
+                                            </span>
+                                        </td>
+
+                                        <!-- Actions -->
+                                        <td class="px-6 py-5 text-right">
+                                            <div class="inline-flex items-center overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+                                                <!-- Edit -->
+                                                <button
+                                                    @click="editCategory(subCategory)"
+                                                    class="px-3 py-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400 transition">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                                <div class="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
+                                                <!-- Delete -->
+                                                <button
+                                                    @click="deleteCategory(subCategory.id)"
+                                                    class="px-3 py-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 transition">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Empty State -->
+                                    <tr v-if="!subcategories || subcategories.length === 0">
+                                        <td colspan="5" class="py-20">
+                                            <div class="flex flex-col items-center justify-center">
+                                                <div
+                                                    class="w-20 h-20 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+                                                    <i class="fa-solid fa-folder-open text-3xl text-slate-400"></i>
+                                                </div>
+
+                                                <h3 class="mt-5 text-lg font-semibold text-slate-800 dark:text-slate-100">
+                                                    No Sub-Categories Found
+                                                </h3>
+
+                                                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400 text-center max-w-md">
+                                                    Start by creating your first category to organize products
+                                                    efficiently and improve inventory management.
+                                                </p>
+
+                                                <button
+                                                    @click="openCreateModalSubCategory"
+                                                    class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                    Add Sub-Category
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <FooterSection />
+</template>
+
+<script setup>
+import { reactive, ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import api from '../../../services/api.js'
+
+import Navbar from "../admin/admin-navbar.vue";
+import HeaderSection from "../admin/admin-header.vue";
+import Message from '../../Message/message.vue';
+import FooterSection from "../../e-commerce/footer.vue";
+
+const router = useRouter()
+
+const successMsg = ref('')
+const errorMsg = ref('')
+
+const loading = ref(false)
+const errors = reactive({})
+
+
+const active = ref('dashboard');
+
+const preview = ref([])
+const isDragOver = ref(false)
+
+
+
+
+
+
+
+
+// get category
+const categories = ref([]);
+async function fetchCategories(){
+    try{
+        const res = await api.get('/products/get-categories')
+        categories.value = res.data.data;
+    }catch(err){
+        console.error('Failed to fetch categories:', err)
+    }
+}
+
+// get subcategory
+const subcategories = ref([]);
+async function fetchSubCategories(){
+    try{
+        const res = await api.get('/products/get-subcategories')
+        subcategories.value = res.data.data;
+    }catch(err){
+        console.error('Failed to fetch subcategories:', err)
+    }
+}
+
+// get brand
+const brands = ref([]);
+async function fetchBrands(){
+    try{
+        const res = await api.get('/products/get-brands')
+        brands.value = res.data.data;
+    }catch(err){
+        console.error('Failed to fetch brands:', err)
+    }
+}
+
+
+
+
+
+
+
+
+// dark and light mode
+
+const isDark = ref(false);
+const sidebarOpen = ref(false);
+
+function applyTheme(dark) {
+    isDark.value = dark;   // VERY IMPORTANT
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+}
+
+function toggleTheme() {
+    applyTheme(!isDark.value);
+}
+
+function onSearch(q) {
+    console.log("search:", q);
+}
+
+
+/* ESC to close drawer */
+onMounted(() => {
+    fetchCategories();
+    fetchBrands();
+    fetchSubCategories();
+
+
+
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") sidebarOpen.value = false;
+    });
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") applyTheme(true);
+    else if (saved === "light") applyTheme(false);
+    else {
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        applyTheme(systemDark);
+    }
+});
+</script>
+
+<style scoped>
+@reference "../style.css";
+
+.label{
+  @apply text-sm font-semibold text-slate-700 block mb-1 dark:text-slate-300;
+}
+.input, select{
+  @apply w-full border rounded-xl px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none dark:bg-slate-800 dark:text-white dark:border-slate-600;
+}
+.error{
+  @apply text-xs text-red-500 mt-1;
+}
+</style>
+
