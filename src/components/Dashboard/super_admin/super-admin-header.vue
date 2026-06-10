@@ -415,7 +415,7 @@ function onKey(e) {
 
 onMounted(() => {
     loadAuthUser();
-    notices();
+    loadNotice();
     document.addEventListener("click", onDocClick);
     window.addEventListener("keydown", onKey);
 });
