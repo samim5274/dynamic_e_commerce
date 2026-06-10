@@ -72,6 +72,7 @@ const Notice_details = () => import('../components/Dashboard/admin/notice/admin-
 const Report_Sale = () => import('../components/Dashboard/admin/reports/report-sale.vue');
 const Report_Order = () => import('../components/Dashboard/admin/reports/report-order.vue');
 const Report_Product_Sale = () => import('../components/Dashboard/admin/reports/report-product.vue');
+const Report_Statement = () => import('../components/Dashboard/admin/reports/report-statement.vue');
 
 
 // =======================
@@ -175,6 +176,8 @@ const routes = [
   { path: '/admin/reports/sale', component: Report_Sale, meta:{title: 'Report Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/order', component: Report_Order, meta:{title: 'Report Order', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/products', component: Report_Product_Sale, meta:{title: 'Report Product Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/statement', component: Report_Statement, meta:{title: 'Report Statement', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  
   // Notice Routes
   { path: '/admin/notice', component: Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/notice/create', component: Notice_Create, meta:{title: 'Create Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
