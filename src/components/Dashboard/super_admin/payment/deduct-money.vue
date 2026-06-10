@@ -113,7 +113,8 @@
                                         v-for="user in filteredUsers"
                                         :key="user.id"
                                         @click="openStatusModal(user)"
-                                        class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition text-sm text-slate-700 dark:text-slate-300">
+                                        class="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition text-sm text-slate-700 dark:text-slate-300"
+                                    >
                                         <!-- User Info -->
                                         <td class="px-6 py-4">
                                             <div class="flex items-center gap-3">
@@ -167,15 +168,15 @@
                                                     class="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition" 
                                                     title="View Details">
                                                     <i class="fa-solid fa-eye"></i>
-                                                </button> -->
+                                                </button>
                                                 <button 
-                                                    @click.stop="editUser(user.user_id)" 
+                                                    @click="editUser(user.user_id)" 
                                                     class="p-2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 transition" 
                                                     title="Edit User">
                                                     <i class="fa-solid fa-pen-to-square"></i>
-                                                </button>
+                                                </button> -->
                                                 <button 
-                                                    @click.stop="openStatusModal(user)"
+                                                    @click="openStatusModal(user)"
                                                     class="p-2 text-slate-400 hover:text-green-600 dark:hover:text-indigo-400 transition" 
                                                     title="Add Money">
                                                     <i class="fa-solid fa-money-bill-1-wave"></i>
@@ -203,7 +204,7 @@
                                     class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
                                     
                                     <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Payment on "{{ selectedUser ? selectedUser.name : '' }}"</h3>
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Deduct amount on "{{ selectedUser ? selectedUser.name : '' }}"</h3>
                                         <button @click="isStatusModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                                             <i class="fa-solid fa-x h-6 w-6"></i>
                                         </button>
@@ -288,7 +289,7 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import api from '../../../../services/api';
+import api from '../../../../services/api.js';
 
 import Navbar from "../super-admin-navbar.vue";
 import Header from "../super-admin-header.vue";
@@ -343,7 +344,7 @@ async function submitAmount() {
     successMsg.value = null;
 
     try{
-        const response = await api.post(`/super-admin/add-money/${selectedUser.value.id}`,
+        const response = await api.post(`/super-admin/deduct-money/${selectedUser.value.id}`,
             { amount: Number(amount.value), note: String(note.value)}
         )
 

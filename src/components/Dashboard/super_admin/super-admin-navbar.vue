@@ -334,6 +334,18 @@
                             <button
                             class="w-full px-4 py-2 text-sm text-left transition
                                     hover:bg-white dark:hover:bg-white/10"
+                            :class="activeKey === 'deduct_Money'
+                                ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                                : 'text-slate-700 dark:text-slate-200/90'"
+                            @click="pick('deduct_Money')">
+                            Deduct Money
+                            </button>
+                        </li>
+
+                        <li>
+                            <button
+                            class="w-full px-4 py-2 text-sm text-left transition
+                                    hover:bg-white dark:hover:bg-white/10"
                             :class="activeKey === 'star_club'
                                 ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                                 : 'text-slate-700 dark:text-slate-200/90'"
@@ -445,6 +457,7 @@ const routeMap = {
     users: "/super-admin/users",
 
     add_Money: "/super-admin/add-money",
+    deduct_Money: "/super-admin/deduct-money",
     star_club: "/super-admin/designation/star-club",
     dynamic_club: "/super-admin/designation/dynamic-club",
 
@@ -485,6 +498,7 @@ const routeMatch = [
     { key: "users", prefixes: ["/super-admin/users"] },
 
     { key: "add_Money", prefixes: ["/super-admin/add-money", "/super-admin/customer"] },
+    { key: "deduct_Money", prefixes: ["/super-admin/deduct-money"] },
     { key: "star_club", prefixes: ["/super-admin/designation/star-club"] },
     { key: "dynamic_club", prefixes: ["/super-admin/designation/dynamic-club"] },
 
@@ -593,7 +607,7 @@ watch(
 watch(
     () => activeKey.value,
     (k) => {
-        const userDesignationKeys = ['star_club', 'dynamic_club', 'add_Money'];
+        const userDesignationKeys = ['star_club', 'dynamic_club', 'add_Money', 'deduct_Money'];
         if(userDesignationKeys.includes(k)){
             userMoneyTransferPagesOpen.value = true;
         }
