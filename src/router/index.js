@@ -61,10 +61,10 @@ const AssignUserTree = () => import('../components/Dashboard/admin/user/assign-u
 const UserSetting = () => import('../components/Dashboard/admin/user/user-setting.vue');
 const EditUser = () => import('../components/Dashboard/admin/user/edit-user.vue');
 
-const Notice = () => import('../components/Dashboard/admin/notice/notice.vue');
-const Notice_Create = () => import('../components/Dashboard/admin/notice/notice-create.vue');
-const Notice_Edit = () => import('../components/Dashboard/admin/notice/notice-edit.vue');
-const Notice_details = () => import('../components/Dashboard/admin/notice/notice-details.vue');
+const Notice = () => import('../components/Dashboard/admin/notice/admin-notice.vue');
+const Notice_Create = () => import('../components/Dashboard/admin/notice/admin-notice-create.vue');
+const Notice_Edit = () => import('../components/Dashboard/admin/notice/admin-notice-edit.vue');
+const Notice_details = () => import('../components/Dashboard/admin/notice/admin-notice-details.vue');
 
 // =======================
 // Admin Report Routes (group: admin)
@@ -114,6 +114,9 @@ const C_WithdrawalDetails = () => import('../components/Dashboard/customer/accou
 
 const C_Withdrawal_Reports = () => import('../components/Dashboard/customer/report/report-withdrawal.vue');
 const C_Sale_Reports = () => import('../components/Dashboard/customer/report/report-sale.vue');
+
+const C_Notice = () => import('../components/Dashboard/customer/notice/notice.vue');
+const C_Notice_details = () => import('../components/Dashboard/customer/notice/notice-details.vue');
 
 
 const routes = [
@@ -215,6 +218,9 @@ const routes = [
   { path: '/withdraw/details/:transaction_id/:user_id', component: C_WithdrawalDetails, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Details"}},
   { path: '/reports-withdrawal', component: C_Withdrawal_Reports,  meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdrawal Reports"}},
   { path: '/reports-sales', component: C_Sale_Reports,  meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Sale Reports"}},
+  { path: '/notice', component: C_Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
+  { path: '/notice/:id/details', component: C_Notice_details, meta:{title: 'Notice Details', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
+  
 ]
 
 

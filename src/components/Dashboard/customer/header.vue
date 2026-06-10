@@ -282,7 +282,7 @@ async function loadAuthUser() {
 const notices = ref([]);
 async function loadNotice() {
   try {
-    const res = await api.get("/notice");
+    const res = await api.get("/notice/user");
     notices.value = res.data.data;
   } catch (err) {
     console.error("Notification load failed:", err);
@@ -290,7 +290,7 @@ async function loadNotice() {
 }
 
 function NoticeDetailsShow(notice){
-    router.push(`/admin/notice/${notice.id}/details`);
+    router.push(`/notice/${notice.id}/details`);
 }
 
 
