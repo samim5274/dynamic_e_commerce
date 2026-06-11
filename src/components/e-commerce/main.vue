@@ -157,7 +157,7 @@
                                         <div class="flex flex-col">
                                             <span v-if="product.discount_price" class="text-[10px] font-black text-gray-400 line-through decoration-red-500/30">৳{{ product.price }}</span>
                                             <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">
-                                                ৳{{ product.discount_price || product.price }}
+                                                ৳{{ product.price - product.discount_price || product.price }}
                                             </span>
                                         </div>
 

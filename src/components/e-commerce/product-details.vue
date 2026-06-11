@@ -106,7 +106,7 @@
                                     <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Market Price</span>
                                     <div class="flex items-baseline gap-3">
                                         <span class="text-5xl font-black text-indigo-600 dark:text-white tracking-tighter transition-all group-hover:text-indigo-800">
-                                            ৳{{ selectedVariant?.price || product.discount_price || product.price }}
+                                            ৳{{ selectedVariant?.price || product.price - product.discount_price || product.price }}
                                         </span>
                                         <span v-if="product.discount_price" class="text-lg text-gray-400 line-through font-bold opacity-50">
                                             ৳{{ product.price }}

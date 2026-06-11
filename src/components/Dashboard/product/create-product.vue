@@ -89,7 +89,7 @@
                         <!-- Discount Price -->
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="label">Discount Price (Optional)</label>
+                                <label class="label">Discount (Optional)</label>
                                 <input type="number" v-model="form.discount_price" class="input" placeholder="e.g BDT ৳ 400.00"/>
                                 <p class="error" v-if="errors.discount_price">{{ errors.discount_price[0] }}</p>
                             </div>
