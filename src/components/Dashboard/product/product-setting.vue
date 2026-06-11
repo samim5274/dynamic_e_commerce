@@ -105,6 +105,85 @@
                             </Transition>
                         </Teleport>
 
+                        <Teleport to="body">
+                            <Transition 
+                                enter-active-class="transition duration-300 ease-out"
+                                enter-from-class="opacity-0"
+                                enter-to-class="opacity-100"
+                                leave-active-class="transition duration-200 ease-in"
+                                leave-from-class="opacity-100"
+                                leave-to-class="opacity-0">
+                                <div v-if="isBrandEditModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                                
+                                    <div 
+                                        @click.stop 
+                                        class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                                        
+                                        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Edit Brand</h3>
+                                            <button @click="isBrandEditModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                                <i class="fa-solid fa-x h-6 w-6"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="p-6 space-y-4">
+                                            
+                                            <!-- Brand Input -->
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    Brand
+                                                </label>
+
+                                                <input
+                                                    v-model="brand"
+                                                    type="text"
+                                                    required
+                                                    placeholder="Enter brand name"
+                                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                                >
+                                            </div>
+
+                                            <div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60">
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-semibold text-slate-900 dark:text-white">Active Status</span>
+                                                    <span class="text-xs text-slate-500 dark:text-slate-400">If active, this notice will be immediately broadcasted to all active channels.</span>
+                                                </div>
+                                                <button 
+                                                    type="button"
+                                                    @click="isActive = !isActive"
+                                                    :class="isActive ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'"
+                                                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                                                >
+                                                    <span 
+                                                        :class="isActive ? 'translate-x-5' : 'translate-x-0'"
+                                                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                                    ></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
+                                            <button
+                                                @click="isBrandEditModalOpen = false"
+                                                class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                                                Cancel
+                                            </button>
+
+                                            <button
+                                                @click="submitEditBrand" :disabled="loading"
+                                                class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                                                <span v-if="loading">
+                                                    <i class="fa-solid fa-spinner fa-spin mr-1"></i>
+                                                    Updating...
+                                                </span>
+                                                <span v-else>Save Changes</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </Teleport>
+
                         <div class="overflow-x-auto max-h-[700px]">
                             <table class="min-w-full text-sm">
                                 <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
@@ -141,7 +220,7 @@
 
                                         <td class="px-6 py-4 text-right whitespace-nowrap">
                                             <div class="flex items-center justify-end gap-2">
-                                                <button @click="editBrand(brand)" class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-indigo-600 hover:border-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:border-indigo-500/30 shadow-sm transition-colors" title="Edit">
+                                                <button @click="openEditBrandModal(brand)" class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-indigo-600 hover:border-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:border-indigo-500/30 shadow-sm transition-colors" title="Edit">
                                                     <i class="fa-solid fa-pen-to-square h-3.5 w-3.5 flex items-center justify-center"></i>
                                                 </button>
                                                 <button @click="deleteBrand(brand.id)" class="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-400 hover:text-rose-600 hover:border-rose-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500 dark:hover:text-rose-400 dark:hover:border-rose-500/30 shadow-sm transition-colors" title="Delete">
@@ -190,7 +269,7 @@
                                 <thead class="bg-slate-50 dark:bg-slate-800/60">
                                     <tr>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Category</th>
-                                        <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Description</th>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
                                         <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
@@ -217,13 +296,8 @@
                                         </td>
 
                                         <!-- Slug -->
-                                        <td class="px-6 py-5">
-                                            <div class="flex justify-center">
-                                                <span
-                                                    class="inline-flex items-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                                                    {{ category.slug }}
-                                                </span>
-                                            </div>
+                                        <td class="px-6 py-4 text-xs text-slate-500 dark:text-slate-400">
+                                            {{ category.slug || category.name.toLowerCase().replace(/ /g, '-') }}
                                         </td>
 
                                         <!-- Description -->
@@ -335,7 +409,7 @@
                                     <tr>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Sub-Category</th>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Category</th>
-                                        <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Slug</th>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Description</th>
                                         <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Status</th>
                                         <th class="px-6 py-4 text-right text-xs font-bold uppercase tracking-wider text-slate-500">Actions</th>
@@ -356,29 +430,24 @@
                                                     {{ subCategory.name }}
                                                 </h3>
                                                 <span class="text-xs text-slate-400 dark:text-slate-500 mt-1 font-mono">
-                                                    Category ID #{{ subCategory.id }}
+                                                    Sub-Category ID #{{ subCategory.id }}
                                                 </span>
                                             </div>
                                         </td>
 
                                         <!-- Category -->
                                         <td class="px-6 py-5">
-                                            <div class="flex flex-col">
-                                                <h3
-                                                    class="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
+                                            <div class="flex">
+                                                <span
+                                                    class="inline-flex items-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
                                                     {{ subCategory.category.name }}
-                                                </h3>
+                                                </span>
                                             </div>
                                         </td>
 
                                         <!-- Slug -->
-                                        <td class="px-6 py-5">
-                                            <div class="flex justify-center">
-                                                <span
-                                                    class="inline-flex items-center rounded-lg bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400">
-                                                    {{ subCategory.slug }}
-                                                </span>
-                                            </div>
+                                        <td class="px-6 py-4 text-xs text-slate-500 dark:text-slate-400">
+                                            {{ subCategory.slug || subCategory.name.toLowerCase().replace(/ /g, '-') }}
                                         </td>
 
                                         <!-- Description -->
@@ -478,19 +547,15 @@ import HeaderSection from "../admin/admin-header.vue";
 import Message from '../../Message/message.vue';
 import FooterSection from "../../e-commerce/footer.vue";
 
-const router = useRouter()
+const router = useRouter();
 
-const successMsg = ref('')
-const errorMsg = ref('')
+const successMsg = ref('');
+const errorMsg = ref('');
 
-const loading = ref(false)
-const errors = reactive({})
+const loading = ref(false);
 
 
 const active = ref('dashboard');
-
-const preview = ref([])
-const isDragOver = ref(false)
 
 
 
@@ -547,10 +612,24 @@ async function fetchBrands(){
 
 // Brand create modal
 const isBrandModalOpen = ref(false);
+const isBrandEditModalOpen = ref(false);
+const selectedBrand = ref(null);
 const brand = ref('');
-function openAddBrandModal(item) {
+const isActive = ref(true);
+function openAddBrandModal() {
     brand.value = '';
+    isActive.value = true;
     isBrandModalOpen.value = true;
+}
+
+function openEditBrandModal(item) {
+    selectedBrand.value = item;
+    brand.value = item.name;
+    isActive.value = Boolean(item.is_active);
+    isBrandEditModalOpen.value = true;
+
+    errorMsg.value = null;
+    successMsg.value = null;
 }
 
 async function submitBrand() {
@@ -618,7 +697,46 @@ async function deleteBrand(brandId)
     }
 }
 
+async function submitEditBrand() {
 
+    if (!selectedBrand.value) {
+        errorMsg.value = 'Brand not found.';
+        return;
+    }
+
+    if (!brand.value?.trim()) {
+        errorMsg.value = 'Brand name is required.';
+        return;
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.put(`/products/edit-brand/${selectedBrand.value.id}`, {
+            name: brand.value.trim(),
+            is_active: isActive.value
+        });
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchBrands();
+            isBrandEditModalOpen.value = false;
+        } else {
+            errorMsg.value = response.data.message
+        }
+
+    } catch(err) {
+        console.error('Update Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+}
 
 
 
