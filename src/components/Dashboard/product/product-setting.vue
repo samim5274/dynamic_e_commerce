@@ -84,6 +84,24 @@
                                                     class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                                                 >
                                             </div>
+
+                                            <div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60">
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-semibold text-slate-900 dark:text-white">Active Status</span>
+                                                    <span class="text-xs text-slate-500 dark:text-slate-400">If active, this notice will be immediately broadcasted to all active channels.</span>
+                                                </div>
+                                                <button 
+                                                    type="button"
+                                                    @click="isActive = !isActive"
+                                                    :class="isActive ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'"
+                                                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                                                >
+                                                    <span 
+                                                        :class="isActive ? 'translate-x-5' : 'translate-x-0'"
+                                                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                                    ></span>
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
@@ -254,7 +272,7 @@
                                     {{ categories.length }} Categories
                                 </span>
                                 
-                                <button @click="openAddModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
+                                <button @click="openAddCategoryModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
                                     <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                     </svg>
@@ -262,6 +280,82 @@
                                 </button>
                             </div>
                         </div>
+
+                        <Teleport to="body">
+                            <Transition 
+                                enter-active-class="transition duration-300 ease-out"
+                                enter-from-class="opacity-0"
+                                enter-to-class="opacity-100"
+                                leave-active-class="transition duration-200 ease-in"
+                                leave-from-class="opacity-100"
+                                leave-to-class="opacity-0">
+                                <div v-if="isCategoryModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                                
+                                    <div 
+                                        @click.stop 
+                                        class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                                        
+                                        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Create New Category</h3>
+                                            <button @click="isCategoryModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                                <i class="fa-solid fa-x h-6 w-6"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="p-6 space-y-4">
+                                            
+                                            <!-- Category Input -->
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    Category
+                                                </label>
+
+                                                <input
+                                                    v-model="category"
+                                                    type="text"
+                                                    required
+                                                    placeholder="Enter category name"
+                                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                                >
+                                            </div>
+
+                                            <div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60">
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-semibold text-slate-900 dark:text-white">Active Status</span>
+                                                    <span class="text-xs text-slate-500 dark:text-slate-400">If active, this notice will be immediately broadcasted to all active channels.</span>
+                                                </div>
+                                                <button 
+                                                    type="button"
+                                                    @click="isActive = !isActive"
+                                                    :class="isActive ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'"
+                                                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                                                >
+                                                    <span 
+                                                        :class="isActive ? 'translate-x-5' : 'translate-x-0'"
+                                                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                                    ></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
+                                            <button
+                                                @click="isCategoryModalOpen = false"
+                                                class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                                                Cancel
+                                            </button>
+
+                                            <button
+                                                @click="submitCategory" :disabled="loading"
+                                                class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                                                <span v-if="loading">Saving...</span>
+                                                <span v-else>Save</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </Teleport>
 
                         <div class="overflow-x-auto max-h-[700px] rounded-xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
                             <table class="w-full min-w-[700px] text-sm text-left border-collapse">
@@ -362,13 +456,6 @@
                                                     Start by creating your first category to organize products
                                                     efficiently and improve inventory management.
                                                 </p>
-
-                                                <button
-                                                    @click="openCreateModal"
-                                                    class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                    Add Category
-                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -616,6 +703,7 @@ const isBrandEditModalOpen = ref(false);
 const selectedBrand = ref(null);
 const brand = ref('');
 const isActive = ref(true);
+
 function openAddBrandModal() {
     brand.value = '';
     isActive.value = true;
@@ -645,7 +733,8 @@ async function submitBrand() {
 
     try{
         const response = await api.post('/products/create-brand', {
-            name: brand.value.trim()
+            name: brand.value.trim(),
+            is_active: isActive.value
         });
 
         if (response.data.success) {
@@ -672,6 +761,14 @@ async function submitBrand() {
 // Delete brand
 async function deleteBrand(brandId)
 {
+    const confirmed = window.confirm(
+        'Are you sure you want to delete this brand? This action cannot be undone.'
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
     loading.value = true;
     errorMsg.value = null;
     successMsg.value = null;
@@ -729,6 +826,98 @@ async function submitEditBrand() {
 
     } catch(err) {
         console.error('Update Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+
+
+
+
+
+// Category create modal
+const isCategoryModalOpen = ref(false);
+const isCategoryEditModalOpen = ref(false);
+const selectedCategory = ref(null);
+const category = ref('');
+
+function openAddCategoryModal() {
+    category.value = '';
+    isActive.value = true;
+    isCategoryModalOpen.value = true;
+}
+
+async function submitCategory() {
+
+    if (!category.value) {
+        errorMsg.value = 'Please enter a valid category'
+        return
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.post('/products/create-category', {
+            name: category.value.trim(),
+            is_active: isActive.value
+        });
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchCategories();
+            category.value = '';
+            isCategoryModalOpen.value = false; 
+        } else {
+            errorMsg.value = response.data.message
+        }
+
+    } catch(err) {
+        console.error('Submit Category Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+
+}
+
+async function deleteCategory(categoryId)
+{
+    const confirmed = window.confirm(
+        'Are you sure you want to delete this category? This action cannot be undone.'
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.delete(`/products/delete-category/${categoryId}`);
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchCategories();
+        } else {
+            errorMsg.value = response.data.message
+        }
+
+    } catch(err) {
+        console.error('Delete Error:', err);
 
         errorMsg.value =
             err?.response?.data?.message ||
