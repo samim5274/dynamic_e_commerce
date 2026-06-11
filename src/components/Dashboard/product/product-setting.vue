@@ -556,7 +556,7 @@
                                     {{ subcategories.length }} Sub-Categories
                                 </span>
                                 
-                                <button @click="openAddModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
+                                <button @click="openAddSubCategoryModal" class="inline-flex items-center gap-1.5 rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-200">
                                     <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
                                     </svg>
@@ -564,6 +564,95 @@
                                 </button>
                             </div>
                         </div>
+
+                        <Teleport to="body">
+                            <Transition 
+                                enter-active-class="transition duration-300 ease-out"
+                                enter-from-class="opacity-0"
+                                enter-to-class="opacity-100"
+                                leave-active-class="transition duration-200 ease-in"
+                                leave-from-class="opacity-100"
+                                leave-to-class="opacity-0">
+                                <div v-if="isSubCategoryModalOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+                                
+                                    <div 
+                                        @click.stop 
+                                        class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                                        
+                                        <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Create New Sub-Category</h3>
+                                            <button @click="isSubCategoryModalOpen = false" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                                <i class="fa-solid fa-x h-6 w-6"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="p-6 space-y-4">
+
+                                            <!-- Category Select -->
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    Category
+                                                </label>
+                                                <select
+                                                    v-model="selectedCategory"
+                                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                                    <option value="" selected disabled>-- Select Category --</option>
+                                                    <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{ cat.name }}</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <!-- Sub-Category Input -->
+                                            <div>
+                                                <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                    Sub-Category
+                                                </label>
+
+                                                <input
+                                                    v-model="subCategory"
+                                                    type="text"
+                                                    required
+                                                    placeholder="Enter sub-category name"
+                                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                                                >
+                                            </div>
+
+                                            <div class="flex items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60">
+                                                <div class="flex flex-col">
+                                                    <span class="text-sm font-semibold text-slate-900 dark:text-white">Active Status</span>
+                                                    <span class="text-xs text-slate-500 dark:text-slate-400">If active, this notice will be immediately broadcasted to all active channels.</span>
+                                                </div>
+                                                <button 
+                                                    type="button"
+                                                    @click="isActive = !isActive"
+                                                    :class="isActive ? 'bg-indigo-600' : 'bg-slate-200 dark:bg-slate-700'"
+                                                    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2"
+                                                >
+                                                    <span 
+                                                        :class="isActive ? 'translate-x-5' : 'translate-x-0'"
+                                                        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                                                    ></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex justify-end gap-3">
+                                            <button
+                                                @click="isSubCategoryModalOpen = false"
+                                                class="text-sm font-semibold text-slate-600 dark:text-slate-400">
+                                                Cancel
+                                            </button>
+
+                                            <button
+                                                @click="submitSubCategory" :disabled="loading"
+                                                class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700">
+                                                <span v-if="loading">Saving...</span>
+                                                <span v-else>Save</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Transition>
+                        </Teleport>
 
                         <div class="overflow-x-auto max-h-[700px] rounded-xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
                             <table class="w-full min-w-[700px] text-sm text-left border-collapse">
@@ -650,7 +739,7 @@
                                                 <div class="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
                                                 <!-- Delete -->
                                                 <button
-                                                    @click="deleteCategory(subCategory.id)"
+                                                    @click="deleteSubCategory(subCategory.id)"
                                                     class="px-3 py-2 text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 transition">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
@@ -675,13 +764,6 @@
                                                     Start by creating your first category to organize products
                                                     efficiently and improve inventory management.
                                                 </p>
-
-                                                <button
-                                                    @click="openCreateModalSubCategory"
-                                                    class="mt-5 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-700 transition">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                    Add Sub-Category
-                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -1056,6 +1138,120 @@ async function submitEditCategory() {
     }
 }
 
+
+
+
+
+
+
+// Category create modal
+const isSubCategoryModalOpen = ref(false);
+const isSubCategoryEditModalOpen = ref(false);
+const selectedSubCategory = ref(null);
+const subCategory = ref('');
+
+function openAddSubCategoryModal() {
+    selectedCategory.value = '';
+    subCategory.value = '';
+    isActive.value = true;
+    isSubCategoryModalOpen.value = true;
+}
+
+async function submitSubCategory() {
+
+    if (!subCategory.value?.trim()) {
+        errorMsg.value = 'Sub-category name is required.';
+        return;
+    }
+
+    if (!selectedCategory.value) {
+        errorMsg.value = 'Please select a category.';
+        return;
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try {
+
+        const payload = {
+            name: subCategory.value.trim(),
+            category_id: Number(selectedCategory.value),
+            is_active: isActive.value ? 1 : 0
+        };
+
+        console.log('SUB CATEGORY PAYLOAD:', payload);
+
+        const response = await api.post('/products/create-sub-category', payload);
+
+        if (response.data.success) {
+
+            successMsg.value = response.data.message;
+
+            await fetchSubCategories();
+
+            isSubCategoryModalOpen.value = false;
+
+            // reset
+            selectedCategory.value = '';
+            subCategory.value = '';
+            isActive.value = true;
+
+        } else {
+            errorMsg.value = response.data.message;
+        }
+
+    } catch (err) {
+
+        console.error('SubCategory Error FULL:', err.response?.data || err);
+
+        if (err.response?.status === 422) {
+            errorMsg.value = Object.values(err.response.data.errors).flat().join(', ');
+        } else {
+            errorMsg.value =
+                err?.response?.data?.message ||
+                'Server error occurred.';
+        }
+
+    } finally {
+        loading.value = false;
+    }
+}
+
+async function deleteSubCategory(subCategoryId){
+    const confirmed = window.confirm(
+        'Are you sure you want to delete this sub-category? This action cannot be undone.'
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    loading.value = true;
+    errorMsg.value = null;
+    successMsg.value = null;
+
+    try{
+        const response = await api.delete(`/products/delete-sub-category/${subCategoryId}`);
+
+        if (response.data.success) {
+            successMsg.value = response.data.message;
+            fetchSubCategories();
+        } else {
+            errorMsg.value = response.data.message;
+        }
+
+    } catch(err) {
+        console.error('Delete Error:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            'Something went wrong while connecting to the server.';
+    } finally {
+        loading.value = false;
+    }
+}
 
 
 
