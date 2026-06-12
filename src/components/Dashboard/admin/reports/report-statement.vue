@@ -87,7 +87,7 @@
                             <table class="min-w-full text-sm">
                                 <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-widest">
                                     <tr>
-                                        <th class="px-4 py-3 text-left">User Nmae</th>
+                                        <th class="px-4 py-3 text-left">User Name</th>
                                         <th class="px-4 py-3 text-left">Type</th>
                                         <th class="px-4 py-3 text-left">Points</th>
                                         <th class="px-4 py-3 text-left">Bonus</th>
