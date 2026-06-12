@@ -136,7 +136,7 @@
                                         </td>
 
                                         <td class="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">
-                                            {{ item.bonus_amount > 0 ? '$' + item.bonus_amount : '—' }}
+                                            {{ item.bonus_amount > 0 ? '৳' + item.bonus_amount : '—' }}
                                         </td>
 
                                         <td class="px-4 py-3">
