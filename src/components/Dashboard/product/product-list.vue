@@ -111,7 +111,10 @@
                                             <div class="flex flex-col group">
                                                 <div class="flex items-center gap-2">
                                                     <span class="text-base font-extrabold text-slate-900 dark:text-white leading-none">
-                                                        ৳{{ Number(product.discount_price > 0 ? product.discount_price : product.price).toLocaleString() }}
+                                                        ৳{{ Number(product.discount_price > 0
+                                                            ? product.price - product.discount_price
+                                                            : product.price
+                                                        ).toLocaleString() }}
                                                     </span>
                                                     
                                                     <span v-if="product.discount_price > 0 && product.price > 0" 
