@@ -42,93 +42,204 @@
 
                     <div class="p-6 space-y-8">
                         
-                        <div class="relative overflow-hidden bg-gradient-to-r from-amber-50 to-orange-50/40 dark:from-amber-950/20 dark:to-transparent border-l-4 border-amber-500 p-5 rounded-r-xl shadow-sm">
-                            <div class="flex items-start gap-3.5">
-                                <div class="p-2 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-lg text-sm">
+                        <div class="relative overflow-hidden bg-gradient-to-r from-amber-100 to-orange-50/40 dark:from-amber-950/20 dark:to-transparent border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-sm">
+                            <div class="flex items-start gap-4">
+                                <div class="p-2.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl text-base shrink-0 animate-pulse">
                                     <i class="fa-solid fa-triangle-exclamation"></i>
                                 </div>
-                                <div class="space-y-1">
-                                    <h3 class="text-sm font-bold text-amber-900 dark:text-amber-400 tracking-wide">গুরুত্ব পূর্ণ নোটিশ (Account Deactivation Policy)</h3>
-                                    <p class="text-xs text-amber-800 dark:text-amber-500/90 leading-relaxed font-medium">
-                                        নিয়মাবলী ১: প্রতি মাসে সর্বনিম্ন <strong class="underline decoration-2 underline-offset-2 text-amber-950 dark:text-amber-300">১০০ পয়েন্ট</strong> পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে ডিঅ্যাক্টিভ (Deactive) হয়ে যাবে।
-                                    </p>
-                                    <p class="text-xs text-amber-800 dark:text-amber-500/90 leading-relaxed font-medium">
-                                        নিয়মাবলী ২: স্টার ক্লাব ও ডায়নামিক ক্লাব এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম ১ টি কোম্পানির মিটিং এ উপস্থিত থাকতে হবে।
-                                    </p>
+                                
+                                <div class="space-y-3 flex-1">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <h3 class="text-sm font-black text-amber-950 dark:text-amber-300 tracking-wide">
+                                            গুরুত্বপূর্ণ নোটিশ: অ্যাকাউন্ট অ্যাক্টিভেশন পলিসি
+                                        </h3>
+                                        <span class="inline-flex items-center rounded-md bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-400 border border-amber-500/20 uppercase tracking-wider">
+                                            Official Policy
+                                        </span>
+                                    </div>
+                                    
+                                    <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-300 font-semibold leading-relaxed">
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-circle-chevron-right text-amber-500 text-[10px] mt-1 shrink-0"></i>
+                                            <p>
+                                                <span class="text-amber-600 dark:text-amber-400 font-bold">শর্তাবলী ১:</span> 
+                                                ব্যবসায়িক ধারাবাহিকতা বজায় রাখতে প্রতি মাসে সর্বনিম্ন 
+                                                <span class="inline-block px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 font-black">
+                                                    ১০০ পয়েন্ট
+                                                </span> 
+                                                পণ্য বা সেবা পারচেজ করা বাধ্যতামূলক। অন্যথায়, উক্ত আইডিটি স্বয়ংক্রিয়ভাবে 
+                                                <span class="text-rose-600 dark:text-rose-400 underline decoration-2 underline-offset-2">ডিঅ্যাক্টিভ (Deactive)</span> হয়ে যাবে।
+                                            </p>
+                                        </li>
+
+                                        <li class="flex items-start gap-2">
+                                            <i class="fa-solid fa-circle-chevron-right text-amber-500 text-[10px] mt-1 shrink-0"></i>
+                                            <p>
+                                                <span class="text-amber-600 dark:text-amber-400 font-bold">শর্তাবলী ২:</span> 
+                                                স্টার ক্লাব ও ডায়নামিক ক্লাবের সম্মানিত সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের টিম ম্যানেজমেন্ট ও দক্ষতার স্বার্থে প্রতি সপ্তাহে নূন্যতম 
+                                                <span class="text-slate-950 dark:text-white font-extrabold underline decoration-amber-500/50 decoration-2 underline-offset-2">১টি অফিশিয়াল কোম্পানির মিটিংয়ে</span> 
+                                                উপস্থিত থাকা আবশ্যক।
+                                            </p>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <section class="space-y-4">
-                            <div class="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-                                <div class="w-1 h-5 bg-indigo-500 rounded-full"></div>
-                                <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">ইর্নিং ও পয়েন্ট পলিসি (Income Structure)</h3>
+                        <section class="space-y-6">
+                            <div class="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800/80 pb-4">
+                                <div class="w-1.5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full shadow-sm shadow-indigo-500/30"></div>
+                                <div>
+                                    <h3 class="text-base font-black tracking-tight text-slate-900 dark:text-white">ইর্নিং ও পয়েন্ট পলিসি</h3>
+                                    <p class="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase mt-0.5">Income & Generation Structure</p>
+                                </div>
                             </div>
-                        
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                <div class="group bg-slate-50/50 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-md transition-all duration-300">
-                                    <div class="flex justify-between items-start">
-                                        <span class="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 rounded-lg border border-emerald-200/40 dark:border-emerald-800/30">Direct Income</span>
-                                        <i class="fa-solid fa-user-plus text-slate-400 group-hover:text-emerald-500 transition-colors"></i>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                                
+                                <div class="group relative overflow-hidden bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-emerald-500/20 dark:hover:border-emerald-500/20 transition-all duration-300">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-lg border border-emerald-100 dark:border-emerald-500/10">
+                                            Direct Income
+                                        </span>
+                                        <div class="p-2 bg-slate-50 dark:bg-slate-800 group-hover:bg-emerald-500 group-hover:text-white dark:group-hover:bg-emerald-500 text-slate-400 dark:text-slate-500 rounded-xl transition-all duration-300">
+                                            <i class="fa-solid fa-user-plus text-sm"></i>
+                                        </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mt-4 uppercase tracking-tight">Per Refer Bonus</h4>
-                                    <p class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">৳ ২০০</p>
-                                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2 font-medium">প্রতিটি সফল ডিরেক্ট রেফারেলের জন্য তাত্ক্ষণিক বোনাস।</p>
+                                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">Per Refer Bonus</h4>
+                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">৳ ২০০</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">প্রতিটি সফল ডিরেক্ট রেফারেলের জন্য ওয়ালেটে তাত্ক্ষণিক বোনাস যুক্ত হবে।</p>
+                                    <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-emerald-500 transition-all duration-300"></div>
                                 </div>
 
-                                <div class="group bg-slate-50/50 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-md transition-all duration-300">
-                                    <div class="flex justify-between items-start">
-                                        <span class="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-400 rounded-lg border border-blue-200/40 dark:border-blue-800/30">Binary Matching</span>
-                                        <i class="bi bi-diagram-2-fill text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+                                <div class="group relative overflow-hidden bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-blue-500/20 dark:hover:border-blue-500/20 transition-all duration-300">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 rounded-lg border border-blue-100 dark:border-blue-500/10">
+                                            Binary Matching
+                                        </span>
+                                        <div class="p-2 bg-slate-50 dark:bg-slate-800 group-hover:bg-blue-500 group-hover:text-white dark:group-hover:bg-blue-500 text-slate-400 dark:text-slate-500 rounded-xl transition-all duration-300">
+                                            <i class="fa-solid fa-diagram-project text-sm"></i>
+                                        </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mt-4 uppercase tracking-tight">Matching Bonus</h4>
-                                    <p class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">৳ ১০০</p>
-                                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2 font-medium">লেফট এবং রাইট উভয় গ্রুপের সফল বাইনারি ম্যাচিং বোনাস।</p>
+                                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">Matching Bonus</h4>
+                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">৳ ১০০</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">লেফট এবং রাইট উভয় টিমের সফল ম্যাচিং রেশিও কমপ্লিট হওয়ার বোনাস।</p>
+                                    <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-blue-500 transition-all duration-300"></div>
                                 </div>
 
-                                <div class="group bg-slate-50/50 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-md transition-all duration-300">
-                                    <div class="flex justify-between items-start">
-                                        <span class="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-400 rounded-lg border border-indigo-200/40 dark:border-indigo-800/30">Upline Reward</span>
-                                        <i class="fa-solid fa-arrow-turn-up text-slate-400 group-hover:text-indigo-500 transition-colors"></i>
+                                <div class="group relative overflow-hidden bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-indigo-500/20 dark:hover:border-indigo-500/20 transition-all duration-300">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 rounded-lg border border-indigo-100 dark:border-indigo-500/10">
+                                            Upline Reward
+                                        </span>
+                                        <div class="p-2 bg-slate-50 dark:bg-slate-800 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500 text-slate-400 dark:text-slate-500 rounded-xl transition-all duration-300">
+                                            <i class="fa-solid fa-arrow-turn-up text-sm"></i>
+                                        </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mt-4 uppercase tracking-tight">Refer Point Gen</h4>
-                                    <p class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">১০০ <span class="text-lg font-medium text-slate-400">Pt</span></p>
-                                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2 font-medium">নতুন রেফারে জেনারেশনের উপরের লেভেলের সবাই ১০০ পয়েন্ট পাবেন।</p>
+                                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">Refer Point Gen</h4>
+                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">১০০ <span class="text-base font-bold text-slate-400">Pt</span></p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">নতুন জেনারেশন তৈরিতে নির্দিষ্ট আপলাইন লেভেলের প্রত্যেকে ১০০ পয়েন্ট পাবেন।</p>
+                                    <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-indigo-500 transition-all duration-300"></div>
                                 </div>
 
-                                <div class="group bg-slate-50/50 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-800/40 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-md transition-all duration-300">
-                                    <div class="flex justify-between items-start">
-                                        <span class="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 bg-purple-50 text-purple-700 dark:bg-purple-950/40 dark:text-purple-400 rounded-lg border border-purple-200/40 dark:border-purple-800/30">Purchase Value</span>
-                                        <i class="fa-solid fa-bag-shopping text-slate-400 group-hover:text-purple-500 transition-colors"></i>
+                                <div class="group relative overflow-hidden bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-purple-500/20 dark:hover:border-purple-500/20 transition-all duration-300">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400 rounded-lg border border-purple-100 dark:border-purple-500/10">
+                                            Purchase Value
+                                        </span>
+                                        <div class="p-2 bg-slate-50 dark:bg-slate-800 group-hover:bg-purple-500 group-hover:text-white dark:group-hover:bg-purple-500 text-slate-400 dark:text-slate-500 rounded-xl transition-all duration-300">
+                                            <i class="fa-solid fa-bag-shopping text-sm"></i>
+                                        </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 dark:text-slate-400 mt-4 uppercase tracking-tight">User Purchase Profit</h4>
-                                    <p class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">১ Pt = ৳ ২</p>
-                                    <p class="text-xs text-slate-400 dark:text-slate-500 mt-2 font-medium">ইউজার প্রোডাক্ট পারচেজ করলে উপরের সবাই প্রতি পয়েন্টে ২ টাকা পাবেন।</p>
+                                    <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">User Purchase Profit</h4>
+                                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1.5">১ Pt = ৳ ২</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">ডাউনলাইন কোনো প্রোডাক্ট পারচেজ করলে আপলাইনের সবাই প্রতি পয়েন্টে ২ টাকা পাবেন।</p>
+                                    <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-purple-500 transition-all duration-300"></div>
                                 </div>
+
                             </div>
                         </section>
 
-                        <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                            <div class="relative overflow-hidden bg-gradient-to-b from-indigo-600 to-indigo-700 dark:from-slate-900 dark:to-slate-900/80 p-6 rounded-2xl text-white dark:border dark:border-slate-800 shadow-md">
-                                <div class="absolute -right-6 -bottom-6 text-white/[0.06] text-8xl font-black select-none"><i class="fa-solid fa-star"></i></div>
-                                <span class="text-[10px] uppercase font-bold tracking-widest text-indigo-200 dark:text-indigo-400">Club Level 4</span>
-                                <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-white"><i class="fa-solid fa-star text-amber-400 text-sm"></i> Star Club</h4>
-                                <p class="text-xs mt-3 text-indigo-100/90 dark:text-slate-400 leading-relaxed font-medium">১০ জন ডিরেক্ট স্পন্সর (10 Direct Sponsor) সফলভাবে সম্পন্ন করলে স্টার ক্লাব মেম্বারশিপ অ্যাক্টিভ হবে।</p>
+                        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- ১. Star Club Card -->
+                            <div class="group relative overflow-hidden bg-white border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-indigo-500/5 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition-all duration-300">
+                                <!-- ব্যাকগ্রাউন্ড ওয়াটারমার্ক আইকন -->
+                                <div class="absolute -right-4 -bottom-6 text-indigo-500/[0.05] dark:text-indigo-400/[0.03] text-9xl font-black select-none pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                
+                                <!-- টপ অ্যাকসেন্ট লাইন -->
+                                <div class="absolute top-0 left-0 h-[3px] w-1/3 bg-indigo-500 rounded-r-full"></div>
+                                
+                                <div class="flex flex-col h-full justify-between relative z-10">
+                                    <div>
+                                        <span class="text-[10px] uppercase font-black tracking-widest text-indigo-600 dark:text-indigo-400">Club Level 4</span>
+                                        <h4 class="text-lg font-black mt-1 flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <i class="fa-solid fa-star text-amber-500 dark:text-amber-400 text-sm animate-pulse"></i> Star Club
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs mt-4 text-slate-600 dark:text-slate-400 leading-relaxed font-semibold">
+                                        সর্বমোট 
+                                        <span class="inline-block px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400 font-black border border-indigo-100 dark:border-indigo-500/10 text-[11px]">
+                                            ১০ জন ডিরেক্ট স্পন্সর
+                                        </span> 
+                                        (10 Direct Sponsor) সফলভাবে সম্পন্ন করলে আপনার অ্যাকাউন্টে স্টার ক্লাব মেম্বারশিপ অ্যাক্টিভ হবে।
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="relative overflow-hidden bg-gradient-to-b from-purple-600 to-purple-700 dark:from-slate-900 dark:to-slate-900/80 p-6 rounded-2xl text-white dark:border dark:border-slate-800 shadow-md">
-                                <div class="absolute -right-6 -bottom-6 text-white/[0.06] text-8xl font-black select-none"><i class="fa-solid fa-rocket"></i></div>
-                                <span class="text-[10px] uppercase font-bold tracking-widest text-purple-200 dark:text-purple-400">Club Level 5</span>
-                                <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-white"><i class="fa-solid fa-rocket text-indigo-300 text-sm"></i> Dynamic Club</h4>
-                                <p class="text-xs mt-3 text-purple-100/90 dark:text-slate-400 leading-relaxed font-medium">আপনার ডাউনলাইন টিমে ১০ জন ডিরেক্ট স্টার (10 Direct Star) মেম্বার থাকলে ডায়নামিক ক্লাবে উন্নীত হবেন।</p>
+                            <!-- ২. Dynamic Club Card -->
+                            <div class="group relative overflow-hidden bg-white border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-purple-500/5 hover:border-purple-500/30 dark:hover:border-purple-500/30 transition-all duration-300">
+                                <!-- ব্যাকগ্রাউন্ড ওয়াটারমার্ক আইকন -->
+                                <div class="absolute -right-4 -bottom-6 text-purple-500/[0.05] dark:text-purple-400/[0.03] text-9xl font-black select-none pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                                
+                                <!-- টপ অ্যাকসেন্ট লাইন -->
+                                <div class="absolute top-0 left-0 h-[3px] w-1/3 bg-purple-500 rounded-r-full"></div>
+                                
+                                <div class="flex flex-col h-full justify-between relative z-10">
+                                    <div>
+                                        <span class="text-[10px] uppercase font-black tracking-widest text-purple-600 dark:text-purple-400">Club Level 5</span>
+                                        <h4 class="text-lg font-black mt-1 flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <i class="fa-solid fa-rocket text-purple-500 dark:text-purple-400 text-sm"></i> Dynamic Club
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs mt-4 text-slate-600 dark:text-slate-400 leading-relaxed font-semibold">
+                                        আপনার নিজস্ব ডাউনলাইন টিমে নূন্যতম 
+                                        <span class="inline-block px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400 font-black border border-purple-100 dark:border-purple-500/10 text-[11px]">
+                                            ১০ জন ডিরেক্ট স্টার
+                                        </span> 
+                                        (10 Direct Star) মেম্বার থাকলে আপনি সফলভাবে ডায়নামিক ক্লাবে উন্নীত হবেন।
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="relative overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl text-white border border-slate-700 dark:border-slate-800 shadow-md">
-                                <div class="absolute -right-6 -bottom-6 text-white/[0.04] text-8xl font-black select-none"><i class="fa-solid fa-building"></i></div>
-                                <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400">Level 6 Executive</span>
-                                <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-amber-400"><i class="fa-solid fa-briefcase text-sm"></i> Company Dealership</h4>
-                                <p class="text-xs mt-3 text-slate-300 dark:text-slate-400 leading-relaxed font-medium">অফিস সেলসের ওপর গ্লোবাল রয়্যালটি, আকর্ষণীয় হ্যান্ডেলিং মার্জিন বা ডিলারশিপের বিশেষ প্রাতিষ্ঠানিক সুবিধা।</p>
+                            <!-- ৩. Company Dealership Card -->
+                            <div class="group relative overflow-hidden bg-white border border-slate-200 dark:bg-slate-900/60 dark:border-slate-800 p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-amber-500/5 hover:border-amber-500/30 dark:hover:border-amber-500/30 transition-all duration-300">
+                                <!-- ব্যাকগ্রাউন্ড ওয়াটারমার্ক আইকন -->
+                                <div class="absolute -right-4 -bottom-6 text-amber-500/[0.05] dark:text-amber-400/[0.02] text-9xl font-black select-none pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                                
+                                <!-- টপ অ্যাকসেন্ট লাইন -->
+                                <div class="absolute top-0 left-0 h-[3px] w-1/3 bg-amber-500 rounded-r-full"></div>
+                                
+                                <div class="flex flex-col h-full justify-between relative z-10">
+                                    <div>
+                                        <span class="text-[10px] uppercase font-black tracking-widest text-amber-600 dark:text-amber-500">Level 6 Executive</span>
+                                        <h4 class="text-lg font-black mt-1 flex items-center gap-2 text-slate-900 dark:text-white">
+                                            <i class="fa-solid fa-briefcase text-amber-500 dark:text-amber-500 text-sm"></i> Company Dealership
+                                        </h4>
+                                    </div>
+                                    <p class="text-xs mt-4 text-slate-600 dark:text-slate-400 leading-relaxed font-semibold">
+                                        অফিস সেলসের ওপর বিশেষ 
+                                        <span class="text-amber-600 dark:text-amber-400 font-bold">গ্লোবাল রয়্যালটি</span>, 
+                                        আকর্ষণীয় হ্যান্ডেলিং মার্জিন অথবা ডিলারশিপের বিশেষ প্রাতিষ্ঠানিক ও অফিশিয়াল সুযোগ-সুবিধা।
+                                    </p>
+                                </div>
                             </div>
+
                         </section>
 
                         <section class="space-y-4">
@@ -141,33 +252,6 @@
                                 <i class="fa-solid fa-shield-halved text-[10px]"></i> Structure Target
                                 </span>
                             </div>
-
-                            <!-- <div class="overflow-x-auto rounded-xl border border-slate-200/70 dark:border-slate-800/80 shadow-sm bg-white dark:bg-slate-900">
-                                <table class="w-full text-left border-collapse min-w-[700px]">
-                                <thead>
-                                    <tr class="bg-slate-50 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200/70 dark:border-slate-800/80">
-                                    <th class="px-6 py-4">Rank Designation</th>
-                                    <th class="px-6 py-4">A - Group (Pt)</th>
-                                    <th class="px-6 py-4">B - Group (Pt)</th>
-                                    <th class="px-6 py-4">Cash Bonus</th>
-                                    <th class="px-6 py-4">Gift & Premium Tour</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-medium">
-                                    <tr v-for="rank in rankData" :key="rank.name" class="hover:bg-slate-50/60 dark:hover:bg-slate-800/20 transition-colors duration-150">
-                                    <td class="px-6 py-3.5 font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>{{ rank.name }}
-                                    </td>
-                                    <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.aGroup }}</td>
-                                    <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.bGroup }}</td>
-                                    <td class="px-6 py-3.5 font-bold text-emerald-600 dark:text-emerald-400 font-mono">{{ rank.cash }}</td>
-                                    <td class="px-6 py-3.5 text-slate-700 dark:text-slate-300 font-semibold tracking-wide">
-                                        <span :class="rank.gift.includes('+') ? 'text-indigo-600 dark:text-indigo-400' : ''">{{ rank.gift }}</span>
-                                    </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div> -->
 
                             <div class="overflow-hidden rounded-xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900 shadow-[0_4px_20px_-4px_rgba(0,0,0,0,05)]">
                                 <div class="overflow-x-auto">
@@ -226,19 +310,114 @@
                             </div>
                         </section>
 
+                        <!-- Rank Cards -->
+                        <!-- <section class="space-y-5">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-1.5 h-5 bg-indigo-500 rounded-full shadow-sm shadow-indigo-500/20"></div>
+                                    <div>
+                                        <h3 class="text-base font-black tracking-tight text-slate-900 dark:text-white">র‍্যাঙ্ক এچیভমেন্ট ও রিওয়ার্ড লিস্ট</h3>
+                                        <p class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-0.5">Rank & Rewards Catalog</p>
+                                    </div>
+                                </div>
+                                <span class="inline-flex self-start sm:self-auto items-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 px-3 py-1 rounded-lg border border-slate-200/50 dark:border-slate-700/50">
+                                    <i class="fa-solid fa-shield-halved text-[11px] text-indigo-500"></i> Structure Target
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                <div 
+                                    v-for="rank in rankData" 
+                                    :key="rank.name" 
+                                    class="group relative overflow-hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 p-5 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+                                >
+                                    <div class="absolute -right-4 -bottom-6 text-slate-500/[0.03] dark:text-slate-400/[0.02] text-9xl font-black select-none pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                                        <i class="fa-solid" :class="rank.gift.includes('TOUR') ? 'fa-plane' : 'fa-box-open'"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="flex items-start justify-between gap-3">
+                                            <div class="flex items-center gap-2">
+                                                <div class="p-2 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 transition-colors group-hover:bg-indigo-500 group-hover:text-white dark:group-hover:bg-indigo-500">
+                                                    <i class="fa-solid fa-medal text-sm"></i>
+                                                </div>
+                                                <h4 class="text-sm font-black text-slate-800 dark:text-white tracking-wide group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                                    {{ rank.name }}
+                                                </h4>
+                                            </div>
+                                            <span class="inline-flex items-center rounded-lg bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-1 text-xs font-black text-emerald-700 dark:text-emerald-400 border border-emerald-200/30 dark:border-emerald-500/10 font-mono">
+                                                {{ rank.cash }}
+                                            </span>
+                                        </div>
+
+                                        <div class="grid grid-cols-2 gap-2 mt-4 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 text-center">
+                                            <div>
+                                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">A - Group</p>
+                                                <p class="text-sm font-black text-slate-700 dark:text-slate-300 font-mono mt-0.5">{{ rank.aGroup }} <span class="text-[10px] font-medium text-slate-400">Pt</span></p>
+                                            </div>
+                                            <div class="border-l border-slate-200/60 dark:border-slate-700/60">
+                                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">B - Group</p>
+                                                <p class="text-sm font-black text-slate-700 dark:text-slate-300 font-mono mt-0.5">{{ rank.bGroup }} <span class="text-[10px] font-medium text-slate-400">Pt</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 relative z-10">
+                                        <div class="flex items-center gap-2 text-xs font-bold">
+                                            <div class="shrink-0">
+                                                <i class="fa-solid text-xs shadow-sm p-1.5 rounded-md" 
+                                                :class="rank.gift.includes('TOUR') ? 'fa-plane-departure bg-sky-50 text-sky-500 dark:bg-sky-500/10 dark:text-sky-400' : 'fa-gift bg-amber-50 text-amber-500 dark:bg-amber-500/10 dark:text-amber-400'">
+                                                </i>
+                                            </div>
+                                            <span class="leading-relaxed" :class="rank.gift.includes('+') ? 'text-indigo-600 dark:text-indigo-400 font-extrabold' : 'text-slate-600 dark:text-slate-400'">
+                                                {{ rank.gift }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section> -->
+
                     </div>
 
                     
 
-                    <footer class="bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800/60 px-6 py-4">
-                        <div class="flex items-center gap-2.5 justify-center text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
-                        <i class="fa-solid fa-circle-info text-indigo-500 text-[14px]"></i>
-                        <p class="leading-relaxed">প্রতি মাসে সর্বনিম্ন <strong class="underline decoration-2 underline-offset-2 text-amber-950 dark:text-amber-300">১০০ পয়েন্ট</strong> পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে ডিঅ্যাক্টিভ (Deactive) হয়ে যাবে।</p>
-                        </div>
+                    <footer class="bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800/60 px-6 py-6">
+                        <div class="max-w-4xl mx-auto space-y-3.5">
+                            
+                            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 rounded-2xl bg-amber-50/60 border border-amber-200/60 dark:bg-amber-500/5 dark:border-amber-500/20 shadow-sm transition-all duration-300">
+                                <span class="inline-flex shrink-0 items-center rounded-lg bg-amber-500 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-sm shadow-amber-500/20">
+                                    Notice 01
+                                </span>
+                                <div class="flex items-center gap-2 text-center sm:text-left text-xs font-bold text-slate-600 dark:text-slate-300">
+                                    <i class="fa-solid fa-circle-exclamation text-amber-500 text-base shrink-0 animate-pulse"></i>
+                                    <p class="leading-relaxed">
+                                        শর্তাবলী: প্রতি মাসে সর্বনিম্ন 
+                                        <span class="inline-block px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400 font-black border border-amber-500/20">
+                                            ১০০ পয়েন্ট
+                                        </span> 
+                                        পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে <span class="text-rose-500 dark:text-rose-400 underline decoration-2 underline-offset-2">ডিঅ্যাক্টিভ (Deactive)</span> হয়ে যাবে।
+                                    </p>
+                                </div>
+                            </div>
 
-                        <div class="flex items-center gap-2.5 justify-center text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
-                        <i class="fa-solid fa-circle-info text-indigo-500 text-[14px]"></i>
-                        <p class="leading-relaxed">নিয়মাবলী ২: স্টার ক্লাব ও ডায়নামিক ক্লাব এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম ১ টি কোম্পানির মিটিং এ উপস্থিত থাকতে হবে।</p>
+                            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 dark:bg-indigo-500/5 dark:border-indigo-500/20 shadow-sm transition-all duration-300">
+                                <span class="inline-flex shrink-0 items-center rounded-lg bg-indigo-600 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-sm shadow-indigo-500/20">
+                                    Notice 02
+                                </span>
+                                <div class="flex items-center gap-2 text-center sm:text-left text-xs font-bold text-slate-600 dark:text-slate-300">
+                                    <i class="fa-solid fa-circle-info text-indigo-500 text-base shrink-0"></i>
+                                    <p class="leading-relaxed">
+                                        শর্তাবলী ২: 
+                                        <span class="text-indigo-600 dark:text-indigo-400 font-extrabold">স্টার ক্লাব ও ডায়নামিক ক্লাব</span> 
+                                        এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম 
+                                        <span class="underline decoration-indigo-500 decoration-2 underline-offset-4 text-slate-800 dark:text-white">১ টি কোম্পানির মিটিং এ</span> 
+                                        উপস্থিত থাকতে হবে।
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
                     </footer>
                 

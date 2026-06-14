@@ -75,6 +75,7 @@ const Report_Order = () => import('../components/Dashboard/admin/reports/report-
 const Report_Product = () => import('../components/Dashboard/admin/reports/report-product.vue');
 const Report_Product_Sale = () => import('../components/Dashboard/admin/reports/report-product-sale.vue');
 const Report_Statement = () => import('../components/Dashboard/admin/reports/report-statement.vue');
+const Report_Ranking = () => import('../components/Dashboard/admin/reports/report-ranking.vue');
 
 
 // =======================
@@ -183,6 +184,7 @@ const routes = [
   { path: '/admin/reports/products', component: Report_Product, meta:{title: 'Report Product', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/product/sale', component: Report_Product_Sale, meta:{title: 'Report Product Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/statement', component: Report_Statement, meta:{title: 'Report Statement', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/ranking', component: Report_Ranking, meta:{title: 'Ranking Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
   
   // Notice Routes
   { path: '/admin/notice', component: Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},
