@@ -101,10 +101,19 @@
                                     </div>
                                     <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-700 border border-purple-200/40 dark:bg-purple-500/10 dark:text-purple-400 dark:border-transparent">In Process</span>
                                 </div>
-                                <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
+
+                                <div class="mt-3 flex items-baseline text-slate-900 dark:text-white">
                                     <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
-                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ withdraw ?? 0 }}</h2>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ totalWithdraw ?? 0 }}</h2>
                                 </div>
+
+                                <div class="mb-3 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+                                    <span>Withdraw Fee (10%)</span>
+                                    <span class="font-mono font-medium text-amber-600 dark:text-amber-400">
+                                        - ৳{{ (totalWithdraw ?? 0) > 0 ? ((totalWithdraw / 0.9) * 0.1) : 0 }}
+                                    </span>
+                                </div>
+
                                 <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
                                     <span class="text-[11px] font-medium text-slate-400">Payout processing</span>
                                     <a href="#" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400">
@@ -155,7 +164,7 @@
                                 </div>
                                 <div class="my-3 flex items-baseline text-slate-900 dark:text-white">
                                     <span class="text-2xl font-medium text-slate-400 dark:text-slate-500 mr-1.5">৳</span>
-                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ credit ?? 0 }}</h2>
+                                    <h2 class="font-mono text-3xl font-extrabold tracking-tight">{{ availableBalance.toLocaleString() }}</h2>
                                 </div>
                                 <div class="flex items-center justify-between border-t border-slate-100 pt-3 dark:border-slate-800/50">
                                     <span class="text-[11px] font-medium text-slate-400">All time transactions</span>
@@ -323,6 +332,7 @@ const spend = ref(0);
 const bonus = ref(0);
 const matching = ref(0);
 const withdraw = ref(0);
+const totalWithdraw = ref(0);
 const refund = ref(0);
 const user = ref([]);
 
@@ -334,22 +344,23 @@ const fetchDashBoardData = async () => {
         const response = await api.get('/customer/dashboard'); 
 
         if (response.data.success === true) {
-            const data      = response.data.data;
-            balance.value   = Number(data.balance ?? 0);
-            pending.value   = Number(data.pending ?? 0);
+            const data          = response.data.data;
+            balance.value       = Number(data.balance ?? 0);
+            pending.value       = Number(data.pending ?? 0);
 
-            credit.value    = Number(data.credit ?? 0);
-            debit.value     = Number(data.debit ?? 0);
+            credit.value        = Number(data.credit ?? 0);
+            debit.value         = Number(data.debit ?? 0);
 
-            earn.value      = Number(data.earn ?? 0);
-            spend.value     = Number(data.spend ?? 0);
-            bonus.value     = Number(data.bonus ?? 0);
-            matching.value  = Number(data.matching ?? 0);
-            withdraw.value  = Number(data.withdraw ?? 0);
-            refund.value    = Number(data.refund ?? 0);
+            earn.value          = Number(data.earn ?? 0);
+            spend.value         = Number(data.spend ?? 0);
+            bonus.value         = Number(data.bonus ?? 0);
+            matching.value      = Number(data.matching ?? 0);
+            withdraw.value      = Number(data.withdraw ?? 0);
+            totalWithdraw.value = Number(data.totalWithdraw ?? 0);
+            refund.value        = Number(data.refund ?? 0);
 
-            status.value    = data.status ?? {};
-            user.value      = data.user ?? {};
+            status.value        = data.status ?? {};
+            user.value          = data.user ?? {};
         } else {
             errorMsg.value = response.data.message || "Failed to fetch balance";
         }
@@ -369,7 +380,12 @@ function WithdrawCreate()
 
 
 
-
+const availableBalance = computed(() => {
+    return Math.max(
+        (Number(credit.value) || 0) - (Number(refund.value) || 0),
+        0
+    );
+});
 
 
 
