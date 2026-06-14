@@ -548,6 +548,7 @@ const filteredOrders = computed(() => {
         const matchesSearch = 
             (order.reg?.toLowerCase().includes(search)) ||
             (order.user?.name?.toLowerCase().includes(search)) ||
+            (order.user?.user_id?.toLowerCase().includes(search)) ||
             (String(order.user?.user_id || '').includes(search)) ||
             (order.transaction_id?.toLowerCase().includes(search)) ||
             (order.status?.toLowerCase().includes(search));
