@@ -23,6 +23,63 @@
             <!-- Content -->
             <div class="flex-1 min-w-0">
                 <main class="min-h-screen bg-slate-50 dark:bg-[#080E1E] transition-colors duration-300 p-8">
+
+                    <!-- ==================== TRANSACTION SUMMARY CARDS START ==================== -->
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
+                        
+                        <!-- Total Credit Card -->
+                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                        {{ (searchQuery || typeFilter) ? 'Filtered Credit' : 'Total Credit (In)' }}
+                                    </p>
+                                    <h4 class="mt-2 text-2xl font-black text-emerald-600 dark:text-emerald-400">
+                                        ৳ {{ displayCredit.toLocaleString() }}
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+                                    <i class="bi bi-arrow-down-left-circle text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full bg-emerald-500"></div>
+                        </div>
+
+                        <!-- Total Debit Card -->
+                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                        {{ (searchQuery || typeFilter) ? 'Filtered Debit' : 'Total Debit (Out)' }}
+                                    </p>
+                                    <h4 class="mt-2 text-2xl font-black text-rose-600 dark:text-rose-400">
+                                        ৳ {{ displayDebit.toLocaleString() }}
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl bg-rose-50 p-3 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400">
+                                    <i class="bi bi-arrow-up-right-circle text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full bg-rose-500"></div>
+                        </div>
+
+                        <!-- Net Balance Card -->
+                        <!-- <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900 sm:col-span-2 lg:col-span-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Net Balance</p>
+                                    <h4 class="mt-2 text-2xl font-black" :class="displayNetTotal >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-amber-600 dark:text-amber-400'">
+                                        ৳ {{ displayNetTotal.toLocaleString() }}
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl p-3" :class="displayNetTotal >= 0 ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400' : 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400'">
+                                    <i class="fa-solid fa-scale-balanced text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full" :class="displayNetTotal >= 0 ? 'bg-indigo-500' : 'bg-amber-500'"></div>
+                        </div> -->
+                    </div>
+                    <!-- ==================== TRANSACTION SUMMARY CARDS END ==================== -->
                 
                     <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                         <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
@@ -297,6 +354,9 @@ const StatementVisiblePages = computed(() => {
 const statements = ref([]);
 const searchQuery = ref('');
 const typeFilter = ref('');
+const backendCredit = ref(0);
+const backendDebit = ref(0);
+const backendNetTotal = ref(0);
 
 const pagination = ref({
     page: 1,
@@ -318,6 +378,10 @@ async function fetchStatements(page = 1) {
 
         if (response.data.status === 'success') {
             statements.value = Array.isArray(response.data.data) ? response.data.data : [];
+
+            backendCredit.value   = response.data.total_credit ?? 0;
+            backendDebit.value    = response.data.total_debit ?? 0;
+            backendNetTotal.value = response.data.net_total ?? 0;
 
             pagination.value = {
                 page:     response.data.current_page ?? 1,
@@ -412,7 +476,33 @@ const resetFilters = () => {
 };
 
 
+// =============================
+// Statement Financial Calculations
+// =============================
+const displayCredit = computed(() => {
+    if (searchQuery.value || typeFilter.value) {
+        return filteredTransactions.value.reduce((sum, item) => {
+            return item.bonus_status?.toLowerCase() === 'credit' ? sum + (parseFloat(item.bonus_amount) || 0) : sum;
+        }, 0);
+    }
+    return backendCredit.value;
+});
 
+const displayDebit = computed(() => {
+    if (searchQuery.value || typeFilter.value) {
+        return filteredTransactions.value.reduce((sum, item) => {
+            return item.bonus_status?.toLowerCase() === 'debit' ? sum + (parseFloat(item.bonus_amount) || 0) : sum;
+        }, 0);
+    }
+    return backendDebit.value;
+});
+
+// const displayNetTotal = computed(() => {
+//     if (searchQuery.value || typeFilter.value) {
+//         return displayCredit.value - displayDebit.value;
+//     }
+//     return backendNetTotal.value;
+// });
 
 
 

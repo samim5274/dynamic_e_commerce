@@ -29,10 +29,60 @@
                             <div class="flex items-center gap-3">
                                 <h1 class="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Status Order Filter</h1>
                                 <span class="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-bold text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
-                                    {{ orders.length }} Orders
+                                    {{ filteredOrders.length }} / {{ orders.length }} Orders
                                 </span>
                             </div>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Monitor and manage your customer transactions and shipping status.</p>
+                        </div>
+                    </div>
+
+                    <!-- ==================== TOTAL AMOUNT CARDS DESIGN START ==================== -->
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-6">
+                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                        {{ (searchQuery || statusFilter) ? 'Filtered Amount' : 'Total Sales Amount' }}
+                                    </p>
+                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
+                                        ৳ {{ displayTotalAmount.toLocaleString() }}
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+                                    <i class="fa-solid fa-wallet text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full bg-emerald-500"></div>
+                        </div>
+
+                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Orders Count</p>
+                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
+                                        {{ displayTotalCount.toLocaleString() }} <span class="text-sm font-normal text-slate-400">Orders</span>
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
+                                    <i class="fa-solid fa-boxes-stacked text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full bg-indigo-500"></div>
+                        </div>
+
+                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900 sm:col-span-2 lg:col-span-1">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Avg. Order Value</p>
+                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
+                                        ৳ {{ displayAverageValue.toLocaleString() }}
+                                    </h4>
+                                </div>
+                                <div class="rounded-xl bg-amber-50 p-3 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
+                                    <i class="fa-solid fa-chart-line text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-0 left-0 h-1 w-full bg-amber-500"></div>
                         </div>
                     </div>
 
@@ -380,6 +430,8 @@ const pagination = ref({
     to: 0,
 });
 
+const backendTotalAmount = ref(0);
+
 async function fetchOrders(page = 1) {
     try {
         loading.value = true;
@@ -393,6 +445,8 @@ async function fetchOrders(page = 1) {
 
         // REAL DATA ARRAY (IMPORTANT FIX)
         orders.value = response?.data?.data ?? [];
+
+        backendTotalAmount.value = response?.total_amount ?? 0;
 
         // PAGINATION META
         pagination.value = {
@@ -506,7 +560,6 @@ const filteredOrders = computed(() => {
 
 
 
-
 // Get data date wise
 const today = new Date().toISOString().split('T')[0];
 const startDate = ref(today);
@@ -531,6 +584,8 @@ async function fetchData(page = 1) {
         const response = res.data;
 
         orders.value = response?.data?.data ?? [];
+
+        backendTotalAmount.value = response?.total_amount ?? 0;
 
         // PAGINATION META
         pagination.value = {
@@ -589,6 +644,39 @@ const resetFilters = async () => {
 
     await fetchOrders(1);
 };
+
+
+
+
+
+
+
+// =========================================================================
+// স্মার্ট কার্ড ক্যালকুলেশন (সার্চ বা স্ট্যাটাস সিলেক্ট করলে লাইভ পেজ হিসাব, নয়তো অল-ওভার)
+// =========================================================================
+const displayTotalAmount = computed(() => {
+    // যদি টেক্সট সার্চ করা হয় বা স্ট্যাটাস ফিল্টার ড্রপডাউন সিলেক্ট করা হয়
+    if (searchQuery.value || statusFilter.value) {
+        return filteredOrders.value.reduce((sum, order) => {
+            return sum + (parseFloat(order.amount) || 0);
+        }, 0);
+    }
+    // নরমাল অবস্থায় ডেট ফিল্টার করা বা অল-ওভার ডেটার ব্যাকএন্ড পাঠানো সঠিক টোটাল দেখাবে
+    return backendTotalAmount.value;
+});
+
+const displayTotalCount = computed(() => {
+    if (searchQuery.value || statusFilter.value) {
+        return filteredOrders.value.length;
+    }
+    // ডেট ফিল্টার বা নরমাল অবস্থায় সম্পূর্ণ পেজিনেশনের মোট অর্ডার কাউন্ট দেখাবে
+    return pagination.value.total;
+});
+
+const displayAverageValue = computed(() => {
+    if (displayTotalCount.value === 0) return 0;
+    return Math.round(displayTotalAmount.value / displayTotalCount.value);
+});
 
 
 
