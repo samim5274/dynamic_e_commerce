@@ -251,6 +251,20 @@
 
                                         <div>
                                             <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                Source
+                                            </label>
+
+                                            <select name="source" id="source" v-model="source" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                                <option value="" disabled selected>-- Select Source --</option>
+                                                <option value="bank_transfer">Bank Transfer</option>
+                                                <option value="rank_bonus">Rank Bonus</option>
+                                                <option value="gift">Gift</option>
+                                                <option value="add_money">Add Money</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                                                 Note
                                             </label>
 
@@ -320,12 +334,14 @@ const errorMsg = ref('');
 const isStatusModalOpen = ref(false);
 const selectedUser = ref(null);
 const amount = ref('');
+const source = ref('');
 const note = ref('');
 
 
 function openStatusModal(item) {
     selectedUser.value = item;
     amount.value = '';
+    source.value = '';
     note.value = '';
     isStatusModalOpen.value = true;
 }
@@ -349,7 +365,7 @@ async function submitAmount() {
 
     try{
         const response = await api.post(`/super-admin/add-money/${selectedUser.value.id}`,
-            { amount: Number(amount.value), note: String(note.value)}
+            { amount: Number(amount.value), source: String(source.value), note: String(note.value)}
         )
 
         if (response.data?.success) {

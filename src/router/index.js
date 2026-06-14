@@ -121,6 +121,7 @@ const C_Sale_Reports = () => import('../components/Dashboard/customer/report/rep
 
 const C_Notice = () => import('../components/Dashboard/customer/notice/notice.vue');
 const C_Notice_details = () => import('../components/Dashboard/customer/notice/notice-details.vue');
+const C_MarketingStrategy = () => import('../components/Dashboard/customer/notice/marketing-strategy.vue');
 
 
 const routes = [
@@ -231,6 +232,7 @@ const routes = [
   { path: '/reports-sales', component: C_Sale_Reports,  meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Sale Reports"}},
   { path: '/notice', component: C_Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
   { path: '/notice/:id/details', component: C_Notice_details, meta:{title: 'Notice Details', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
+  { path: '/marketing-strategy', component: C_MarketingStrategy, meta:{title: 'Marketing Strategy', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
   
 ]
 

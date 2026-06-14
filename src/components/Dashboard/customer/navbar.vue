@@ -275,6 +275,29 @@
 
 
 
+
+
+        <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'marketing_strategy'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('marketing_strategy')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-brands fa-opencart"></i>
+            </span>
+            <span class="text-sm font-medium">Marketing Strategy</span>
+          </button>
+        </li>
+
+
+
+
+
+
         
         <!-- Setting -->
         <li>
@@ -362,6 +385,7 @@ const routeMap = {
   withdrawal_reports: "/reports-withdrawal",
 
   customer_Notice: "/notice",
+  marketing_strategy: "/marketing-strategy",
   
   setting: "/setting",
   logout: "/login",
@@ -382,6 +406,7 @@ const routeMatch = [
   { key: "withdrawal_reports", prefixes: ["/reports-withdrawal"] },
 
   { key: "customer_Notice", prefixes: ["/notice"] },
+  { key: "marketing_strategy", prefixes: ["/marketing-strategy"] },
 
   { key: "setting", prefixes: ["/setting"] },
   { key: "logout", prefixes: ["/logout"] },
@@ -399,7 +424,8 @@ const activeKey = computed(() => {
 
   if (path.startsWith("/orders-details")) return "order";
   if (path.startsWith("/orders-list")) return "order";
-  if (path.startsWith("/notice")) return "customer_Notice"; 
+  if (path.startsWith("/notice")) return "customer_Notice";
+  if (path.startsWith("/marketing-strategy")) return "marketing_strategy";
 
   const hit = routeMatch.find((r) =>
     r.prefixes.some((pre) => path.startsWith(pre))

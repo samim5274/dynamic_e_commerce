@@ -56,6 +56,11 @@
                                     <option value="withdraw">Withdraw</option>
                                     <option value="refund">Refund</option>
 
+                                    <option value="rank_bonus">Rank Bonus</option>
+                                    <option value="bank_transfer">Bank Transfer</option>
+                                    <option value="gift">Gift</option>
+                                    <option value="add_money">Add Money</option>
+
                                     <option value="star_club">Star Club</option>
                                     <option value="dynamic_club">Dynamic Club</option>
                                 </select>
@@ -283,6 +288,14 @@ const filteredTransactions = computed(() => {
                 matchesType = transaction.source?.toLowerCase() === 'star_club';
             } else if (typeFilter.value === 'dynamic_club') {
                 matchesType = transaction.source?.toLowerCase() === 'dynamic_club';
+            } else if (typeFilter.value === 'rank_bonus') {
+                matchesType = transaction.source?.toLowerCase() === 'rank_bonus';
+            } else if (typeFilter.value === 'bank_transfer') {
+                matchesType = transaction.source?.toLowerCase() === 'bank_transfer';
+            } else if (typeFilter.value === 'gift') {
+                matchesType = transaction.source?.toLowerCase() === 'gift';
+            } else if (typeFilter.value === 'add_money') {
+                matchesType = transaction.source?.toLowerCase() === 'add_money';
             } else if (typeFilter.value === 'bonus') {
                 matchesType = transaction.source?.toLowerCase() === 'sponsor_bonus' || 
                               transaction.type?.toLowerCase() === 'bonus';
