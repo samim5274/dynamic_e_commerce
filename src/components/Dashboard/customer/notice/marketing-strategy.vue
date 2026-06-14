@@ -116,58 +116,114 @@
                                 <p class="text-xs mt-3 text-indigo-100/90 dark:text-slate-400 leading-relaxed font-medium">১০ জন ডিরেক্ট স্পন্সর (10 Direct Sponsor) সফলভাবে সম্পন্ন করলে স্টার ক্লাব মেম্বারশিপ অ্যাক্টিভ হবে।</p>
                             </div>
 
-                        <div class="relative overflow-hidden bg-gradient-to-b from-purple-600 to-purple-700 dark:from-slate-900 dark:to-slate-900/80 p-6 rounded-2xl text-white dark:border dark:border-slate-800 shadow-md">
-                            <div class="absolute -right-6 -bottom-6 text-white/[0.06] text-8xl font-black select-none"><i class="fa-solid fa-rocket"></i></div>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-purple-200 dark:text-purple-400">Club Level 5</span>
-                            <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-white"><i class="fa-solid fa-rocket text-indigo-300 text-sm"></i> Dynamic Club</h4>
-                            <p class="text-xs mt-3 text-purple-100/90 dark:text-slate-400 leading-relaxed font-medium">আপনার ডাউনলাইন টিমে ১০ জন ডিরেক্ট স্টার (10 Direct Star) মেম্বার থাকলে ডায়নামিক ক্লাবে উন্নীত হবেন।</p>
-                        </div>
+                            <div class="relative overflow-hidden bg-gradient-to-b from-purple-600 to-purple-700 dark:from-slate-900 dark:to-slate-900/80 p-6 rounded-2xl text-white dark:border dark:border-slate-800 shadow-md">
+                                <div class="absolute -right-6 -bottom-6 text-white/[0.06] text-8xl font-black select-none"><i class="fa-solid fa-rocket"></i></div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-purple-200 dark:text-purple-400">Club Level 5</span>
+                                <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-white"><i class="fa-solid fa-rocket text-indigo-300 text-sm"></i> Dynamic Club</h4>
+                                <p class="text-xs mt-3 text-purple-100/90 dark:text-slate-400 leading-relaxed font-medium">আপনার ডাউনলাইন টিমে ১০ জন ডিরেক্ট স্টার (10 Direct Star) মেম্বার থাকলে ডায়নামিক ক্লাবে উন্নীত হবেন।</p>
+                            </div>
 
-                        <div class="relative overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl text-white border border-slate-700 dark:border-slate-800 shadow-md">
-                            <div class="absolute -right-6 -bottom-6 text-white/[0.04] text-8xl font-black select-none"><i class="fa-solid fa-building"></i></div>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400">Level 6 Executive</span>
-                            <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-amber-400"><i class="fa-solid fa-briefcase text-sm"></i> Company Dealership</h4>
-                            <p class="text-xs mt-3 text-slate-300 dark:text-slate-400 leading-relaxed font-medium">অফিস সেলসের ওপর গ্লোবাল রয়্যালটি, আকর্ষণীয় হ্যান্ডেলিং মার্জিন বা ডিলারশিপের বিশেষ প্রাতিষ্ঠানিক সুবিধা।</p>
-                        </div>
+                            <div class="relative overflow-hidden bg-gradient-to-b from-slate-800 to-slate-950 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl text-white border border-slate-700 dark:border-slate-800 shadow-md">
+                                <div class="absolute -right-6 -bottom-6 text-white/[0.04] text-8xl font-black select-none"><i class="fa-solid fa-building"></i></div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400">Level 6 Executive</span>
+                                <h4 class="text-lg font-bold mt-1 flex items-center gap-2 text-amber-400"><i class="fa-solid fa-briefcase text-sm"></i> Company Dealership</h4>
+                                <p class="text-xs mt-3 text-slate-300 dark:text-slate-400 leading-relaxed font-medium">অফিস সেলসের ওপর গ্লোবাল রয়্যালটি, আকর্ষণীয় হ্যান্ডেলিং মার্জিন বা ডিলারশিপের বিশেষ প্রাতিষ্ঠানিক সুবিধা।</p>
+                            </div>
                         </section>
 
                         <section class="space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
-                            <div class="flex items-center gap-2">
-                            <div class="w-1 h-5 bg-indigo-500 rounded-full"></div>
-                            <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">র‍্যাঙ্ক এচিভমেন্ট ও রিওয়ার্ড লিস্ট</h3>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+                                <div class="flex items-center gap-2">
+                                <div class="w-1 h-5 bg-indigo-500 rounded-full"></div>
+                                <h3 class="text-base font-bold tracking-tight text-slate-900 dark:text-white">র‍্যাঙ্ক এচিভমেন্ট ও রিওয়ার্ড লিস্ট</h3>
+                                </div>
+                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 px-2.5 py-1 rounded-md border border-slate-200/40 dark:border-slate-700/40">
+                                <i class="fa-solid fa-shield-halved text-[10px]"></i> Structure Target
+                                </span>
                             </div>
-                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 px-2.5 py-1 rounded-md border border-slate-200/40 dark:border-slate-700/40">
-                            <i class="fa-solid fa-shield-halved text-[10px]"></i> Structure Target
-                            </span>
-                        </div>
 
-                        <div class="overflow-x-auto rounded-xl border border-slate-200/70 dark:border-slate-800/80 shadow-sm bg-white dark:bg-slate-900">
-                            <table class="w-full text-left border-collapse min-w-[700px]">
-                            <thead>
-                                <tr class="bg-slate-50 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200/70 dark:border-slate-800/80">
-                                <th class="px-6 py-4">Rank Designation</th>
-                                <th class="px-6 py-4">A - Group (Pt)</th>
-                                <th class="px-6 py-4">B - Group (Pt)</th>
-                                <th class="px-6 py-4">Cash Bonus</th>
-                                <th class="px-6 py-4">Gift & Premium Tour</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-medium">
-                                <tr v-for="rank in rankData" :key="rank.name" class="hover:bg-slate-50/60 dark:hover:bg-slate-800/20 transition-colors duration-150">
-                                <td class="px-6 py-3.5 font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>{{ rank.name }}
-                                </td>
-                                <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.aGroup }}</td>
-                                <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.bGroup }}</td>
-                                <td class="px-6 py-3.5 font-bold text-emerald-600 dark:text-emerald-400 font-mono">{{ rank.cash }}</td>
-                                <td class="px-6 py-3.5 text-slate-700 dark:text-slate-300 font-semibold tracking-wide">
-                                    <span :class="rank.gift.includes('+') ? 'text-indigo-600 dark:text-indigo-400' : ''">{{ rank.gift }}</span>
-                                </td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
+                            <!-- <div class="overflow-x-auto rounded-xl border border-slate-200/70 dark:border-slate-800/80 shadow-sm bg-white dark:bg-slate-900">
+                                <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead>
+                                    <tr class="bg-slate-50 dark:bg-slate-800/40 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200/70 dark:border-slate-800/80">
+                                    <th class="px-6 py-4">Rank Designation</th>
+                                    <th class="px-6 py-4">A - Group (Pt)</th>
+                                    <th class="px-6 py-4">B - Group (Pt)</th>
+                                    <th class="px-6 py-4">Cash Bonus</th>
+                                    <th class="px-6 py-4">Gift & Premium Tour</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-xs font-medium">
+                                    <tr v-for="rank in rankData" :key="rank.name" class="hover:bg-slate-50/60 dark:hover:bg-slate-800/20 transition-colors duration-150">
+                                    <td class="px-6 py-3.5 font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>{{ rank.name }}
+                                    </td>
+                                    <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.aGroup }}</td>
+                                    <td class="px-6 py-3.5 text-slate-600 dark:text-slate-400 font-mono">{{ rank.bGroup }}</td>
+                                    <td class="px-6 py-3.5 font-bold text-emerald-600 dark:text-emerald-400 font-mono">{{ rank.cash }}</td>
+                                    <td class="px-6 py-3.5 text-slate-700 dark:text-slate-300 font-semibold tracking-wide">
+                                        <span :class="rank.gift.includes('+') ? 'text-indigo-600 dark:text-indigo-400' : ''">{{ rank.gift }}</span>
+                                    </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div> -->
+
+                            <div class="overflow-hidden rounded-xl border border-slate-100 dark:border-slate-800/80 bg-white dark:bg-slate-900 shadow-[0_4px_20px_-4px_rgba(0,0,0,0,05)]">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse min-w-[700px]">
+                                    <thead>
+                                        <tr class="bg-slate-50/70 dark:bg-slate-800/30 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-800/50">
+                                        <th class="px-6 py-3.5 font-semibold">Rank Designation</th>
+                                        <th class="px-6 py-3.5 font-semibold text-right">A - Group (Pt)</th>
+                                        <th class="px-6 py-3.5 font-semibold text-right">B - Group (Pt)</th>
+                                        <th class="px-6 py-3.5 font-semibold text-right">Cash Bonus</th>
+                                        <th class="px-6 py-3.5 font-semibold pl-12">Gift & Premium Tour</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100/70 dark:divide-slate-800/40 text-xs font-medium">
+                                        <tr 
+                                        v-for="rank in rankData" 
+                                        :key="rank.name" 
+                                        class="hover:bg-slate-50/40 dark:hover:bg-slate-800/10 transition-colors duration-200 group"
+                                        >
+                                        <!-- Rank Designation -->
+                                        <td class="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">
+                                            <div class="flex items-center gap-2.5">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-indigo-500 group-hover:scale-125 transition-all duration-200"></span>
+                                            <span class="tracking-wide group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{{ rank.name }}</span>
+                                            </div>
+                                        </td>
+
+                                        <!-- A Group (Aligned Right for Numbers) -->
+                                        <td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 font-mono tracking-tight">{{ rank.aGroup }}</td>
+
+                                        <!-- B Group (Aligned Right for Numbers) -->
+                                        <td class="px-6 py-4 text-right text-slate-500 dark:text-slate-400 font-mono tracking-tight">{{ rank.bGroup }}</td>
+
+                                        <!-- Cash Bonus (Styled as Premium Badge/Text) -->
+                                        <td class="px-6 py-4 text-right font-bold text-emerald-600 dark:text-emerald-500 font-mono">
+                                            <span class="inline-block px-2 py-0.5 rounded bg-emerald-500/5 dark:bg-emerald-500/10 text-[11px]">
+                                            {{ rank.cash }}
+                                            </span>
+                                        </td>
+
+                                        <!-- Gift & Tour (Clean typography with alignment) -->
+                                        <td class="px-6 py-4 pl-12 text-slate-600 dark:text-slate-400 font-medium">
+                                            <div class="flex items-center gap-2">
+                                            <i class="fa-solid text-[10px] opacity-40 group-hover:opacity-100 transition-opacity" 
+                                                :class="rank.gift.includes('TOUR') ? 'fa-plane-departure text-sky-500' : 'fa-gift text-amber-500'">
+                                            </i>
+                                            <span :class="rank.gift.includes('+') ? 'text-indigo-600/90 dark:text-indigo-400 font-semibold' : ''">
+                                                {{ rank.gift }}
+                                            </span>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </section>
 
                     </div>
