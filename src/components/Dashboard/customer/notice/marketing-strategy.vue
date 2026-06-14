@@ -50,7 +50,10 @@
                                 <div class="space-y-1">
                                     <h3 class="text-sm font-bold text-amber-900 dark:text-amber-400 tracking-wide">গুরুত্ব পূর্ণ নোটিশ (Account Deactivation Policy)</h3>
                                     <p class="text-xs text-amber-800 dark:text-amber-500/90 leading-relaxed font-medium">
-                                        প্রতি মাসে সর্বনিম্ন <strong class="underline decoration-2 underline-offset-2 text-amber-950 dark:text-amber-300">১০০ পয়েন্ট</strong> পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে ডিঅ্যাক্টিভ (Deactive) হয়ে যাবে।
+                                        নিয়মাবলী ১: প্রতি মাসে সর্বনিম্ন <strong class="underline decoration-2 underline-offset-2 text-amber-950 dark:text-amber-300">১০০ পয়েন্ট</strong> পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে ডিঅ্যাক্টিভ (Deactive) হয়ে যাবে।
+                                    </p>
+                                    <p class="text-xs text-amber-800 dark:text-amber-500/90 leading-relaxed font-medium">
+                                        নিয়মাবলী ২: স্টার ক্লাব ও ডায়নামিক ক্লাব এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম ১ টি কোম্পানির মিটিং এ উপস্থিত থাকতে হবে।
                                     </p>
                                 </div>
                             </div>
@@ -169,7 +172,14 @@
 
                     </div>
 
+                    
+
                     <footer class="bg-slate-50 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800/60 px-6 py-4">
+                        <div class="flex items-center gap-2.5 justify-center text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-circle-info text-indigo-500 text-[14px]"></i>
+                        <p class="leading-relaxed">প্রতি মাসে সর্বনিম্ন <strong class="underline decoration-2 underline-offset-2 text-amber-950 dark:text-amber-300">১০০ পয়েন্ট</strong> পারচেজ না করলে আইডি স্বয়ংক্রিয়ভাবে ডিঅ্যাক্টিভ (Deactive) হয়ে যাবে।</p>
+                        </div>
+
                         <div class="flex items-center gap-2.5 justify-center text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
                         <i class="fa-solid fa-circle-info text-indigo-500 text-[14px]"></i>
                         <p class="leading-relaxed">নিয়মাবলী ২: স্টার ক্লাব ও ডায়নামিক ক্লাব এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম ১ টি কোম্পানির মিটিং এ উপস্থিত থাকতে হবে।</p>
