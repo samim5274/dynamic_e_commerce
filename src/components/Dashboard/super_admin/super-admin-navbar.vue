@@ -350,7 +350,7 @@
                                 ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                                 : 'text-slate-700 dark:text-slate-200/90'"
                             @click="pick('star_club')">
-                            Star
+                            Star Club
                             </button>
                         </li>
 
@@ -362,7 +362,7 @@
                                 ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                                 : 'text-slate-700 dark:text-slate-200/90'"
                             @click="pick('dynamic_club')">
-                            Club
+                            Dynamic Club
                             </button>
                         </li>
                     </ul>
