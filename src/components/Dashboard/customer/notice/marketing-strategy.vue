@@ -90,7 +90,7 @@
                             <div class="flex items-center gap-2.5 border-b border-slate-100 dark:border-slate-800/80 pb-4">
                                 <div class="w-1.5 h-5 bg-indigo-600 dark:bg-indigo-500 rounded-full shadow-sm shadow-indigo-500/30"></div>
                                 <div>
-                                    <h3 class="text-base font-black tracking-tight text-slate-900 dark:text-white">ইর্নিং ও পয়েন্ট পলিসি</h3>
+                                    <h3 class="text-base font-black tracking-tight text-slate-900 dark:text-white">আর্নিং ও পয়েন্ট পলিসি</h3>
                                     <p class="text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase mt-0.5">Income & Generation Structure</p>
                                 </div>
                             </div>
