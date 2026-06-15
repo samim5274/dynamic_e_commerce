@@ -76,6 +76,8 @@ const Report_Product = () => import('../components/Dashboard/admin/reports/repor
 const Report_Product_Sale = () => import('../components/Dashboard/admin/reports/report-product-sale.vue');
 const Report_Statement = () => import('../components/Dashboard/admin/reports/report-statement.vue');
 const Report_Ranking = () => import('../components/Dashboard/admin/reports/report-ranking.vue');
+const Report_Star_Club = () => import('../components/Dashboard/admin/reports/report-star-club.vue');
+const Report_Dynamic_Club = () => import('../components/Dashboard/admin/reports/report-dynamic-club.vue');
 
 
 // =======================
@@ -185,6 +187,9 @@ const routes = [
   { path: '/admin/reports/product/sale', component: Report_Product_Sale, meta:{title: 'Report Product Sale', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/statement', component: Report_Statement, meta:{title: 'Report Statement', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/ranking', component: Report_Ranking, meta:{title: 'Ranking Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/star-club', component: Report_Star_Club, meta:{title: 'Star Club Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/dynamic-club', component: Report_Dynamic_Club, meta:{title: 'Dynamic Club Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  
   
   // Notice Routes
   { path: '/admin/notice', component: Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['admin', 'super_admin']}},

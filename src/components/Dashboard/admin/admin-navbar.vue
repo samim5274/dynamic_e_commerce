@@ -484,19 +484,31 @@
                     </button>
                   </li>
 
-                  <!-- <li>
+                  <li>
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
-                    :class="activeKey === 'report_stock'
+                    :class="activeKey === 'report_star_club'
                         ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                         : 'text-slate-700 dark:text-slate-200/90'"
-                    @click="pick('report_stock')">
-                    Stock Report
+                    @click="pick('report_star_club')">
+                    Star Club Report
                     </button>
                   </li>
 
                   <li>
+                    <button
+                    class="w-full px-4 py-2 text-sm text-left transition
+                            hover:bg-white dark:hover:bg-white/10"
+                    :class="activeKey === 'report_dynamic_club'
+                        ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                        : 'text-slate-700 dark:text-slate-200/90'"
+                    @click="pick('report_dynamic_club')">
+                    Dynamic Club Report
+                    </button>
+                  </li>
+
+                  <!-- <li>
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
@@ -688,12 +700,14 @@ const routeMap = {
   report_products: "/admin/reports/products",
   report_statement: "/admin/reports/statement",
   report_ranking: "/admin/reports/ranking",
+  report_star_club: "/admin/reports/star-club",
+  report_dynamic_club: "/admin/reports/dynamic-club",
+
   report_stock: "/admin/reports/stock",
   report_payment: "/admin/reports/payment",
   report_user: "/admin/reports/user",
   report_reference: "/admin/reports/reference",
-  report_star_club: "/admin/reports/star-club",
-  report_dynamic_club: "/admin/reports/dynamic-club",
+
 
   // Notice
   notice: "/admin/notice",
@@ -740,13 +754,15 @@ const routeMatch = [
   { key: "report_product_sale", prefixes: ["/admin/reports/product/sale"] },
   { key: "report_products", prefixes: ["/admin/reports/products"] },
   { key: "report_statement", prefixes: ["/admin/reports/statement"] },
+  { key: "report_star_club", prefixes: ["/admin/reports/star-club"] },
+  { key: "report_dynamic_club", prefixes: ["/admin/reports/dynamic-club"] },
+
   { key: "report_stock", prefixes: ["/admin/reports/stock"] },
   { key: "report_ranking", prefixes: ["/admin/reports/ranking"] },
   { key: "report_payment", prefixes: ["/admin/reports/payment"] },
   { key: "report_user", prefixes: ["/admin/reports/user"] },
   { key: "report_reference", prefixes: ["/admin/reports/reference"] },
-  { key: "report_star_club", prefixes: ["/admin/reports/star-club"] },
-  { key: "report_dynamic_club", prefixes: ["/admin/reports/dynamic-club"] },
+
 
   { key: "notice", prefixes: ["/admin/notice"] },
 
