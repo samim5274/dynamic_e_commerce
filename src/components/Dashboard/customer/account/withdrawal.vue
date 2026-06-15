@@ -270,7 +270,7 @@ const fetchBalance = async () => {
 
 
 const transactions = ref([]);
-async function fetcheTransection()
+async function fetchTransection()
 {
     try {
         loading.value = true;
@@ -292,7 +292,13 @@ async function fetcheTransection()
 
 const formatDate = (date) => {
     if (!date) return '-';
-    return new Date(date).toLocaleDateString();
+
+    return new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 };
 
 const formatTime = (date) => {
@@ -456,7 +462,7 @@ function onSearch(q) {
 onMounted(() => {
 
     fetchBalance();
-    fetcheTransection();
+    fetchTransection();
     
     window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") sidebarOpen.value = false;
