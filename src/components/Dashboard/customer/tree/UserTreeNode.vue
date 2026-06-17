@@ -3,7 +3,7 @@
         <!-- Node Card -->
         <div class="relative flex flex-col items-center group">
             <div 
-                @click="$emit('select-node', user)"
+                @click="handleClick"
                 :class="[
                     'w-32 sm:w-44 p-3 border-2 rounded-xl shadow-sm text-center z-10 transition-all duration-300 cursor-pointer bg-white dark:bg-slate-800',
                     user?.id ? 'border-[#A3D921] hover:shadow-lg hover:-translate-y-1' : 'border-dashed border-slate-300 dark:border-slate-700 opacity-60 bg-slate-50/50'
@@ -69,6 +69,7 @@
                     <UserTreeNode 
                         :user="user?.left_child_recursive || user?.leftChildRecursive || null" 
                         :depth="depth + 1" 
+                        :parentUser="user"
                         @select-node="$emit('select-node', $event)" 
                     />
                 </div>
@@ -80,6 +81,7 @@
                     <UserTreeNode 
                         :user="user?.right_child_recursive || user?.rightChildRecursive || null" 
                         :depth="depth + 1" 
+                        :parentUser="user"
                         @select-node="$emit('select-node', $event)" 
                     />
                 </div>
@@ -90,6 +92,9 @@
 
 <script setup>
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
     user: {
@@ -99,13 +104,25 @@ const props = defineProps({
     depth: {
         type: Number,
         default: 1
-    }
+    },
+    parentUser: Object
 });
 
-defineEmits(['select-node']);
+const emit = defineEmits(['select-node']);
 
-// 3rd level porjonto empty children dekhate hobe
 const shouldShowChildren = computed(() => {
     return props.user?.id && props.depth < 3;
 });
+
+function handleClick() {
+    if (props.user?.id) {
+        console.log('Clicked User ID:', props.user.user_id);
+        // router.push(`/register/${props.user.user_id}`);
+    } 
+    else {
+        console.log('Parent User ID:', props.parentUser?.user_id || 'NO PARENT');
+    }
+
+    emit('select-node', props.user);
+}
 </script>

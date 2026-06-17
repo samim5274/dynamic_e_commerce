@@ -138,7 +138,7 @@ const routes = [
 
   // Auth Routes
   { path: '/login', component: Login, meta: {title: "Login"} },
-  { path: '/register/:refer_code?', component: Register, meta: {title: "Register"} },
+  { path: '/register/:refer_code?/:root_id?', component: Register, meta: {title: "Register"} },
   { path: '/forget-password', component: FindAccount, meta: {title: "Forget Password"} },
   { path: '/otp-verification', component: otpVerification, meta: {title: "OTP Verification", requiresEmail: true} },
   { path: '/reset-password', component: resetPassword, meta: {title: "Reset Password", requiresEmail: true} },
