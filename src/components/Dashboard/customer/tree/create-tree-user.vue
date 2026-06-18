@@ -497,6 +497,12 @@ watch(userRootId, (newUser) => {
 const placement = ref(null);
 
 watch(selectedRootUser, (user) => {
+
+    if (route.query.position) {
+        placement.value = route.query.position;
+        return;
+    }
+
     if (!user) {
         placement.value = null;
         return;
@@ -550,7 +556,7 @@ async function CreateUser() {
         });
 
         successMsg.value = "User created successfully!";
-        
+
         setTimeout(() => {
             router.back();
         }, 1000);
@@ -594,6 +600,11 @@ onMounted(() => {
     fetchRefer();
     fetchedUsers();
     fetchProducts();
+
+    if (route.query.position) {
+        placement.value = route.query.position;
+        form.value.position = route.query.position;
+    }
 });
 </script>
 

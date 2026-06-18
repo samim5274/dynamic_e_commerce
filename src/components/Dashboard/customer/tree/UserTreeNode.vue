@@ -70,6 +70,7 @@
                         :user="user?.left_child_recursive || user?.leftChildRecursive || null" 
                         :depth="depth + 1" 
                         :parentUser="user"
+                        position="left"
                         @select-node="$emit('select-node', $event)" 
                     />
                 </div>
@@ -82,6 +83,7 @@
                         :user="user?.right_child_recursive || user?.rightChildRecursive || null" 
                         :depth="depth + 1" 
                         :parentUser="user"
+                        position="right"
                         @select-node="$emit('select-node', $event)" 
                     />
                 </div>
@@ -105,7 +107,12 @@ const props = defineProps({
         type: Number,
         default: 1
     },
-    parentUser: Object
+    parentUser: Object,
+
+    position: {
+        type: String,
+        default: null
+    }
 });
 
 const emit = defineEmits(['select-node']);
@@ -118,9 +125,9 @@ function handleClick() {
     if (props.user?.id) {
         // console.log('Clicked User ID:', props.user.user_id);
     } 
-    else if (props.parentUser?.user_id) {
+    else if (!props.user?.id && props.parentUser?.user_id) {
         // console.log('Parent User ID:', props.parentUser.user_id);
-        router.push(`/create-user/${props.parentUser.user_id}`);
+        router.push(`/create-user/${props.parentUser.user_id}?position=${props.position}`);
     }
 
     emit('select-node', props.user);
