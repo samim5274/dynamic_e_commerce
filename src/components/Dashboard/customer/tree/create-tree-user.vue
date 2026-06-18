@@ -550,12 +550,17 @@ async function CreateUser() {
         });
 
         successMsg.value = "User created successfully!";
-        emit('userCreated');
+        
+        setTimeout(() => {
+            router.back();
+        }, 1000);
 
-        await fetchedUsers();
+        // emit('userCreated');
 
-        Object.keys(form.value).forEach(k => form.value[k] = "");
-        photoPreview.value = null;
+        // await fetchedUsers();
+
+        // Object.keys(form.value).forEach(k => form.value[k] = "");
+        // photoPreview.value = null;
 
     } catch (err) {
         errorMsg.value = err.response?.data?.message || "Create failed";
