@@ -114,6 +114,7 @@ const C_OrderTracking = () => import('../components/Dashboard/customer/order/tra
 
 const C_Setting = () => import('../components/Dashboard/customer/setting/setting.vue');
 const C_tree = () => import('../components/Dashboard/customer/tree/tree-user.vue');
+const C_Create_Tree_User = () => import('../components/Dashboard/customer/tree/create-tree-user.vue');
 const C_Account = () => import('../components/Dashboard/customer/account/account.vue');
 const C_Withdrawal = () => import('../components/Dashboard/customer/account/withdrawal.vue');
 const C_WithdrawalForm = () => import('../components/Dashboard/customer/account/withdrawal-form.vue');
@@ -138,7 +139,7 @@ const routes = [
 
   // Auth Routes
   { path: '/login', component: Login, meta: {title: "Login"} },
-  { path: '/register/:refer_code?/:root_id?', component: Register, meta: {title: "Register"} },
+  { path: '/register/:refer_code?', component: Register, meta: {title: "Register"} },
   { path: '/forget-password', component: FindAccount, meta: {title: "Forget Password"} },
   { path: '/otp-verification', component: otpVerification, meta: {title: "OTP Verification", requiresEmail: true} },
   { path: '/reset-password', component: resetPassword, meta: {title: "Reset Password", requiresEmail: true} },
@@ -231,6 +232,7 @@ const routes = [
   { path: '/orders-tracking', component: C_OrderTracking, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Order Tracking"}},
   { path: '/setting', component: C_Setting, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Setting"}},
   { path: '/tree-user', component: C_tree, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Tree"}},
+  { path: '/create-user/:root_user_id?', component: C_Create_Tree_User, meta: { requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Create Tree User"}},  
   { path: '/account', component: C_Account, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Account"}},
   { path: '/withdraw', component: C_Withdrawal, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw"}},
   { path: '/withdraw/create', component: C_WithdrawalForm, meta: {requiresAuth: true, roles: ['customer', 'admin', 'super_admin'], title: "Withdraw Balance"}},

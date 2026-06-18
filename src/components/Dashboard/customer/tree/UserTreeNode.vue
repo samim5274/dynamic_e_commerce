@@ -116,11 +116,11 @@ const shouldShowChildren = computed(() => {
 
 function handleClick() {
     if (props.user?.id) {
-        console.log('Clicked User ID:', props.user.user_id);
-        // router.push(`/register/${props.user.user_id}`);
+        // console.log('Clicked User ID:', props.user.user_id);
     } 
-    else {
-        console.log('Parent User ID:', props.parentUser?.user_id || 'NO PARENT');
+    else if (props.parentUser?.user_id) {
+        // console.log('Parent User ID:', props.parentUser.user_id);
+        router.push(`/create-user/${props.parentUser.user_id}`);
     }
 
     emit('select-node', props.user);
