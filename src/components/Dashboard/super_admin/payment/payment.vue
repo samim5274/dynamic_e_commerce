@@ -334,7 +334,6 @@ const resetFilters = () => {
 
 
 function viewPaymentDetails(item) {
-    console.log('Full item object:', item); // Inspect this in your browser console!
     
     // Safety check: Prevent navigating if the ID is missing
     if (!item || !item.transaction_id) {

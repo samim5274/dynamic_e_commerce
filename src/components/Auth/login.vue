@@ -28,6 +28,7 @@
       <form @submit.prevent="handleLogin" class="w-full space-y-6">
         
         <div class="space-y-1.5">
+          <input type="text" name="website_field_9xk2" style="display:none">
           <label class="text-sm font-semibold text-white/90">Email</label>
           <div class="relative group">
             <input
