@@ -265,7 +265,11 @@ async function getCartItems() {
         cartItems.value = res.data.data;
         // console.log(cartItems.value);
     } catch (err) {
-        console.error(err);
+        if (err?.response?.status === 401) {
+            errorMsg.value = "Please login first to view cart";
+            return;
+        }
+
         errorMsg.value = err || "Something is wrong";
     } finally {
         loading.value = false;

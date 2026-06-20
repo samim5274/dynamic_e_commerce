@@ -60,7 +60,7 @@
 
                     <div class="w-full lg:w-1/2 xl:w-[60%]">
                         <div class="lg:sticky lg:top-24 space-y-8">
-                            <div class="relative group aspect-square lg:aspect-[16/14] rounded-[3.5rem] overflow-hidden bg-gray-50 dark:bg-[#111113] border border-gray-100 dark:border-white/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] dark:shadow-none">
+                            <div class="relative group aspect-square lg:aspect-[16/14] rounded-[2rem] overflow-hidden bg-gray-50 dark:bg-[#111113] border border-gray-100 dark:border-white/5 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] dark:shadow-none">
                                 <img :src="activeImage || defaultProductImage"  class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110">
                                 
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -384,7 +384,7 @@ const { loadUser } = useAuth()
 async function getProduct() {
     loading.value = true
     try {
-        const res = await api.get(`/products/${route.params.slug}`)
+        const res = await api.get(`/public/${route.params.slug}`)
         product.value = res.data.data
 
         if (product.value?.images?.length) {
@@ -401,9 +401,9 @@ async function getProduct() {
 const defaultProductImage = "/images/product/default-product.png"
 
 
-onMounted(() => {
-    getProduct();
-    loadUser();
+onMounted(async () => {
+    await loadUser();
+    await getProduct();
 
     // page load first variant select
     if (product.value?.variants?.length > 0) {

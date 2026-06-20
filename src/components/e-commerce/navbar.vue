@@ -229,10 +229,12 @@ const cartStore = useCartStore()
 
 onMounted(async () => {
     try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
         await cartStore.fetchCart()
         // console.log(cartStore.items)
     } catch (error) {
         console.error('Navbar cart error:', error)
-    }
+    }    
 })
 </script>
