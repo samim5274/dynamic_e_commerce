@@ -228,13 +228,14 @@
                 </div>
 
                 <div class="flex flex-col lg:flex-row gap-16 xl:gap-24 mt-8">
-                    <div v-for="product in categoryProducts" :key="product.id"
+                    <div v-for="product in categoryProducts" :key="product.id" @click="ProductDetails(product)"
                         class="flex-none w-[85%] sm:w-[45%] lg:w-[calc(25%-18px)] snap-start group relative bg-white dark:bg-[#111827] rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2">
                         
                         <div class="relative aspect-[10/12] overflow-hidden rounded-[2.2rem] bg-gray-50 dark:bg-gray-800">
                             <div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
                                 <span v-if="product.discount_price" class="bg-red-500 text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-red-500/20">
-                                    -{{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}%
+                                    <!-- -{{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}% -->
+                                    -{{ Math.round((product.discount_price / product.price) * 100) }}%
                                 </span>
                             </div>
 
@@ -267,16 +268,6 @@
                                         ৳{{ product.price - product.discount_price || product.price }}
                                     </span>
                                 </div>
-
-                                <button class="relative h-10 w-10 group/btn overflow-hidden rounded-[1.25rem] bg-gray-900 dark:bg-indigo-600 text-white shadow-xl shadow-gray-900/10 dark:shadow-indigo-500/20 transition-all duration-500 hover:w-32 hover:rounded-2xl active:scale-95">
-                                    <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover/btn:translate-x-12 group-hover/btn:opacity-0">
-                                        <i class="fa-solid fa-plus text-xl"></i>
-                                    </div>
-                                    <div class="absolute inset-0 flex items-center justify-center gap-2 -translate-x-12 opacity-0 transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100 px-4">
-                                        <i class="fa-solid fa-cart-shopping text-sm"></i>
-                                        <span class="text-xs font-black uppercase whitespace-nowrap">Add</span>
-                                    </div>
-                                </button>
                             </div>
                         </div>
                     </div>

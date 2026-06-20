@@ -120,7 +120,8 @@
                                                     <span v-if="product.discount_price > 0 && product.price > 0" 
                                                         class="inline-flex items-center px-1.5 py-0.5 rounded-md bg-rose-600 text-[10px] font-bold text-white shadow-sm animate-pulse">
                                                         <i class="fa-solid fa-arrow-down mr-0.5 scale-75"></i>
-                                                        {{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}% OFF
+                                                        <!-- {{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}% OFF -->
+                                                        {{ Math.round(( product.discount_price / product.price) * 100) }}% OFF
                                                     </span>
                                                 </div>
 
