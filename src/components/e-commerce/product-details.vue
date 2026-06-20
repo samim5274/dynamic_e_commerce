@@ -226,6 +226,61 @@
                     </div>
 
                 </div>
+
+                <div class="flex flex-col lg:flex-row gap-16 xl:gap-24 mt-8">
+                    <div v-for="product in categoryProducts" :key="product.id"
+                        class="flex-none w-[85%] sm:w-[45%] lg:w-[calc(25%-18px)] snap-start group relative bg-white dark:bg-[#111827] rounded-xl p-4 border border-gray-100 dark:border-white/10 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-2">
+                        
+                        <div class="relative aspect-[10/12] overflow-hidden rounded-[2.2rem] bg-gray-50 dark:bg-gray-800">
+                            <div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                                <span v-if="product.discount_price" class="bg-red-500 text-white text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-red-500/20">
+                                    -{{ Math.round(((product.price - product.discount_price) / product.price) * 100) }}%
+                                </span>
+                            </div>
+
+                            <button class="absolute top-4 right-4 z-10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-3 rounded-full text-gray-900 dark:text-white hover:text-red-500 transition-all active:scale-90">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+
+
+                            <img @click="ProductDetails(product)" :src="getProductImage(product)" :alt="product.name"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out">
+
+
+                            <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <button @click="ProductDetails(product)" class="w-full bg-white dark:bg-indigo-600 text-gray-900 dark:text-white font-black text-[10px] uppercase tracking-widest py-3.5 rounded-2xl shadow-xl">
+                                    Quick View
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 px-1">
+                            <h3 @click="ProductDetails(product)" class="text-lg font-black text-gray-900 dark:text-white truncate cursor-pointer group-hover:text-indigo-600 transition-colors hover:underline">
+                                {{ product.name }} - {{ product.point }}
+                            </h3>
+
+                            <div class="mt-6 flex items-end justify-between">
+                                <div class="flex flex-col">
+                                    <span v-if="product.discount_price" class="text-[10px] font-black text-gray-400 line-through decoration-red-500/30">৳{{ product.price }}</span>
+                                    <span class="text-2xl font-black text-gray-900 dark:text-white tracking-tighter leading-none">
+                                        ৳{{ product.price - product.discount_price || product.price }}
+                                    </span>
+                                </div>
+
+                                <button class="relative h-10 w-10 group/btn overflow-hidden rounded-[1.25rem] bg-gray-900 dark:bg-indigo-600 text-white shadow-xl shadow-gray-900/10 dark:shadow-indigo-500/20 transition-all duration-500 hover:w-32 hover:rounded-2xl active:scale-95">
+                                    <div class="absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover/btn:translate-x-12 group-hover/btn:opacity-0">
+                                        <i class="fa-solid fa-plus text-xl"></i>
+                                    </div>
+                                    <div class="absolute inset-0 flex items-center justify-center gap-2 -translate-x-12 opacity-0 transition-all duration-500 group-hover/btn:translate-x-0 group-hover/btn:opacity-100 px-4">
+                                        <i class="fa-solid fa-cart-shopping text-sm"></i>
+                                        <span class="text-xs font-black uppercase whitespace-nowrap">Add</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>        
 
@@ -244,8 +299,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import api from '../../services/api';
 import Message from '../Message/message.vue';
 import Navbar from './navbar.vue';
@@ -254,8 +309,10 @@ import { useAuth } from '../../stores/auth';
 import { useCartStore } from './stores/cart';
 
 const route = useRoute();
+const router = useRouter();
 
 const product = ref(null);
+const categoryProducts = ref([]);
 const activeImage = ref('');
 const loading = ref(false);
 const successMsg = ref('');
@@ -384,11 +441,14 @@ const { loadUser } = useAuth()
 async function getProduct() {
     loading.value = true
     try {
-        const res = await api.get(`/public/${route.params.slug}`)
-        product.value = res.data.data
+        const res = await api.get(`/public/product/${route.params.slug}`)
+        product.value = res.data.data;
+        categoryProducts.value = res.data.category_products;
 
         if (product.value?.images?.length) {
             activeImage.value = product.value.images[0].url;
+        } else {
+            activeImage.value = ''   // reset
         }
     } catch (err) {
         console.error(err)
@@ -397,8 +457,66 @@ async function getProduct() {
     }
 }
 
+
+
+
+// Product recall current page
+function ProductDetails(product) {
+    router.push(`/product-details/${product.slug}`)
+}
+
+function initializeProduct() {
+    if (product.value?.variants?.length > 0) {
+        selectedVariant.value = product.value.variants[0];
+    } else {
+        selectedVariant.value = null;
+    }
+    qty.value = 1;
+}
+
+watch(
+    () => route.params.slug,
+    async (newSlug) => {
+        if (newSlug) {
+            await getProduct();
+            initializeProduct();
+        }
+    }
+);
+
+
+
+
+
 // default image
 const defaultProductImage = "/images/product/default-product.png"
+
+
+const getProductImage = (product) => {
+    if (!product || !product.images || product.images.length === 0) {
+        return defaultProductImage;
+    }
+
+    const primaryImg = product.images.find(i => i.is_primary == 1);
+    
+    const selectedImg = primaryImg || product.images[0];
+
+    return selectedImg.url ? selectedImg.url : defaultProductImage;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 onMounted(async () => {
@@ -409,6 +527,8 @@ onMounted(async () => {
     if (product.value?.variants?.length > 0) {
         selectedVariant.value = product.value.variants[0];
     }
+
+    initializeProduct();
 })
 </script>
 
