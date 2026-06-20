@@ -20,7 +20,7 @@
       </div>
 
       <div class="mb-10 w-28 h-28 rounded-full border-2 border-white flex items-center justify-center shadow-lg">
-        <img src="/logo/logo.png" alt="Logo" class="w-20 h-20 object-contain" />
+        <img src="/logo/logo.webp" alt="Logo" class="w-20 h-20 object-contain" />
       </div>
 
       <div class="text-center mb-8">

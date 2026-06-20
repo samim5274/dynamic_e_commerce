@@ -15,7 +15,7 @@
         <div class="flex flex-col items-center mb-10 text-center">
           <div class="mb-6 group">
             <div class="h-24 w-24 bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md rounded-[2rem] flex items-center justify-center border border-white/10 shadow-2xl transition-all duration-500 hover:scale-105">
-              <img src="/logo/white-logo.png" alt="Logo" class="w-16 h-16 object-contain drop-shadow-[0_5px_15px_rgba(163,217,33,0.3)]" />
+              <img src="/logo/white-logo.webp" alt="Logo" class="w-16 h-16 object-contain drop-shadow-[0_5px_15px_rgba(163,217,33,0.3)]" />
             </div>
           </div>
           <h3 class="text-3xl font-black text-white tracking-tighter uppercase italic">
