@@ -376,8 +376,8 @@
 </template>
 
 <script setup>
-const bazarLogoLight = "/logo/logo.png";
-const bazarLogoDark = "/logo/white-logo.png";
+const bazarLogoLight = "/logo/logo.webp";
+const bazarLogoDark = "/logo/white-logo.webp";
 
 const devSamim = "/images/dev/dev1.jpg";
 const mercuviaxLogo = "/images/dev/MercoviaX-logo.png";

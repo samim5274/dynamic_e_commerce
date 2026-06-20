@@ -7,8 +7,8 @@
             <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
             <router-link to="/" class="flex items-center gap-3 group">
                 <div class="h-9 w-9 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-transform group-hover:scale-105">
-                <img src="/logo/logo.png" alt="Logo" class="w-6 h-6 object-contain dark:hidden" />
-                <img src="/logo/white-logo.png" alt="Logo" class="hidden dark:block w-6 h-6 object-contain drop-shadow-[0_4px_8px_rgba(163,217,33,0.3)]" />
+                <img src="/logo/logo.webp" alt="Logo" class="w-6 h-6 object-contain dark:hidden" />
+                <img src="/logo/white-logo.webp" alt="Logo" class="hidden dark:block w-6 h-6 object-contain drop-shadow-[0_4px_8px_rgba(163,217,33,0.3)]" />
                 </div>
                 <span class="text-sm font-black tracking-tighter uppercase italic text-slate-900 dark:text-white">
                 Mercuvaix <span class="text-[#A3D921]">Business</span>

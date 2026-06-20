@@ -118,8 +118,8 @@ const loading = ref(false);
 
 
 
-const bazarLogoLight = "/logo/logo.png";
-const bazarLogoDark = "/logo/white-logo.png";
+const bazarLogoLight = "/logo/logo.webp";
+const bazarLogoDark = "/logo/white-logo.webp";
 
 
 

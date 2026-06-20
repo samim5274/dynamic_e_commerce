@@ -24,8 +24,8 @@
             to="/" 
             class="flex items-center gap-3 group transition-all duration-300 hover:opacity-90">
             <div class="relative flex items-center justify-center overflow-hidden h-10 w-10 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 transition-transform group-hover:scale-105">
-              <img src="/logo/logo.png" alt="Brand Logo" class="w-7 h-7 object-contain drop-shadow-sm dark:hidden" />
-              <img src="/logo/white-logo.png" alt="Brand Logo" class="hidden dark:block w-7 h-7 object-contain drop-shadow-[0_4px_10px_rgba(163,217,33,0.3)]" />
+              <img src="/logo/logo.webp" alt="Brand Logo" class="w-7 h-7 object-contain drop-shadow-sm dark:hidden" />
+              <img src="/logo/white-logo.webp" alt="Brand Logo" class="hidden dark:block w-7 h-7 object-contain drop-shadow-[0_4px_10px_rgba(163,217,33,0.3)]" />
             </div>
             <span class="text-lg font-black tracking-tighter uppercase italic text-slate-800 dark:text-white group-hover:text-[#2D92A2] transition-colors">
               DYNAMIC <span class="text-[#2D92A2]">BAZAR</span>
