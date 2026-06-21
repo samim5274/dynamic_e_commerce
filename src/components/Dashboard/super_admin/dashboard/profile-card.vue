@@ -47,30 +47,60 @@
             </div>
 
             <!-- User Info -->
-            <div class="mt-6 space-y-2">
-                <div>
-                    <p class="text-xs font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
-                        Welcome Back
-                    </p>
-                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-                        {{ user.name }}
-                    </h2>
-                </div>
+            <div class="mt-6 p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all duration-300">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    
+                    <!-- Left Section: Welcome Text & Name -->
+                    <div class="space-y-1">
+                        <p class="text-xs font-bold tracking-widest text-slate-400 uppercase dark:text-slate-500">
+                            Welcome Back
+                        </p>
+                        <h2 class="text-2xl font-black tracking-tight text-slate-800 dark:text-slate-100 sm:text-3xl">
+                            {{ user.name }}
+                        </h2>
+                    </div>
 
-                <div class="flex items-center pt-1">
-                    <!-- Star Club Member Badge -->
-                    <span v-if="user.designation === 'star_club'" 
-                        class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/20">
-                        <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        Star Club Member
-                    </span>
+                    <!-- Right Section: Badges Container -->
+                    <div class="flex flex-wrap items-center gap-2 pt-1 sm:pt-0">
+                        
+                        <!-- --- CLUB MEMBERSHIP BADGES --- -->
+                        <!-- Star Club Member Badge -->
+                        <span v-if="user.designation === 'star_club'" 
+                            class="inline-flex items-center gap-1.5 rounded-xl bg-amber-50/80 px-3 py-1.5 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/15 backdrop-blur-sm dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-500/20">
+                            <span class="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                            Star Club Member
+                        </span>
 
-                    <!-- Dynamic Club Member Badge -->
-                    <span v-if="user.designation === 'dynamic_club'" 
-                        class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20">
-                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
-                        Dynamic Club Member
-                    </span>
+                        <!-- Dynamic Club Member Badge -->
+                        <span v-if="user.designation === 'dynamic_club'" 
+                            class="inline-flex items-center gap-1.5 rounded-xl bg-indigo-50/80 px-3 py-1.5 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-600/15 backdrop-blur-sm dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20">
+                            <span class="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                            Dynamic Club Member
+                        </span>
+
+
+                        <!-- --- CUSTOMER TIER BADGES --- -->
+                        <!-- Elite Customer Badge -->
+                        <span v-if="user.own_total_point >= 11100" 
+                            class="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 px-3 py-1.5 text-xs font-bold text-indigo-700 ring-1 ring-inset ring-indigo-600/20 shadow-sm dark:from-indigo-500/10 dark:to-purple-500/10 dark:text-indigo-300 dark:ring-indigo-500/30">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500"></span>
+                            </span>
+                            Elite Customer
+                        </span>
+
+                        <!-- VIP Customer Badge -->
+                        <span v-else-if="user.own_total_point >= 1100" 
+                            class="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 px-3 py-1.5 text-xs font-bold text-amber-700 ring-1 ring-inset ring-amber-600/20 shadow-sm dark:from-amber-500/10 dark:to-orange-500/10 dark:text-amber-300 dark:ring-amber-500/30">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+                            </span>
+                            VIP Customer
+                        </span>
+                        
+                    </div>
                 </div>
             </div>
 
