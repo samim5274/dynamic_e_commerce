@@ -81,6 +81,11 @@
                                     <settingGeneral />
                                 </div>
 
+                                <!-- Slider -->
+                                <div v-if="activeTab === 'slider'">
+                                    <settingSlider />
+                                </div>
+
                                 <!-- Theme -->
                                  <div v-if="activeTab === 'theme'">
                                     <settingTheme />
@@ -154,6 +159,7 @@ const errorMsg = ref('');
 
 
 import settingGeneral from "./setting-general.vue";
+import settingSlider from "./setting-slider.vue";
 import settingAbout from "./setting-about.vue";
 import privacyAndPolicy from "./setting-privacy.vue";
 import settingSecurity from "./setting-security.vue";
@@ -169,6 +175,7 @@ const activeTab = ref('general')
 
 const menus = [
     { key: 'general', label: 'General', icon: 'fa-solid fa-gear' },
+    { key: 'slider', label: 'Slider', icon: 'bi bi-sliders2' }, // <i class="fa-solid fa-sliders"></i>
    
     { key: 'theme', label: 'Theme', icon: 'fa-brands fa-affiliatetheme' },
     { key: 'notification', label: 'Notification', icon: 'fa-solid fa-bell' },
