@@ -172,20 +172,19 @@
                                 <div class="flex items-center justify-end gap-1.5">
                                     
                                     
-                                    <button 
+                                    <!-- <button 
                                         @click="editSlider(slider)" 
                                         class="p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 rounded-xl transition-all border border-transparent hover:border-emerald-500/10"
                                         title="Edit Slider Elements"
                                     >
                                         <i class="fa-regular fa-pen-to-square text-sm"></i>
-                                    </button>
+                                    </button> -->
                                     
                                     
                                     <button 
                                         @click="deleteSlider(slider.id)" 
                                         class="p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/5 dark:hover:bg-rose-500/10 rounded-xl transition-all border border-transparent hover:border-rose-500/10"
-                                        title="Delete Carousel Frame"
-                                    >
+                                        title="Delete Carousel Frame">
                                         <i class="fa-regular fa-trash-can text-sm"></i>
                                     </button>
                                 </div>
