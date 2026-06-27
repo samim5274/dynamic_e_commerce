@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 md:p-8 min-h-screen transition-colors duration-300">
+    <div class="p-4 min-h-screen transition-colors duration-300">
 
         <Message
             :successMsg="successMsg"
@@ -8,29 +8,206 @@
             @update:errorMsg="errorMsg = $event"
         />
         
-        <!-- Top Toolbar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-5 border-b border-slate-200 dark:border-slate-800">
-    
-            <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl shrink-0">
-                    <i class="fa-solid fa-border-all"></i>
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-8 pb-5 border-b border-slate-200 dark:border-slate-800/60">
+            <div class="flex items-center gap-3.5">
+                <div class="p-3 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 text-emerald-600 dark:text-emerald-400 rounded-2xl border border-emerald-500/10 shrink-0 shadow-sm shadow-emerald-500/5">
+                    <i class="fa-solid fa-images text-xl"></i>
                 </div>
                 <div>
-                    <h2 class="text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">Hero Slider</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Configure web hero carousel components</p>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Hero Slider Management</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Control homepage promotional carousels, action buttons, and active sliders.</p>
                 </div>
             </div>
 
             <div class="flex items-center justify-end w-full sm:w-auto">
                 <button 
                     type="button" 
-                    @click="showModal = true"
-                    class="group flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2.5 text-sm font-semibold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/70 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-200 dark:hover:border-emerald-950/60 bg-white hover:bg-emerald-50/40 dark:bg-slate-900 dark:hover:bg-emerald-950/20 rounded-xl active:scale-[0.98] transition-all duration-200">
-                    <i class="fa-solid fa-plus text-xs opacity-70 group-hover:rotate-90 transition-transform duration-200"></i> 
-                    <span>Create New</span>
+                    @click="isEditing = false; resetForm(); showModal = true;"
+                    class="group flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 text-sm font-semibold text-white bg-[#4F46E5] hover:bg-[#4338CA] dark:bg-[#4F46E5] dark:hover:bg-[#4338CA] rounded-xl shadow-md shadow-indigo-600/10 hover:shadow-indigo-600/20 active:scale-[0.98] transition-all duration-200">
+                    <i class="fa-solid fa-plus text-xs group-hover:rotate-90 transition-transform duration-200"></i> 
+                    <span>Create New Slider</span>
                 </button>
             </div>
         </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
+
+            <div class="p-5 border-b border-slate-100 dark:border-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/30 dark:bg-slate-900/40">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-lg">
+                        Total: {{ filteredSliders.length }}
+                    </span>
+                </div>
+                
+                <div class="relative w-full sm:w-72">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400 dark:text-slate-500">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input 
+                        type="text" 
+                        v-model="searchQuery"
+                        placeholder="Search by title, tag or link..." 
+                        class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/40 text-slate-800 dark:text-slate-100 outline-none focus:bg-white dark:focus:bg-slate-900 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/80 transition-all placeholder-slate-400"
+                    >
+                    <button 
+                        v-if="searchQuery" 
+                        @click="searchQuery = ''" 
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    >
+                        <i class="fa-solid fa-circle-xmark text-xs opacity-70"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse whitespace-nowrap">
+                    <thead>
+                        <tr class="bg-slate-50/70 dark:bg-slate-950/40 border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider select-none">
+                            <!-- <th class="py-3.5 px-5 w-20 text-center">#</th> -->
+                            <th class="py-3.5 px-4">Slider Info / Content</th>
+                            <th class="py-3.5 px-4">Context Tag</th>
+                            <th class="py-3.5 px-4">Call To Action (CTA)</th>
+                            <th class="py-3.5 px-4 text-center">Status</th>
+                            <th class="py-3.5 px-6 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm">
+                        
+                        <tr v-if="loading" v-for="n in 3" :key="'skeleton-'+n" class="animate-pulse">
+                            <td class="p-4"><div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-md w-8 mx-auto"></div></td>
+                            <td class="p-4 flex items-center gap-3">
+                                <div class="w-16 h-11 bg-slate-100 dark:bg-slate-800 rounded-xl shrink-0"></div>
+                                <div class="space-y-2 w-full">
+                                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded w-2/3"></div>
+                                    <div class="h-3 bg-slate-100 dark:bg-slate-800 rounded w-1/2"></div>
+                                </div>
+                            </td>
+                            <td class="p-4"><div class="h-4 bg-slate-100 dark:bg-slate-800 rounded w-16"></div></td>
+                            <td class="p-4"><div class="h-6 bg-slate-100 dark:bg-slate-800 rounded-lg w-24"></div></td>
+                            <td class="p-4"><div class="h-5 bg-slate-100 dark:bg-slate-800 rounded-full w-16 mx-auto"></div></td>
+                            <td class="p-4"><div class="h-8 bg-slate-100 dark:bg-slate-800 rounded-lg w-16 ml-auto"></div></td>
+                        </tr>
+
+                        <tr v-if="!loading && filteredSliders.length === 0">
+                            <td colspan="6" class="py-16 text-center">
+                                <div class="flex flex-col items-center justify-center space-y-3 max-w-sm mx-auto">
+                                    <div class="w-12 h-12 rounded-2xl bg-slate-50 dark:bg-slate-800/40 flex items-center justify-center text-slate-400 border border-slate-100 dark:border-slate-800">
+                                        <i class="fa-regular fa-folder-open text-xl opacity-80"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-bold text-slate-800 dark:text-slate-200">No sliders matches found</p>
+                                        <p class="text-xs text-slate-400 mt-0.5">Try rewriting search terms or create a brand new slider configuration.</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        
+                        <tr 
+                            v-else-if="!loading" 
+                            v-for="slider in filteredSliders" 
+                            :key="slider.id" 
+                            class="hover:bg-slate-50/60 dark:hover:bg-slate-900/30 transition-all duration-150 group">
+                            
+                            <!-- <td class="py-4 px-5 text-center font-mono font-bold text-xs text-slate-400 dark:text-slate-500">
+                                <span class="inline-block px-2 py-1 bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800 rounded-lg">
+                                    {{ slider.sort_order || slider.id }}
+                                </span>
+                            </td> -->
+
+                            
+                            <td class="py-4 px-4 max-w-md">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-16 h-11 rounded-xl bg-slate-950 overflow-hidden border border-slate-200/80 dark:border-slate-800 shrink-0 shadow-sm relative group/thumb">
+                                        <img :src="slider.image || '/images/placeholder-banner.jpg'" class="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-300" alt="slider">
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <h4 class="font-bold text-slate-800 dark:text-slate-200 truncate max-w-[260px] md:max-w-xs group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{{ slider.title }}</h4>
+                                        <p class="text-xs text-slate-400 dark:text-slate-500 truncate max-w-[260px] md:max-w-xs mt-0.5 font-normal">{{ slider.description }}</p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            
+                            <td class="py-4 px-4">
+                                <span v-if="slider.tag" class="inline-flex items-center font-mono font-extrabold tracking-wider text-[10px] text-slate-600 dark:text-slate-400 bg-slate-100/80 dark:bg-slate-800/60 px-2.5 py-1 rounded-md uppercase border border-slate-200/20 dark:border-slate-700/30">
+                                    {{ slider.tag }}
+                                </span>
+                                <span v-else class="text-slate-400 text-xs font-light italic">None</span>
+                            </td>
+
+                            
+                            <td class="py-4 px-4">
+                                <a 
+                                    :href="slider.button_link || '#'" 
+                                    target="_blank"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 hover:text-emerald-600 dark:hover:text-emerald-400 text-slate-700 dark:text-slate-300 text-xs font-semibold rounded-xl shadow-sm transition-all">
+                                    <span>{{ slider.button_text || 'Shop Now' }}</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[9px] opacity-50"></i>
+                                </a>
+                            </td>
+
+                            
+                            <td class="py-4 px-4 text-center">
+                                <span 
+                                    :class="[
+                                        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide shadow-sm select-none',
+                                        Number(slider.status) === 1 
+                                            ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400' 
+                                            : 'bg-rose-500/10 text-rose-700 dark:text-rose-400'
+                                    ]">
+                                    <span 
+                                        class="w-1.5 h-1.5 rounded-full" 
+                                        :class="Number(slider.status) === 1 ? 'bg-emerald-500 shadow-sm shadow-emerald-500' : 'bg-rose-500 shadow-sm shadow-rose-500'"
+                                    ></span>
+                                    
+                                    
+                                    {{ Number(slider.status) === 1 ? 'Active' : 'Draft' }}
+                                </span>
+                            </td>
+
+                            
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-1.5">
+                                    
+                                    
+                                    <button 
+                                        @click="editSlider(slider)" 
+                                        class="p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-500/5 dark:hover:bg-emerald-500/10 rounded-xl transition-all border border-transparent hover:border-emerald-500/10"
+                                        title="Edit Slider Elements"
+                                    >
+                                        <i class="fa-regular fa-pen-to-square text-sm"></i>
+                                    </button>
+                                    
+                                    
+                                    <button 
+                                        @click="deleteSlider(slider.id)" 
+                                        class="p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-500/5 dark:hover:bg-rose-500/10 rounded-xl transition-all border border-transparent hover:border-rose-500/10"
+                                        title="Delete Carousel Frame"
+                                    >
+                                        <i class="fa-regular fa-trash-can text-sm"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- LIST VIEWS / OTHER MAIN PAGE CONTENT GOES HERE -->
         <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-slate-950/40 backdrop-blur-sm transition-all duration-300">
@@ -218,7 +395,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref,computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import api from '../../../services/api';
 
@@ -229,6 +406,7 @@ const route  = useRoute();
 
 const successMsg = ref('');
 const errorMsg = ref('');
+const searchQuery = ref('');
 
 const showModal = ref(false);
 const loading = ref(false);
@@ -289,12 +467,12 @@ async function saveSlider() {
         resetForm();
         showModal.value = false;
 
-        // await getSliders();
+        await fetchedSliders();
 
     } catch (err) {
-        console.log(err.response);
-        console.log(err.response?.data);
-        console.log(err.response?.data?.errors);
+        // console.log(err.response);
+        // console.log(err.response?.data);
+        // console.log(err.response?.data?.errors);
 
         if (err.response?.status === 422) {
             errorMsg.value = err.response.data.errors;
@@ -306,7 +484,7 @@ async function saveSlider() {
             };
         }
 
-        console.error(err);
+        // console.error(err);
     } finally {
         loading.value = false;
     }
@@ -327,6 +505,124 @@ const resetForm = () => {
     clearImage();
 };
 
+
+
+
+
+
+
+
+const sliders = ref([]);
+async function fetchedSliders() {
+    loading.value = true;
+    errorMsg.value = "";
+
+    try {
+        const { data } = await api.get("/slider");
+
+        if (data.success) {
+            sliders.value = data.data ?? [];
+        } else {
+            throw new Error(data.message || "Failed to fetch sliders.");
+        }
+
+    } catch (err) {
+
+        console.error("Fetch sliders failed:", err);
+
+        errorMsg.value =
+            err.response?.data?.message ||
+            err.message ||
+            "Failed to fetch sliders.";
+
+        sliders.value = [];
+
+    } finally {
+        loading.value = false;
+    }
+}
+
+
+
+const filteredSliders = computed(() => {
+    if (!searchQuery.value) return sliders.value;
+    const query = searchQuery.value.toLowerCase();
+    return sliders.value.filter(item => 
+        item.title?.toLowerCase().includes(query) || 
+        item.tag?.toLowerCase().includes(query)
+    );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const isEditing = ref(false);
+const editingId = ref(null);
+
+
+const editSlider = (slider) => {
+    isEditing.value = true;
+    editingId.value = slider.id;
+    
+
+    form.value = {
+        tag: slider.tag || "",
+        title: slider.title,
+        description: slider.description || "",
+        image: null, 
+        button_text: slider.button_text || "Shop Now",
+        button_link: slider.button_link || "",
+        status: slider.status,
+    };
+    
+    imagePreview.value = slider.image; 
+    showModal.value = true; 
+};
+
+
+const deleteSlider = async (id) => {
+    if (confirm("Are you sure you want to delete this slider?")) {
+        try {
+            loading.value = true;
+            const res = await api.delete(`/slider/delete/${id}`);
+            successMsg.value = res.data.message || "Slider deleted successfully.";
+            await fetchedSliders(); 
+        } catch (err) {
+            errorMsg.value = { general: ["Failed to delete slider."] };
+        } finally {
+            loading.value = false;
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+onMounted(() => {
+    fetchedSliders();
+});
 </script>
 
 <style scoped>
