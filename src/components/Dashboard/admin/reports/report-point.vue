@@ -588,7 +588,7 @@ async function fetchData(page = 1) {
         errorMsg.value = '';
         isDateFilterActive.value = true;
 
-        const res = await api.get('/orders/reports/sale/filter', {
+        const res = await api.get('/reports/point-statement/filter', {
             params: {
                 page,
                 start_date: startDate.value,
@@ -598,9 +598,9 @@ async function fetchData(page = 1) {
 
         const response = res.data;
 
-        orders.value = response?.data?.data ?? [];
+        points.value = response?.data?.data ?? [];
 
-        backendTotalPoints.value = response?.total_amount ?? 0;
+        backendTotalPoints.value = response?.total_point ?? 0;
 
         // PAGINATION META
         pagination.value = {
@@ -615,9 +615,9 @@ async function fetchData(page = 1) {
     } catch (error) {
         console.error('Error fetching data:', error);
 
-        errorMsg.value = error?.response?.data?.message || "Failed to fetch orders";
+        errorMsg.value = error?.response?.data?.message || "Failed to fetch points";
 
-        orders.value = [];
+        points.value = [];
 
         pagination.value = {
             page: 1,
