@@ -476,6 +476,18 @@
                     <button
                     class="w-full px-4 py-2 text-sm text-left transition
                             hover:bg-white dark:hover:bg-white/10"
+                    :class="activeKey === 'report_point'
+                        ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
+                        : 'text-slate-700 dark:text-slate-200/90'"
+                    @click="pick('report_point')">
+                    Point Report
+                    </button>
+                  </li>
+
+                  <li>
+                    <button
+                    class="w-full px-4 py-2 text-sm text-left transition
+                            hover:bg-white dark:hover:bg-white/10"
                     :class="activeKey === 'report_ranking'
                         ? 'bg-white text-slate-900 font-medium dark:bg-white/10 dark:text-white'
                         : 'text-slate-700 dark:text-slate-200/90'"
@@ -702,6 +714,7 @@ const routeMap = {
   report_ranking: "/admin/reports/ranking",
   report_star_club: "/admin/reports/star-club",
   report_dynamic_club: "/admin/reports/dynamic-club",
+  report_point: "/admin/reports/point-statement",
 
   report_stock: "/admin/reports/stock",
   report_payment: "/admin/reports/payment",
@@ -756,6 +769,7 @@ const routeMatch = [
   { key: "report_statement", prefixes: ["/admin/reports/statement"] },
   { key: "report_star_club", prefixes: ["/admin/reports/star-club"] },
   { key: "report_dynamic_club", prefixes: ["/admin/reports/dynamic-club"] },
+  { key: "report_point", prefixes: ["/admin/reports/point-statement"] },
 
   { key: "report_stock", prefixes: ["/admin/reports/stock"] },
   { key: "report_ranking", prefixes: ["/admin/reports/ranking"] },
@@ -905,7 +919,8 @@ watch(
       "report_user", 
       "report_reference", 
       "report_star_club", 
-      "report_dynamic_club"
+      "report_dynamic_club",
+      "report_point"
     ];
     if (reportKeys.includes(k)) {
       reportPagesOpen.value = true;

@@ -78,6 +78,7 @@ const Report_Statement = () => import('../components/Dashboard/admin/reports/rep
 const Report_Ranking = () => import('../components/Dashboard/admin/reports/report-ranking.vue');
 const Report_Star_Club = () => import('../components/Dashboard/admin/reports/report-star-club.vue');
 const Report_Dynamic_Club = () => import('../components/Dashboard/admin/reports/report-dynamic-club.vue');
+const Report_Point = () => import('../components/Dashboard/admin/reports/report-point.vue');
 
 
 // =======================
@@ -190,6 +191,7 @@ const routes = [
   { path: '/admin/reports/ranking', component: Report_Ranking, meta:{title: 'Ranking Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/star-club', component: Report_Star_Club, meta:{title: 'Star Club Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
   { path: '/admin/reports/dynamic-club', component: Report_Dynamic_Club, meta:{title: 'Dynamic Club Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
+  { path: '/admin/reports/point-statement', component: Report_Point, meta:{title: 'Point Report', requiresAuth: true, roles: ['admin', 'super_admin']}},
   
   
   // Notice Routes
