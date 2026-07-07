@@ -449,6 +449,8 @@ const filteredTransactions = computed(() => {
         if (!search) return matchesType;
 
         const matchesSearch = 
+            (String(transaction.user?.name || '').toLowerCase().includes(search)) ||
+            (String(transaction.user?.email || '').includes(search)) ||
             (String(transaction.user_id || '').includes(search)) ||
             (String(transaction.points || '').includes(search)) ||
             (transaction.source?.toLowerCase().includes(search)) ||
