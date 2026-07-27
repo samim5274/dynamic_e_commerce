@@ -163,16 +163,6 @@
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div class="flex justify-end gap-2">
-                                            <button @click="editProduct(product.slug)" class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-blue-600 transition-colors hover:bg-blue-50 dark:border-slate-700 dark:text-blue-400 dark:hover:bg-blue-900/30">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                            <button @click="deleteProduct(product.id)" class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-red-600 transition-colors hover:bg-red-50 dark:border-slate-700 dark:text-red-400 dark:hover:bg-red-900/30">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
                                 </tr>
 
                                 <tr v-if="products.length === 0">
@@ -259,9 +249,6 @@ const filterProducts = computed(() => {
 
 
 
-function editProduct(slug){
-    router.push(`/admin/product-edit/${slug}`);
-}
 
 
 
