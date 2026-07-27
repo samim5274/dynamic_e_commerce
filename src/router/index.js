@@ -42,7 +42,9 @@ const Home = () => import('../components/e-commerce/home.vue');
 const productDetails = () => import('../components/e-commerce/product-details.vue');
 const CartDetails = () => import('../components/e-commerce/cart.vue');
 const Checkout = () => import('../components/e-commerce/checkout/checkout.vue');
-
+const PrivacyAndPolicy = () => import('../components/e-commerce/PrivacyPolicy.vue');
+const TramsAndCondition = () => import('../components/e-commerce/TermsAndConditions.vue');
+const ReturnPolicy = () => import('../components/e-commerce/ReturnPolicy.vue');
 
 
 
@@ -110,6 +112,7 @@ const Profile = () => import('../components/Dashboard/customer/profile.vue');
 const Reference = () => import('../components/Dashboard/customer/reference.vue');
 
 const CustomerOrders = () => import('../components/Dashboard/customer/order/order-list.vue');
+const C_Products = () => import('../components/Dashboard/customer/product-list.vue');
 const C_OrderDetails = () => import('../components/Dashboard/customer/order/order-details.vue');
 const C_OrderTracking = () => import('../components/Dashboard/customer/order/tracking.vue');
 
@@ -135,6 +138,9 @@ const routes = [
   { path: '/product-details/:slug', component: productDetails, meta: { title: "Product Details"} },
   { path: '/cart', component: CartDetails, meta: { title: "Cart", requiresAuth: true} },
   { path: '/checkout/:reg', component: Checkout, meta: { title: "Checkout", requiresAuth: true} },
+  { path: '/privacy-policy', component: PrivacyAndPolicy, meta: { title: "Privacy and Policy"} },
+  { path: '/terms-and-conditions', component: TramsAndCondition, meta: { title: "Terms & Conditions"} },
+  { path: '/return-policy', component: ReturnPolicy, meta: { title: "Return Policy"} },
 
 
 
@@ -244,6 +250,7 @@ const routes = [
   { path: '/notice', component: C_Notice, meta:{title: 'Notice', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
   { path: '/notice/:id/details', component: C_Notice_details, meta:{title: 'Notice Details', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
   { path: '/marketing-strategy', component: C_MarketingStrategy, meta:{title: 'Marketing Strategy', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
+  { path: '/products', component: C_Products, meta:{title: 'Products', requiresAuth: true, roles: ['customer', 'admin', 'super_admin']}},
   
 ]
 

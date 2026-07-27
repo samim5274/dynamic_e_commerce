@@ -10,12 +10,12 @@
             />
             
             <aside class="hidden lg:block w-64 shrink-0">
-                <div class="sticky top-28 space-y-8">
+                <div class="sticky top-14 space-y-8">
                     <div>
                         <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
                             <span class="w-1 h-6 bg-indigo-600 rounded-full"></span> Categories
                         </h3>
-                        <ul class="space-y-1 overflow-y-auto max-h-[400px] pr-2 scrollbar-hide">
+                        <ul class="space-y-1 overflow-y-auto max-h-[550px] pr-2 scrollbar-hide">
                             <li v-for="cat in categories" :key="cat.id" @click="selectedCategory = cat.id"
                                 class="group flex items-center justify-between p-3 rounded-2xl cursor-pointer transition-all duration-300"
                                 :class="selectedCategory === cat.id ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none' : 'hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-gray-600 dark:text-gray-400'">
@@ -25,7 +25,7 @@
                         </ul>
                     </div>
 
-                    <div class="p-6 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] text-white shadow-xl shadow-indigo-200 dark:shadow-none relative overflow-hidden group">
+                    <!-- <div class="p-6 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] text-white shadow-xl shadow-indigo-200 dark:shadow-none relative overflow-hidden group">
                         <div class="relative z-10">
                             <p class="text-[10px] font-black uppercase tracking-[0.2em] mb-2 opacity-80">Exclusive Offer</p>
                             <h4 class="font-black text-xl mb-1">Get ৳500 OFF</h4>
@@ -33,7 +33,7 @@
                             <button class="w-full bg-white text-indigo-600 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-transform active:scale-95">Copy Code</button>
                         </div>
                         <i class="fa-solid fa-bolt-lightning absolute -bottom-4 -right-2 text-6xl opacity-10 group-hover:rotate-12 transition-transform"></i>
-                    </div>
+                    </div> -->
                 </div>
             </aside>
 

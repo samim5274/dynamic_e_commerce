@@ -3,12 +3,15 @@
                 bg-white border-gray-300 shadow-[0_20px_50px_rgba(0,0,0,0.05)]
                 dark:bg-[#0a0a0b] dark:border-white/5 dark:shadow-2xl">
         
-        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] rounded-full blur-[120px]
+        <!-- Background Decorative Glows -->
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none
                     bg-indigo-100 dark:bg-indigo-600/20"></div>
-        <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] rounded-full blur-[100px]
+        <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none
                     bg-blue-50 dark:bg-blue-600/10"></div>
 
         <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            
+            <!-- Left Side Content -->
             <div class="max-w-xl text-center lg:text-left">
                 <span class="inline-block px-4 py-1.5 mb-6 text-[10px] font-black tracking-[0.2em] uppercase rounded-full border
                             text-indigo-600 bg-indigo-50 border-indigo-100
@@ -28,39 +31,90 @@
                 </p>
             </div>
 
+            <!-- Right Side Form & Policy Links -->
             <div class="w-full max-w-md">
-                <form @submit.prevent class="relative p-2 rounded-[2rem] flex flex-col sm:flex-row gap-2 transition-all
-                                            bg-gray-50 border border-gray-200 shadow-inner
-                                            dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10">
-                    <div class="flex-1 flex items-center px-4 py-3 md:py-0">
-                        <i class="fa-regular fa-envelope text-gray-400 dark:text-gray-500 mr-3"></i>
-                        <input 
-                            type="email" 
-                            placeholder="yourname@email.com" 
-                            class="w-full bg-transparent outline-none text-sm md:text-base font-medium
-                                text-gray-900 placeholder:text-gray-400
-                                dark:text-white dark:placeholder:text-gray-600"
+                <form @submit.prevent="handleSubscribe" class="space-y-4">
+                    
+                    <!-- Input & Button Container -->
+                    <div class="relative p-2 rounded-[2rem] flex flex-col sm:flex-row gap-2 transition-all
+                                bg-gray-50 border border-gray-200 shadow-inner
+                                dark:bg-white/5 dark:backdrop-blur-xl dark:border-white/10">
+                        <div class="flex-1 flex items-center px-4 py-3 md:py-0">
+                            <i class="fa-regular fa-envelope text-gray-400 dark:text-gray-500 mr-3"></i>
+                            <input 
+                                v-model="email"
+                                type="email" 
+                                required
+                                placeholder="yourname@email.com" 
+                                class="w-full bg-transparent outline-none text-sm md:text-base font-medium
+                                    text-gray-900 placeholder:text-gray-400
+                                    dark:text-white dark:placeholder:text-gray-600"
+                            >
+                        </div>
+                        <button 
+                            type="submit"
+                            :disabled="!agreedToTerms"
+                            class="transition-all duration-300 font-black px-8 py-4 rounded-[1.5rem] flex items-center justify-center gap-2 group
+                                   bg-gray-900 text-white hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed
+                                   dark:bg-white dark:text-black dark:hover:bg-indigo-500 dark:hover:text-white"
                         >
+                            Subscribe
+                            <i class="fa-solid fa-paper-plane text-xs group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                        </button>
                     </div>
-                    <button class="transition-all duration-500 font-black px-8 py-4 rounded-[1.5rem] flex items-center justify-center gap-2 group
-                                bg-gray-900 text-white hover:bg-indigo-600
-                                dark:bg-white dark:text-black dark:hover:bg-indigo-500 dark:hover:text-white">
-                        Subscribe
-                        <i class="fa-solid fa-paper-plane text-xs group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
-                    </button>
+
+                    <!-- Terms & Conditions Checkbox -->
+                    <div class="flex items-start gap-2.5 px-2">
+                        <input 
+                            id="newsletter-terms" 
+                            v-model="agreedToTerms"
+                            type="checkbox" 
+                            class="mt-1 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 
+                                   dark:border-gray-700 dark:bg-gray-800 dark:focus:ring-offset-gray-900 cursor-pointer"
+                        >
+                        <label for="newsletter-terms" class="text-xs text-gray-500 dark:text-gray-400 leading-normal cursor-pointer">
+                            I agree to receive promotional emails and accept the 
+                            <router-link to="/terms-and-conditions" class="font-semibold text-gray-900 dark:text-gray-200 hover:underline">Terms & Conditions</router-link>.
+                        </label>
+                    </div>
+
                 </form>
-                <p class="mt-4 text-center lg:text-left text-xs text-gray-400 dark:text-gray-500 font-medium">
-                    <i class="fa-solid fa-lock text-[10px] mr-1"></i> We respect your privacy.
-                </p>
+
+                <!-- Policy Links Footer -->
+                <div class="mt-6 pt-4 border-t border-gray-200/60 dark:border-white/10 flex flex-wrap items-center justify-between text-xs text-gray-500 dark:text-gray-400 gap-2 px-2">
+                    <span class="flex items-center font-medium">
+                        <i class="fa-solid fa-lock text-[10px] mr-1.5 text-indigo-500"></i> We respect your privacy.
+                    </span>
+
+                    <div class="flex items-center gap-3">
+                        <router-link to="/privacy-policy" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Privacy Policy</router-link>
+                        <span>•</span>
+                        <router-link to="/return-policy" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Return Policy</router-link>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </template>
 
-<script  setup>
+<script setup>
+import { ref } from 'vue';
 
+const email = ref('');
+const agreedToTerms = ref(true);
+
+const handleSubscribe = () => {
+    if (!agreedToTerms.value) return;
+    
+    // Subscribe logic/API call here
+    console.log('Subscribed email:', email.value);
+    
+    // Reset form after submission
+    email.value = '';
+};
 </script>
 
-<style>
+<style scoped>
 
 </style>

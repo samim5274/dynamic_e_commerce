@@ -13,7 +13,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center gap-8">
             
             <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <a href="https://mercuviax.vercel.app/" target="_blank" class="flex items-center gap-3 group">
+            <a href="https://dynamicbazarmerchantbd.com/" target="_blank" class="flex items-center gap-3 group">
                 <div class="h-9 w-9 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center transition-transform group-hover:scale-105">
                 <img src="/logo/logo.webp" alt="Logo" class="w-6 h-6 object-contain dark:hidden" />
                 <img src="/logo/white-logo.webp" alt="Logo" class="hidden dark:block w-6 h-6 object-contain drop-shadow-[0_4px_8px_rgba(163,217,33,0.3)]" />
@@ -28,7 +28,7 @@
                     © {{ new Date().getFullYear() }} All Rights Reserved <a href="https://dynamicbazarmerchantbd.com/" class="hover:underline text-[#38808d]">Dynamic Bazar Merchant BD</a>.
                 </p>
                 <p class="text-[11px] text-slate-500 dark:text-slate-500 font-bold uppercase tracking-widest">
-                    Powered By:<a href="https://mercuviax.vercel.app/" target="_black" class="hover:underline italic text-[#A3D921]"> Mercuviax Business</a>.
+                    Powered By:<a href="https://mercuviax.com/" target="_black" class="hover:underline italic text-[#A3D921]"> Mercuviax Business</a>.
                 </p>
             </div>
 
@@ -43,11 +43,11 @@
                 </span>
             </div>
 
-            <div class="flex items-center gap-4 text-slate-400 dark:text-slate-600">
+            <!-- <div class="flex items-center gap-4 text-slate-400 dark:text-slate-600">
                 <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
                 <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
                 <a href="#" class="hover:text-[#38808d] transition-colors"><i class="fa-brands fa-github"></i></a>
-            </div>
+            </div> -->
             </div>
 
         </div>

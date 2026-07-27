@@ -76,7 +76,7 @@
                                             <i class="fa-solid fa-circle-chevron-right text-amber-500 text-[10px] mt-1 shrink-0"></i>
                                             <p>
                                                 <span class="text-amber-600 dark:text-amber-400 font-bold">শর্তাবলী ২:</span> 
-                                                স্টার ক্লাব ও ডায়নামিক ক্লাবের সম্মানিত সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের টিম ম্যানেজমেন্ট ও দক্ষতার স্বার্থে প্রতি সপ্তাহে নূন্যতম 
+                                                স্টার ক্লাব, ডায়নামিক ক্লাব, ভিআইপি (VIP) কাস্টমার এবং এলিট কাস্টমার ধারী সম্মানিত সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের টিম ম্যানেজমেন্ট ও দক্ষতার স্বার্থে প্রতি সপ্তাহে নূন্যতম 
                                                 <span class="text-slate-950 dark:text-white font-extrabold underline decoration-amber-500/50 decoration-2 underline-offset-2">১টি অফিশিয়াল কোম্পানির মিটিংয়ে</span> 
                                                 উপস্থিত থাকা আবশ্যক।
                                             </p>
@@ -107,7 +107,7 @@
                                         </div>
                                     </div>
                                     <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">Per Refer Bonus</h4>
-                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">৳ ২০০</p>
+                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">৳ ১০০</p>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">প্রতিটি সফল ডিরেক্ট রেফারেলের জন্য ওয়ালেটে তাত্ক্ষণিক বোনাস যুক্ত হবে।</p>
                                     <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-emerald-500 transition-all duration-300"></div>
                                 </div>
@@ -137,7 +137,7 @@
                                         </div>
                                     </div>
                                     <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">Refer Point Gen</h4>
-                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">১০০ <span class="text-base font-bold text-slate-400">Pt</span></p>
+                                    <p class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">১০০ <span class="text-base font-bold text-slate-400">Point</span></p>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">নতুন জেনারেশন তৈরিতে নির্দিষ্ট আপলাইন লেভেলের প্রত্যেকে ১০০ পয়েন্ট পাবেন।</p>
                                     <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-indigo-500 transition-all duration-300"></div>
                                 </div>
@@ -152,7 +152,7 @@
                                         </div>
                                     </div>
                                     <h4 class="text-xs font-bold text-slate-400 dark:text-slate-500 mt-5 uppercase tracking-wider">User Purchase Profit</h4>
-                                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1.5">১ Pt = ৳ ২</p>
+                                    <p class="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-1.5">১ Point = ৳ ১</p>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-2.5 leading-relaxed font-medium">ডাউনলাইন কোনো প্রোডাক্ট পারচেজ করলে আপলাইনের সবাই প্রতি পয়েন্টে ২ টাকা পাবেন।</p>
                                     <div class="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full bg-purple-500 transition-all duration-300"></div>
                                 </div>
@@ -410,7 +410,7 @@
                                     <i class="fa-solid fa-circle-info text-indigo-500 text-base shrink-0"></i>
                                     <p class="leading-relaxed">
                                         শর্তাবলী ২: 
-                                        <span class="text-indigo-600 dark:text-indigo-400 font-extrabold">স্টার ক্লাব ও ডায়নামিক ক্লাব</span> 
+                                        <span class="text-indigo-600 dark:text-indigo-400 font-extrabold">স্টার ক্লাব, ডায়নামিক ক্লাব, ভিআইপি (VIP) কাস্টমার এবং এলিট কাস্টমার ধারী সম্মানিত সদস্য</span> 
                                         এর সদস্য এবং র‍্যাঙ্ক অর্জনকারী লিডারদের প্রতি সপ্তাহে মিনিমাম 
                                         <span class="underline decoration-indigo-500 decoration-2 underline-offset-4 text-slate-800 dark:text-white">১ টি কোম্পানির মিটিং এ</span> 
                                         উপস্থিত থাকতে হবে।
@@ -454,18 +454,18 @@ const active = ref('dashboard');
 
 
 const rankData = ref([
-  { name: 'SILVER', aGroup: '10,000', bGroup: '10,000', cash: '5,000 TK', gift: 'GIFT' },
-  { name: 'GOLD', aGroup: '20,000', bGroup: '20,000', cash: '10,000 TK', gift: 'NATIONAL TOUR' },
-  { name: 'PLATINUM', aGroup: '50,000', bGroup: '50,000', cash: '25,000 TK', gift: 'COX-BAZAR TOUR' },
-  { name: 'DIAMOND', aGroup: '100,000', bGroup: '100,000', cash: '50,000 TK', gift: 'SMART PHONE' },
-  { name: 'BLUE DIAMOND', aGroup: '200,000', bGroup: '200,000', cash: '100,000 TK', gift: 'LAPTOP' },
-  { name: 'GREEN DIAMOND', aGroup: '500,000', bGroup: '500,000', cash: '250,000 TK', gift: 'INTERNATIONAL TOUR' },
-  { name: 'PURPLE DIAMOND', aGroup: '1,000,000', bGroup: '1,000,000', cash: '500,000 TK', gift: 'SPECIAL BIKE' },
-  { name: 'RED DIAMOND', aGroup: '2,000,000', bGroup: '2,000,000', cash: '1,000,000 TK', gift: 'GOLD + INTERNATIONAL TOUR' },
-  { name: 'BLACK DIAMOND', aGroup: '5,000,000', bGroup: '5,000,000', cash: '2,500,000 TK', gift: 'LAND + INTERNATIONAL TOUR' },
-  { name: 'ELITE DIAMOND', aGroup: '10,000,000', bGroup: '10,000,000', cash: '5,000,000 TK', gift: 'CAR + INTERNATIONAL TOUR' },
-  { name: 'ROYAL DIAMOND', aGroup: '20,000,000', bGroup: '20,000,000', cash: '1-CORE', gift: 'SPECIAL FLAT + INTERNATIONAL TOUR' },
-  { name: 'CROWN DIAMOND', aGroup: '50,000,000', bGroup: '50,000,000', cash: '2.5-CORE', gift: 'APARTMENT + INTERNATIONAL TOUR' },
+  { name: 'SALES OFFICER (SO)', aGroup: '10,000', bGroup: '10,000', cash: '5,000 TK', gift: 'GIFT' },
+  { name: 'MARKETING OFFICER (MO)', aGroup: '20,000', bGroup: '20,000', cash: '10,000 TK', gift: 'NATIONAL TOUR' },
+  { name: 'SALES MANAGER (SM)', aGroup: '50,000', bGroup: '50,000', cash: '25,000 TK', gift: 'COX-BAZAR TOUR' },
+  { name: 'MARKETING MANAGER (MM)', aGroup: '100,000', bGroup: '100,000', cash: '50,000 TK', gift: 'SMART PHONE' },
+  { name: 'EXECUTIVE OFFICER (EO)', aGroup: '200,000', bGroup: '200,000', cash: '100,000 TK', gift: 'LAPTOP' },
+  { name: 'EXECUTIVE MANAGER (EM)', aGroup: '500,000', bGroup: '500,000', cash: '250,000 TK', gift: 'INTERNATIONAL TOUR' },
+  { name: 'REGIONAL MANAGER (RM)', aGroup: '1,000,000', bGroup: '1,000,000', cash: '500,000 TK', gift: 'SPECIAL BIKE' },
+  { name: 'ZONAL MANAGER (ZM)', aGroup: '2,000,000', bGroup: '2,000,000', cash: '1,000,000 TK', gift: 'GOLD + INTERNATIONAL TOUR' },
+  { name: 'ASSISTANT GENERAL MANAGER (AGM)', aGroup: '5,000,000', bGroup: '5,000,000', cash: '2,500,000 TK', gift: 'LAND + INTERNATIONAL TOUR' },
+  { name: 'GENERAL MANAGER (GM)', aGroup: '10,000,000', bGroup: '10,000,000', cash: '5,000,000 TK', gift: 'CAR + INTERNATIONAL TOUR' },
+  { name: 'EXECUTIVE DIRECTOR (ED)', aGroup: '20,000,000', bGroup: '20,000,000', cash: '1-CORE', gift: 'SPECIAL FLAT + INTERNATIONAL TOUR' },
+  { name: 'PROJECT DIRECTOR (PD)', aGroup: '50,000,000', bGroup: '50,000,000', cash: '2.5-CORE', gift: 'APARTMENT + INTERNATIONAL TOUR' },
 ])
 
 

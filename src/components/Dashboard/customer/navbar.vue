@@ -119,8 +119,25 @@
 
 
 
-        <!-- Tracking -->
+        <!-- Products -->
         <li>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
+                   focus:outline-none focus:ring-2 focus:ring-slate-500/40
+                   hover:bg-slate-100 dark:hover:bg-white/10"
+            :class="activeKey === 'products'
+              ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 dark:bg-white/10 dark:text-white dark:ring-white/10'
+              : ''"
+            @click="pick('products')">
+            <span class="opacity-90 w-5 text-center">
+              <i class="fa-regular fa-folder-open"></i>
+            </span>
+            <span class="text-sm font-medium">Products</span>
+          </button>
+        </li>
+
+        <!-- Tracking -->
+        <!-- <li>
           <button
             class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition
                    focus:outline-none focus:ring-2 focus:ring-slate-500/40
@@ -134,7 +151,7 @@
             </span>
             <span class="text-sm font-medium">Tracking</span>
           </button>
-        </li>
+        </li> -->
 
         
 
@@ -375,6 +392,7 @@ const routeMap = {
   profile: "/profile",
   reference: "/reference",
   tree: "/tree-user",
+  products: "/products",
   order: "/orders-list",
   order_details: "/orders-details",
   tracking: "/orders-tracking",
@@ -396,6 +414,7 @@ const routeMatch = [
   { key: "profile", prefixes: ["/profile"] },
   { key: "reference", prefixes: ["/reference"] },
   { key: "tree", prefixes: ["/tree-user"] },
+  { key: "products", prefixes: ["/products"] },
   { key: "order", prefixes: ["/orders-list"] },
   { key: "order_details", prefixes: ["/orders-details"] },
   { key: "tracking", prefixes: ["/orders-tracking"] },

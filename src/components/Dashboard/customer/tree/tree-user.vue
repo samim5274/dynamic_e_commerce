@@ -103,7 +103,7 @@
 
                                     <!-- Total -->
                                     <div class="px-3 py-1.5">
-                                        <p class="text-[8px] uppercase text-[#3cabd3] font-bold">Total Pts</p>
+                                        <p class="text-[8px] uppercase text-[#3cabd3] font-bold">Total Point</p>
                                         <p class="text-xs font-black text-[#3cabd3]">
                                             {{
                                                 (Number(authUser?.total_own_points || 0) +
