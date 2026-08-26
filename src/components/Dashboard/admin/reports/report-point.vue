@@ -38,59 +38,149 @@
 
                     <!-- ==================== TOTAL AMOUNT CARDS DESIGN START ==================== -->
                     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-6">
-                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+
+                        <!-- =====================================================
+                            TOTAL POINTS
+                            ===================================================== -->
+                        <div
+                            class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+                        >
                             <div class="flex items-center justify-between">
+
                                 <div>
-                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                        {{ (searchQuery || typesFilter) ? 'Filtered Points' : 'Total Points' }}
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                                    >
+                                        Total Points
                                     </p>
-                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
-                                        {{ displayTotalPoints.toLocaleString() }}
-                                        <span class="text-sm font-normal text-slate-400">Points</span>
+
+                                    <h4
+                                        class="mt-2 text-2xl font-black text-slate-900 dark:text-white"
+                                    >
+                                        {{ Number(totalPoints || 0).toLocaleString() }}
+
+                                        <span class="text-sm font-normal text-slate-400">
+                                            Points
+                                        </span>
                                     </h4>
+
+                                    <!-- Optional description -->
+                                    <p
+                                        class="mt-1 text-xs text-slate-400 dark:text-slate-500"
+                                    >
+                                        All transactions
+                                    </p>
                                 </div>
-                                <div class="rounded-xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">
+
+                                <div
+                                    class="rounded-xl bg-emerald-50 p-3 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                                >
                                     <i class="fa-solid fa-wallet text-xl"></i>
                                 </div>
+
                             </div>
-                            <div class="absolute bottom-0 left-0 h-1 w-full bg-emerald-500"></div>
+
+                            <div
+                                class="absolute bottom-0 left-0 h-1 w-full bg-emerald-500"
+                            ></div>
                         </div>
 
-                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
+
+                        <!-- =====================================================
+                            CURRENT PAGE
+                            ===================================================== -->
+                        <div
+                            class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+                        >
                             <div class="flex items-center justify-between">
+
                                 <div>
-                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                                    >
                                         Current Page
                                     </p>
-                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
-                                        {{ currentPagePoints.toLocaleString() }}
-                                        <span class="text-sm font-normal text-slate-400">Points</span>
+
+                                    <h4
+                                        class="mt-2 text-2xl font-black text-slate-900 dark:text-white"
+                                    >
+                                        {{ Number(displayCurrentPagePoints || 0).toLocaleString() }}
+
+                                        <span class="text-sm font-normal text-slate-400">
+                                            Points
+                                        </span>
                                     </h4>
+
+                                    <p
+                                        class="mt-1 text-xs text-slate-400 dark:text-slate-500"
+                                    >
+                                        Page {{ pagination.page }} of {{ pagination.lastPage }}
+                                    </p>
                                 </div>
-                                <div class="rounded-xl bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400">
+
+                                <div
+                                    class="rounded-xl bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400"
+                                >
                                     <i class="fa-solid fa-boxes-stacked text-xl"></i>
                                 </div>
+
                             </div>
-                            <div class="absolute bottom-0 left-0 h-1 w-full bg-indigo-500"></div>
+
+                            <div
+                                class="absolute bottom-0 left-0 h-1 w-full bg-indigo-500"
+                            ></div>
                         </div>
 
-                        <div class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900 sm:col-span-2 lg:col-span-1">
+
+                        <!-- =====================================================
+                            FILTERED POINTS
+                            ===================================================== -->
+                        <div
+                            class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+                        >
                             <div class="flex items-center justify-between">
+
                                 <div>
-                                    <p class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                        Average Points
+                                    <p
+                                        class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500"
+                                    >
+                                        Filtered Points
                                     </p>
-                                    <h4 class="mt-2 text-2xl font-black text-slate-900 dark:text-white">
-                                        {{ displayAveragePoints.toLocaleString() }}
-                                        <span class="text-sm font-normal text-slate-400">Points</span>
+
+                                    <h4
+                                        class="mt-2 text-2xl font-black text-slate-900 dark:text-white"
+                                    >
+                                        {{ Number(filteredTotalPoints || 0).toLocaleString() }}
+
+                                        <span class="text-sm font-normal text-slate-400">
+                                            Points
+                                        </span>
                                     </h4>
+
+                                    <p
+                                        class="mt-1 text-xs text-slate-400 dark:text-slate-500"
+                                    >
+                                        {{
+                                            isDateFilterActive
+                                                ? `${startDate} → ${endDate}`
+                                                : 'No date filter'
+                                        }}
+                                    </p>
                                 </div>
-                                <div class="rounded-xl bg-amber-50 p-3 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
-                                    <i class="fa-solid fa-chart-line text-xl"></i>
+
+                                <div
+                                    class="rounded-xl bg-amber-50 p-3 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400"
+                                >
+                                    <i class="fa-solid fa-filter text-xl"></i>
                                 </div>
+
                             </div>
-                            <div class="absolute bottom-0 left-0 h-1 w-full bg-amber-500"></div>
+
+                            <div
+                                class="absolute bottom-0 left-0 h-1 w-full bg-amber-500"
+                            ></div>
                         </div>
+
                     </div>
 
                     <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all dark:border-slate-800 dark:bg-slate-900">
@@ -188,6 +278,67 @@
 
                     
                     <div class="w-full rounded-xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+
+                        <!-- Pagination -->
+                        <div class="flex flex-col gap-2 border-slate-200 bg-white dark:bg-slate-900 shadow-sm px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                            <!-- Showing info -->
+                            <p class="text-xs text-slate-500">
+                                Showing
+                                <span class="font-semibold text-slate-700">{{ pagination.from }}</span>
+                                –
+                                <span class="font-semibold text-slate-700">{{ pagination.to }}</span>
+                                of
+                                <span class="font-semibold text-slate-700">{{ pagination.total }}</span>
+                            </p>
+
+                            <div class="flex flex-wrap items-center justify-end gap-2">
+                                <!-- First -->
+                                <button
+                                    @click="changePage(1)" :disabled="pagination.page === 1 || loading"
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </button>
+
+                                <!-- Prev -->
+                                <button
+                                    @click="changePage(pagination.page - 1)" :disabled="pagination.page === 1 || loading"
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+
+                                <!-- Pages -->
+                                <button
+                                    v-for="page in PointsVisiblePages"
+                                    :key="String(page)"
+                                    @click="page !== '...' && changePage(page)"
+                                    class="rounded-lg border px-3 py-1.5 text-xs font-semibold"
+                                    :disabled="page === '...' || loading"
+                                    :class="[
+                                        page === pagination.page
+                                            ? 'border-slate-900 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900'
+                                            : 'border-slate-200 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-100 hover:bg-slate-50'
+                                    ]">
+                                    {{ page }}
+                                </button>
+
+                                <!-- Next -->
+                                <button
+                                    @click="changePage(pagination.page + 1)"
+                                    :disabled="pagination.page === pagination.lastPage || loading"
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </button>
+
+                                <!-- Last -->
+                                <button
+                                    @click="changePage(pagination.lastPage)"
+                                    :disabled="pagination.page === pagination.lastPage || loading"
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="overflow-x-auto max-h-[850px]">
                             <table class="w-full text-left border-collapse whitespace-nowrap">
                                 <!-- Table Header -->
@@ -436,13 +587,6 @@ const loading = ref(false);
 
 
 
-const pointPage = ref(1);
-const pointLastPage = ref(1);
-const pointTotal = ref(0);
-const pointPerPage = ref(20);
-const pointFromItem = ref(0);
-const pointToItem = ref(0);
-
 const PointsVisiblePages = computed(() => {
     const pages = [];
     const last = pagination.value.lastPage;
@@ -487,25 +631,70 @@ const pagination = ref({
     to: 0,
 });
 
-const backendTotalPoints = ref(0);
+const totalPoints = ref(0);
+const filteredTotalPoints = ref(0);
+const currentPagePoints = ref(0);
 
 async function fetchPoints(page = 1) {
     try {
+
         loading.value = true;
         errorMsg.value = '';
 
         const res = await api.get('/reports/point-statement', {
-            params: { page }
+            params: {
+                page
+            }
         });
 
         const response = res.data;
 
-        // REAL DATA ARRAY (IMPORTANT FIX)
+        /*
+        |--------------------------------------------------------------------------
+        | Data
+        |--------------------------------------------------------------------------
+        */
+
         points.value = response?.data?.data ?? [];
 
-        backendTotalPoints.value = response?.total_point ?? 0;
 
-        // PAGINATION META
+        /*
+        |--------------------------------------------------------------------------
+        | Total Points
+        |--------------------------------------------------------------------------
+        */
+
+        totalPoints.value = Number(
+            response?.total_point ?? 0
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Page Points
+        |--------------------------------------------------------------------------
+        */
+
+        currentPagePoints.value = Number(
+            response?.current_page_points ?? 0
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Normal page is not date filtered
+        |--------------------------------------------------------------------------
+        */
+
+        filteredTotalPoints.value = 0;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
         pagination.value = {
             page: response?.data?.current_page ?? 1,
             lastPage: response?.data?.last_page ?? 1,
@@ -516,10 +705,18 @@ async function fetchPoints(page = 1) {
         };
 
     } catch (err) {
-        console.log(err);
-        errorMsg.value = "Failed to fetch points";
+
+        console.error('Error fetching points:', err);
+
+        errorMsg.value =
+            err?.response?.data?.message ||
+            "Failed to fetch points";
 
         points.value = [];
+
+        totalPoints.value = 0;
+        filteredTotalPoints.value = 0;
+        currentPagePoints.value = 0;
 
         pagination.value = {
             page: 1,
@@ -531,7 +728,9 @@ async function fetchPoints(page = 1) {
         };
 
     } finally {
+
         loading.value = false;
+
     }
 }
 
@@ -586,38 +785,96 @@ async function fetchData(page = 1) {
 
         loading.value = true;
         errorMsg.value = '';
+
         isDateFilterActive.value = true;
 
-        const res = await api.get('/reports/point-statement/filter', {
-            params: {
-                page,
-                start_date: startDate.value,
-                end_date: endDate.value
+        const res = await api.get(
+            '/reports/point-statement/filter',
+            {
+                params: {
+                    page,
+                    start_date: startDate.value,
+                    end_date: endDate.value
+                }
             }
-        });
+        );
 
         const response = res.data;
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Data
+        |--------------------------------------------------------------------------
+        */
+
         points.value = response?.data?.data ?? [];
 
-        backendTotalPoints.value = response?.total_point ?? 0;
 
-        // PAGINATION META
+        /*
+        |--------------------------------------------------------------------------
+        | Overall Total
+        |--------------------------------------------------------------------------
+        */
+
+        totalPoints.value = Number(
+            response?.total_point ?? 0
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Filtered Total
+        |--------------------------------------------------------------------------
+        */
+
+        filteredTotalPoints.value = Number(
+            response?.filtered_total_points ?? 0
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Current Page Total
+        |--------------------------------------------------------------------------
+        */
+
+        currentPagePoints.value = Number(
+            response?.current_page_points ?? 0
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pagination
+        |--------------------------------------------------------------------------
+        */
+
         pagination.value = {
-            page: response.data.current_page,
-            lastPage: response.data.last_page,
-            total: response.data.total,
-            perPage: response.data.per_page,
-            from: response.data.from,
-            to: response.data.to,
+            page: response?.data?.current_page ?? 1,
+            lastPage: response?.data?.last_page ?? 1,
+            total: response?.data?.total ?? 0,
+            perPage: response?.data?.per_page ?? 20,
+            from: response?.data?.from ?? 0,
+            to: response?.data?.to ?? 0,
         };
-        
-    } catch (error) {
-        console.error('Error fetching data:', error);
 
-        errorMsg.value = error?.response?.data?.message || "Failed to fetch points";
+    } catch (error) {
+
+        console.error(
+            'Error fetching filtered points:',
+            error
+        );
+
+        errorMsg.value =
+            error?.response?.data?.message ||
+            "Failed to fetch points";
 
         points.value = [];
+
+        totalPoints.value = 0;
+        filteredTotalPoints.value = 0;
+        currentPagePoints.value = 0;
 
         pagination.value = {
             page: 1,
@@ -628,10 +885,12 @@ async function fetchData(page = 1) {
             to: 0,
         };
 
-    }finally {
+    } finally {
+
         loading.value = false;
+
     }
-};
+}
 
 
 async function changePage(page) {
@@ -641,7 +900,6 @@ async function changePage(page) {
     } else {
         await fetchPoints(page);
     }
-
 }
 
 
@@ -670,45 +928,55 @@ const resetFilters = async () => {
 // Smart Point Cards
 // ========================================================
 
-// Total Points (All Records)
+// Total Count
 const displayTotalPoints = computed(() => {
-    if (searchQuery.value || typesFilter.value) {
-        return filteredPoints.value.reduce((sum, point) => {
-            return sum + Number(point.points || 0);
-        }, 0);
+
+    // Date filter active হলে filtered total দেখাবে
+    if (isDateFilterActive.value) {
+        return filteredTotalPoints.value;
     }
 
-    return backendTotalPoints.value;
+    // Normal overall total
+    return totalPoints.value;
 });
 
-// Current Page Points
-const currentPagePoints = computed(() => {
-    const data = (searchQuery.value || typesFilter.value)
-        ? filteredPoints.value
-        : points.value;
+// Average
+const displayAveragePoints = computed(() => {
 
-    return data.reduce((sum, point) => {
-        return sum + Number(point.points || 0);
-    }, 0);
+    if (!displayTotalCount.value) {
+        return 0;
+    }
+
+    return Math.round(
+        displayTotalPoints.value /
+        displayTotalCount.value
+    );
 });
 
-// Total Count
+const displayCurrentPagePoints = computed(() => {
+
+    if (searchQuery.value || typesFilter.value) {
+
+        return filteredPoints.value.reduce(
+            (sum, point) => {
+                return sum + Number(point.points || 0);
+            },
+            0
+        );
+    }
+
+    // Backend থেকে আসা current page total
+    return Number(currentPagePoints.value || 0);
+});
+
 const displayTotalCount = computed(() => {
+
     if (searchQuery.value || typesFilter.value) {
         return filteredPoints.value.length;
     }
 
     return pagination.value.total;
 });
-
-// Average
-const displayAveragePoints = computed(() => {
-    if (!displayTotalCount.value) return 0;
-
-    return Math.round(displayTotalPoints.value / displayTotalCount.value);
-});
-
-
 
 
 

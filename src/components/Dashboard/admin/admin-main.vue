@@ -513,7 +513,7 @@ const statusCards = computed(() => [
     {
         key: "right_carry",
         group: "Right Leg Analytics",
-        title: "B Carry",
+        title: "B Team Carry",
         value: status.value.right_carry,
         icon: "fa-solid fa-forward",
         iconWrap: "bg-fuchsia-50 dark:bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400",
