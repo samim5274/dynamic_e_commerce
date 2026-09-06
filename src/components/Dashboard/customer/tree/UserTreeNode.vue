@@ -50,7 +50,8 @@
             >
             <span class="text-[10px] font-bold dark:text-gray-200">
               {{
-                (user.left_total_point || 0) + (user.left_child_own_point || 0)
+                // (user.left_total_point || 0) + (user.left_child_own_point || 0)
+                user.left_total_point || 0
               }}
             </span>
           </div>
@@ -73,8 +74,8 @@
             >
             <span class="text-[10px] font-bold dark:text-gray-200">
               {{
-                (user.right_total_point || 0) +
-                (Number(user.right_child_own_point) || 0)
+                // (user.right_total_point || 0) + (Number(user.right_child_own_point) || 0)
+                user.right_total_point || 0
               }}
             </span>
           </div>
