@@ -27,11 +27,32 @@
                 <div v-if="user?.id" class="grid grid-cols-2 gap-1 mt-2 pt-2 border-t border-gray-100 dark:border-slate-700">
                     <div class="text-left">
                         <span class="block text-[8px] text-gray-400 uppercase">Group A</span>
-                        <span class="text-[10px] font-bold dark:text-gray-200">{{ user.left_total_point || 0 }}</span>
+                        <span class="text-[10px] font-bold dark:text-gray-200">
+                            {{
+                                (user.left_total_point || 0) + (user.left_child_own_point || 0)
+                            }}
+                        </span>
                     </div>
+                    <!-- Total Own Point -->
+                    <!-- <div class="text-center">
+                        <span class="block text-[8px] text-gray-400 uppercase">
+                            Total Own
+                        </span>
+
+                        <span class="text-[10px] font-bold text-[#A3D921]">
+                            {{
+                                (Number(user.left_child_own_point) || 0) +
+                                (Number(user.right_child_own_point) || 0)
+                            }}
+                        </span>
+                    </div> -->
                     <div class="text-right">
                         <span class="block text-[8px] text-gray-400 uppercase">Group B</span>
-                        <span class="text-[10px] font-bold dark:text-gray-200">{{ user.right_total_point || 0 }}</span>
+                        <span class="text-[10px] font-bold dark:text-gray-200">
+                            {{
+                                (user.right_total_point || 0) + (Number(user.right_child_own_point) || 0)
+                            }}
+                        </span>
                     </div>
                 </div>
 
